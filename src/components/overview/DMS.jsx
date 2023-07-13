@@ -2,7 +2,6 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { FilePdfOutlined } from "@ant-design/icons";
-import { Textfit } from "react-textfit";
 
 import "./style.css";
 const mockExtractor = (input) => {
