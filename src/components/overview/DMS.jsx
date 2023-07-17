@@ -5,7 +5,7 @@ import { FilePdfOutlined } from "@ant-design/icons";
 
 import "./style.css";
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "3", color: "#262626" };
+  return { numberOfDocuments: "3", color: "#180E53" };
 };
 const DashboardDMS = ({
   dataIn,
@@ -49,11 +49,12 @@ const DashboardDMS = ({
           style={{
             color: data.color,
             fontSize: "100px",
-            textAlign: "center",
+            textAlign: "left",
             width: "100%",
-            height: "80%",
+            height: "auto",
             position: "absolute",
             bottom: "0px",
+            lineHeight: "1.4"
           }}
         >
           <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>

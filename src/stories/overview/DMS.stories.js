@@ -17,9 +17,9 @@ export default {
 };
 export const Mockup = {};
 
-export const M = generateStory([400, 124]);
-export const L = generateStory([106, 233]);
+export const M = generateStory([340, 218]);
+export const L = generateStory([220, 234]);
 export const XL = generateStory([566, 323]);
-export const S = generateStory([246, 143]);
-export const TabletLandscape = generateStory([182, 155]);
-export const TabletPortrait = generateStory([118, 219]);
+export const S = generateStory([250, 220]);
+export const TabletLandscape = generateStory([200, 190]);
+export const TabletPortrait = generateStory([200, 210]);
