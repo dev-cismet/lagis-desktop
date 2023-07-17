@@ -1,4 +1,6 @@
 /** @type { import('@storybook/react').Preview } */
+import "tailwindcss/tailwind.css";
+import { ConfigProvider } from "antd";
 const preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
