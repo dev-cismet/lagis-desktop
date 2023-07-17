@@ -1,16 +1,16 @@
 import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
-import { FilePdfOutlined } from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
 import "./style.css";
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "2", color: "#262626" };
+  return { numberOfDocuments: "3", color: "#EF5DA8" };
 };
 const DashboardDMS = ({
   dataIn,
   extractor = mockExtractor,
   width = 300,
-  height,
+  height = 180,
 }) => {
   const data = extractor(dataIn);
   return (
@@ -30,16 +30,27 @@ const DashboardDMS = ({
             </Col>
             <Col span={12}>
               <div className="dashboard-icon">
-                <FilePdfOutlined
-                  style={{ fontSize: "25px", color: "#262626" }}
+                <SettingOutlined
+                  style={{ fontSize: "25px", color: "#EF5DA8" }}
                 />
               </div>
             </Col>
           </Row>
         </div>
-        <span style={{ color: data.color, fontSize: "100px" }}>
+        <div 
+            style={{
+            color: data.color,
+            fontSize: "100px",
+            textAlign: "left",
+            width: "100%",
+            height: "auto",
+            position: "absolute",
+            bottom: "0px",
+            lineHeight: "1.4"
+          }}
+        >
           <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
-        </span>
+        </div>
       </Card>
     </div>
   );
