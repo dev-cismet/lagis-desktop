@@ -1,17 +1,22 @@
 import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
-import { FilePdfOutlined } from "@ant-design/icons";
+import { PieChartOutlined } from "@ant-design/icons";
 import "./style.css";
+const {Text} = Typography
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "2", color: "#262626" };
+  return { numberOfDocuments: "1", color: "#F31630" };
 };
-const DashboardDMS = ({
+const DashboardUsage = ({
   dataIn,
   extractor = mockExtractor,
-  width = 300,
-  height,
+  width = 214,
+  height = 190,
 }) => {
+  let fontSize = "100px"
+  if(width >= 420){
+    fontSize = "180px"
+  }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
@@ -20,33 +25,54 @@ const DashboardDMS = ({
           width,
           height,
         }}
+        bodyStyle={{padding: "14px"}}
       >
-        <div className="title-row" style={{ marginBottom: "10px" }}>
+        <div 
+          className="title-row"
+          >
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "350" }}>
-                DMS
+              <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
+                Usage
               </Typography>
             </Col>
             <Col span={12}>
               <div className="dashboard-icon">
-                <FilePdfOutlined
-                  style={{ fontSize: "25px", color: "#262626" }}
+                <PieChartOutlined
+                  style={{ fontSize: "25px", color: "#F31630" }}
                 />
               </div>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Text style={{fontSize: "13px", color: "#6C6A6A"}}>
+                & Asset Accounting
+              </Text>
+            </Col>
+          </Row>
         </div>
-        <span style={{ color: data.color, fontSize: "100px" }}>
+        <div 
+         style={{
+          color: data.color,
+          fontSize: fontSize,
+          textAlign: "left",
+          width: "100%",
+          height: "auto",
+          position: "absolute",
+          bottom: "0px",
+          lineHeight: "1.3"
+        }}
+      >
           <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
-        </span>
+        </div>
       </Card>
     </div>
   );
 };
-export default DashboardDMS;
+export default DashboardUsage;
 
-DashboardDMS.propTypes = {
+DashboardUsage.propTypes = {
   /**
    * The current main data object that is being used
    */
