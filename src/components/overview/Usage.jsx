@@ -28,9 +28,7 @@ const DashboardUsage = ({
         bodyStyle={{padding: "14px"}}
         className="shadow-md"
       >
-        <div 
-          className="title-row"
-          >
+        <div className="title-row">
           <Row>
             <Col span={12}>
               <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
