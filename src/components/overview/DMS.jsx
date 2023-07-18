@@ -10,10 +10,22 @@ const mockExtractor = (input) => {
 const DashboardDMS = ({
   dataIn,
   extractor = mockExtractor,
-  width = 300,
-  height = 180,
+  width = 231,
+  height = 188,
+  numberSize = "90px",
+  titleSize = "20px",
+  subtitle = "13px",
+  iconSize = "25px",
+  cardPading = "18px",
   style,
 }) => {
+  if(width >= 330){
+    numberSize = "120px"
+    titleSize = "28px"
+    subtitle = "18px"
+    iconSize = "40px";
+    cardPading = "18px"
+  }
   const data = extractor(dataIn);
   console.log("DMS props", { width, height });
 
@@ -25,6 +37,8 @@ const DashboardDMS = ({
           height,
           ...style,
         }}
+        bodyStyle={{padding: cardPading}}
+        className="shadow-md"
       >
         <div
           className="title-row"
@@ -32,14 +46,14 @@ const DashboardDMS = ({
         >
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "350" }}>
+              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
                 DMS
               </Typography>
             </Col>
             <Col span={12}>
               <div className="dashboard-icon">
                 <FilePdfOutlined
-                  style={{ fontSize: "25px", color: "#262626" }}
+                  style={{ fontSize: iconSize, color: "#262626" }}
                 />
               </div>
             </Col>
@@ -48,12 +62,12 @@ const DashboardDMS = ({
         <div
           style={{
             color: data.color,
-            fontSize: "100px",
+            fontSize: numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "0px",
+            bottom: "-5px",
             lineHeight: "1.4"
           }}
         >
