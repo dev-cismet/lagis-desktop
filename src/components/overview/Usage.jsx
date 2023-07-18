@@ -26,6 +26,7 @@ const DashboardUsage = ({
           height,
         }}
         bodyStyle={{padding: "14px"}}
+        className="shadow-md"
       >
         <div 
           className="title-row"
