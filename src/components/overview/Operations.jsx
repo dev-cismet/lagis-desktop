@@ -12,6 +12,7 @@ const DashboarOperations = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
+  style,
 }) => {
   let fontSize = "90px";
   let titleSize = "20px";
@@ -32,6 +33,7 @@ const DashboarOperations = ({
         style={{
           width,
           height,
+          ...style
         }}
         bodyStyle={{padding: cardPading}}
         className="shadow-md"

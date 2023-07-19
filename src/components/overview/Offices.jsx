@@ -42,8 +42,7 @@ const DashboardOffices = ({
         style={{
           width,
           height,
-          display: "flex", 
-          flexDirection: "column"
+          ...style,
         }}
         bodyStyle={{
           padding: cardPading,

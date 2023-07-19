@@ -12,6 +12,7 @@ const DashboardDMS = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
+  style,
   variant
 }) => {
   let fontSize = "90px";
@@ -33,6 +34,7 @@ const DashboardDMS = ({
         style={{
           width,
           height,
+          ...style,
         }}
         bodyStyle={{padding: cardPading}}
         className="shadow-md"

@@ -12,6 +12,7 @@ const DashboardUsage = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
+  style,
 }) => {
   let fontSize = "90px"
   if(width >= 420){
@@ -24,6 +25,7 @@ const DashboardUsage = ({
         style={{
           width,
           height,
+          ...style,
         }}
         bodyStyle={{padding: "14px"}}
         className="shadow-md"

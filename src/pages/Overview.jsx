@@ -30,35 +30,35 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Row gutter={gutterStyle} style={marginBottomStyle}>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 1" /> */}
-              <Offices />
+              <Offices style={cardStyle}/>
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 2" /> */}
-              <Rent />
+              <Rent style={cardStyle} />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 3" /> */}
-              <Rights />
+              <Rights style={cardStyle}/>
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 4" /> */}
-              <Usage />
+              <Usage style={cardStyle} />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 5" /> */}
-              <Operations />
+              <Operations style={cardStyle} />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 6" /> */}
-              <History />
+              <History style={cardStyle}/>
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 7" /> */}
-              <Transaction />
+              <Transaction style={cardStyle} />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 8" /> */}
-              <DMS />
+              <DMS style={cardStyle} />
             </Col>
           </Row>
         </Col>
