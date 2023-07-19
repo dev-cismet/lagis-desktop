@@ -19,7 +19,7 @@ const DashboardDMS = ({
   cardPading = "18px",
   style,
 }) => {
-  if(width >= 330){
+  if(width >= 340){
     numberSize = "120px"
     titleSize = "28px"
     subtitle = "18px"
@@ -42,11 +42,17 @@ const DashboardDMS = ({
       >
         <div
           className="title-row"
-          style={{ marginBottom: "10px", zIndex: "100" }}
+          // style={{ marginBottom: "10px", zIndex: "100" }}
         >
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+              <Typography 
+                style={{ 
+                  fontSize: titleSize,
+                  fontWeight: "500",
+                  lineHeight: "1.3",
+                  }}              
+              >
                 DMS
               </Typography>
             </Col>

@@ -8,7 +8,6 @@ import Operations from "../components/overview/Operations";
 import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
-
 import { Col, Row } from "antd";
 import MockTileCard from "../components/mock/MockTileCard";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -21,13 +20,13 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const cardStyle = { width: "100%", height: (height - 3 * 12) / 4 };
-  const gutterStyle = [12, 12];
+  const gutterStyle = [24, 24];
   const marginBottomStyle = { marginBottom: "16px" };
 
   return (
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle}>
-        <Col span={12}>
+        <Col span={11}>
           <Row gutter={gutterStyle} style={marginBottomStyle}>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 1" /> */}
@@ -63,7 +62,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             </Col>
           </Row>
         </Col>
-        <Col span={12}>
+        <Col span={13}>
           <Map width={"100%"} height={height} />
         </Col>
       </Row>

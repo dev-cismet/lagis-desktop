@@ -10,8 +10,8 @@ const mockExtractor = (input) => {
 const DashboardUsage = ({
   dataIn,
   extractor = mockExtractor,
-  width = 214,
-  height = 190,
+  width = 231,
+  height = 188,
 }) => {
   let fontSize = "100px"
   if(width >= 420){
