@@ -1,88 +1,85 @@
 import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
-import { SwapRightOutlined } from "@ant-design/icons";
-import "./style.css";
+import { FieldTimeOutlined } from "@ant-design/icons";
 
+import "./style.css";
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "0", color: "#FF7A00" };
+  return { numberOfDocuments: "3", color: "#FFD029" };
 };
-const DashboarOperations = ({
+const DashboardDMS = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
   height = 188,
+  numberSize = "90px",
+  titleSize = "20px",
+  subtitle = "13px",
+  iconSize = "25px",
+  cardPading = "18px",
+  style,
 }) => {
-  let fontSize = "90px";
-  let titleSize = "20px";
-  let subtitle = "13px";
-  let iconSize = "25px";
-  let cardPading = "10px";
   if(width >= 330){
-    fontSize = "140px"
+    numberSize = "120px"
     titleSize = "28px"
     subtitle = "18px"
     iconSize = "40px";
     cardPading = "18px"
   }
   const data = extractor(dataIn);
+  console.log("DMS props", { width, height });
+
   return (
     <div className="dashboard-tile">
       <Card
         style={{
           width,
           height,
+          ...style,
         }}
         bodyStyle={{padding: cardPading}}
         className="shadow-md"
       >
-        <div className="title-row">
+        <div
+          className="title-row"
+          style={{ marginBottom: "10px", zIndex: "100" }}
+        >
           <Row>
-            <Col 
-              span={20}
-              >
-              <Typography 
-                style={{ 
-                  fontSize: titleSize,
-                  fontWeight: "500",
-                  lineHeight: "1.3",
-                  }}
-              >
-                Operations
+            <Col span={12}>
+              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+                History
               </Typography>
             </Col>
-            <Col span={4}>
+            <Col span={12}>
               <div className="dashboard-icon">
-                <SwapRightOutlined
-                  style={{ fontSize: iconSize, color: "#FF7A00" }}
-                  className="ml-auto mt-1"
+                <FieldTimeOutlined
+                  style={{ fontSize: iconSize, color: "#FFD029" }}
                 />
               </div>
             </Col>
           </Row>
         </div>
-        <div 
-            style={{
+        <div
+          style={{
             color: data.color,
-            fontSize,
+            fontSize: numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-10px",
-            lineHeight: "1.4",
-            fontWeight: "700",
+            bottom: "-5px",
+            lineHeight: "1.4"
           }}
         >
-          <span>{data.numberOfDocuments.toString().padStart(2, "0")}</span>
+          <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
         </div>
       </Card>
     </div>
   );
 };
-export default DashboarOperations;
+export default DashboardDMS;
 
-DashboarOperations.propTypes = {
+DashboardDMS.propTypes = {
   /**
    * The current main data object that is being used
    */
