@@ -12,6 +12,7 @@ const DashboardDMS = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
+  variant
 }) => {
   let fontSize = "90px";
   let titleSize = "20px";

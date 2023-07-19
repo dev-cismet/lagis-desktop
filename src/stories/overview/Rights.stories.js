@@ -24,6 +24,9 @@ Mockup.parameters = {
 export const M = generateStory([235, 194]);
 export const L = generateStory([224, 194]);
 export const XL = generateStory([360, 280]);
+export const XL2 = generateStory([360, 280], {
+  variant: "second"
+});
 export const S = generateStory([235, 193]);
 export const TabletLandscape = generateStory([222, 190]);
 export const TabletPortrait = generateStory([220, 214]);

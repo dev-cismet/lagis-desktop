@@ -1,24 +1,40 @@
 import Typography from "antd/es/typography/Typography";
 import { FolderOpenOutlined } from "@ant-design/icons";
-
 import { Card, Row, Col } from "antd";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import { faFolderOpen } from "@fortawesome/free-regular-svg-icons";
+const {Text} = Typography
+import "./style.css"
 
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
     { title: "403.4", color: "#6254EA", size: 50 },
+    // { title: "570.4", color: "#2354EA", size: 150 },
   ];
 };
 const DashboardOffices = ({
   dataIn,
   extractor = mockExtractor,
-  width = 300,
-  height,
+  width = 231,
+  height = 188,
+  style,
 }) => {
+  let titleSize = "20px";
+  let subtitle = "13px";
+  let iconSize = "25px";
+  let cardPading = "16px";
+  let numbers = "18px"
+  let square = "14ppx"
+  let namGabs = "8px"
+  if(width >= 340){
+    titleSize = "28px"
+    subtitle = "18px"
+    iconSize = "40px"
+    cardPading = "18px"
+    numbers = "24px"
+    square = "18px"
+    namGabs = "18px"
+  }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
@@ -26,37 +42,83 @@ const DashboardOffices = ({
         style={{
           width,
           height,
+          display: "flex", 
+          flexDirection: "column"
         }}
+        bodyStyle={{
+          padding: cardPading,
+          border: "none",
+        }}
+        className="shadow-md"
+        actions={[
+          <div className="flex flex-col"
+            style={{
+              padding: cardPading, 
+              paddingTop: "0", 
+              paddingBottom: "0",
+            }}
+          >
+          {data.map((item) => (
+            <div 
+              className="flex justify-between items-center"
+              style={{
+                marginTop: namGabs,
+                marginBottom: namGabs,
+              }}
+            >
+              <div 
+                className="flex justify-between items-center"
+              >
+                <span 
+                  style={{
+                    width: "10px", 
+                    height: "10px",
+                    marginRight: "6px",
+                    backgroundColor: item.color,
+                  }}>
+                </span>
+                <span 
+                  style={{ color: item.color, fontSize: numbers}}
+                  className="font-bold text-base m-1"
+                >
+                  {item.title}
+                </span>
+              </div>
+              <span 
+                style={{
+                  color: "#6C6A6A", 
+                  fontSize: square,
+                }}
+                className="font-medium"
+                >{item.size} m²</span>
+            </div>
+          ))}
+        </div>
+        ]}
       >
-        <div className="title-row" style={{ marginBottom: "10px" }}>
+        <div className="font-sm title-row">
           <Row>
-            <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "350" }}>
-                Offices & Roles
+            <Col span={20}>
+              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+                Offices
               </Typography>
             </Col>
-            <Col span={12}>
+            <Col span={4}>
               <div className="dashboard-icon">
                 <FolderOpenOutlined
-                  style={{ fontSize: "25px", color: "#0092FA" }}
+                  style={{ fontSize: iconSize, color: "#0092FA" }}
                 />
-                {/* an alternative icon */}
-                {/* <FontAwesomeIcon
-                style={{ fontSize: "25px", color: "#0092FA" }}
-                icon={faFolderOpen}
-              /> */}
               </div>
             </Col>
           </Row>
+          <Row>
+            <Col>
+              <Text style={{fontSize: subtitle, color: "#6C6A6A"}}>
+              & Roles
+              </Text>
+            </Col>
+          </Row>
         </div>
-
-        {data.map((item) => (
-          <div>
-            <span style={{ color: item.color }}>{item.title}</span>
-            {"  "}
-            <span>{item.size} m²</span>
-          </div>
-        ))}
       </Card>
     </div>
   );
