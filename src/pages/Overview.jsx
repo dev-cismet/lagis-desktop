@@ -23,6 +23,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const gutterStyle = [24, 24];
   const marginBottomStyle = { marginBottom: "16px" };
 
+  console.log('!!!!!!!', width)
+
   return (
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle}>
@@ -30,35 +32,67 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Row gutter={gutterStyle} style={marginBottomStyle}>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 1" /> */}
-              <Offices style={cardStyle}/>
+              <Offices 
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 2" /> */}
-              <Rent style={cardStyle} />
+              <Rent
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 3" /> */}
-              <Rights style={cardStyle}/>
+              <Rights 
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 4" /> */}
-              <Usage style={cardStyle} />
+              <Usage  
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 5" /> */}
-              <Operations style={cardStyle} />
+              <Operations
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 6" /> */}
-              <History style={cardStyle}/>
+              <History
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 7" /> */}
-              <Transaction style={cardStyle} />
+              <Transaction
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 8" /> */}
-              <DMS style={cardStyle} />
+              <DMS
+                style={marginBottomStyle}
+                width={cardStyle.width}
+                height={cardStyle.height}
+              />
             </Col>
           </Row>
         </Col>

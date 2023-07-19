@@ -27,6 +27,15 @@ const DashboardDMS = ({
     iconSize = "40px";
     cardPading = "18px"
   }
+
+  // if(width >= 340){
+  //   fontSize = "120px"
+  //   titleSize = "28px"
+  //   subtitle = "18px"
+  //   iconSize = "40px";
+  //   cardPading = "18px"
+  // }
+
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
