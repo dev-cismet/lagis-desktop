@@ -3,6 +3,7 @@ import { FolderOpenOutlined } from "@ant-design/icons";
 import { Card, Row, Col } from "antd";
 import PropTypes from "prop-types";
 const {Text} = Typography
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css"
 
 const mockExtractor = (input) => {
@@ -19,21 +20,22 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let titleSize = "20px";
+  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
+  // let titleSize = "20px";
   let subtitle = "13px";
-  let iconSize = "25px";
+  let iconSize = "22px";
   let cardPading = "16px";
   let numbers = "18px"
   let square = "14ppx"
   let namGabs = "4px"
   if(width >= 340){
-    titleSize = "28px"
-    subtitle = "18px"
-    iconSize = "40px"
-    cardPading = "18px"
-    numbers = "24px"
-    square = "18px"
-    namGabs = "18px"
+    // titleSize = "28px"
+    // subtitle = "18px"
+    // iconSize = "40px"
+    // cardPading = "18px"
+    // numbers = "24px"
+    // square = "18px"
+    // namGabs = "18px"
   }
   const data = extractor(dataIn);
   return (
@@ -46,7 +48,6 @@ const DashboardOffices = ({
         }}
         bodyStyle={{
           padding: cardPading,
-          border: "none",
         }}
         className="shadow-md"
         actions={[
@@ -78,7 +79,7 @@ const DashboardOffices = ({
                 </span>
                 <span 
                   style={{ color: item.color, fontSize: numbers}}
-                  className="font-bold text-base m-1"
+                  className="font-bold text-base"
                 >
                   {item.title}
                 </span>

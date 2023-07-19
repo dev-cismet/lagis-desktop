@@ -20,8 +20,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const cardStyle = { width: "100%", height: (height - 3 * 12) / 4 };
-  const gutterStyle = [24, 24];
-  const marginBottomStyle = { marginBottom: "16px" };
+  const gutterStyle = [16, 16];
+  const marginBottomStyle = { marginBottom: "0px" };
 
   console.log('!!!!!!!', width)
 

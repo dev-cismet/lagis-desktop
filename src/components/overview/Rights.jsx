@@ -2,6 +2,7 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { SettingOutlined } from "@ant-design/icons";
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
 const {Text} = Typography
 const mockExtractor = (input) => {
@@ -15,26 +16,13 @@ const DashboardDMS = ({
   style,
   variant
 }) => {
-  let fontSize = "90px";
-  let titleSize = "20px";
+  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
+
   let subtitle = "13px";
   let iconSize = "25px";
   let cardPading = "10px";
   if(width >= 340){
-    fontSize = "120px"
-    titleSize = "28px"
-    subtitle = "18px"
-    iconSize = "40px";
-    cardPading = "18px"
   }
-
-  // if(width >= 340){
-  //   fontSize = "120px"
-  //   titleSize = "28px"
-  //   subtitle = "18px"
-  //   iconSize = "40px";
-  //   cardPading = "18px"
-  // }
 
   const data = extractor(dataIn);
   return (
@@ -57,7 +45,7 @@ const DashboardDMS = ({
                 style={{ 
                   fontSize: titleSize,
                   fontWeight: "500",
-                  lineHeight: "1.3",
+                  lineHeight: "1.2",
                   }}
               >
                 Right <br/> & Encumbarances
@@ -73,7 +61,7 @@ const DashboardDMS = ({
             </Col>
           </Row>
           <Row>
-            <Col className="mt-1">
+            <Col>
               <Text style={{fontSize: subtitle, color: "#6C6A6A"}}>
                 Easements, Building encumbrances
               </Text>
@@ -83,12 +71,12 @@ const DashboardDMS = ({
         <div 
             style={{
             color: data.color,
-            fontSize,
+            fontSize: numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-5px",
+            bottom: numberBottom,
             lineHeight: "1.4",
             fontWeight: "700",
           }}

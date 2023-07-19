@@ -2,8 +2,9 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { DollarOutlined } from "@ant-design/icons";
-
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
+
 const mockExtractor = (input) => {
   return { numberOfDocuments: "7", color: "#5D5FEF" };
 };
@@ -12,13 +13,13 @@ const DashboardRent = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
-  numberSize = "90px",
-  titleSize = "20px",
+  // titleSize = "20px",
   subtitle = "13px",
   iconSize = "25px",
   cardPading = "18px",
   style,
 }) => {
+  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
   if(width >= 330){
     numberSize = "120px"
     titleSize = "28px"
@@ -45,7 +46,7 @@ const DashboardRent = ({
           style={{ marginBottom: "10px", zIndex: "100" }}
         >
           <Row>
-            <Col span={12}>
+            <Col span={20}>
               <Typography 
                 style={{ 
                     fontSize: titleSize, 
@@ -53,10 +54,10 @@ const DashboardRent = ({
                     lineHeight: "1.1"
                     }}
                     >
-                Rent <br/>& Lease
+                Rent & Lease
               </Typography>
             </Col>
-            <Col span={12}>
+            <Col span={4}>
               <div className="dashboard-icon">
                 <DollarOutlined
                   style={{ fontSize: iconSize, color: "#5D5FEF" }}
@@ -73,7 +74,7 @@ const DashboardRent = ({
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-5px",
+            bottom: numberBottom,
             lineHeight: "1.4"
           }}
         >

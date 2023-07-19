@@ -2,6 +2,7 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { SwapRightOutlined } from "@ant-design/icons";
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
 
 const mockExtractor = (input) => {
@@ -14,17 +15,16 @@ const DashboarOperations = ({
   height = 188,
   style,
 }) => {
-  let fontSize = "90px";
-  let titleSize = "20px";
-  let subtitle = "13px";
-  let iconSize = "25px";
-  let cardPading = "10px";
+  const {
+    numberSize, 
+    numberBottom, 
+    titleSize, 
+    iconSize,
+    cardPadding
+  } = {...cardsSizes}
+
   if(width >= 330){
-    fontSize = "140px"
-    titleSize = "28px"
-    subtitle = "18px"
-    iconSize = "40px";
-    cardPading = "18px"
+
   }
   const data = extractor(dataIn);
   return (
@@ -35,7 +35,7 @@ const DashboarOperations = ({
           height,
           ...style
         }}
-        bodyStyle={{padding: cardPading}}
+        bodyStyle={{padding: cardPadding}}
         className="shadow-md"
       >
         <div className="title-row">
@@ -57,7 +57,6 @@ const DashboarOperations = ({
               <div className="dashboard-icon">
                 <SwapRightOutlined
                   style={{ fontSize: iconSize, color: "#FF7A00" }}
-                  className="ml-auto mt-1"
                 />
               </div>
             </Col>
@@ -66,12 +65,12 @@ const DashboarOperations = ({
         <div 
             style={{
             color: data.color,
-            fontSize,
+            fontSize: numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-5px",
+            bottom: numberBottom,
             lineHeight: "1.4",
             fontWeight: "700",
           }}

@@ -2,7 +2,7 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { PayCircleOutlined } from "@ant-design/icons";
-
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
 const mockExtractor = (input) => {
   return { numberOfDocuments: "3", color: "#389EFD" };
@@ -12,19 +12,16 @@ const DashboardTransaction = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
-  numberSize = "90px",
-  titleSize = "20px",
-  subtitle = "13px",
-  iconSize = "25px",
-  cardPading = "18px",
   style,
 }) => {
+  const {
+    numberSize, 
+    numberBottom, 
+    titleSize, 
+    iconSize,
+    cardPadding
+  } = {...cardsSizes}
   if(width >= 330){
-    numberSize = "120px"
-    titleSize = "28px"
-    subtitle = "18px"
-    iconSize = "40px";
-    cardPading = "18px"
   }
   const data = extractor(dataIn);
   console.log("DMS props", { width, height });
@@ -37,7 +34,7 @@ const DashboardTransaction = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPading}}
+        bodyStyle={{padding: cardPadding}}
         className="shadow-md"
       >
         <div
@@ -45,7 +42,7 @@ const DashboardTransaction = ({
           style={{ marginBottom: "10px", zIndex: "100" }}
         >
           <Row>
-            <Col span={20}>
+            <Col span={18}>
               <Typography 
                 style={{ 
                     fontSize: titleSize, 
@@ -55,7 +52,7 @@ const DashboardTransaction = ({
                 Transaction Number
               </Typography>
             </Col>
-            <Col span={4}>
+            <Col span={6}>
               <div className="dashboard-icon">
                 <PayCircleOutlined
                   style={{ fontSize: iconSize, color: "#389EFD" }}
@@ -72,7 +69,7 @@ const DashboardTransaction = ({
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-5px",
+            bottom: numberBottom,
             lineHeight: "1.4"
           }}
         >

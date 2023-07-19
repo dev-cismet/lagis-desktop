@@ -2,6 +2,7 @@ import { Card, Row, Col } from "antd";
 import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { PieChartOutlined } from "@ant-design/icons";
+import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
 const {Text} = Typography
 const mockExtractor = (input) => {
@@ -14,9 +15,9 @@ const DashboardUsage = ({
   height = 188,
   style,
 }) => {
-  let fontSize = "90px"
+  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
   if(width >= 420){
-    fontSize = "180px"
+
   }
   const data = extractor(dataIn);
   return (
@@ -33,7 +34,7 @@ const DashboardUsage = ({
         <div className="title-row">
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "500" }}>
+              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
                 Usage
               </Typography>
             </Col>
@@ -56,13 +57,13 @@ const DashboardUsage = ({
         <div 
          style={{
           color: data.color,
-          fontSize: fontSize,
+          fontSize: numberSize,
           textAlign: "left",
           width: "100%",
           height: "auto",
           position: "absolute",
-          bottom: "-5px",
-          lineHeight: "1.3"
+          bottom: numberBottom,
+          lineHeight: "1.4"
         }}
       >
           <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
