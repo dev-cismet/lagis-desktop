@@ -69,7 +69,7 @@ const DashboarOperations = ({
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: "-10px",
+            bottom: "-5px",
             lineHeight: "1.4",
             fontWeight: "700",
           }}

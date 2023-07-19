@@ -58,7 +58,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 8" /> */}
-              <DMS style={cardStyle} />
+              <DMS />
             </Col>
           </Row>
         </Col>

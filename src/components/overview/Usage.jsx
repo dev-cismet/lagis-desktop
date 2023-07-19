@@ -13,7 +13,7 @@ const DashboardUsage = ({
   width = 231,
   height = 188,
 }) => {
-  let fontSize = "100px"
+  let fontSize = "90px"
   if(width >= 420){
     fontSize = "180px"
   }
@@ -59,7 +59,7 @@ const DashboardUsage = ({
           width: "100%",
           height: "auto",
           position: "absolute",
-          bottom: "0px",
+          bottom: "-5px",
           lineHeight: "1.3"
         }}
       >
