@@ -25,10 +25,9 @@ const DashboardRights = ({
   //   cardPadding
   // } = {cardsSizes}
 
-  console.log('Rights!!!!', cardsSizes.numberSize)
+  if(width >= 340){
 
-  // if(width >= 340){
-  // }
+  }
 
   const data = extractor(dataIn);
   console.log("Right", style)
@@ -73,7 +72,8 @@ const DashboardRights = ({
                style={{
                 fontSize: cardsSizes.subtitle, 
                 color: "#6C6A6A",
-                lineHeight: "1.1",
+                display: "block",
+                lineHeight: "1.2",
                 }}
                 >
                   Easements, Building encumbrances

@@ -17,14 +17,13 @@ const DashboardRent = ({
 }) => {
   // const {numberSize, numberBottom, titleSize} = {cardsSizes}
   if(width >= 330){
-    // cardsSizes.numberSize = "120px"
-    // cardsSizes.titleSize = "28px"
-    // cardsSizes.subtitle = "18px"
-    // cardsSizes.iconSize = "40px";
-    // cardsSizes.cardPadding = "18px"
+    cardsSizes.numberSize = "120px"
+    cardsSizes.titleSize = "28px"
+    cardsSizes.subtitle = "18px"
+    cardsSizes.iconSize = "40px";
+    cardsSizes.cardPadding = "18px"
   }
   const data = extractor(dataIn);
-  console.log("DMS props", { width, height });
 
   return (
     <div className="dashboard-tile">

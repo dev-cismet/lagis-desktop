@@ -9,7 +9,6 @@ import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
 import { Col, Row } from "antd";
-import cardsSizes from "../components/ui/cards-sizes";
 import MockTileCard from "../components/mock/MockTileCard";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -23,45 +22,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const cardStyle = { width: "100%", height: (height - 3 * 12) / 4 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "0px" };
-
-
-  switch(true) {
-    case (width >= 508 && width < 764):
-      cardsSizes.numberBottom = "-6px";
-      cardsSizes.numberSize = "60px";
-      console.log("Page Overview", "one");
-      break;
-    case (width >= 764 && width < 1020):
-      cardsSizes.numberSize = "70px";
-      cardsSizes.numberBottom = "-2px";
-      break;
-    case (width >= 1020 && width < 1106):
-      cardsSizes.numberSize = "64px";
-      cardsSizes.cardPadding = "12px";
-      cardsSizes.subtitle = "12px";
-      cardsSizes.titleSize = "16px";
-      cardsSizes.cardPadding = "12px";
-      break;
-    case (width >= 1106 && width < 1660):
-      cardsSizes.numberSize = "76px";
-      cardsSizes.numberBottom = "-11px";
-      cardsSizes.cardPadding = "18px";
-      cardsSizes.titleSize = "18px";
-      cardsSizes.subtitle = "13px";
-      cardsSizes.iconSize = "25px";
-      break;
-    case (width >= 1660 && width < 2300):
-      cardsSizes.numberSize = '100px';
-      cardsSizes.cardPadding = "28px";
-      cardsSizes.numberBottom = "-1px";
-      break;
-    case (width < 2300):
-      cardsSizes.numberSize = "120px";
-      break;
-    default:
-      console.log("Page Overview", "Nothing was found");
-  }
-
+  console.log("!!!!", cardStyle.height)
   return (
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle}>

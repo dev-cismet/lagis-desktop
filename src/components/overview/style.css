@@ -11,3 +11,7 @@
 .ant-card .ant-card-actions > li {
   margin: 0px
 }
+
+.ant-card .ant-card-head {
+  border-bottom: 0px solid white;
+}
