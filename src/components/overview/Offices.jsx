@@ -20,23 +20,17 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
-  // let titleSize = "20px";
-  let subtitle = "13px";
-  let iconSize = "22px";
-  let cardPading = "16px";
+  // const {
+  //   titleSize,
+  //   subtitle,
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
   let numbers = "18px"
   let square = "14ppx"
   let namGabs = "4px"
-  if(width >= 340){
-    // titleSize = "28px"
-    // subtitle = "18px"
-    // iconSize = "40px"
-    // cardPading = "18px"
-    // numbers = "24px"
-    // square = "18px"
-    // namGabs = "18px"
-  }
+  // if(width >= 340){
+  // }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
@@ -47,13 +41,13 @@ const DashboardOffices = ({
           ...style,
         }}
         bodyStyle={{
-          padding: cardPading,
+          padding: cardsSizes.cardPadding,
         }}
         className="shadow-md"
         actions={[
           <div className="flex flex-col"
             style={{
-              padding: cardPading, 
+              padding: cardsSizes.cardPadding, 
               paddingTop: "0", 
               paddingBottom: "0",
             }}
@@ -99,21 +93,21 @@ const DashboardOffices = ({
         <div className="font-sm title-row">
           <Row>
             <Col span={20}>
-              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+              <Typography style={{ fontSize: cardsSizes.titleSize, fontWeight: "500" }}>
                 Offices
               </Typography>
             </Col>
             <Col span={4}>
               <div className="dashboard-icon">
                 <FolderOpenOutlined
-                  style={{ fontSize: iconSize, color: "#0092FA" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#0092FA" }}
                 />
               </div>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Text style={{fontSize: subtitle, color: "#6C6A6A"}}>
+              <Text style={{fontSize: cardsSizes.subtitle, color: "#6C6A6A"}}>
               & Roles
               </Text>
             </Col>

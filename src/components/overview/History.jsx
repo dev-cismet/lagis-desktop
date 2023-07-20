@@ -14,13 +14,13 @@ const DashboardHistory = ({
   height = 188,
   style,
 }) => {
-  const {
-    numberSize, 
-    numberBottom, 
-    titleSize, 
-    iconSize,
-    cardPadding
-  } = {...cardsSizes}
+  // const {
+  //   numberSize, 
+  //   numberBottom, 
+  //   titleSize, 
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
 
   if(width >= 330){
   }
@@ -35,7 +35,7 @@ const DashboardHistory = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPadding}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div
@@ -44,14 +44,14 @@ const DashboardHistory = ({
         >
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+              <Typography style={{ fontSize: cardsSizes.titleSize, fontWeight: "500" }}>
                 History
               </Typography>
             </Col>
             <Col span={12}>
               <div className="dashboard-icon">
                 <FieldTimeOutlined
-                  style={{ fontSize: iconSize, color: "#FFD029" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#FFD029" }}
                 />
               </div>
             </Col>
@@ -60,12 +60,12 @@ const DashboardHistory = ({
         <div
           style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: cardsSizes.numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
+            bottom: cardsSizes.numberBottom,
             lineHeight: "1.4"
           }}
         >

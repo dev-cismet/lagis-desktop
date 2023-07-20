@@ -15,7 +15,7 @@ const DashboardUsage = ({
   height = 188,
   style,
 }) => {
-  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
+  // const {numberSize, numberBottom, titleSize} = {cardsSizes}
   if(width >= 420){
 
   }
@@ -28,13 +28,13 @@ const DashboardUsage = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: "14px"}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div className="title-row">
           <Row>
             <Col span={12}>
-              <Typography style={{ fontSize: titleSize, fontWeight: "500" }}>
+              <Typography style={{ fontSize: cardsSizes.titleSize, fontWeight: "500" }}>
                 Usage
               </Typography>
             </Col>
@@ -57,12 +57,12 @@ const DashboardUsage = ({
         <div 
          style={{
           color: data.color,
-          fontSize: numberSize,
+          fontSize: cardsSizes.numberSize,
           textAlign: "left",
           width: "100%",
           height: "auto",
           position: "absolute",
-          bottom: numberBottom,
+          bottom: cardsSizes.numberBottom,
           lineHeight: "1.4"
         }}
       >

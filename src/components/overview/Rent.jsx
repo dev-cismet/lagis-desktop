@@ -13,19 +13,15 @@ const DashboardRent = ({
   extractor = mockExtractor,
   width = 231,
   height = 188,
-  // titleSize = "20px",
-  subtitle = "13px",
-  iconSize = "25px",
-  cardPading = "18px",
   style,
 }) => {
-  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
+  // const {numberSize, numberBottom, titleSize} = {cardsSizes}
   if(width >= 330){
-    numberSize = "120px"
-    titleSize = "28px"
-    subtitle = "18px"
-    iconSize = "40px";
-    cardPading = "18px"
+    // cardsSizes.numberSize = "120px"
+    // cardsSizes.titleSize = "28px"
+    // cardsSizes.subtitle = "18px"
+    // cardsSizes.iconSize = "40px";
+    // cardsSizes.cardPadding = "18px"
   }
   const data = extractor(dataIn);
   console.log("DMS props", { width, height });
@@ -38,7 +34,7 @@ const DashboardRent = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPading}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div
@@ -49,7 +45,7 @@ const DashboardRent = ({
             <Col span={20}>
               <Typography 
                 style={{ 
-                    fontSize: titleSize, 
+                    fontSize: cardsSizes.titleSize, 
                     fontWeight: "500",
                     lineHeight: "1.1"
                     }}
@@ -60,7 +56,7 @@ const DashboardRent = ({
             <Col span={4}>
               <div className="dashboard-icon">
                 <DollarOutlined
-                  style={{ fontSize: iconSize, color: "#5D5FEF" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#5D5FEF" }}
                 />
               </div>
             </Col>
@@ -69,12 +65,12 @@ const DashboardRent = ({
         <div
           style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: "84px",
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
+            bottom: cardsSizes.numberBottom,
             lineHeight: "1.4"
           }}
         >

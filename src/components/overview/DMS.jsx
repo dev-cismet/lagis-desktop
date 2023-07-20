@@ -14,13 +14,13 @@ const DashboardDMS = ({
   height = 188,
   style,
 }) => {
-  const {
-    numberSize, 
-    numberBottom, 
-    titleSize, 
-    iconSize,
-    cardPadding
-  } = {...cardsSizes}
+  // const {
+  //   numberSize, 
+  //   numberBottom, 
+  //   titleSize, 
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
   if(width >= 340){
   }
   const data = extractor(dataIn);
@@ -34,7 +34,7 @@ const DashboardDMS = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPadding}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div
@@ -44,7 +44,7 @@ const DashboardDMS = ({
             <Col span={12}>
               <Typography 
                 style={{ 
-                  fontSize: titleSize,
+                  fontSize: cardsSizes.titleSize,
                   fontWeight: "500",
                   lineHeight: "1.3",
                   }}              
@@ -55,7 +55,7 @@ const DashboardDMS = ({
             <Col span={12}>
               <div className="dashboard-icon">
                 <FilePdfOutlined
-                  style={{ fontSize: iconSize, color: "#262626" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#262626" }}
                 />
               </div>
             </Col>
@@ -64,12 +64,12 @@ const DashboardDMS = ({
         <div
           style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: cardsSizes.numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
+            bottom: cardsSizes.numberBottom,
             lineHeight: "1.4"
           }}
         >

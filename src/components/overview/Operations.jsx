@@ -15,13 +15,13 @@ const DashboarOperations = ({
   height = 188,
   style,
 }) => {
-  const {
-    numberSize, 
-    numberBottom, 
-    titleSize, 
-    iconSize,
-    cardPadding
-  } = {...cardsSizes}
+  // const {
+  //   numberSize, 
+  //   numberBottom, 
+  //   titleSize, 
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
 
   if(width >= 330){
 
@@ -35,7 +35,7 @@ const DashboarOperations = ({
           height,
           ...style
         }}
-        bodyStyle={{padding: cardPadding}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div className="title-row">
@@ -45,7 +45,7 @@ const DashboarOperations = ({
               >
               <Typography 
                 style={{ 
-                  fontSize: titleSize,
+                  fontSize: cardsSizes.titleSize,
                   fontWeight: "500",
                   lineHeight: "1.3",
                   }}
@@ -56,7 +56,7 @@ const DashboarOperations = ({
             <Col span={4}>
               <div className="dashboard-icon">
                 <SwapRightOutlined
-                  style={{ fontSize: iconSize, color: "#FF7A00" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#FF7A00" }}
                 />
               </div>
             </Col>
@@ -65,12 +65,12 @@ const DashboarOperations = ({
         <div 
             style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: cardsSizes.numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
+            bottom: cardsSizes.numberBottom,
             lineHeight: "1.4",
             fontWeight: "700",
           }}

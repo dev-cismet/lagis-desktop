@@ -14,13 +14,13 @@ const DashboardTransaction = ({
   height = 188,
   style,
 }) => {
-  const {
-    numberSize, 
-    numberBottom, 
-    titleSize, 
-    iconSize,
-    cardPadding
-  } = {...cardsSizes}
+  // const {
+  //   numberSize, 
+  //   numberBottom, 
+  //   titleSize, 
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
   if(width >= 330){
   }
   const data = extractor(dataIn);
@@ -34,7 +34,7 @@ const DashboardTransaction = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPadding}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div
@@ -45,7 +45,7 @@ const DashboardTransaction = ({
             <Col span={18}>
               <Typography 
                 style={{ 
-                    fontSize: titleSize, 
+                    fontSize: cardsSizes.titleSize, 
                     fontWeight: "500",
                     lineHeight: "1.2",
                     }}>
@@ -55,7 +55,7 @@ const DashboardTransaction = ({
             <Col span={6}>
               <div className="dashboard-icon">
                 <PayCircleOutlined
-                  style={{ fontSize: iconSize, color: "#389EFD" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#389EFD" }}
                 />
               </div>
             </Col>
@@ -64,12 +64,12 @@ const DashboardTransaction = ({
         <div
           style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: cardsSizes.numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
+            bottom: cardsSizes.numberBottom,
             lineHeight: "1.4"
           }}
         >

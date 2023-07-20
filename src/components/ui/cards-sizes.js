@@ -1,5 +1,5 @@
 const cardsSizes = {
-    numberSize: '76px',
+    numberSize: '80px',
     numberBottom: "-11px",
     cardPadding: "18px",
     titleSize: "18px",

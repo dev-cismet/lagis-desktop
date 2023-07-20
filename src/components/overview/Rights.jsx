@@ -8,7 +8,7 @@ const {Text} = Typography
 const mockExtractor = (input) => {
   return { numberOfDocuments: "3", color: "#EF5DA8" };
 };
-const DashboardDMS = ({
+const DashboardRights = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -16,15 +16,22 @@ const DashboardDMS = ({
   style,
   variant
 }) => {
-  const {numberSize, numberBottom, titleSize} = {...cardsSizes}
+  // const {
+  //   numberSize,
+  //   numberBottom, 
+  //   titleSize,
+  //   subtitle,
+  //   iconSize,
+  //   cardPadding
+  // } = {cardsSizes}
 
-  let subtitle = "13px";
-  let iconSize = "25px";
-  let cardPading = "10px";
-  if(width >= 340){
-  }
+  console.log('Rights!!!!', cardsSizes.numberSize)
+
+  // if(width >= 340){
+  // }
 
   const data = extractor(dataIn);
+  console.log("Right", style)
   return (
     <div className="dashboard-tile">
       <Card
@@ -33,7 +40,7 @@ const DashboardDMS = ({
           height,
           ...style,
         }}
-        bodyStyle={{padding: cardPading}}
+        bodyStyle={{padding: cardsSizes.cardPadding}}
         className="shadow-md"
       >
         <div className="title-row">
@@ -43,7 +50,7 @@ const DashboardDMS = ({
               >
               <Typography 
                 style={{ 
-                  fontSize: titleSize,
+                  fontSize: cardsSizes.titleSize,
                   fontWeight: "500",
                   lineHeight: "1.2",
                   }}
@@ -54,7 +61,7 @@ const DashboardDMS = ({
             <Col span={4}>
               <div className="dashboard-icon">
                 <SettingOutlined
-                  style={{ fontSize: iconSize, color: "#EF5DA8" }}
+                  style={{ fontSize: cardsSizes.iconSize, color: "#EF5DA8" }}
                   className="ml-auto mt-1"
                 />
               </div>
@@ -62,7 +69,12 @@ const DashboardDMS = ({
           </Row>
           <Row>
             <Col>
-              <Text style={{fontSize: subtitle, color: "#6C6A6A"}}>
+              <Text style={{
+                fontSize: cardsSizes.subtitle, 
+                color: "#6C6A6A",
+                lineHeight: "1",
+                }}
+                >
                 Easements, Building encumbrances
               </Text>
             </Col>
@@ -71,13 +83,13 @@ const DashboardDMS = ({
         <div 
             style={{
             color: data.color,
-            fontSize: numberSize,
+            fontSize: cardsSizes.numberSize,
             textAlign: "left",
             width: "100%",
             height: "auto",
             position: "absolute",
-            bottom: numberBottom,
-            lineHeight: "1.4",
+            bottom: cardsSizes.numberBottom,
+            lineHeight: "1.3",
             fontWeight: "700",
           }}
         >
@@ -87,9 +99,9 @@ const DashboardDMS = ({
     </div>
   );
 };
-export default DashboardDMS;
+export default DashboardRights;
 
-DashboardDMS.propTypes = {
+DashboardRights.propTypes = {
   /**
    * The current main data object that is being used
    */
