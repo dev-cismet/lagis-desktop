@@ -55,7 +55,7 @@ const DashboardRights = ({
                   lineHeight: "1.2",
                   }}
               >
-                Right <br/> & Encumbarances
+                Right & Encumbarances
               </Typography>
             </Col>
             <Col span={4}>
@@ -68,14 +68,15 @@ const DashboardRights = ({
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Text style={{
+            <Col flex="1 0 100%">
+              <Text
+               style={{
                 fontSize: cardsSizes.subtitle, 
                 color: "#6C6A6A",
-                lineHeight: "1",
+                lineHeight: "1.1",
                 }}
                 >
-                Easements, Building encumbrances
+                  Easements, Building encumbrances
               </Text>
             </Col>
           </Row>
