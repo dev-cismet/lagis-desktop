@@ -10,8 +10,8 @@ const columns = [
         >
         <span 
           style={{
-            width: "6px", 
-            height: "8px",
+            width: "9px", 
+            height: "11px",
             marginRight: "6px",
             backgroundColor: rowIndex % 2 === 1 ? COLOR_AQUA : COLOR_LILA,
           }}>
@@ -53,7 +53,7 @@ const columns = [
 const TableMock = () => {
     return (
         <>
-            <Table columns={columns} dataSource={data} pagination={false}/>
+            <Table columns={columns} dataSource={data} pagination={false} bordered={true}/>
         </>
     )
 }
