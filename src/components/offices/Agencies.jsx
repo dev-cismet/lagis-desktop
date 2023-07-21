@@ -7,7 +7,7 @@ const columns = [
       dataIndex: 'agency',
       render: (title, record, rowIndex) => (
         <div 
-        className="flex justify-between items-center"
+        className="flex items-center"
         >
         <span 
           style={{
@@ -60,8 +60,10 @@ const Agencies = ({
     style,
 }) => {
     const data = extractor(dataIn);
+    const isStory = true
+    const storyStyle = {width, height, ...style}
 
-    return <div>
+    return <div style={isStory ? storyStyle : {}}>
         <InfoBlock columns={columns} data={data}/>
     </div>;
 }

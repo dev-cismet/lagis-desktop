@@ -1,11 +1,11 @@
 import { withDesign } from "storybook-addon-designs";
-import DashboardDMS from "../../components/overview/DMS";
+import Agencies from "../../components/offices/Agencies";
 import designDMS from "../assets/overview/DMS.png";
 import { generateStory } from "../_tools/StoryFactory";
 
 export default {
-  title: "Overview/Components/DMS",
-  component: DashboardDMS,
+  title: "Offices/Components/Agencies",
+  component: Agencies,
   decorators: [withDesign],
   parameters: {
     design: {

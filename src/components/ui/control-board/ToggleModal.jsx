@@ -5,6 +5,7 @@ const ToggleModal = () => {
         backgroundColor: "#DDE2E8", 
         borderRadius: "2px",
         lineHeight: "15px",
+        textAlign: "center"
     }
     return (
         <div className="flex gap-1 itemes center">
