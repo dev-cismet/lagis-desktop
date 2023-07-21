@@ -1,32 +1,31 @@
 import { Table } from 'antd';
-import { COLOR_AQUA, COLOR_LILA } from '../generalConstant';
-const columns = [
-    {
-      title: 'Agency name',
-      dataIndex: 'agency',
-      render: (title, record, rowIndex) => (
-        <div 
-        className="flex justify-between items-center"
-        >
-        <span 
-          style={{
-            width: "9px", 
-            height: "11px",
-            marginRight: "6px",
-            backgroundColor: rowIndex % 2 === 1 ? COLOR_AQUA : COLOR_LILA,
-          }}>
-        </span>
-        <span>
-          {title}
-        </span>
-      </div>
-      ),
-    },
-    {
-      title: 'Area in m²',
-      dataIndex: 'area',
-    },
-  ];
+// const columns = [
+//     {
+//       title: 'Agency name',
+//       dataIndex: 'agency',
+//       render: (title, record, rowIndex) => (
+//         <div 
+//         className="flex justify-between items-center"
+//         >
+//         <span 
+//           style={{
+//             width: "9px", 
+//             height: "11px",
+//             marginRight: "6px",
+//             backgroundColor: rowIndex % 2 === 1 ? COLOR_AQUA : COLOR_LILA,
+//           }}>
+//         </span>
+//         <span>
+//           {title}
+//         </span>
+//       </div>
+//       ),
+//     },
+//     {
+//       title: 'Area in m²',
+//       dataIndex: 'area',
+//     },
+//   ];
   
   const data = [
     {
@@ -50,7 +49,7 @@ const columns = [
       area: 12345678910,
     },
   ];
-const TableMock = () => {
+const TableMock = ({columns, data}) => {
     return (
         <>
             <Table columns={columns} dataSource={data} pagination={false} bordered={true}/>
