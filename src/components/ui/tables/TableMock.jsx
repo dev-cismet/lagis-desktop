@@ -1,4 +1,4 @@
-import { Table, Divider } from 'antd';
+import { Table } from 'antd';
 import { COLOR_AQUA, COLOR_LILA } from '../generalConstant';
 const columns = [
     {

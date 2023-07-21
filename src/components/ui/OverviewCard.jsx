@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
-import { Card, Row, Col } from "antd";
+import React from "react";
+import { Card } from "antd";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import "../overview/style.css"
 
