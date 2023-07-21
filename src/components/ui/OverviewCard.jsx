@@ -17,19 +17,28 @@ const OverviewCard = ({
     return (
         <Card
           headStyle={{padding: "0px 10px"}}
-          bodyStyle={{padding: "0px 10px"}}
-          className="shadow-md"
+          bodyStyle={{padding: "1px 10px", marginTop: "auto"}}
+          style={{height: "100%"}}
+          className="shadow-md flex flex-col"
           title={
-            <div className="flex flex-col itemes-start">
+            <div 
+              className="flex flex-col itemes-start"
+            >
             <span className="text-xl">
               {title}
             </span>
             {
-              subtitle && <span className="text-sm">{subtitle}</span>
+              subtitle && 
+              <span 
+                className="text-sm"
+                style={{color: "#6C6A6A"}}
+              >
+                {subtitle}
+              </span>
             }
           </div>
           }
-          extra={icon}
+          extra={<div className="text-2xl">{icon}</div>}
           {...props}
         >
           {children}

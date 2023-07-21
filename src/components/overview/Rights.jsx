@@ -1,12 +1,9 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { SettingOutlined } from "@ant-design/icons";
-import cardsSizes from "../ui/cards-sizes";
+import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
-const {Text} = Typography
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "3", color: "#EF5DA8" };
+  return { numberOfRights: "3", color: "#EF5DA8" };
 };
 const DashboardRights = ({
   dataIn,
@@ -16,24 +13,33 @@ const DashboardRights = ({
   style,
   variant
 }) => {
-  // const {
-  //   numberSize,
-  //   numberBottom, 
-  //   titleSize,
-  //   subtitle,
-  //   iconSize,
-  //   cardPadding
-  // } = {cardsSizes}
-
-  if(width >= 340){
-
-  }
 
   const data = extractor(dataIn);
   console.log("Right", style)
   return (
     <div className="dashboard-tile">
-      <Card
+      <OverviewCard
+        title="Rechte & Belastungen"
+        subtitle="& Dienstbarkeiten, Baulasten"
+        icon={
+        <SettingOutlined 
+          className="text-3xl"
+          style={{color: data.color}}
+        />}
+      >
+      <div
+        style={{
+          color: data.color,
+          fontSize: "5.5rem",
+          textAlign: "left",
+          width: "100%",
+          lineHeight: "1.2"
+        }}
+      >
+        <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
+      </div>
+    </OverviewCard>
+      {/* <Card
         style={{
           width,
           height,
@@ -96,7 +102,7 @@ const DashboardRights = ({
         >
           <span>{data.numberOfDocuments.toString().padStart(2, "0")}</span>
         </div>
-      </Card>
+      </Card> */}
     </div>
   );
 };

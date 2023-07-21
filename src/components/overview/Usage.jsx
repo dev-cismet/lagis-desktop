@@ -1,12 +1,9 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { PieChartOutlined } from "@ant-design/icons";
-import cardsSizes from "../ui/cards-sizes";
+import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
-const {Text} = Typography
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "1", color: "#F31630" };
+  return { numberOfUsages: "1", color: "#F31630" };
 };
 const DashboardUsage = ({
   dataIn,
@@ -15,61 +12,30 @@ const DashboardUsage = ({
   height = 188,
   style,
 }) => {
-  // const {numberSize, numberBottom, titleSize} = {cardsSizes}
-  if(width >= 420){
-
-  }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-          ...style,
-        }}
-        bodyStyle={{padding: cardsSizes.cardPadding}}
-        className="shadow-md"
+      <OverviewCard
+        title="Nutzung"
+        subtitle="& Anlagenbuchhaltung"
+        icon={
+        <PieChartOutlined 
+          style={{color: data.color}}
+        />}
       >
-        <div className="title-row">
-          <Row>
-            <Col span={12}>
-              <Typography style={{ fontSize: cardsSizes.titleSize, fontWeight: "500" }}>
-                Usage
-              </Typography>
-            </Col>
-            <Col span={12}>
-              <div className="dashboard-icon">
-                <PieChartOutlined
-                  style={{ fontSize: "25px", color: "#F31630" }}
-                />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Text style={{fontSize: "13px", color: "#6C6A6A"}}>
-                & Asset Accounting
-              </Text>
-            </Col>
-          </Row>
-        </div>
-        <div 
-         style={{
+      <div
+        style={{
           color: data.color,
-          fontSize: cardsSizes.numberSize,
+          fontSize: "5.5rem",
           textAlign: "left",
           width: "100%",
-          height: "auto",
-          position: "absolute",
-          bottom: cardsSizes.numberBottom,
-          lineHeight: "1.4"
+          lineHeight: "1.2"
         }}
       >
-          <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
-        </div>
-      </Card>
-    </div>
+        <strong>{data.numberOfUsages.toString().padStart(2, "0")}</strong>
+      </div>
+    </OverviewCard>
+  </div>
   );
 };
 export default DashboardUsage;

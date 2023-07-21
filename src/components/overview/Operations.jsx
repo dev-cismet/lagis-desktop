@@ -1,12 +1,10 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { SwapRightOutlined } from "@ant-design/icons";
-import cardsSizes from "../ui/cards-sizes";
 import "./style.css";
+import OverviewCard from "../ui/OverviewCard";
 
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "0", color: "#FF7A00" };
+  return { numberOfHistory: "4", color: "#FF7A00" };
 };
 const DashboarOperations = ({
   dataIn,
@@ -15,69 +13,29 @@ const DashboarOperations = ({
   height = 188,
   style,
 }) => {
-  // const {
-  //   numberSize, 
-  //   numberBottom, 
-  //   titleSize, 
-  //   iconSize,
-  //   cardPadding
-  // } = {cardsSizes}
 
-  if(width >= 330){
-
-  }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-          ...style
-        }}
-        bodyStyle={{padding: cardsSizes.cardPadding}}
-        className="shadow-md"
+      <OverviewCard
+        title="Vorgänge"
+        icon={
+        <SwapRightOutlined 
+          style={{color: data.color}}
+        />}
       >
-        <div className="title-row">
-          <Row>
-            <Col 
-              span={20}
-              >
-              <Typography 
-                style={{ 
-                  fontSize: cardsSizes.titleSize,
-                  fontWeight: "500",
-                  lineHeight: "1.3",
-                  }}
-              >
-                Operations
-              </Typography>
-            </Col>
-            <Col span={4}>
-              <div className="dashboard-icon">
-                <SwapRightOutlined
-                  style={{ fontSize: cardsSizes.iconSize, color: "#FF7A00" }}
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <div 
-            style={{
+        <div
+          style={{
             color: data.color,
-            fontSize: cardsSizes.numberSize,
+            fontSize: "5.5rem",
             textAlign: "left",
             width: "100%",
-            height: "auto",
-            position: "absolute",
-            bottom: cardsSizes.numberBottom,
-            lineHeight: "1.4",
-            fontWeight: "700",
+            lineHeight: "1.2"
           }}
         >
-          <span>{data.numberOfDocuments.toString().padStart(2, "0")}</span>
+          <strong>{data.numberOfHistory.toString().padStart(2, "0")}</strong>
         </div>
-      </Card>
+      </OverviewCard>
     </div>
   );
 };

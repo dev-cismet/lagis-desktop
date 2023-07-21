@@ -1,11 +1,9 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { FieldTimeOutlined } from "@ant-design/icons";
-import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
+import "./style.css";
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "3", color: "#FFD029" };
+  return { numberOfDocuments: "4", color: "#FFD029" };
 };
 const DashboardHistory = ({
   dataIn,
@@ -14,18 +12,13 @@ const DashboardHistory = ({
   height = 188,
   style,
 }) => {
-
   const data = extractor(dataIn);
-  console.log("History props", { width, height });
-
   return (
     <div className="dashboard-tile">
       <OverviewCard
-        style={{height}}
         title="Historie"
         icon={
         <FieldTimeOutlined 
-          className="text-3xl"
           style={{color: data.color}}
         />}
       >

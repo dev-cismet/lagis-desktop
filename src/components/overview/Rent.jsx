@@ -1,12 +1,9 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
 import { DollarOutlined } from "@ant-design/icons";
-import cardsSizes from "../ui/cards-sizes";
+import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
-
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "7", color: "#5D5FEF" };
+  return { numberOfRents: "7", color: "#5D5FEF" };
 };
 const DashboardRent = ({
   dataIn,
@@ -15,67 +12,28 @@ const DashboardRent = ({
   height = 188,
   style,
 }) => {
-  // const {numberSize, numberBottom, titleSize} = {cardsSizes}
-  if(width >= 330){
-    cardsSizes.numberSize = "120px"
-    cardsSizes.titleSize = "28px"
-    cardsSizes.subtitle = "18px"
-    cardsSizes.iconSize = "40px";
-    cardsSizes.cardPadding = "18px"
-  }
   const data = extractor(dataIn);
-
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-          ...style,
-        }}
-        bodyStyle={{padding: cardsSizes.cardPadding}}
-        className="shadow-md"
+      <OverviewCard
+        title="Miet und Pachtverträge"
+        icon={
+        <DollarOutlined 
+          style={{color: data.color}}
+        />}
       >
-        <div
-          className="title-row"
-          style={{ marginBottom: "10px", zIndex: "100" }}
-        >
-          <Row>
-            <Col span={20}>
-              <Typography 
-                style={{ 
-                    fontSize: cardsSizes.titleSize, 
-                    fontWeight: "500",
-                    lineHeight: "1.1"
-                    }}
-                    >
-                Rent & Lease
-              </Typography>
-            </Col>
-            <Col span={4}>
-              <div className="dashboard-icon">
-                <DollarOutlined
-                  style={{ fontSize: cardsSizes.iconSize, color: "#5D5FEF" }}
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
         <div
           style={{
             color: data.color,
-            fontSize: "84px",
+            fontSize: "5.5rem",
             textAlign: "left",
             width: "100%",
-            height: "auto",
-            position: "absolute",
-            bottom: cardsSizes.numberBottom,
-            lineHeight: "1.4"
+            lineHeight: "1.2"
           }}
         >
-          <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
+          <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>
         </div>
-      </Card>
+      </OverviewCard>
     </div>
   );
 };

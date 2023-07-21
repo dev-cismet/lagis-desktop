@@ -1,9 +1,6 @@
-import Typography from "antd/es/typography/Typography";
 import { FolderOpenOutlined } from "@ant-design/icons";
-import { Card, Row, Col } from "antd";
 import PropTypes from "prop-types";
-const {Text} = Typography
-import cardsSizes from "../ui/cards-sizes";
+import OverviewCard from "../ui/OverviewCard";
 import "./style.css"
 
 const mockExtractor = (input) => {
@@ -20,60 +17,37 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  // const {
-  //   titleSize,
-  //   subtitle,
-  //   iconSize,
-  //   cardPadding
-  // } = {cardsSizes}
-  let numbers = "18px"
   let square = "14ppx"
-  let namGabs = "4px"
-  // if(width >= 340){
-  // }
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-          ...style,
-        }}
-        bodyStyle={{
-          padding: cardsSizes.cardPadding,
-        }}
-        className="shadow-md"
-        actions={[
-          <div className="flex flex-col"
-            style={{
-              padding: cardsSizes.cardPadding, 
-              paddingTop: "0", 
-              paddingBottom: "0",
-            }}
-          >
+      <OverviewCard
+        title="Verwaltungsbereiche"
+        subtitle="& Rollen"
+        icon={
+        <FolderOpenOutlined 
+          style={{color: "#0097FA"}}
+        />}
+      >
+        <div className="flex flex-col mt-auto">
           {data.map((item) => (
             <div 
-              className="flex justify-between items-center"
-              style={{
-                marginTop: namGabs,
-                marginBottom: namGabs,
-              }}
+              className="flex justify-between items-center mt-1 mb-1"
             >
               <div 
                 className="flex justify-between items-center"
               >
                 <span 
                   style={{
-                    width: "10px", 
-                    height: "10px",
+                    width: "8px", 
+                    height: "8px",
                     marginRight: "6px",
                     backgroundColor: item.color,
                   }}>
                 </span>
                 <span 
-                  style={{ color: item.color, fontSize: numbers}}
-                  className="font-bold text-base"
+                  style={{ color: item.color}}
+                  className="font-bold text-medium"
                 >
                   {item.title}
                 </span>
@@ -83,37 +57,12 @@ const DashboardOffices = ({
                   color: "#6C6A6A", 
                   fontSize: square,
                 }}
-                className="font-medium"
+                className="font-base"
                 >{item.size} m²</span>
             </div>
-          ))}
-        </div>
-        ]}
-      >
-        <div className="font-sm title-row">
-          <Row>
-            <Col span={20}>
-              <Typography style={{ fontSize: cardsSizes.titleSize, fontWeight: "500" }}>
-                Offices
-              </Typography>
-            </Col>
-            <Col span={4}>
-              <div className="dashboard-icon">
-                <FolderOpenOutlined
-                  style={{ fontSize: cardsSizes.iconSize, color: "#0092FA" }}
-                />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Text style={{fontSize: cardsSizes.subtitle, color: "#6C6A6A"}}>
-              & Roles
-              </Text>
-            </Col>
-          </Row>
-        </div>
-      </Card>
+                  ))}
+          </div>
+        </OverviewCard>
     </div>
   );
 };
