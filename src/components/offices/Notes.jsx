@@ -24,13 +24,21 @@ const Notes = ({
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <div style={{ padding: "1rem" }}>
+        <div
+          style={{
+            flexGrow: "1",
+            padding: "1rem",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <TextArea
-            autoSize={{ minRows: 4, maxRows: 10 }}
+            className="shadow"
             style={{
-              height: "100%",
-              width: "100%",
               resize: "none",
+              border: "none",
+              outline: "none",
+              flexGrow: "1",
             }}
           />
         </div>

@@ -8,7 +8,12 @@ const HeadBlock = ({ title, children }) => {
       }}
     >
       <MenuOutlined />
-      <h3 className="mx-0 text-left mr-auto ml-3 text-base">{title}</h3>
+      <h3
+        className="mx-0 text-left mr-auto ml-3 text-base"
+        style={{ color: "#474747" }}
+      >
+        {title}
+      </h3>
       <div>{children}</div>
     </div>
   );
