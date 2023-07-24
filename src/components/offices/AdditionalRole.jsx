@@ -1,54 +1,41 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 const columns = [
   {
-    title: "Agency name",
-    dataIndex: "agency",
-    render: (title, record, rowIndex) => (
-      <div className="flex items-center">
-        <span
-          style={{
-            width: "9px",
-            height: "11px",
-            marginRight: "6px",
-            backgroundColor: rowIndex % 2 === 1 ? COLOR_AQUA : COLOR_LILA,
-          }}
-        ></span>
-        <span>{title}</span>
-      </div>
-    ),
+    title: "Service",
+    dataIndex: "service",
   },
   {
-    title: "Area in m²",
-    dataIndex: "area",
+    title: "Role",
+    dataIndex: "role",
   },
 ];
 const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      agency: "12345678910",
-      area: 12345678910,
+      service: "12345678910",
+      role: "02.05.2023",
     },
     {
       key: "2",
-      agency: "12345678910",
-      area: 12345678910,
+      service: "12345678910",
+      role: "02.05.2023",
     },
     {
       key: "3",
-      agency: "12345678910",
-      area: 12345678910,
+      service: "12345678910",
+      role: "02.05.2023",
     },
     {
       key: "4",
-      agency: "12345678910",
-      area: 12345678910,
+      service: "12345678910",
+      role: "02.05.2023",
     },
   ];
 };
-const Agencies = ({
+
+const AdditionalRole = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -58,15 +45,14 @@ const Agencies = ({
   const data = extractor(dataIn);
   const isStory = true;
   const storyStyle = { width, height, ...style };
-
   return (
     <div style={isStory ? storyStyle : {}}>
       <InfoBlock columns={columns} data={data} />
     </div>
   );
 };
-export default Agencies;
-Agencies.propTypes = {
+export default AdditionalRole;
+AdditionalRole.propTypes = {
   /**
    * The current main data object that is being used
    */
