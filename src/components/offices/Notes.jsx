@@ -1,43 +1,14 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import ToggleModal from "../ui/control-board/ToggleModal";
-import TableMock from "../ui/tables/TableMock";
-const columns = [
-  {
-    title: "Service",
-    dataIndex: "service",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-  },
-];
+import { Input, Checkbox } from "antd";
+const { TextArea } = Input;
 const mockExtractor = (input) => {
-  return [
-    {
-      key: "1",
-      service: "12345678910",
-      role: "02.05.2023",
-    },
-    {
-      key: "2",
-      service: "12345678910",
-      role: "02.05.2023",
-    },
-    {
-      key: "3",
-      service: "12345678910",
-      role: "02.05.2023",
-    },
-    {
-      key: "4",
-      service: "12345678910",
-      role: "02.05.2023",
-    },
-  ];
+  return { note: "3" };
 };
-
-const AdditionalRole = ({
+const onChange = (e) => {
+  console.log(`checked = ${e.target.checked}`);
+};
+const Notes = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -49,18 +20,30 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   return (
     <div style={isStory ? storyStyle : {}}>
-      <InfoBlock title="Zusätzliche Rollen" controlBar={<ToggleModal />}>
-        <TableMock columns={columns} data={data} />
+      <InfoBlock
+        title="Bemerkungen"
+        controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
+      >
+        <div style={{ padding: "1rem" }}>
+          <TextArea
+            autoSize={{ minRows: 4, maxRows: 10 }}
+            style={{
+              height: "100%",
+              width: "100%",
+              resize: "none",
+            }}
+          />
+        </div>
       </InfoBlock>
     </div>
   );
 };
-export default AdditionalRole;
-AdditionalRole.propTypes = {
+export default Notes;
+Notes.propTypes = {
   /**
    * The current main data object that is being used
    */
-  dataIn: PropTypes.array,
+  dataIn: PropTypes.object,
   /**
    * The extractor function that is used to transform the dataIn object into the data object
    */

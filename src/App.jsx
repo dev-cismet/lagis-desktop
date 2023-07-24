@@ -4,12 +4,16 @@ import "./App.css";
 import React from "react";
 import { Button, Space } from "antd";
 import { Typography } from "antd";
-import Agencies from "./components/offices/Agencies";
+import Notes from "./components/offices/Notes";
 const { Title } = Typography;
 function App() {
   const [count, setCount] = useState(0);
-    // return <div className="App"><Overview height="100%" width="100%"/></div>
-  return <div className="App"><Agencies /></div>
+  // return <div className="App"><Overview height="100%" width="100%"/></div>
+  return (
+    <div className="App">
+      <Notes />
+    </div>
+  );
   return (
     <div className="App">
       <div>

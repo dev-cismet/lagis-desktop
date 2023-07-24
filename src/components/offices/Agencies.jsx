@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
+import ToggleModal from "../ui/control-board/ToggleModal";
+import TableMock from "../ui/tables/TableMock";
 const columns = [
   {
     title: "Agency name",
@@ -61,7 +63,9 @@ const Agencies = ({
 
   return (
     <div style={isStory ? storyStyle : {}}>
-      <InfoBlock columns={columns} data={data} title="Dienststellen" />
+      <InfoBlock title="Dienststellen" controlBar={<ToggleModal />}>
+        <TableMock columns={columns} data={data} />
+      </InfoBlock>
     </div>
   );
 };
