@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
+import { ReloadOutlined } from "@ant-design/icons";
 const columns = [
   {
     title: "Street",
@@ -46,7 +47,19 @@ const Streetfronts = ({
   const storyStyle = { width, height, ...style };
   return (
     <div style={isStory ? storyStyle : {}}>
-      <InfoBlock columns={columns} data={data} title="Straßenfronten" />
+      <InfoBlock columns={columns} data={data} title="Straßenfronten">
+        <ReloadOutlined
+          style={{
+            width: "15px",
+            height: "15px",
+            backgroundColor: "#DDE2E8",
+            borderRadius: "2px",
+            lineHeight: "18px",
+            textAlign: "center",
+            fontSize: "8px",
+          }}
+        />
+      </InfoBlock>
     </div>
   );
 };
