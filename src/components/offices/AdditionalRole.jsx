@@ -47,7 +47,7 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   return (
     <div style={isStory ? storyStyle : {}}>
-      <InfoBlock columns={columns} data={data} />
+      <InfoBlock columns={columns} data={data} title="Zusätzliche Rollen" />
     </div>
   );
 };

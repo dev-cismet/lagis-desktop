@@ -61,7 +61,7 @@ const Agencies = ({
 
   return (
     <div style={isStory ? storyStyle : {}}>
-      <InfoBlock columns={columns} data={data} />
+      <InfoBlock columns={columns} data={data} title="Dienststellen" />
     </div>
   );
 };
