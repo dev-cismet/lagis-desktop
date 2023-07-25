@@ -3,7 +3,7 @@ import "./table-style.css";
 
 const TableMock = ({ columns, data }) => {
   return (
-    <div className="table-wrapper" style={{ overflow: "auto" }}>
+    <div className="table-wrapper">
       <Table
         columns={columns}
         dataSource={data}

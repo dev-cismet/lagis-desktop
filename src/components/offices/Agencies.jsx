@@ -62,7 +62,7 @@ const Agencies = ({
   const storyStyle = { width, height, ...style };
 
   return (
-    <div style={isStory ? storyStyle : { height: "94%", overflow: "auto" }}>
+    <div style={isStory ? storyStyle : { height: "96%" }}>
       <InfoBlock title="Dienststellen" controlBar={<ToggleModal />}>
         <TableMock columns={columns} data={data} />
       </InfoBlock>
