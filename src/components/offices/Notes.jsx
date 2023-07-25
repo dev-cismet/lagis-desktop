@@ -16,7 +16,7 @@ const Notes = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  const isStory = true;
+  const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
     <div style={isStory ? storyStyle : {}}>
@@ -30,6 +30,7 @@ const Notes = ({
             padding: "1rem",
             display: "flex",
             flexDirection: "column",
+            height,
           }}
         >
           <TextArea

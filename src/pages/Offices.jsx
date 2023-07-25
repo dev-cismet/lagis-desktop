@@ -2,6 +2,10 @@ import React from "react";
 import Map from "../components/commons/Map";
 import { Col, Row } from "antd";
 import MockCard from "../components/mock/MockCard";
+import Agencies from "../components/offices/Agencies";
+import AdditionalRole from "../components/offices/AdditionalRole";
+import Streetfronts from "../components/offices/Streetfronts";
+import Notes from "../components/offices/Notes";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -19,8 +23,9 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   return (
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle} style={{ height: "60%", ...marginBottomStyle }}>
-        <Col span={8}>
-          <MockCard style={firstRowStyle} title="Agencies" />
+        <Col span={8} flex="auto">
+          {/* <MockCard style={firstRowStyle} title="Agencies" /> */}
+          <Agencies />
         </Col>
         <Col span={16}>
           <Map width={"100%"} height={firstRowStyle.height} />
@@ -29,13 +34,16 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
 
       <Row gutter={gutterStyle} style={{ height: "40%" }}>
         <Col span={8}>
-          <MockCard style={secondRowStyle} title="Additional Role" />
+          {/* <MockCard style={secondRowStyle} title="Additional Role" /> */}
+          <AdditionalRole />
         </Col>
         <Col span={8}>
-          <MockCard style={secondRowStyle} title="Streetfronts" />
+          {/* <MockCard style={secondRowStyle} title="Streetfronts" /> */}
+          <Streetfronts />
         </Col>
-        <Col span={8}>
-          <MockCard style={secondRowStyle} title="Notes" />
+        <Col span={8} flex="auto">
+          {/* <MockCard style={secondRowStyle} title="Notes" /> */}
+          <Notes />
         </Col>
       </Row>
     </div>

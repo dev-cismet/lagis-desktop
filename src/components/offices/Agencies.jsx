@@ -58,11 +58,11 @@ const Agencies = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  const isStory = true;
+  const isStory = false;
   const storyStyle = { width, height, ...style };
 
   return (
-    <div style={isStory ? storyStyle : {}}>
+    <div style={isStory ? storyStyle : { height: "94%", overflow: "auto" }}>
       <InfoBlock title="Dienststellen" controlBar={<ToggleModal />}>
         <TableMock columns={columns} data={data} />
       </InfoBlock>

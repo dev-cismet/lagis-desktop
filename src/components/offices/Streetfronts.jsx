@@ -45,10 +45,10 @@ const Streetfronts = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  const isStory = true;
+  const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div style={isStory ? storyStyle : {}}>
+    <div className="" style={isStory ? storyStyle : { height: "80%" }}>
       <InfoBlock
         title="Straßenfronten"
         controlBar={

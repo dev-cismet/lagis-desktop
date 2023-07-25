@@ -45,10 +45,10 @@ const AdditionalRole = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  const isStory = true;
+  const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div style={isStory ? storyStyle : {}}>
+    <div style={isStory ? storyStyle : { height: "80%", overflow: "auto" }}>
       <InfoBlock title="Zusätzliche Rollen" controlBar={<ToggleModal />}>
         <TableMock columns={columns} data={data} />
       </InfoBlock>
