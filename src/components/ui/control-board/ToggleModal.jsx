@@ -22,9 +22,9 @@ const ToggleModal = ({ children, section, name, inutFirst, inutSecond }) => {
       <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
       <Modal
         title={
-          <div className="flex items-center mt-4 mb-8">
+          <div className="flex items-center flex-wrap mt-4 mb-8">
             <div
-              className="flex items-center p-3 rounded-lg w-96"
+              className="flex items-center flex-wrap p-3 rounded-lg w-96"
               style={{ backgroundColor: "#fdfdfd", flexGrow: "1" }}
             >
               <span className="font-semibold">LogIS</span>
@@ -34,9 +34,8 @@ const ToggleModal = ({ children, section, name, inutFirst, inutSecond }) => {
               >
                 ⬤
               </span>
-              <span className="font-semibold">
-                {section} — {name}
-              </span>
+              <span className="font-semibold mr-1">{section}</span>
+              <span className="font-semibold">— {name}</span>
             </div>
             <span
               style={{

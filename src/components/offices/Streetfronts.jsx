@@ -52,7 +52,12 @@ const Streetfronts = ({
       <InfoBlock
         title="Straßenfronten"
         controlBar={
-          <ToggleModal>
+          <ToggleModal
+            section="Verwaltungsbereiche"
+            name="Straßenfronten"
+            inutFirst="Straßen"
+            inutSecond="Length"
+          >
             <ReloadOutlined
               style={{
                 width: "15px",

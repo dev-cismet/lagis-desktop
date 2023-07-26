@@ -49,7 +49,17 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   return (
     <div style={isStory ? storyStyle : { height: "80%", overflow: "auto" }}>
-      <InfoBlock title="Zusätzliche Rollen" controlBar={<ToggleModal />}>
+      <InfoBlock
+        title="Zusätzliche Rollen"
+        controlBar={
+          <ToggleModal
+            section="Verwaltungsbereiche"
+            name="Zusätzliche Rollen"
+            inutFirst="Service"
+            inutSecond="Role"
+          />
+        }
+      >
         <TableMock columns={columns} data={data} />
       </InfoBlock>
     </div>

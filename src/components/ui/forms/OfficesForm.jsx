@@ -54,7 +54,7 @@ const OfficesForm = ({ first, second }) => {
       </Form.Item>
       <Form.Item>
         <div className="flex items-center justify-center">
-          <Button type="primary" ghost htmlType="reset" className="mr-4 mb-0">
+          <Button type="primary" ghost htmlType="reset" className="mr-4">
             Cancel
           </Button>
           <SubmitButton form={form} />
