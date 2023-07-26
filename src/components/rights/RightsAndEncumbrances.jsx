@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
+import ModalForm from "../ui/forms/ModalForm";
 const columns = [
   {
     title: "ist Recht",
@@ -225,8 +226,19 @@ const RightsAndEncumbrances = ({
           <ToggleModal
             section="Rechte und Belastungen"
             name="Rechte und Belastungen"
-            inutFirst="new name"
-            inutSecond="new name"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Is Right", rules: [{ required: true }] },
+                  { title: "Type", rules: [{ required: true }] },
+                  { title: "Type of Right", rules: [{ required: true }] },
+                  { title: "Number", rules: [{ required: true }] },
+                  { title: "Deletion Data", rules: [{ required: true }] },
+                  { title: "Remark", rules: [{ required: true }] },
+                ]}
+                size={8}
+              />
+            }
           />
         }
       >
