@@ -33,6 +33,7 @@ const OfficesForm = ({ first, second }) => {
     borderRadius: "2px",
     padding: "5px 8px",
     textTransform: "lowercase",
+    fontWeight: "normal",
   };
 
   return (
@@ -52,12 +53,12 @@ const OfficesForm = ({ first, second }) => {
         <Input style={inputStyle} placeholder={`Type ${second}...`} />
       </Form.Item>
       <Form.Item>
-        <Space>
-          <Button type="primary" ghost htmlType="reset">
+        <div className="flex items-center justify-center">
+          <Button type="primary" ghost htmlType="reset" className="mr-4 mb-0">
             Cancel
           </Button>
           <SubmitButton form={form} />
-        </Space>
+        </div>
       </Form.Item>
     </Form>
   );

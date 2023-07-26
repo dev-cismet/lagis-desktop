@@ -5,7 +5,12 @@ const Labelform = ({ name }) => {
     <span style={{ fontSize: "12px" }}>
       {name}{" "}
       <InfoCircleOutlined
-        style={{ fontSize: "12px", color: "#858585", marginLeft: "1px" }}
+        style={{
+          fontSize: "12px",
+          color: "#858585",
+          marginLeft: "1px",
+          fontWeight: "normal",
+        }}
       />
     </span>
   );

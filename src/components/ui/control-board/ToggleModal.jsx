@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
-
-const ToggleModal = ({ children }) => {
+import { Modal, Divider } from "antd";
+import OfficesForm from "../forms/OfficesForm";
+import "./toggle.css";
+const ToggleModal = ({ children, section, name, inutFirst, inutSecond }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const btnStyle = {
     width: "15px",
@@ -20,17 +21,43 @@ const ToggleModal = ({ children }) => {
       </span>
       <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
       <Modal
-        title="20px to Top"
+        title={
+          <div className="flex items-center mt-4 mb-8">
+            <div
+              className="flex items-center p-3 rounded-lg w-96"
+              style={{ backgroundColor: "#fdfdfd", flexGrow: "1" }}
+            >
+              <span className="font-semibold">LogIS</span>
+              <span
+                className="mx-2"
+                style={{ fontSize: "6px", lineHeight: "30px" }}
+              >
+                ⬤
+              </span>
+              <span className="font-semibold">
+                {section} — {name}
+              </span>
+            </div>
+            <span
+              style={{
+                flexBasis: "18%",
+                height: "1px",
+                backgroundColor: "#1C82E1",
+                marginLeft: "16px",
+              }}
+            ></span>
+          </div>
+        }
         centered
         open={modalOpen}
         onOk={() => setModalOpen(false)}
         onCancel={() => setModalOpen(false)}
         okText="submit"
         cancelText="cancel"
+        wrapClassName="custom-modal-wrapper"
+        footer={null}
       >
-        <p>some contents...</p>
-        <p>some contents...</p>
-        <p>some contents...</p>
+        <OfficesForm first={inutFirst} second={inutSecond} />
       </Modal>
     </div>
   );

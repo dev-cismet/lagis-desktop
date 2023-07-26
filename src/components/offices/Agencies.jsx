@@ -63,7 +63,17 @@ const Agencies = ({
 
   return (
     <div style={isStory ? storyStyle : { height: "96%" }}>
-      <InfoBlock title="Dienststellen" controlBar={<ToggleModal />}>
+      <InfoBlock
+        title="Dienststellen"
+        controlBar={
+          <ToggleModal
+            section="Verwaltungsbereiche"
+            name="Dienststellen"
+            inutFirst="Dienststelle"
+            inutSecond="Gläche in m2"
+          />
+        }
+      >
         <TableMock columns={columns} data={data} />
       </InfoBlock>
     </div>
