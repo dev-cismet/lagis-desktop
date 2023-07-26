@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import { ReloadOutlined } from "@ant-design/icons";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
+import ModalForm from "../ui/forms/ModalForm";
 const columns = [
   {
     title: "Street",
@@ -55,8 +56,16 @@ const Streetfronts = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Straßenfronten"
-            inutFirst="Straßen"
-            inutSecond="Length"
+            // inutFirst="Straßen"
+            // inutSecond="Length"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Straßen", rules: [{ required: true }] },
+                  { title: "Length", rules: [{ required: true }] },
+                ]}
+              />
+            }
           >
             <ReloadOutlined
               style={{

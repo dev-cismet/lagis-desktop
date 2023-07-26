@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
+import ModalForm from "../ui/forms/ModalForm";
 const columns = [
   {
     title: "Service",
@@ -55,8 +56,14 @@ const AdditionalRole = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Zusätzliche Rollen"
-            inutFirst="Service"
-            inutSecond="Role"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Service", rules: [{ required: true }] },
+                  { title: "Role", rules: [{ required: true }] },
+                ]}
+              />
+            }
           />
         }
       >

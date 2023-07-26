@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
+import ModalForm from "../ui/forms/ModalForm";
 const columns = [
   {
     title: "Agency name",
@@ -69,8 +70,17 @@ const Agencies = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Dienststellen"
-            inutFirst="Dienststelle"
-            inutSecond="Gläche in m2"
+            // inutFirst="Dienststelle"
+            // inutSecond="Gläche in m2"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Dienststelle", rules: [{ required: true }] },
+                  { title: "Gläche in m2", rules: [{ required: true }] },
+                ]}
+                size={12}
+              />
+            }
           />
         }
       >

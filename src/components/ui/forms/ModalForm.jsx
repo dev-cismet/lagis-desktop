@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Form, Input, Space } from "antd";
+import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
 
 const SubmitButton = ({ form }) => {
@@ -26,7 +26,7 @@ const SubmitButton = ({ form }) => {
   );
 };
 
-const OfficesForm = ({ first, second }) => {
+const ModalForm = ({ fields, size = 24 }) => {
   const [form] = Form.useForm();
   const inputStyle = {
     border: "1px solid #D9D9D9",
@@ -38,20 +38,19 @@ const OfficesForm = ({ first, second }) => {
 
   return (
     <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
-      <Form.Item
-        name={first}
-        label={<Labelform name={first} />}
-        rules={[{ required: true }]}
-      >
-        <Input style={inputStyle} placeholder={`Type ${first}...`} />
-      </Form.Item>
-      <Form.Item
-        name={second}
-        label={<Labelform name={second} />}
-        rules={[{ required: true }]}
-      >
-        <Input style={inputStyle} placeholder={`Type ${second}...`} />
-      </Form.Item>
+      <Row gutter={12}>
+        {fields.map((i) => (
+          <Col span={size} key={i.title}>
+            <Form.Item
+              name={i.title}
+              label={<Labelform name={i.title} />}
+              rules={i.rules}
+            >
+              <Input style={inputStyle} placeholder={`Type ${i.title}...`} />
+            </Form.Item>
+          </Col>
+        ))}
+      </Row>
       <Form.Item>
         <div className="flex items-center justify-center">
           <Button type="primary" ghost htmlType="reset" className="mr-4">
@@ -64,4 +63,4 @@ const OfficesForm = ({ first, second }) => {
   );
 };
 
-export default OfficesForm;
+export default ModalForm;

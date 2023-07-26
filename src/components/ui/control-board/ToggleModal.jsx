@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Divider } from "antd";
-import OfficesForm from "../forms/OfficesForm";
+import OfficesForm from "../forms/ModalForm";
 import "./toggle.css";
-const ToggleModal = ({ children, section, name, inutFirst, inutSecond }) => {
+const ToggleModal = ({ children, section, name, content }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const btnStyle = {
     width: "15px",
@@ -56,7 +56,7 @@ const ToggleModal = ({ children, section, name, inutFirst, inutSecond }) => {
         wrapClassName="custom-modal-wrapper"
         footer={null}
       >
-        <OfficesForm first={inutFirst} second={inutSecond} />
+        {content}
       </Modal>
     </div>
   );
