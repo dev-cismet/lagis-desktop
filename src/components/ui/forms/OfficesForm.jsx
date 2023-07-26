@@ -53,7 +53,9 @@ const OfficesForm = ({ first, second }) => {
       </Form.Item>
       <Form.Item>
         <Space>
-          <Button htmlType="reset">Reset</Button>
+          <Button type="primary" ghost htmlType="reset">
+            Cancel
+          </Button>
           <SubmitButton form={form} />
         </Space>
       </Form.Item>
