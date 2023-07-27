@@ -5,7 +5,7 @@ import "./toggle.css";
 const ToggleModal = ({
   children,
   section,
-  name,
+  name = "",
   content,
   modalWidth = 520,
 }) => {

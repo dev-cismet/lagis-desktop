@@ -3,38 +3,94 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
-
+import { Table, Tag } from "antd";
+const columns = [
+  {
+    title: "Lage",
+    dataIndex: "lage",
+  },
+  {
+    title: "Aktenzeichen",
+    dataIndex: "aktenzeichen",
+  },
+  {
+    title: "Fläche m2",
+    dataIndex: "fläche",
+  },
+  {
+    title: "Nutzung",
+    dataIndex: "nutzung",
+  },
+  {
+    title: "Vertragsbegin",
+    dataIndex: "vertragsbegin",
+  },
+  {
+    title: "Vertragsende",
+    dataIndex: "vertragsende",
+  },
+  {
+    title: "Merkmale",
+    dataIndex: "merkmale",
+    key: "merkmale",
+    render: (merkmale) => (
+      <>
+        {merkmale.map((m, i) => (
+          <Tag key={i} color={m.color}>
+            {m.text}
+          </Tag>
+        ))}
+      </>
+    ),
+  },
+];
 const mockExtractor = (input) => {
   return [
     {
-      key: "4",
-      recht: "",
-      art: "Dienstbarkeit",
-      artrecht: "Geh- und Fahrrecht",
-      nummer: "Dept. II, No. 25",
-      eintragung: "7.5.2001",
-      löschung: "",
-      bemerkung: "",
+      key: "1",
+      lage: "Luntenbecker",
+      aktenzeichen: "3434534",
+      fläche: "237",
+      nutzung: "Other",
+      vertragsbegin: "02.05.2023",
+      vertragsende: "02.05.2023",
+      merkmale: [
+        { text: "Altlast", color: "gold" },
+        { text: "Biotop", color: "cyan" },
+      ],
+    },
+    {
+      key: "2",
+      lage: "Luntenbecker",
+      aktenzeichen: "3434534",
+      fläche: "237",
+      nutzung: "Other",
+      vertragsbegin: "02.05.2023",
+      vertragsende: "02.05.2023",
+      merkmale: [{ text: "Unentgeltlich", color: "gold" }],
+    },
+    {
+      key: "3",
+      lage: "Luntenbecker",
+      aktenzeichen: "3434534",
+      fläche: "237",
+      nutzung: "Other",
+      vertragsbegin: "02.05.2023",
+      vertragsende: "02.05.2023",
+      merkmale: [{ text: "keine Akte", color: "cyan" }],
     },
     {
       key: "4",
-      recht: "",
-      art: "Dienstbarkeit",
-      artrecht: "Geh- und Fahrrecht",
-      nummer: "Dept. II, No. 25",
-      eintragung: "7.5.2001",
-      löschung: "",
-      bemerkung: "",
-    },
-    {
-      key: "4",
-      recht: "",
-      art: "Dienstbarkeit",
-      artrecht: "Geh- und Fahrrecht",
-      nummer: "Dept. II, No. 25",
-      eintragung: "7.5.2001",
-      löschung: "",
-      bemerkung: "",
+      lage: "Luntenbecker",
+      aktenzeichen: "3434534",
+      fläche: "237",
+      nutzung: "Other",
+      vertragsbegin: "02.05.2023",
+      vertragsende: "02.05.2023",
+      merkmale: [
+        { text: "Altlast", color: "gold" },
+        { text: "keine Akte", color: "cyan" },
+      ],
     },
   ];
 };
@@ -48,7 +104,36 @@ const RentBlock = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  return <div style={isStory ? storyStyle : { height: "96%" }}></div>;
+  return (
+    <div style={isStory ? storyStyle : { height: "96%" }}>
+      <InfoBlock
+        title="Miet- und Pachtverträge"
+        controlBar={
+          <ToggleModal
+            section="Vermietung / Verpachtung"
+            // name=""
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Lage", rules: [{ required: true }] },
+                  { title: "Aktenzeichen", rules: [{ required: true }] },
+                  { title: "Fläche m2", rules: [{ required: true }] },
+                  { title: "Nutzung", rules: [{ required: true }] },
+                  { title: "Vertragsbegin", rules: [{ required: true }] },
+                  { title: "Vertragsende", rules: [{ required: true }] },
+                ]}
+                size={8}
+                buttonPosition={{ justifyContent: "end" }}
+              />
+            }
+            modalWidth={900}
+          />
+        }
+      >
+        <TableMock columns={columns} data={data} pagination={false} />
+      </InfoBlock>
+    </div>
+  );
 };
 
 export default RentBlock;
