@@ -1,9 +1,8 @@
 import React from "react";
 import Map from "../components/commons/Map";
 import { Col, Row } from "antd";
-import RightsAndEncumbrances from "../components/rights/RightsAndEncumbrances";
-
-const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
+import MockCard from "../components/mock/MockCard";
+const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -26,11 +25,11 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
 
       <Row gutter={gutterStyle} style={{ height: "50%" }}>
         <Col span={24}>
-          <RightsAndEncumbrances />
+          <MockCard style={secondRowStyle} title="Miet- und Pachtverträge" />
         </Col>
       </Row>
     </div>
   );
 };
 
-export default RightsPage;
+export default RentAndLease;

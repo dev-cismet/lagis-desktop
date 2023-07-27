@@ -10,7 +10,6 @@ const ToggleModal = ({
   modalWidth = 520,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  // const modalWidth = width;
   const btnStyle = {
     width: "15px",
     height: "15px",
