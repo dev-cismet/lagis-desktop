@@ -111,7 +111,6 @@ const RentBlock = ({
         controlBar={
           <ToggleModal
             section="Vermietung / Verpachtung"
-            // name=""
             content={
               <ModalForm
                 fields={[
@@ -124,6 +123,7 @@ const RentBlock = ({
                 ]}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
+                tagsBar={[1]}
               />
             }
             modalWidth={900}

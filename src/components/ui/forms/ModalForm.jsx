@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
+import CustomTags from "../tags/CustomTags";
 
 const SubmitButton = ({ form }) => {
   const [submittable, setSubmittable] = useState(false);
 
-  // Watch all values
   const values = Form.useWatch([], form);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const ModalForm = ({
   fields,
   size = 24,
   buttonPosition = { justifyContent: "center" },
+  tagsBar = [],
 }) => {
   const [form] = Form.useForm();
   const inputStyle = {
@@ -55,6 +56,19 @@ const ModalForm = ({
           </Col>
         ))}
       </Row>
+      {tagsBar.length > 0 && (
+        <Row>
+          <Col span={24}>
+            <div className="flex gap-2 mb-5 mt-2">
+              <span style={{ color: "red" }}>*</span>
+              <Labelform name="Features" customStyle={{ fontSize: "14" }} />
+            </div>
+          </Col>
+          <Col span={24}>
+            <CustomTags />
+          </Col>
+        </Row>
+      )}
       <Form.Item style={{ margin: "10px" }}>
         <div className="flex items-center" style={buttonPosition}>
           <Button type="primary" ghost htmlType="reset" className="mr-4">

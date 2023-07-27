@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Divider } from "antd";
-import OfficesForm from "../forms/ModalForm";
+import { Modal } from "antd";
 import "./toggle.css";
 const ToggleModal = ({
   children,
   section,
-  name = "",
+  name,
   content,
   modalWidth = 520,
 }) => {
@@ -42,7 +41,7 @@ const ToggleModal = ({
                 ⬤
               </span>
               <span className="font-semibold mr-1">{section}</span>
-              <span className="font-semibold">— {name}</span>
+              {name && <span className="font-semibold">— {name}</span>}
             </div>
             <span
               style={{

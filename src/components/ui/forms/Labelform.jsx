@@ -1,8 +1,8 @@
 import React from "react";
 import { InfoCircleOutlined } from "@ant-design/icons";
-const Labelform = ({ name }) => {
+const Labelform = ({ name, customStyle = { fontSize: "12px" } }) => {
   return (
-    <span style={{ fontSize: "12px" }}>
+    <span style={customStyle}>
       {name}{" "}
       <InfoCircleOutlined
         style={{
