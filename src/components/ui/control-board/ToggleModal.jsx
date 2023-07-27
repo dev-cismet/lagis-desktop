@@ -32,8 +32,8 @@ const ToggleModal = ({
         title={
           <div className="flex items-center flex-wrap mt-4 mb-8">
             <div
-              className="flex items-center flex-wrap p-3 rounded-lg w-96"
-              style={{ backgroundColor: "#fdfdfd", flexGrow: "1" }}
+              className="flex items-center flex-wrap p-3 rounded-lg w-auto"
+              style={{ backgroundColor: "#fdfdfd" }}
             >
               <span className="font-semibold">LogIS</span>
               <span
@@ -47,7 +47,7 @@ const ToggleModal = ({
             </div>
             <span
               style={{
-                flexBasis: "18%",
+                flexGrow: "1",
                 height: "1px",
                 backgroundColor: "#1C82E1",
                 marginLeft: "16px",

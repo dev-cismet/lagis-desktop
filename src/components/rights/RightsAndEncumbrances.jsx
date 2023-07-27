@@ -37,7 +37,7 @@ const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      recht: "empty",
+      recht: "",
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 22",
@@ -234,6 +234,7 @@ const RightsAndEncumbrances = ({
                   { title: "Type of Right", rules: [{ required: true }] },
                   { title: "Number", rules: [{ required: true }] },
                   { title: "Deletion Data", rules: [{ required: true }] },
+                  { title: "Entry Data", rules: [{ required: true }] },
                   { title: "Remark", rules: [{ required: true }] },
                 ]}
                 size={8}
