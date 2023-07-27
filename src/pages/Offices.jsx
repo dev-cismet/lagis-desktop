@@ -24,7 +24,6 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle} style={{ height: "60%", ...marginBottomStyle }}>
         <Col span={8} flex="auto">
-          {/* <MockCard style={firstRowStyle} title="Agencies" /> */}
           <Agencies />
         </Col>
         <Col span={16}>
@@ -34,15 +33,12 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
 
       <Row gutter={gutterStyle} style={{ height: "40%" }}>
         <Col span={8}>
-          {/* <MockCard style={secondRowStyle} title="Additional Role" /> */}
           <AdditionalRole />
         </Col>
         <Col span={8}>
-          {/* <MockCard style={secondRowStyle} title="Streetfronts" /> */}
           <Streetfronts />
         </Col>
         <Col span={8} flex="auto">
-          {/* <MockCard style={secondRowStyle} title="Notes" /> */}
           <Notes />
         </Col>
       </Row>

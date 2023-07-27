@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import { Input, Checkbox } from "antd";
+import CustomNotes from "../ui/notes/CustomNotes";
 const { TextArea } = Input;
 const mockExtractor = (input) => {
   return { note: "3" };
@@ -24,25 +25,7 @@ const Notes = ({
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <div
-          style={{
-            flexGrow: "1",
-            padding: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            height,
-          }}
-        >
-          <TextArea
-            className="shadow"
-            style={{
-              resize: "none",
-              border: "none",
-              outline: "none",
-              flexGrow: "1",
-            }}
-          />
-        </div>
+        <CustomNotes />
       </InfoBlock>
     </div>
   );

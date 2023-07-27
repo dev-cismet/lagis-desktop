@@ -3,7 +3,10 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
-import { Table, Tag } from "antd";
+import { Row, Col, Tag } from "antd";
+import CustomNotes from "../ui/notes/CustomNotes";
+import CustomH3 from "../ui/titles/CustomH3";
+
 const columns = [
   {
     title: "Lage",
@@ -131,6 +134,20 @@ const RentBlock = ({
         }
       >
         <TableMock columns={columns} data={data} pagination={false} />
+        <Row gutter={[2, 16]}>
+          <Col span={12}>
+            <div className="mt-16">
+              <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
+              <CustomNotes />
+            </div>
+          </Col>
+          <Col span={12}>
+            <div className="mt-16">
+              <CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
+              <CustomNotes />
+            </div>
+          </Col>
+        </Row>
       </InfoBlock>
     </div>
   );
