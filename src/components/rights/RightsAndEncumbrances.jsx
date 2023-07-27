@@ -239,6 +239,7 @@ const RightsAndEncumbrances = ({
                 size={8}
               />
             }
+            modalWidth={900}
           />
         }
       >

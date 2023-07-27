@@ -70,15 +70,13 @@ const Agencies = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Dienststellen"
-            // inutFirst="Dienststelle"
-            // inutSecond="Gläche in m2"
             content={
               <ModalForm
                 fields={[
                   { title: "Dienststelle", rules: [{ required: true }] },
                   { title: "Gläche in m2", rules: [{ required: true }] },
                 ]}
-                size={12}
+                size={24}
               />
             }
           />

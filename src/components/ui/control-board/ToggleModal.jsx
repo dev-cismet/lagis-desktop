@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import { Modal, Divider } from "antd";
 import OfficesForm from "../forms/ModalForm";
 import "./toggle.css";
-const ToggleModal = ({ children, section, name, content }) => {
+const ToggleModal = ({
+  children,
+  section,
+  name,
+  content,
+  modalWidth = 520,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
+  // const modalWidth = width;
   const btnStyle = {
     width: "15px",
     height: "15px",
@@ -21,6 +28,7 @@ const ToggleModal = ({ children, section, name, content }) => {
       </span>
       <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
       <Modal
+        width={modalWidth}
         title={
           <div className="flex items-center flex-wrap mt-4 mb-8">
             <div
