@@ -26,7 +26,11 @@ const SubmitButton = ({ form }) => {
   );
 };
 
-const ModalForm = ({ fields, size = 24 }) => {
+const ModalForm = ({
+  fields,
+  size = 24,
+  buttonPosition = { justifyContent: "center" },
+}) => {
   const [form] = Form.useForm();
   const inputStyle = {
     border: "1px solid #D9D9D9",
@@ -51,8 +55,8 @@ const ModalForm = ({ fields, size = 24 }) => {
           </Col>
         ))}
       </Row>
-      <Form.Item>
-        <div className="flex items-center justify-center">
+      <Form.Item style={{ margin: "10px" }}>
+        <div className="flex items-center" style={buttonPosition}>
           <Button type="primary" ghost htmlType="reset" className="mr-4">
             Cancel
           </Button>

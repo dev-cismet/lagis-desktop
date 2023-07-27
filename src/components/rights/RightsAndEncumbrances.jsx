@@ -238,6 +238,7 @@ const RightsAndEncumbrances = ({
                   { title: "Remark", rules: [{ required: true }] },
                 ]}
                 size={8}
+                buttonPosition={{ justifyContent: "end" }}
               />
             }
             modalWidth={900}
