@@ -4,15 +4,14 @@ import "./App.css";
 import React from "react";
 import { Button, Space } from "antd";
 import { Typography } from "antd";
-import Notes from "./components/offices/Notes";
-import OfficesForm from "./components/ui/forms/OfficesForm";
-import RightsPage from "./pages/RightsPage";
+import NFKOverwie from "./components/usage/NFKOverwie";
+
 const { Title } = Typography;
 function App() {
   const [count, setCount] = useState(0);
   return (
     <div className="App">
-      <RightsPage first="Agency Name" second="Area in m2" />
+      <NFKOverwie />
     </div>
   );
   return (

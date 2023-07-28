@@ -174,7 +174,12 @@ const UsageBlock = ({
           </ToggleModal>
         }
       >
-        <TableMock columns={columns} data={data} pagination={false} />
+        <TableMock
+          columns={columns}
+          data={data}
+          pagination={false}
+          addClass="nfk-cover"
+        />
       </InfoBlock>
     </div>
   );

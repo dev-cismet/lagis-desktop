@@ -1,7 +1,7 @@
 import React from "react";
-import Map from "../components/commons/Map";
 import { Col, Row } from "antd";
-import MockCard from "../components/mock/MockCard";
+import UsageBlock from "../components/usage/UsageBlock";
+import NFKOverwie from "../components/usage/NFKOverwie";
 
 const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -12,9 +12,9 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.4 - 12 };
-  const gutterStyle = [0, 0];
-  const marginBottomStyle = { marginBottom: "0px" };
+  const rowStyle = { width: "100%", height: height * 0.5 - 24 };
+  const gutterStyle = [16, 16];
+  const marginBottomStyle = { marginBottom: "24px" };
   return (
     <div
       style={{
@@ -24,14 +24,14 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
         backgroundColor: "#F1F1F1",
       }}
     >
-      <Row gutter={gutterStyle} style={{ height: "40%", ...marginBottomStyle }}>
+      <Row gutter={gutterStyle} style={{ height: "50%", ...marginBottomStyle }}>
         <Col span={24}>
-          <Map width={"100%"} height={firstRowStyle.height} />
+          <UsageBlock />
         </Col>
       </Row>
-      <Row gutter={gutterStyle} style={{ height: "60%" }}>
+      <Row gutter={gutterStyle} style={{ height: "50%" }}>
         <Col span={24}>
-          <MockCard />
+          <NFKOverwie height={rowStyle.height} />
         </Col>
       </Row>
     </div>

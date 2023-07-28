@@ -54,7 +54,11 @@ const NFKOverwie = ({
       style={
         isStory
           ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
+          : {
+              height: `${height}px`,
+              borderRadius: "6px",
+              backgroundColor: "white",
+            }
       }
     >
       <InfoBlock
