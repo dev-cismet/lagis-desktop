@@ -63,7 +63,14 @@ const Agencies = ({
   const storyStyle = { width, height, ...style };
 
   return (
-    <div style={isStory ? storyStyle : { height: "96%" }}>
+    <div
+      style={
+        isStory
+          ? storyStyle
+          : { height: "97%", backgroundColor: "white", borderRadius: "6px" }
+      }
+      className="shadow-md"
+    >
       <InfoBlock
         title="Dienststellen"
         controlBar={

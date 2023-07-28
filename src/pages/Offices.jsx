@@ -1,7 +1,6 @@
 import React from "react";
 import Map from "../components/commons/Map";
 import { Col, Row } from "antd";
-import MockCard from "../components/mock/MockCard";
 import Agencies from "../components/offices/Agencies";
 import AdditionalRole from "../components/offices/AdditionalRole";
 import Streetfronts from "../components/offices/Streetfronts";
@@ -13,12 +12,13 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       borderStyle: "dotted",
       borderWidth: "1px solid",
       padding: "10px",
+      backgroundColor: "#F1F1F1",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.6 - 12 };
-  const secondRowStyle = { width: "100%", height: height * 0.4 - 12 };
-  const gutterStyle = [12, 12];
-  const marginBottomStyle = { marginBottom: "12px" };
+  const firstRowStyle = { width: "100%", height: height * 0.6 - 8 };
+  const secondRowStyle = { width: "100%", height: height * 0.4 - 8 };
+  const gutterStyle = [16, 16];
+  const marginBottomStyle = { marginBottom: "8px" };
 
   return (
     <div style={{ ...storyStyle, width, height }}>
@@ -38,8 +38,8 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
         <Col span={8}>
           <Streetfronts />
         </Col>
-        <Col span={8} flex="auto">
-          <Notes />
+        <Col span={8}>
+          <Notes height={secondRowStyle.height} />
         </Col>
       </Row>
     </div>

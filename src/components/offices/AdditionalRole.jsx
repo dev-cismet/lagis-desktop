@@ -49,7 +49,13 @@ const AdditionalRole = ({
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div style={isStory ? storyStyle : { height: "80%", overflow: "auto" }}>
+    <div
+      style={
+        isStory
+          ? storyStyle
+          : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
+      }
+    >
       <InfoBlock
         title="Zusätzliche Rollen"
         controlBar={

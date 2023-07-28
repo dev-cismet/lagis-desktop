@@ -9,7 +9,6 @@ import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
 import { Col, Row } from "antd";
-import MockTileCard from "../components/mock/MockTileCard";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -17,12 +16,13 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       borderStyle: "dotted",
       borderWidth: "1px solid",
       padding: "10px",
+      backgroundColor: "#F1F1F1",
     };
   }
   const cardStyle = { width: "100%", height: (height - 3 * 12) / 4 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "0px" };
-  console.log("!!!!", cardStyle.height)
+  console.log("!!!!", cardStyle.height);
   return (
     <div style={{ ...storyStyle, width, height }}>
       <Row gutter={gutterStyle}>
@@ -30,7 +30,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Row gutter={gutterStyle} style={marginBottomStyle}>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 1" /> */}
-              <Offices 
+              <Offices
                 style={marginBottomStyle}
                 width={cardStyle.width}
                 height={cardStyle.height}
@@ -46,7 +46,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 3" /> */}
-              <Rights 
+              <Rights
                 style={marginBottomStyle}
                 width={cardStyle.width}
                 height={cardStyle.height}
@@ -54,7 +54,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             </Col>
             <Col span={12}>
               {/* <MockTileCard style={cardStyle} title="Tile 4" /> */}
-              <Usage  
+              <Usage
                 style={marginBottomStyle}
                 width={cardStyle.width}
                 height={cardStyle.height}

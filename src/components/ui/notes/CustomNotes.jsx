@@ -1,6 +1,6 @@
 import { Input } from "antd";
 const { TextArea } = Input;
-const CustomNotes = () => {
+const CustomNotes = ({ height }) => {
   return (
     <div
       style={{
@@ -8,6 +8,7 @@ const CustomNotes = () => {
         padding: "0.8rem",
         display: "flex",
         flexDirection: "column",
+        height: height - 64,
       }}
     >
       <TextArea
@@ -17,7 +18,6 @@ const CustomNotes = () => {
           border: "none",
           outline: "none",
           flexGrow: "1",
-          minHeight: "180px",
         }}
       />
     </div>

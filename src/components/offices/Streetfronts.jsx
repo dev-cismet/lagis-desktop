@@ -49,15 +49,20 @@ const Streetfronts = ({
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div className="" style={isStory ? storyStyle : { height: "80%" }}>
+    <div
+      className=""
+      style={
+        isStory
+          ? storyStyle
+          : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
+      }
+    >
       <InfoBlock
         title="Straßenfronten"
         controlBar={
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Straßenfronten"
-            // inutFirst="Straßen"
-            // inutSecond="Length"
             content={
               <ModalForm
                 fields={[

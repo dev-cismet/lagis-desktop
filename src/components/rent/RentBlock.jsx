@@ -108,7 +108,16 @@ const RentBlock = ({
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div style={isStory ? storyStyle : { height: "96%" }}>
+    <div
+      style={
+        isStory
+          ? storyStyle
+          : {
+              height: "100%",
+              backgroundColor: "#FFFFFF",
+            }
+      }
+    >
       <InfoBlock
         title="Miet- und Pachtverträge"
         controlBar={
@@ -136,13 +145,13 @@ const RentBlock = ({
         <TableMock columns={columns} data={data} pagination={false} />
         <Row gutter={[2, 16]}>
           <Col span={12}>
-            <div className="mt-16">
+            <div className="mt-8">
               <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
               <CustomNotes />
             </div>
           </Col>
           <Col span={12}>
-            <div className="mt-16">
+            <div className="mt-8">
               <CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
               <CustomNotes />
             </div>
