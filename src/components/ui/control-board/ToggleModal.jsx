@@ -19,7 +19,7 @@ const ToggleModal = ({
     cursor: "pointer",
   };
   return (
-    <div className="flex gap-1 itemes center">
+    <div className="flex gap-1 items-center">
       {children}
       <span style={btnStyle} onClick={() => setModalOpen(true)}>
         +

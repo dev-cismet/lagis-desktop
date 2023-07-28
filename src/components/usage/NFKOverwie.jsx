@@ -3,7 +3,8 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
-import { CopyOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { EuroCircleOutlined } from "@ant-design/icons";
+import { Button, Tag } from "antd";
 const columns = [
   {
     title: "Anlageklasse",
@@ -58,6 +59,15 @@ const NFKOverwie = ({
     >
       <InfoBlock
         title="Nutzung"
+        titleAction={
+          <Tag
+            bordered={false}
+            color="blue"
+            style={{ padding: "0.3rem 0.8rem" }}
+          >
+            Stille Reserve: 40.000 €
+          </Tag>
+        }
         controlBar={
           <ToggleModal
             section="Nutzung"
@@ -73,17 +83,11 @@ const NFKOverwie = ({
               />
             }
           >
-            {/*
-            <div className="mr-8">
-               <SnippetsOutlined
-                className="text-base mx-4"
-                style={{ color: "#1890FF" }}
-              />
-              <CopyOutlined
-                className="text-base mx-4"
-                style={{ color: "#1890FF" }}
-              />
-            </div> */}
+            <div className="mr-8 Button">
+              <Button type="primary" icon={<EuroCircleOutlined />}>
+                Buchen
+              </Button>
+            </div>
           </ToggleModal>
         }
       >

@@ -1,15 +1,11 @@
 import HeadBlock from "../heads/HeadBlock";
 
-const InfoBlock = ({ title, children, controlBar }) => {
+const InfoBlock = ({ title, children, controlBar, titleAction }) => {
   return (
-    <div
-      style={
-        {
-          // height: "100%",
-        }
-      }
-    >
-      <HeadBlock title={title}>{controlBar}</HeadBlock>
+    <div>
+      <HeadBlock title={title} titleAction={titleAction}>
+        {controlBar}
+      </HeadBlock>
       {children}
     </div>
   );

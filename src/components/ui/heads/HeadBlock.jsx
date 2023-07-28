@@ -1,8 +1,8 @@
 import { MenuOutlined } from "@ant-design/icons";
-const HeadBlock = ({ title, children }) => {
+const HeadBlock = ({ title, children, titleAction }) => {
   return (
     <div
-      className="flex justify-between items-center px-3"
+      className="flex justify-start items-center px-3"
       style={{
         borderBottom: "1px solid #C4C4C4",
         backgroundColor: "#FFFFFF",
@@ -11,12 +11,13 @@ const HeadBlock = ({ title, children }) => {
     >
       <MenuOutlined style={{ fontSize: "14px" }} />
       <h3
-        className="mx-0 my-3 text-left mr-auto ml-3 text-base"
+        className="mx-0 my-3 text-left ml-3 mr-3 text-base"
         style={{ color: "#474747" }}
       >
         {title}
       </h3>
-      <div>{children}</div>
+      {titleAction && titleAction}
+      <div className="ml-auto"> {children}</div>
     </div>
   );
 };
