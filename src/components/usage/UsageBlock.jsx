@@ -161,14 +161,14 @@ const UsageBlock = ({
             }
             modalWidth={900}
           >
-            <div className="mr-8">
+            <div className="mr-4">
               <SnippetsOutlined
-                className="text-base mx-4"
-                style={{ color: "1890FF" }}
+                className="text-base mx-1"
+                style={{ color: "#1890FF", fontSize: "15px" }}
               />
               <CopyOutlined
-                className="text-base mx-4"
-                style={{ color: "1890FF" }}
+                className="text-base mx-1"
+                style={{ color: "#1890FF", fontSize: "15px" }}
               />
             </div>
           </ToggleModal>

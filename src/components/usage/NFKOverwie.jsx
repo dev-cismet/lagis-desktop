@@ -73,16 +73,17 @@ const NFKOverwie = ({
               />
             }
           >
+            {/*
             <div className="mr-8">
-              <SnippetsOutlined
+               <SnippetsOutlined
                 className="text-base mx-4"
-                style={{ color: "1890FF" }}
+                style={{ color: "#1890FF" }}
               />
               <CopyOutlined
                 className="text-base mx-4"
-                style={{ color: "1890FF" }}
+                style={{ color: "#1890FF" }}
               />
-            </div>
+            </div> */}
           </ToggleModal>
         }
       >
