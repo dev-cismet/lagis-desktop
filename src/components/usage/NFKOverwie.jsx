@@ -3,37 +3,38 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { CopyOutlined, SnippetsOutlined } from "@ant-design/icons";
 const columns = [
   {
-    title: "Service",
-    dataIndex: "service",
+    title: "Anlageklasse",
+    dataIndex: "anlageklasse",
   },
   {
-    title: "Role",
-    dataIndex: "role",
+    title: "Summe",
+    dataIndex: "summe",
   },
 ];
 const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      service: "12345678910",
-      role: "02.05.2023",
+      anlageklasse: "12345678910",
+      summe: "2609.10 €",
     },
     {
       key: "2",
-      service: "12345678910",
-      role: "02.05.2023",
+      anlageklasse: "12345678910",
+      summe: "2609.10 €",
     },
     {
       key: "3",
-      service: "12345678910",
-      role: "02.05.2023",
+      anlageklasse: "12345678910",
+      summe: "2609.10 €",
     },
     {
       key: "4",
-      service: "12345678910",
-      role: "02.05.2023",
+      anlageklasse: "12345678910",
+      summe: "2609.10 €",
     },
   ];
 };
@@ -54,7 +55,40 @@ const NFKOverwie = ({
           ? storyStyle
           : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
       }
-    ></div>
+    >
+      <InfoBlock
+        title="Nutzung"
+        controlBar={
+          <ToggleModal
+            section="Nutzung"
+            name="NKF Overview"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Anlageklasse", rules: [{ required: true }] },
+                  { title: "Summe", rules: [{ required: true }] },
+                ]}
+                size={24}
+                buttonPosition={{ justifyContent: "center" }}
+              />
+            }
+          >
+            <div className="mr-8">
+              <SnippetsOutlined
+                className="text-base mx-4"
+                style={{ color: "1890FF" }}
+              />
+              <CopyOutlined
+                className="text-base mx-4"
+                style={{ color: "1890FF" }}
+              />
+            </div>
+          </ToggleModal>
+        }
+      >
+        <TableMock columns={columns} data={data} pagination={false} />
+      </InfoBlock>
+    </div>
   );
 };
 
