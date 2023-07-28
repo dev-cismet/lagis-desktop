@@ -3,37 +3,110 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { CopyOutlined, SnippetsOutlined } from "@ant-design/icons";
 const columns = [
   {
-    title: "Service",
-    dataIndex: "service",
+    title: "Nutzung Nr",
+    dataIndex: "nutzung",
   },
   {
-    title: "Role",
-    dataIndex: "role",
+    title: "Buchungs-Nr",
+    dataIndex: "buchungs",
+  },
+  {
+    title: "Anlageklasse",
+    dataIndex: "anlageklasse",
+  },
+  {
+    title: "Nutzungsart",
+    dataIndex: "nutzungsart",
+  },
+  {
+    title: "Nutzungsarten-bezeichnung",
+    dataIndex: "bezeichnung",
+  },
+  {
+    title: "Fläche/m2",
+    dataIndex: "fläche",
+  },
+  {
+    title: "m2 Preis",
+    dataIndex: "preis",
+  },
+  {
+    title: "Gesamtpreis",
+    dataIndex: "gesamtpreis",
+  },
+  {
+    title: "Stille Reserve",
+    dataIndex: "stille",
+  },
+  {
+    title: "Buchwert",
+    dataIndex: "buchwert",
+  },
+  {
+    title: "Bemerkung",
+    dataIndex: "bemerkung",
   },
 ];
 const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      service: "12345678910",
-      role: "02.05.2023",
+      nutzung: "2372846",
+      buchungs: "1",
+      anlageklasse: "Infrastrukturvermögen Grundstücke",
+      nutzungsart: "3273-12376",
+      bezeichnung: "Verkehr - Fahrweg",
+      fläche: "2132",
+      preis: "38274€",
+      gesamtpreis: "38274€",
+      stille: "",
+      buchwert: "",
+      bemerkung: "",
     },
     {
       key: "2",
-      service: "12345678910",
-      role: "02.05.2023",
+      nutzung: "2372846",
+      buchungs: "1",
+      anlageklasse: "Infrastrukturvermögen Grundstücke",
+      nutzungsart: "3273-12376",
+      bezeichnung: "Verkehr - Fahrweg",
+      fläche: "2132",
+      preis: "38274€",
+      gesamtpreis: "38274€",
+      stille: "",
+      buchwert: "",
+      bemerkung: "",
     },
     {
       key: "3",
-      service: "12345678910",
-      role: "02.05.2023",
+      nutzung: "2372846",
+      buchungs: "1",
+      anlageklasse: "Infrastrukturvermögen Grundstücke",
+      nutzungsart: "3273-12376",
+      bezeichnung: "Verkehr - Fahrweg",
+      fläche: "2132",
+      preis: "38274€",
+      gesamtpreis: "38274€",
+      stille: "",
+      buchwert: "",
+      bemerkung: "",
     },
     {
       key: "4",
-      service: "12345678910",
-      role: "02.05.2023",
+      nutzung: "2372846",
+      buchungs: "1",
+      anlageklasse: "Infrastrukturvermögen Grundstücke",
+      nutzungsart: "3273-12376",
+      bezeichnung: "Verkehr - Fahrweg",
+      fläche: "2132",
+      preis: "38274€",
+      gesamtpreis: "38274€",
+      stille: "",
+      buchwert: "",
+      bemerkung: "",
     },
   ];
 };
@@ -53,9 +126,57 @@ const UsageBlock = ({
       style={
         isStory
           ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
+          : {
+              height: "100%",
+              backgroundColor: "#FFFFFF",
+            }
       }
-    ></div>
+    >
+      <InfoBlock
+        title="Nutzung"
+        controlBar={
+          <ToggleModal
+            section="Nutzung"
+            content={
+              <ModalForm
+                fields={[
+                  { title: "Nutzung Nr", rules: [{ required: true }] },
+                  { title: "Buchungs-Nr", rules: [{ required: true }] },
+                  { title: "Anlageklasse", rules: [{ required: true }] },
+                  { title: "Nutzungsart", rules: [{ required: true }] },
+                  {
+                    title: "Nutzungsarten-bezeichnung",
+                    rules: [{ required: true }],
+                  },
+                  { title: "Fläche/m2", rules: [{ required: true }] },
+                  { title: "m2 Preis", rules: [{ required: true }] },
+                  { title: "Gesamtpreis", rules: [{ required: true }] },
+                  { title: "Buchwert", rules: [{ required: true }] },
+                  { title: "Stille Reserve", rules: [{ required: true }] },
+                  { title: "Bemerkung", rules: [{ required: true }] },
+                ]}
+                size={8}
+                buttonPosition={{ justifyContent: "end" }}
+              />
+            }
+            modalWidth={900}
+          >
+            <div className="mr-8">
+              <SnippetsOutlined
+                className="text-base mx-4"
+                style={{ color: "1890FF" }}
+              />
+              <CopyOutlined
+                className="text-base mx-4"
+                style={{ color: "1890FF" }}
+              />
+            </div>
+          </ToggleModal>
+        }
+      >
+        <TableMock columns={columns} data={data} pagination={false} />
+      </InfoBlock>
+    </div>
   );
 };
 
