@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
-import { CopyOutlined, SnippetsOutlined } from "@ant-design/icons";
+import DocsIcons from "../ui/Blocks/DocsIcons";
 const columns = [
   {
     title: "Nutzung Nr",
@@ -161,16 +161,7 @@ const UsageBlock = ({
             }
             modalWidth={900}
           >
-            <div className="mr-4">
-              <SnippetsOutlined
-                className="text-base mx-1"
-                style={{ color: "#1890FF", fontSize: "15px" }}
-              />
-              <CopyOutlined
-                className="text-base mx-1"
-                style={{ color: "#1890FF", fontSize: "15px" }}
-              />
-            </div>
+            <DocsIcons classnames="mr-4" />
           </ToggleModal>
         }
       >
