@@ -3,6 +3,7 @@ const { TextArea } = Input;
 const CustomNotes = ({ height = 250 }) => {
   return (
     <div
+      className="custom-text"
       style={{
         // padding: "0.8rem",
         height: "100%",

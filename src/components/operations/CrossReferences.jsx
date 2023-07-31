@@ -5,6 +5,8 @@ import TableMock from "../ui/tables/TableMock";
 import CustomNotes from "../ui/notes/CustomNotes";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
+import React, { useRef, useEffect, useState } from "react";
+
 const { TabPane } = Tabs;
 
 const columns = [
@@ -92,11 +94,21 @@ const CrossReferences = ({
   height = 188,
   style,
 }) => {
+  const blockRef = useRef();
+  const [dimensions, setDimensions] = useState({});
+  useEffect(() => {
+    if (blockRef.current) {
+      setDimensions(blockRef.current.getBoundingClientRect());
+      console.log("111111111", dimensions.height);
+    }
+  }, []);
+
   const data = extractor(dataIn);
   return (
     <div
       className="cross-data"
       style={{ height: "100%", backgroundColor: "#FFFFFF" }}
+      ref={blockRef}
     >
       <InfoBlock
         title="Querverweise/Kosten/Beschlüsse"
@@ -120,7 +132,7 @@ const CrossReferences = ({
       >
         <Tabs defaultActiveKey="1" style={{ padding: "0 18px" }}>
           <TabPane tab="Querverweise" key="1">
-            <CustomNotes height={height} />
+            <CustomNotes height={dimensions.height * 0.85} />
           </TabPane>
           <TabPane tab="Kosten" key="2">
             <TableMock columns={columnsCosts} data={data.costs} />

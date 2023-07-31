@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row } from "antd";
-import MockCard from "../components/mock/MockCard";
 import Contracts from "../components/operations/Contracts";
 import ContractData from "../components/operations/ContractData";
 import CrossReferences from "../components/operations/CrossReferences";
@@ -13,10 +12,10 @@ const OperationsPage = ({
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
-      // borderStyle: "dotted",
-      // borderWidth: "1px solid",
+      borderStyle: "dotted",
+      borderWidth: "1px solid",
       background: "gray",
-      // padding: "4px",
+      padding: "4px",
     };
   }
   const firstRowStyle = { width: "100%", height: height * 0.47 - 20 };
@@ -35,8 +34,7 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          height: "47%",
-          // border: "2px solid blue",
+          border: "2px solid blue",
           ...marginBottomStyle,
         }}
       >
@@ -47,7 +45,6 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          height: secondRowStyle.height,
           border: "2px solid red",
         }}
       >
