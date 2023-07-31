@@ -3,7 +3,7 @@ import ContractForm from "../ui/forms/ContractForm";
 
 const ContractData = () => {
   return (
-    <div>
+    <div className="contract-data">
       <InfoBlock title="Vertragsdaten">
         <ContractForm />
       </InfoBlock>

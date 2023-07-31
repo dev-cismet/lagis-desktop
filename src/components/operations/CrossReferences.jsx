@@ -93,8 +93,9 @@ const CrossReferences = ({
   style,
 }) => {
   const data = extractor(dataIn);
+  console.log("Height+++++++", height);
   return (
-    <div>
+    <div className="cross-data" style={{ height: "100%" }}>
       <InfoBlock
         title="Querverweise/Kosten/Beschlüsse"
         controlBar={
@@ -117,7 +118,7 @@ const CrossReferences = ({
       >
         <Tabs defaultActiveKey="1">
           <TabPane tab="Querverweise" key="1">
-            <CustomNotes />
+            <CustomNotes height={height} />
           </TabPane>
           <TabPane tab="Kosten" key="2">
             <TableMock columns={columnsCosts} data={data.costs} />
