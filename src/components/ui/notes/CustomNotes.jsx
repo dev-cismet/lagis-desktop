@@ -4,7 +4,7 @@ const CustomNotes = ({ height = 250 }) => {
   return (
     <div
       style={{
-        padding: "0.8rem",
+        // padding: "0.8rem",
         height: "100%",
       }}
     >

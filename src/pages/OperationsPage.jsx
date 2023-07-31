@@ -14,15 +14,15 @@ const OperationsPage = ({
   if (inStory) {
     storyStyle = {
       // borderStyle: "dotted",
-      borderWidth: "1px solid",
+      // borderWidth: "1px solid",
       background: "gray",
-      padding: "4px",
+      // padding: "4px",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.5 - 16 };
-  const secondRowStyle = { width: "100%", height: height * 0.5 - 16 };
-  // const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "25px" };
+  const firstRowStyle = { width: "100%", height: height * 0.47 - 20 };
+  const secondRowStyle = { width: "100%", height: height * 0.53 - 20 };
+  const gutterStyle = [16, 16];
+  const marginBottomStyle = { marginBottom: "20px" };
   return (
     <div
       style={{
@@ -33,10 +33,10 @@ const OperationsPage = ({
       }}
     >
       <Row
-        gutter={[16, 16]}
+        gutter={gutterStyle}
         style={{
-          height: "50%",
-          border: "4px solid blue",
+          height: "47%",
+          // border: "2px solid blue",
           ...marginBottomStyle,
         }}
       >
@@ -44,7 +44,13 @@ const OperationsPage = ({
           <Contracts height={firstRowStyle.height} />
         </Col>
       </Row>
-      <Row gutter={[16, 48]} style={{ height: "50%", ...marginBottomStyle }}>
+      <Row
+        gutter={gutterStyle}
+        style={{
+          height: secondRowStyle.height,
+          border: "2px solid red",
+        }}
+      >
         <Col span={12}>
           <ContractData />
         </Col>

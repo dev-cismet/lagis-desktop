@@ -20,7 +20,7 @@ const ContractForm = () => {
           <Col span={24}>
             <Form.Item
               name="voreigentümer"
-              label="Voreigentümer"
+              label={<span style={{ fontSize: "12px" }}>Voreigentümer</span>}
               className={inputStile}
             >
               <Input />
@@ -32,7 +32,11 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="kaufpreis"
-              label="Kaufpreis (inkl. Nebenkosten)"
+              label={
+                <span style={{ fontSize: "12px" }}>
+                  Kaufpreis (inkl. Nebenkosten)
+                </span>
+              }
               className={inputStile}
             >
               <Input />
@@ -41,7 +45,7 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="auflassung"
-              label="Auflassung"
+              label={<span style={{ fontSize: "12px" }}>Auflassung</span>}
               className={inputStile}
             >
               <Input />
@@ -55,7 +59,9 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="quadratmeterpreis"
-              label="Quadratmeterpreis"
+              label={
+                <span style={{ fontSize: "12px" }}>Quadratmeterpreis</span>
+              }
               className={inputStile}
             >
               <Input />
@@ -64,7 +70,7 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="eintragung"
-              label="Eintragung"
+              label={<span style={{ fontSize: "12px" }}>Eintragung</span>}
               className={inputStile}
             >
               <Input />
@@ -78,7 +84,7 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="vertragsart"
-              label="Vertragsart"
+              label={<span style={{ fontSize: "12px" }}>Vertragsart</span>}
               className={inputStile}
             >
               <Input />
@@ -87,7 +93,7 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="aktenzeichen"
-              label="Aktenzeichen"
+              label={<span style={{ fontSize: "12px" }}>Aktenzeichen</span>}
               className={inputStile}
             >
               <Input />
