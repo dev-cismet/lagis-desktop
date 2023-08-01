@@ -3,6 +3,7 @@ import { Col, Row } from "antd";
 import Contracts from "../components/operations/Contracts";
 import ContractData from "../components/operations/ContractData";
 import CrossReferences from "../components/operations/CrossReferences";
+import NoteOperations from "../components/operations/NoteOperations";
 
 const OperationsPage = ({
   width = "100%",
@@ -34,7 +35,7 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          border: "2px solid blue",
+          // border: "2px solid blue",
           ...marginBottomStyle,
         }}
       >
@@ -45,7 +46,8 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          border: "2px solid red",
+          // border: "2px solid red",
+          ...marginBottomStyle,
         }}
       >
         <Col span={12}>
@@ -53,6 +55,17 @@ const OperationsPage = ({
         </Col>
         <Col span={12}>
           <CrossReferences height={secondRowStyle.height} />
+        </Col>
+      </Row>
+      <Row
+        gutter={gutterStyle}
+        style={{
+          // border: "2px solid red",
+          ...marginBottomStyle,
+        }}
+      >
+        <Col span={24}>
+          <NoteOperations />
         </Col>
       </Row>
     </div>

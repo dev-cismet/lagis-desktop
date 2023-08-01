@@ -1,11 +1,11 @@
 import { Input } from "antd";
 const { TextArea } = Input;
-const CustomNotes = ({ height = 250 }) => {
+const CustomNotes = ({ height = 250, padding = 0 }) => {
   return (
     <div
       className="custom-text"
       style={{
-        // padding: "0.8rem",
+        padding,
         height: "100%",
       }}
     >
