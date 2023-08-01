@@ -19,8 +19,8 @@ const OperationsPage = ({
       padding: "4px",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.47 - 20 };
-  const secondRowStyle = { width: "100%", height: height * 0.53 - 20 };
+  // const firstRowStyle = { width: "100%", height: height * 0.47 - 20 };
+  // const secondRowStyle = { width: "100%", height: height * 0.53 - 20 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "20px" };
   return (
@@ -40,7 +40,7 @@ const OperationsPage = ({
         }}
       >
         <Col span={24}>
-          <Contracts height={firstRowStyle.height} />
+          <Contracts />
         </Col>
       </Row>
       <Row
@@ -54,7 +54,7 @@ const OperationsPage = ({
           <ContractData />
         </Col>
         <Col span={12}>
-          <CrossReferences height={secondRowStyle.height} />
+          <CrossReferences />
         </Col>
       </Row>
       <Row
