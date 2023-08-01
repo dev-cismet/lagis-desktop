@@ -1,17 +1,24 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { Row, Col, Space } from "antd";
+import { Row, Col, Space, Select } from "antd";
+const handleChange = (value) => {
+  console.log(`selected ${value}`);
+};
 const mockExtractor = (input) => {
   return {
-    origin: { title: "Origin", data: "02.05.2023" },
-    historicalSince: {
-      title: "Historisch seit",
-      data: "Keine Informationen verfügbar",
-    },
-    lastOwnership: { title: "Letzter Stadtbesitz", data: "02.05.2023" },
+    successor: [
+      { value: "Direkte", label: "Direkte" },
+      { value: "Vorgänger", label: "Vorgänger" },
+      { value: "Nachfolger", label: "Nachfolger" },
+    ],
+    parcels: [
+      { value: "Direkte", label: "Direkte" },
+      { value: "Vorgänger", label: "Vorgänger" },
+      { value: "Nachfolger", label: "Nachfolger" },
+    ],
   };
 };
-const HistoryInfo = ({
+const View = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -21,8 +28,6 @@ const HistoryInfo = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const content = Object.keys(data);
-
   return (
     <div
       style={
@@ -36,31 +41,28 @@ const HistoryInfo = ({
       }
     >
       <InfoBlock title="Informationen">
-        {content.map((name) => (
-          <div
-            key={name}
-            style={{
-              borderBottom: "1px solid #F0F0F0",
-              padding: "10px",
-            }}
-          >
-            <Row wrap={true}>
-              <Col span={12}>
-                <div>{data[name].title}</div>
-              </Col>
-              <Col span={12}>
-                <div>{data[name].data}</div>
-              </Col>
-            </Row>
+        <div className="flex flex-col p-4">
+          <div className="my-4">
+            <Select
+              defaultValue="Nachfolger"
+              style={{ width: 120 }}
+              onChange={handleChange}
+              options={data.successor}
+            />
           </div>
-        ))}
+          <Select
+            defaultValue="lucy"
+            style={{ width: 120 }}
+            onChange={handleChange}
+            options={data.Vorgänger}
+          />
+        </div>
       </InfoBlock>
     </div>
   );
 };
-
-export default HistoryInfo;
-HistoryInfo.propTypes = {
+export default View;
+View.propTypes = {
   /**
    * The current main data object that is being used
    */
