@@ -42,7 +42,7 @@ const View = ({
       }
     >
       <InfoBlock title="Darstellung">
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col p-4 pt-1">
           <div className="my-4">
             <Select
               defaultValue="Nachfolger"

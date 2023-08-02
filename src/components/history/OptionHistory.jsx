@@ -34,20 +34,22 @@ const OptionHistory = ({
       }
     >
       <InfoBlock title="Optionen">
-        {data.options.map((i, idx) => (
-          <div
-            key={idx}
-            style={{
-              padding: "10px",
-            }}
-          >
-            <Row>
-              <Col span={24}>
-                <Checkbox onChange={onChange}>{i}</Checkbox>
-              </Col>
-            </Row>
-          </div>
-        ))}
+        <div className="mt-2">
+          {data.options.map((i, idx) => (
+            <div
+              key={idx}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <Row>
+                <Col span={24}>
+                  <Checkbox onChange={onChange}>{i}</Checkbox>
+                </Col>
+              </Row>
+            </div>
+          ))}
+        </div>
       </InfoBlock>
     </div>
   );
