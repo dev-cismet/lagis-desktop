@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { Row, Col, Space } from "antd";
+import { Row, Col } from "antd";
 const mockExtractor = (input) => {
   return {
     origin: { title: "Origin", data: "02.05.2023" },
@@ -41,6 +41,7 @@ const HistoryInfo = ({
             key={name}
             style={{
               borderBottom: "1px solid #F0F0F0",
+              margin: "10px",
               padding: "10px",
             }}
           >

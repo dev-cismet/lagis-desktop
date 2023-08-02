@@ -1,24 +1,13 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { Row, Col, Space, Select } from "antd";
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
+import { Row, Col, Checkbox } from "antd";
 const mockExtractor = (input) => {
   return {
-    successor: [
-      { value: "Direkte", label: "Direkte" },
-      { value: "Vorgänger", label: "Vorgänger" },
-      { value: "Nachfolger", label: "Nachfolger" },
-    ],
-    parcels: [
-      { value: "Direkte", label: "Direkte" },
-      { value: "Vorgänger", label: "Vorgänger" },
-      { value: "Nachfolger", label: "Nachfolger" },
-    ],
+    options: ["an Bildschirmgröße anpassen", "Historie halten"],
   };
 };
-const View = ({
+
+const OptionHistory = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -28,6 +17,9 @@ const View = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const onChange = (e) => {
+    console.log(`checked = ${e.target.checked}`);
+  };
   return (
     <div
       style={
@@ -41,28 +33,27 @@ const View = ({
       }
     >
       <InfoBlock title="Informationen">
-        <div className="flex flex-col p-4">
-          <div className="my-4">
-            <Select
-              defaultValue="Nachfolger"
-              style={{ width: 120 }}
-              onChange={handleChange}
-              options={data.successor}
-            />
+        {data.options.map((i, idx) => (
+          <div
+            key={idx}
+            style={{
+              padding: "10px",
+            }}
+          >
+            <Row>
+              <Col span={12}>
+                <Checkbox onChange={onChange}>{i}</Checkbox>
+              </Col>
+            </Row>
           </div>
-          <Select
-            defaultValue="Vorgänger"
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={data.parcels}
-          />
-        </div>
+        ))}
       </InfoBlock>
     </div>
   );
 };
-export default View;
-View.propTypes = {
+
+export default OptionHistory;
+OptionHistory.propTypes = {
   /**
    * The current main data object that is being used
    */
