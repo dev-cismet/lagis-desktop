@@ -3,12 +3,16 @@ import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
-
-const SubmitButton = ({ form }) => {
+const ModalForm = ({
+  fields,
+  size = 24,
+  buttonPosition = { justifyContent: "center" },
+  tagsBar = [],
+  file = false,
+}) => {
+  const [form] = Form.useForm();
   const [submittable, setSubmittable] = useState(false);
-
   const values = Form.useWatch([], form);
-
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
       () => {
@@ -19,22 +23,6 @@ const SubmitButton = ({ form }) => {
       }
     );
   }, [values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      Submit
-    </Button>
-  );
-};
-
-const ModalForm = ({
-  fields,
-  size = 24,
-  buttonPosition = { justifyContent: "center" },
-  tagsBar = [],
-  file = false,
-}) => {
-  const [form] = Form.useForm();
   const inputStyle = {
     border: "1px solid #D9D9D9",
     borderRadius: "2px",
@@ -89,7 +77,9 @@ const ModalForm = ({
           <Button type="primary" ghost htmlType="reset" className="mr-4">
             Cancel
           </Button>
-          <SubmitButton form={form} />
+          <Button type="primary" htmlType="submit" disabled={!submittable}>
+            {file ? " Upload" : " Submit"}
+          </Button>
         </div>
       </Form.Item>
     </Form>
