@@ -91,6 +91,7 @@ const DmsBlock = ({
                   { title: "Dateiname", rules: [{ required: true }] },
                   { title: "Beschreibung", rules: [{ required: true }] },
                 ]}
+                file={true}
               />
             }
           />
