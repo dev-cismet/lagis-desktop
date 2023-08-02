@@ -5,12 +5,13 @@ import React from "react";
 import { Button, Space } from "antd";
 import { Typography } from "antd";
 import UploadFiles from "./components/ui/forms/UploadFiles";
+import Logo from "./components/ui/logo/Logo";
 const { Title } = Typography;
 function App() {
   const [count, setCount] = useState(0);
   return (
     <div className="App">
-      <UploadFiles />
+      <Logo />
     </div>
   );
   return (
