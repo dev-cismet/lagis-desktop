@@ -32,6 +32,7 @@ const HistoryInfo = ({
               height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
+              height: "100%",
             }
       }
     >
@@ -45,7 +46,7 @@ const HistoryInfo = ({
               padding: "10px",
             }}
           >
-            <Row wrap={true}>
+            <Row>
               <Col span={12}>
                 <div>{data[name].title}</div>
               </Col>

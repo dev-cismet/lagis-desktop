@@ -29,10 +29,11 @@ const OptionHistory = ({
               height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
+              height: "100%",
             }
       }
     >
-      <InfoBlock title="Informationen">
+      <InfoBlock title="Optionen">
         {data.options.map((i, idx) => (
           <div
             key={idx}
@@ -41,7 +42,7 @@ const OptionHistory = ({
             }}
           >
             <Row>
-              <Col span={12}>
+              <Col span={24}>
                 <Checkbox onChange={onChange}>{i}</Checkbox>
               </Col>
             </Row>

@@ -37,10 +37,11 @@ const View = ({
               height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
+              height: "100%",
             }
       }
     >
-      <InfoBlock title="Informationen">
+      <InfoBlock title="Darstellung">
         <div className="flex flex-col p-4">
           <div className="my-4">
             <Select
