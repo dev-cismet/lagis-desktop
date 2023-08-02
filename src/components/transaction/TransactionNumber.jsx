@@ -5,40 +5,39 @@ import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 const columns = [
   {
-    title: "Service",
-    dataIndex: "service",
+    title: "Kassenzeichen",
+    dataIndex: "kassenzeichen",
   },
   {
-    title: "Role",
-    dataIndex: "role",
+    title: "Zugeordnet am",
+    dataIndex: "zugeordnet",
   },
 ];
 const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      service: "12345678910",
-      role: "02.05.2023",
+      kassenzeichen: "1237563255",
+      zugeordnet: "02.05.2023",
     },
     {
       key: "2",
-      service: "12345678910",
-      role: "02.05.2023",
+      kassenzeichen: "1237563255",
+      zugeordnet: "02.05.2023",
     },
     {
       key: "3",
-      service: "12345678910",
-      role: "02.05.2023",
+      kassenzeichen: "1237563255",
+      zugeordnet: "02.05.2023",
     },
     {
       key: "4",
-      service: "12345678910",
-      role: "02.05.2023",
+      kassenzeichen: "1237563255",
+      zugeordnet: "02.05.2023",
     },
   ];
 };
-
-const AdditionalRole = ({
+const TransactionNumber = ({
   dataIn,
   extractor = mockExtractor,
   width = 231,
@@ -57,16 +56,15 @@ const AdditionalRole = ({
       }
     >
       <InfoBlock
-        title="Zusätzliche Rollen"
+        title="Kassenzeicheninformationen"
         controlBar={
           <ToggleModal
-            section="Verwaltungsbereiche"
-            name="Zusätzliche Rollen"
+            section="Kassenzeichen"
             content={
               <ModalForm
                 fields={[
-                  { title: "Service", rules: [{ required: true }] },
-                  { title: "Role", rules: [{ required: true }] },
+                  { title: "Kassenzeichen", rules: [{ required: true }] },
+                  { title: "Zugeordnet am", rules: [{ required: true }] },
                 ]}
               />
             }
@@ -78,8 +76,9 @@ const AdditionalRole = ({
     </div>
   );
 };
-export default AdditionalRole;
-AdditionalRole.propTypes = {
+
+export default TransactionNumber;
+TransactionNumber.propTypes = {
   /**
    * The current main data object that is being used
    */

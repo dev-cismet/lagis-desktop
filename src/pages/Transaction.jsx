@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import Map from "../components/commons/Map";
+import TransactionNumber from "../components/transaction/TransactionNumber";
 
 const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -12,6 +13,7 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const firstRowStyle = { width: "100%", height: height * 0.57 - 20 };
+  const secondRowStyle = { width: "100%", height: height * 0.43 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "20px" };
   return (
@@ -26,33 +28,23 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
       <Row
         gutter={gutterStyle}
         style={{
-          // border: "2px solid blue",
-          height: "57%",
+          height: firstRowStyle.height,
           ...marginBottomStyle,
         }}
       >
         <Col span={24}>
-          <Map width={"100%"} height={firstRowStyle.height} />
+          <Map width={"100%"} height={"100%"} />
         </Col>
       </Row>
       <Row
         gutter={gutterStyle}
         style={{
-          // border: "2px solid red",
-          ...marginBottomStyle,
+          height: secondRowStyle.height,
         }}
       >
-        <Col span={12}>{/* <ContractData /> */}</Col>
-        <Col span={12}>{/* <CrossReferences /> */}</Col>
-      </Row>
-      <Row
-        gutter={gutterStyle}
-        style={{
-          // border: "2px solid red",
-          ...marginBottomStyle,
-        }}
-      >
-        <Col span={24}>{/* <NoteOperations /> */}</Col>
+        <Col span={24}>
+          <TransactionNumber />
+        </Col>
       </Row>
     </div>
   );
