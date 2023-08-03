@@ -4,7 +4,7 @@ import UserName from "./UserName";
 
 const UserBar = () => {
   return (
-    <div className="flex items-center py-4 pr-4">
+    <div className="flex items-center py-3 pr-4">
       <div>
         <HeaderSelectors />
       </div>
