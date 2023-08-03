@@ -14,7 +14,12 @@ const BreadcrumbBlock = ({
     <Breadcrumb
       separator={decorCircle}
       items={items}
-      style={{ padding: "0.5rem", background: "white", borderRadius: "2px" }}
+      style={{
+        padding: "0.5rem",
+        margin: "0.3rem 0",
+        background: "white",
+        borderRadius: "2px",
+      }}
     />
   );
 };

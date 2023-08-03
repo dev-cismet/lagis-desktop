@@ -36,7 +36,7 @@ const items = [
 ];
 const SidebarMenu = () => {
   const storyWidth = 256;
-  const isStory = true;
+  const isStory = false;
   const storyStyle = {
     width: isStory ? storyWidth : "100%",
     height: isStory ? "600px" : "100%",
@@ -58,7 +58,7 @@ const SidebarMenu = () => {
       </div>
       <Menu
         style={{
-          width: storyWidth,
+          width: "100%",
         }}
         defaultSelectedKeys={["1"]}
         items={items}

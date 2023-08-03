@@ -1,6 +1,10 @@
 import React from "react";
 import { Row, Col } from "antd";
 import MockSpace from "../components/mock/MockSpace";
+import SidebarMenu from "../components/navigation/SidebarMenu";
+import UserBar from "../components/header/UserBar";
+import BreadcrumbBlock from "../components/ui/breadcrumb/BreadcrumbBlock";
+import Overview from "./Overview";
 
 const menuWidth = 260;
 const footerHeight = 42;
@@ -14,13 +18,13 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       borderStyle: "dotted",
       borderWidth: "1px",
       borderColor: "#ddd",
-      padding: "10px",
+      // padding: "10px",
     };
   }
 
-  const adjustedMenuWidth = menuWidth - gutter;
-  const adjustedToolbarHeight = toolbarHeight - gutter;
-  const adjustedFooterHeight = footerHeight - gutter;
+  // const adjustedMenuWidth = menuWidth - gutter;
+  // const adjustedToolbarHeight = toolbarHeight - gutter;
+  // const adjustedFooterHeight = footerHeight - gutter;
 
   return (
     <div
@@ -30,38 +34,36 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         height,
         display: "flex",
         flexDirection: "column",
-        padding: gutter,
+        background: "#F1F1F1",
+        // padding: gutter,
       }}
     >
       <Row
         style={{
-          height: `${adjustedToolbarHeight}px`,
-          marginBottom: `${gutter}px`,
+          height: "100%",
+          // marginBottom: `${gutter}px`,
         }}
+        gutter={20}
       >
-        <Col span={24}>
-          <MockSpace title="Toolbar" />
+        <Col span={5}>
+          <SidebarMenu />
         </Col>
-      </Row>
-      <Row
-        style={{ flexGrow: 1, display: "flex", marginBottom: `${gutter}px` }}
-      >
-        <Col
-          style={{
-            width: `${adjustedMenuWidth}px`,
-            height: "100%",
-            marginRight: `${gutter}px`,
-          }}
-        >
-          <MockSpace title="Menu" />
-        </Col>
-        <Col style={{ flexGrow: 1 }}>
-          <MockSpace title="Page Content" />
-        </Col>
-      </Row>
-      <Row style={{ height: `${adjustedFooterHeight}px` }}>
-        <Col span={24}>
-          <MockSpace title="Status Bar" />
+        <Col span={19}>
+          <Row gutter={16}>
+            <Col span={24}>
+              <UserBar />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <BreadcrumbBlock />
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24}>
+              <Overview />
+            </Col>
+          </Row>
         </Col>
       </Row>
     </div>
@@ -69,3 +71,27 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
 };
 
 export default MainLayout;
+
+{
+  /* <Row
+style={{ flexGrow: 1, display: "flex", marginBottom: `${gutter}px` }}
+>
+<Col
+  style={{
+    width: `${adjustedMenuWidth}px`,
+    height: "100%",
+    marginRight: `${gutter}px`,
+  }}
+>
+  <MockSpace title="Menu" />
+</Col>
+<Col style={{ flexGrow: 1 }}>
+  <MockSpace title="Page Content" />
+</Col>
+</Row>
+<Row style={{ height: `${adjustedFooterHeight}px` }}>
+<Col span={24}>
+  <MockSpace title="Status Bar" />
+</Col>
+</Row> */
+}
