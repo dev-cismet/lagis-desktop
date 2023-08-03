@@ -16,25 +16,19 @@ const HeaderSelectors = () => {
     console.log(`selected ${value}`);
   };
   return (
-    <div>
-      <Space>
-        <Select
-          defaultValue="Vohwinkel"
-          onChange={handleChange}
-          options={names}
-        />
-        <Select
-          defaultValue="10"
-          onChange={handleChange}
-          options={numbersSmall}
-        />
-        <Select
-          defaultValue="10"
-          onChange={handleChange}
-          options={numbersBig}
-        />
-      </Space>
-    </div>
+    <Space>
+      <Select
+        defaultValue="Vohwinkel"
+        onChange={handleChange}
+        options={names}
+      />
+      <Select
+        defaultValue="10"
+        onChange={handleChange}
+        options={numbersSmall}
+      />
+      <Select defaultValue="10" onChange={handleChange} options={numbersBig} />
+    </Space>
   );
 };
 export default HeaderSelectors;
