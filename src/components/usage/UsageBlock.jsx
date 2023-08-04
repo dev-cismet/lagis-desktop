@@ -129,8 +129,10 @@ const UsageBlock = ({
           : {
               height: "100%",
               backgroundColor: "#FFFFFF",
+              borderRadius: "6px",
             }
       }
+      className="shadow-md"
     >
       <InfoBlock
         title="Nutzung"

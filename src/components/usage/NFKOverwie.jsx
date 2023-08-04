@@ -55,11 +55,12 @@ const NFKOverwie = ({
         isStory
           ? storyStyle
           : {
-              height: `${height}px`,
+              height: "100%",
               borderRadius: "6px",
               backgroundColor: "white",
             }
       }
+      className="shadow-md"
     >
       <InfoBlock
         title="Nutzung"
@@ -67,7 +68,7 @@ const NFKOverwie = ({
           <Tag
             bordered={false}
             color="blue"
-            style={{ padding: "0.3rem 0.8rem" }}
+            style={{ padding: "0.1rem 0.8rem" }}
           >
             Stille Reserve: 40.000 €
           </Tag>
@@ -88,7 +89,7 @@ const NFKOverwie = ({
             }
           >
             <div className="mr-8 Button">
-              <Button type="primary" icon={<EuroCircleOutlined />}>
+              <Button type="primary" size="small" icon={<EuroCircleOutlined />}>
                 Buchen
               </Button>
             </div>

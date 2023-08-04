@@ -24,14 +24,14 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
         backgroundColor: "#F1F1F1",
       }}
     >
-      <Row gutter={gutterStyle} style={{ height: "50%", ...marginBottomStyle }}>
+      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
         <Col span={24}>
           <UsageBlock />
         </Col>
       </Row>
-      <Row gutter={gutterStyle} style={{ height: "50%" }}>
+      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
         <Col span={24}>
-          <NFKOverwie height={rowStyle.height} />
+          <NFKOverwie />
         </Col>
       </Row>
     </div>
