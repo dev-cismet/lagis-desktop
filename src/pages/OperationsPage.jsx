@@ -19,8 +19,6 @@ const OperationsPage = ({
       padding: "4px",
     };
   }
-  // const firstRowStyle = { width: "100%", height: height * 0.47 - 20 };
-  // const secondRowStyle = { width: "100%", height: height * 0.53 - 20 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "20px" };
   return (
@@ -30,12 +28,12 @@ const OperationsPage = ({
         width,
         height,
         backgroundColor: "#F1F1F1",
+        paddingRight: "20px",
       }}
     >
       <Row
         gutter={gutterStyle}
         style={{
-          // border: "2px solid blue",
           ...marginBottomStyle,
         }}
       >
@@ -46,7 +44,6 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          // border: "2px solid red",
           ...marginBottomStyle,
         }}
       >
@@ -60,7 +57,6 @@ const OperationsPage = ({
       <Row
         gutter={gutterStyle}
         style={{
-          // border: "2px solid red",
           ...marginBottomStyle,
         }}
       >
