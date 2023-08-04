@@ -49,6 +49,7 @@ const TransactionNumber = ({
   const storyStyle = { width, height, ...style };
   return (
     <div
+      className="shadow-md"
       style={
         isStory
           ? storyStyle
