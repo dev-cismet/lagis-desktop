@@ -25,7 +25,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
     >
       <Row gutter={gutterStyle} style={{ height: "40%", ...marginBottomStyle }}>
         <Col span={24}>
-          <Map width={"100%"} height={firstRowStyle.height} />
+          <Map width={"100%"} height={"100%"} />
         </Col>
       </Row>
 
