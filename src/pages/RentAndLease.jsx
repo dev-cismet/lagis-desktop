@@ -13,7 +13,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const firstRowStyle = { width: "100%", height: height * 0.4 - 12 };
   const gutterStyle = [0, 0];
-  const marginBottomStyle = { marginBottom: "0px" };
+  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
@@ -23,13 +23,16 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         backgroundColor: "#F1F1F1",
       }}
     >
-      <Row gutter={gutterStyle} style={{ height: "40%", ...marginBottomStyle }}>
+      <Row
+        gutter={gutterStyle}
+        style={{ minHeight: "200px", ...marginBottomStyle }}
+      >
         <Col span={24}>
           <Map width={"100%"} height={"100%"} />
         </Col>
       </Row>
 
-      <Row gutter={gutterStyle} style={{ height: "60%" }}>
+      <Row gutter={gutterStyle}>
         <Col span={24}>
           <RentBlock />
         </Col>

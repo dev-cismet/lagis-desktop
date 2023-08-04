@@ -11,12 +11,13 @@ const CustomNotes = ({ height = 250, styles }) => {
       }}
     >
       <TextArea
-        className="shadow"
+        className="shadow-md"
         style={{
           resize: "none",
-          border: "none",
+          // border: "none",
           outline: "none",
           flexGrow: 1,
+          minHeight: "140px",
         }}
       />
     </div>

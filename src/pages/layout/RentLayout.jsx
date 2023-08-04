@@ -4,7 +4,6 @@ import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
 import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
-import Offices from "../Offices";
 import RentAndLease from "../RentAndLease";
 const RentLayout = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
