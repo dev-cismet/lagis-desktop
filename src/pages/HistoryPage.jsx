@@ -25,8 +25,8 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
       }}
     >
       <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
-        <Col span={8}>
-          <Graph width={width} height={height} />
+        <Col span={24}>
+          <Graph width={width} height="50%" />
         </Col>
       </Row>
       <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>

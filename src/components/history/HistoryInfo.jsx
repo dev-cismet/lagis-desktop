@@ -25,6 +25,7 @@ const HistoryInfo = ({
 
   return (
     <div
+      className="shadow-md"
       style={
         isStory
           ? storyStyle

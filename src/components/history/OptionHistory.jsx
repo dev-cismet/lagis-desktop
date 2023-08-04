@@ -22,6 +22,7 @@ const OptionHistory = ({
   };
   return (
     <div
+      className="shadow-md"
       style={
         isStory
           ? storyStyle

@@ -28,7 +28,6 @@ const OperationsPage = ({
         width,
         height,
         backgroundColor: "#F1F1F1",
-        paddingRight: "20px",
       }}
     >
       <Row
