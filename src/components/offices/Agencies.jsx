@@ -61,13 +61,12 @@ const Agencies = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-
   return (
     <div
       style={
         isStory
           ? storyStyle
-          : { height: "97%", backgroundColor: "white", borderRadius: "6px" }
+          : { height: "100%", backgroundColor: "#ffffff", borderRadius: "6px" }
       }
       className="shadow-md"
     >

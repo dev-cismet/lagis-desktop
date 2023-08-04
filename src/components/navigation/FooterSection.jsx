@@ -3,7 +3,7 @@ import React from "react";
 const FooterSection = () => {
   return (
     <div
-      className="flex justify-beetween w-full"
+      className="flex justify-beetween pr-4"
       style={{ color: "#8F8F8F", lineHeight: 1 }}
     >
       <p>

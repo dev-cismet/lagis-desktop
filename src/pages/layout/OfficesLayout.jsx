@@ -28,6 +28,7 @@ const OfficesLayout = ({
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
+        paddingRight: "8px",
       }}
     >
       <Row

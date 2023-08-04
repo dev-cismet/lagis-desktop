@@ -50,11 +50,11 @@ const Streetfronts = ({
   const storyStyle = { width, height, ...style };
   return (
     <div
-      className=""
+      className="shadow-md"
       style={
         isStory
           ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "white" }
+          : { height: "100%", borderRadius: "6px", backgroundColor: "#ffffff" }
       }
     >
       <InfoBlock

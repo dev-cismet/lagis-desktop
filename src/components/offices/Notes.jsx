@@ -19,20 +19,24 @@ const Notes = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  console.log("Notes !!!!!!! Height", height);
   return (
     <div
+      className="shadow-md"
       style={
         isStory
           ? storyStyle
-          : { backgroundColor: "white", borderRadius: "6px", height }
+          : {
+              height: "100%",
+              backgroundColor: "#ffffff",
+              borderRadius: "6px",
+            }
       }
     >
       <InfoBlock
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <CustomNotes height={height} />
+        <CustomNotes styles="p-3" />
       </InfoBlock>
     </div>
   );

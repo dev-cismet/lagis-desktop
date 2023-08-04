@@ -15,23 +15,21 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.6 - 8 };
-  const secondRowStyle = { width: "100%", height: height * 0.4 - 8 };
   const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "8px" };
+  const marginBottomStyle = { marginBottom: "16px" };
 
   return (
     <div style={{ ...storyStyle, width, height }}>
-      <Row gutter={gutterStyle} style={{ height: "60%", ...marginBottomStyle }}>
+      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
         <Col span={8} flex="auto">
           <Agencies />
         </Col>
         <Col span={16}>
-          <Map width={"100%"} height={firstRowStyle.height} />
+          <Map width={"100%"} height={"100%"} />
         </Col>
       </Row>
 
-      <Row gutter={gutterStyle} style={{ height: "40%" }}>
+      <Row gutter={gutterStyle}>
         <Col span={8}>
           <AdditionalRole />
         </Col>
@@ -39,7 +37,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           <Streetfronts />
         </Col>
         <Col span={8}>
-          <Notes height={secondRowStyle.height} />
+          <Notes />
         </Col>
       </Row>
     </div>

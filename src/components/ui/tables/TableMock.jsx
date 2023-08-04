@@ -10,10 +10,10 @@ const TableMock = ({
   let paginationConfig = !pagination
     ? pagination
     : {
-        pageSize: 4,
+        // pageSize: 4,
       };
   return (
-    <div className={addClass}>
+    <div className={addClass} style={{ padding: "0 0 8px" }}>
       <Table
         columns={columns}
         dataSource={data}

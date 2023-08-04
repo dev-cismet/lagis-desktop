@@ -53,8 +53,9 @@ const AdditionalRole = ({
       style={
         isStory
           ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "#FFFFFF" }
+          : { height: "100%", borderRadius: "6px", backgroundColor: "#ffffff" }
       }
+      className="shadow-md"
     >
       <InfoBlock
         title="Zusätzliche Rollen"
