@@ -6,11 +6,18 @@ import "./index.css";
 import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import store from "./store";
-
+import ErrorPage from "./components/ui/errors-template/ErrorsPage";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+  },
+]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 );
