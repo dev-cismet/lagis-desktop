@@ -41,10 +41,8 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "12px" }}>
-            <Col span={24}>
-              <BreadcrumbBlock />
-            </Col>
+          <Row style={{ marginBottom: "32px" }}>
+            <Col span={24}>{/* <BreadcrumbBlock /> */}</Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>

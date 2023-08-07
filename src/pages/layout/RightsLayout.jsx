@@ -44,7 +44,7 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock paths={{ title: "Rechte und Belastungen" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

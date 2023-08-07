@@ -44,7 +44,7 @@ const RentLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock paths={{ title: "Vermietung Verpachtung" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

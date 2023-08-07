@@ -45,7 +45,9 @@ const UsageLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock
+                paths={{ title: "Anlagenbuchhaltung - Nutzung" }}
+              />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px", paddingRight: "12px" }}>

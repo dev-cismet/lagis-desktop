@@ -48,7 +48,12 @@ const OperationsLayout = ({
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock
+                paths={{
+                  title:
+                    "Operations: Purchase - Sale - Exchange - Special items",
+                }}
+              />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

@@ -47,7 +47,7 @@ const HistoryLayout = ({
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock paths={{ title: "Historie" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

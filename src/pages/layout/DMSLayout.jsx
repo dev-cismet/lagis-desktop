@@ -44,7 +44,7 @@ const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "12px" }}>
             <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
+              <BreadcrumbBlock paths={{ title: "DMS" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>
