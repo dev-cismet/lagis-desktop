@@ -19,7 +19,7 @@ const TableMock = ({
         dataSource={data}
         pagination={paginationConfig}
         bordered={true}
-        // scroll={{ y: "auto" }}
+        scroll={{ x: "auto" }}
       />
     </div>
   );
