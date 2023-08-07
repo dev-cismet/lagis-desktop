@@ -17,18 +17,16 @@ const DashboardRent = ({
     <div className="dashboard-tile">
       <OverviewCard
         title="Miet und Pachtverträge"
-        icon={
-        <DollarOutlined 
-          style={{color: data.color}}
-        />}
+        icon={<DollarOutlined style={{ color: data.color }} />}
       >
         <div
+          className="text-8xl"
           style={{
             color: data.color,
-            fontSize: "5.5rem",
+            // fontSize: "5.5rem",
             textAlign: "left",
             width: "100%",
-            lineHeight: "1.2"
+            lineHeight: "1.2",
           }}
         >
           <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>

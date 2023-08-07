@@ -29,7 +29,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
         <Col span={11}>
           <Row gutter={gutterStyle} style={marginBottomStyle}>
             <Col span={12}>
-              {/* <MockTileCard style={cardStyle} title="Tile 1" /> */}
               <Offices
                 style={marginBottomStyle}
                 width={cardStyle.width}
@@ -37,7 +36,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               />
             </Col>
             <Col span={12}>
-              {/* <MockTileCard style={cardStyle} title="Tile 2" /> */}
               <Rent
                 style={marginBottomStyle}
                 width={cardStyle.width}
@@ -45,7 +43,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               />
             </Col>
             <Col span={12}>
-              {/* <MockTileCard style={cardStyle} title="Tile 3" /> */}
               <Rights
                 style={marginBottomStyle}
                 width={cardStyle.width}
@@ -53,7 +50,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               />
             </Col>
             <Col span={12}>
-              {/* <MockTileCard style={cardStyle} title="Tile 4" /> */}
               <Usage
                 style={marginBottomStyle}
                 width={cardStyle.width}
@@ -61,7 +57,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               />
             </Col>
             <Col span={12}>
-              {/* <MockTileCard style={cardStyle} title="Tile 5" /> */}
               <Operations
                 style={marginBottomStyle}
                 width={cardStyle.width}

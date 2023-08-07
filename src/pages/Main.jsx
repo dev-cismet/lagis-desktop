@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../components/navigation/SidebarMenu";
 import UserBar from "../components/header/UserBar";
-import BreadcrumbBlock from "../components/ui/breadcrumb/BreadcrumbBlock";
 import Overview from "./Overview";
 import FooterSection from "../components/navigation/FooterSection";
 const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -24,7 +23,9 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
+        // paddingRight: "16px",
       }}
+      className="pr-0 sm:pr:4 md:pr-10 lg:pr-20"
     >
       <Row
         style={{
