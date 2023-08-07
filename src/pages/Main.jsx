@@ -23,9 +23,8 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        // paddingRight: "16px",
       }}
-      className="pr-0 sm:pr:4 md:pr-10 lg:pr-20"
+      className="pr-4"
     >
       <Row
         style={{
@@ -43,7 +42,7 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
             </Col>
           </Row>
           <Row style={{ marginBottom: "32px" }}>
-            <Col span={24}>{/* <BreadcrumbBlock /> */}</Col>
+            <Col span={24}></Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
