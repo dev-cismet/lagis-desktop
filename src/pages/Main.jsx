@@ -43,7 +43,7 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <Overview />
+              <Overview width={width} height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>
