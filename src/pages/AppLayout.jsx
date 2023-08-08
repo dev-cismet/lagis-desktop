@@ -2,25 +2,14 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../components/navigation/SidebarMenu";
 import UserBar from "../components/header/UserBar";
-import Overview from "./Overview";
 import FooterSection from "../components/navigation/FooterSection";
 import { Outlet } from "react-router-dom";
-const AppLayout = ({ width = "100%", height = "100%", inStory = false }) => {
-  let storyStyle = {};
-  if (inStory) {
-    storyStyle = {
-      borderStyle: "dotted",
-      borderWidth: "1px",
-      borderColor: "#ddd",
-    };
-  }
-
+const AppLayout = () => {
   return (
     <div
       style={{
-        ...storyStyle,
-        width,
-        height,
+        width: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
