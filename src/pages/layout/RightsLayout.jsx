@@ -38,13 +38,8 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24}>
+            <Col span={24} className="pb-1">
               <UserBar />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "12px" }}>
-            <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Rechte und Belastungen" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

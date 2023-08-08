@@ -42,18 +42,8 @@ const OperationsLayout = ({
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24}>
+            <Col span={24} className="pb-1">
               <UserBar />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "12px" }}>
-            <Col span={24}>
-              <BreadcrumbBlock
-                paths={{
-                  title:
-                    "Operations: Purchase - Sale - Exchange - Special items",
-                }}
-              />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>

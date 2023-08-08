@@ -37,12 +37,9 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24}>
+            <Col span={24} className="pb-2">
               <UserBar />
             </Col>
-          </Row>
-          <Row style={{ marginBottom: "32px" }}>
-            <Col span={24}></Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>

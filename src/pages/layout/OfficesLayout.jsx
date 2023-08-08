@@ -42,13 +42,8 @@ const OfficesLayout = ({
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24}>
+            <Col span={24} className="pb-3">
               <UserBar />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "12px" }}>
-            <Col span={24}>
-              <BreadcrumbBlock paths={{ title: "Verwaltungsbereiche" }} />
             </Col>
           </Row>
           <Row style={{ marginBottom: "36px" }}>
