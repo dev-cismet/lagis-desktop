@@ -13,17 +13,21 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
+  const firstRow = { height: height * 0.5 - 16 };
+  const secondRow = { height: height * 0.5 };
   const gutterStyle = [12, 12];
   const marginBottomStyle = { marginBottom: "16px" };
   return (
-    <div style={{ ...storyStyle, width, height }}>
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
+    <div style={{ ...storyStyle }}>
+      <Row
+        gutter={gutterStyle}
+        style={{ height: firstRow.height, ...marginBottomStyle }}
+      >
         <Col span={24}>
-          <Map width={"100%"} height={"250px"} />
+          <Map width={"100%"} height={firstRow.height} />
         </Col>
       </Row>
-
-      <Row gutter={gutterStyle}>
+      <Row gutter={gutterStyle} style={{ height: secondRow.height }}>
         <Col span={24}>
           <RightsAndEncumbrances />
         </Col>

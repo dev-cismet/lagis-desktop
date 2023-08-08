@@ -16,7 +16,6 @@ const CustomNotes = ({ styles }) => {
           resize: "none",
           outline: "none",
           flexGrow: 1,
-          // minHeight: "80px",
         }}
       />
     </div>

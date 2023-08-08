@@ -20,11 +20,11 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
       <Row
@@ -44,7 +44,7 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <RightsPage />
+              <RightsPage height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>
