@@ -46,10 +46,16 @@ const SidebarMenu = () => {
         background: "#ffffff",
         display: "flex",
         flexDirection: "column",
+        height: "100%",
         ...storyStyle,
       }}
     >
-      <div style={{ padding: "1.3rem", margin: "0.6rem 0" }}>
+      <div
+        style={{
+          padding: "1.3rem",
+          margin: "0.6rem 0",
+        }}
+      >
         <Space size={20}>
           <MenuOutlined />
           <Logo />

@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
 import Offices from "../Offices";
 const OfficesLayout = ({
@@ -24,12 +23,13 @@ const OfficesLayout = ({
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
+      className="offices-layout"
     >
       <Row
         style={{
@@ -48,7 +48,7 @@ const OfficesLayout = ({
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <Offices />
+              <Offices height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>
