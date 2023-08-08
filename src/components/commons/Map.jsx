@@ -32,6 +32,7 @@ const Map = ({
           <FontAwesomeIcon icon={faBars} /> Map
         </span>
       }
+      className="shadow-md"
       style={{
         width: width,
         height: height,

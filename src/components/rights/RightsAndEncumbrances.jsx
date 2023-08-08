@@ -219,7 +219,10 @@ const RightsAndEncumbrances = ({
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div style={isStory ? storyStyle : { height: "100%" }}>
+    <div
+      style={isStory ? storyStyle : { height: "100%" }}
+      className="shadow-md"
+    >
       <InfoBlock
         title="Rechte und Belastungen"
         controlBar={

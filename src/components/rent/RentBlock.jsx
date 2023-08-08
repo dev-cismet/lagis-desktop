@@ -115,6 +115,7 @@ const RentBlock = ({
           : {
               height: "100%",
               backgroundColor: "#FFFFFF",
+              borderRadius: "6px",
             }
       }
     >

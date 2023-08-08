@@ -58,6 +58,7 @@ const Graph = ({
           <FontAwesomeIcon icon={faBars} /> Graph
         </span>
       }
+      className="shadow-md"
       style={{
         width: width,
         height: height,
