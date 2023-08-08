@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
 import RentAndLease from "../RentAndLease";
 const RentLayout = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -14,17 +13,16 @@ const RentLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       borderColor: "#ddd",
     };
   }
-
   return (
     <div
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
       <Row
@@ -38,13 +36,13 @@ const RentLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-3">
+            <Col span={24}>
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row>
             <Col span={24}>
-              <RentAndLease />
+              <RentAndLease height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>
