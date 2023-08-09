@@ -14,13 +14,13 @@ const OperationsPage = ({
   if (inStory) {
     storyStyle = {
       borderStyle: "dotted",
-      borderWidth: "1px solid",
+      border: "1px solid black",
       background: "gray",
       padding: "4px",
     };
   }
   const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "20px" };
+  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
@@ -36,16 +36,14 @@ const OperationsPage = ({
           ...marginBottomStyle,
         }}
       >
-        <Col span={18}>
+        <Col span={16}>
           <Contracts />
         </Col>
+        <Col span={8}>
+          <NoteOperations />
+        </Col>
       </Row>
-      <Row
-        gutter={gutterStyle}
-        style={{
-          ...marginBottomStyle,
-        }}
-      >
+      <Row gutter={gutterStyle}>
         <Col span={12}>
           <ContractData />
         </Col>
@@ -53,16 +51,6 @@ const OperationsPage = ({
           <CrossReferences />
         </Col>
       </Row>
-      {/* <Row
-        gutter={gutterStyle}
-        style={{
-          ...marginBottomStyle,
-        }}
-      >
-        <Col span={24}>
-          <NoteOperations />
-        </Col>
-      </Row> */}
     </div>
   );
 };
