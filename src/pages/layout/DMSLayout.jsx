@@ -34,7 +34,7 @@ const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         gutter={[16, 16]}
       >
         <Col span={5}>
-          <SidebarMenu />
+          <SidebarMenu activeKey={["9"]} />
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>

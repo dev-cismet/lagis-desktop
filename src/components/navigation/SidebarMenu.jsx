@@ -33,7 +33,7 @@ const items = [
   getItem("Kassenzeichen", "8", <TransactionOutlined />),
   getItem("DMS", "9", <FilePdfOutlined />),
 ];
-const SidebarMenu = () => {
+const SidebarMenu = ({ activeKey = ["1"] }) => {
   const storyWidth = 256;
   const isStory = false;
   const storyStyle = {
@@ -65,7 +65,7 @@ const SidebarMenu = () => {
         style={{
           width: "100%",
         }}
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={activeKey}
         items={items}
       />
       <div className="logout mt-auto">

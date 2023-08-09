@@ -36,7 +36,7 @@ const HistoryLayout = ({
         gutter={[16, 16]}
       >
         <Col span={5}>
-          <SidebarMenu />
+          <SidebarMenu activeKey={["7"]} />
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
