@@ -2,9 +2,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
-import RightsPage from "../RightsPage";
 import UsagePage from "../UsagePage";
 const UsageLayout = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -21,11 +19,11 @@ const UsageLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
       <Row
@@ -39,13 +37,13 @@ const UsageLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-3">
+            <Col span={24} className="pb-2">
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px", paddingRight: "12px" }}>
+          <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <UsagePage />
+              <UsagePage height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>

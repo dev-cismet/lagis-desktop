@@ -12,24 +12,23 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const rowStyle = { width: "100%", height: height * 0.5 - 24 };
   const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "24px" };
   return (
     <div
       style={{
         ...storyStyle,
-        width,
-        height,
+        width: "100%",
+        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
+      className="flex flex-col gap-4"
     >
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
+      <Row gutter={gutterStyle}>
         <Col span={24}>
           <UsageBlock />
         </Col>
       </Row>
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
+      <Row gutter={gutterStyle} className="flex-grow">
         <Col span={24}>
           <NFKOverwie />
         </Col>
