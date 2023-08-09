@@ -123,7 +123,7 @@ const CrossReferences = ({
           />
         }
       >
-        <Tabs defaultActiveKey="1" size="large" style={{ padding: "0 18px" }}>
+        <Tabs defaultActiveKey="1" size="small" style={{ padding: "0 18px" }}>
           <TabPane tab="Querverweise" key="1">
             <CustomNotes />
           </TabPane>

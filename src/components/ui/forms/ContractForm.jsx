@@ -20,7 +20,7 @@ const ContractForm = () => {
           <Col span={24}>
             <Form.Item
               name="voreigentümer"
-              label={<span style={{ fontSize: "12px" }}>Voreigentümer</span>}
+              label={<span style={{ fontSize: "14px" }}>Voreigentümer</span>}
               className={inputStile}
             >
               <Input />
@@ -33,7 +33,7 @@ const ContractForm = () => {
             <Form.Item
               name="kaufpreis"
               label={
-                <span style={{ fontSize: "12px" }}>
+                <span style={{ fontSize: "14px" }}>
                   Kaufpreis (inkl. Nebenkosten)
                 </span>
               }
@@ -45,7 +45,7 @@ const ContractForm = () => {
           <Col span={12}>
             <Form.Item
               name="auflassung"
-              label={<span style={{ fontSize: "12px" }}>Auflassung</span>}
+              label={<span style={{ fontSize: "14px" }}>Auflassung</span>}
               className={inputStile}
             >
               <Input />
@@ -60,7 +60,7 @@ const ContractForm = () => {
             <Form.Item
               name="quadratmeterpreis"
               label={
-                <span style={{ fontSize: "12px" }}>Quadratmeterpreis</span>
+                <span style={{ fontSize: "14px" }}>Quadratmeterpreis</span>
               }
               className={inputStile}
             >

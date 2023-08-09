@@ -36,7 +36,7 @@ const OperationsPage = ({
           ...marginBottomStyle,
         }}
       >
-        <Col span={24}>
+        <Col span={18}>
           <Contracts />
         </Col>
       </Row>
@@ -53,7 +53,7 @@ const OperationsPage = ({
           <CrossReferences />
         </Col>
       </Row>
-      <Row
+      {/* <Row
         gutter={gutterStyle}
         style={{
           ...marginBottomStyle,
@@ -62,7 +62,7 @@ const OperationsPage = ({
         <Col span={24}>
           <NoteOperations />
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 };
