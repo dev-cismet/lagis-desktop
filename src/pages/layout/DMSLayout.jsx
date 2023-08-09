@@ -2,9 +2,7 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
-import Transaction from "../Transaction";
 import DMSPage from "../DMSPage";
 const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -20,11 +18,11 @@ const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
       <Row
@@ -42,7 +40,7 @@ const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <DMSPage />
             </Col>
