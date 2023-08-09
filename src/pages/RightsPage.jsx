@@ -27,7 +27,10 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
           <Map width={"100%"} height={firstRow.height} />
         </Col>
       </Row>
-      <Row gutter={gutterStyle} style={{ height: secondRow.height }}>
+      <Row
+        gutter={gutterStyle}
+        style={{ height: secondRow.height, ...marginBottomStyle }}
+      >
         <Col span={24}>
           <RightsAndEncumbrances />
         </Col>

@@ -146,13 +146,13 @@ const RentBlock = ({
         <TableMock columns={columns} data={data} pagination={false} />
         <Row gutter={[8, 0]} style={{ height: "100%" }}>
           <Col span={12}>
-            <div className="mt-1 w-full h-4/6">
+            <div className="mt-2 h-3/6">
               <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
               <CustomNotes styles={"px-2 mt-2"} />
             </div>
           </Col>
           <Col span={12}>
-            <div className="mt-1 h-4/6">
+            <div className="mt-2 h-3/6">
               <CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
               <CustomNotes styles="px-2  mt-2" />
             </div>

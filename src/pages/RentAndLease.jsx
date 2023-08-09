@@ -11,16 +11,16 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.4 - 12 };
-  const secondRowStyle = { width: "100%", height: height * 0.6 - 24 };
+  const firstRowStyle = { width: "100%", height: height * 0.4 };
+  const secondRowStyle = { width: "100%", height: height * 0.48 - 7 };
   const gutterStyle = [0, 0];
-  const marginBottomStyle = { marginBottom: "12px" };
+  const marginBottomStyle = { marginBottom: "14px" };
   return (
     <div
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
     >
@@ -38,7 +38,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         style={{ height: secondRowStyle.height, ...marginBottomStyle }}
       >
         <Col span={24}>
-          <RentBlock />
+          <RentBlock height={secondRowStyle.height} />
         </Col>
       </Row>
     </div>
