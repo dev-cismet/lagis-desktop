@@ -14,7 +14,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const firstRow = { height: height * 0.5 - 16 };
-  const secondRow = { height: height * 0.5 };
+  const secondRow = { height: height * 0.32 };
   const gutterStyle = [12, 12];
   const marginBottomStyle = { marginBottom: "16px" };
   return (
