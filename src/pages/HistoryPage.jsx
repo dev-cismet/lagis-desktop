@@ -13,23 +13,27 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
+  const firstRow = { height: height * 0.5 - 16 };
   const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "20px" };
+  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
     >
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
+      <Row
+        gutter={gutterStyle}
+        style={{ height: firstRow.height, ...marginBottomStyle }}
+      >
         <Col span={24}>
-          <Graph width={width} height={height} />
+          <Graph width={width} height={firstRow.height} />
         </Col>
       </Row>
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
+      <Row gutter={gutterStyle}>
         <Col span={8}>
           <HistoryInfo />
         </Col>

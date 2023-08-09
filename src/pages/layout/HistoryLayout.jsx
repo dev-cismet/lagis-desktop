@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
 import HistoryPage from "../HistoryPage";
 const HistoryLayout = ({
@@ -23,11 +22,11 @@ const HistoryLayout = ({
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
       <Row
@@ -47,7 +46,7 @@ const HistoryLayout = ({
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <HistoryPage />
+              <HistoryPage height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>

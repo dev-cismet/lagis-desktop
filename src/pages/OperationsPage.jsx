@@ -14,7 +14,7 @@ const OperationsPage = ({
   if (inStory) {
     storyStyle = {
       borderStyle: "dotted",
-      border: "1px solid black",
+      borderWidth: "1px solid",
       background: "gray",
       padding: "4px",
     };
