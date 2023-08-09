@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
 import Transaction from "../Transaction";
 const TransactionLayout = ({
@@ -23,19 +22,14 @@ const TransactionLayout = ({
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "8px",
+        paddingRight: "16px",
       }}
     >
-      <Row
-        style={{
-          height: "100%",
-        }}
-        gutter={[16, 16]}
-      >
+      <Row gutter={[16, 16]}>
         <Col span={5}>
           <SidebarMenu />
         </Col>
@@ -47,7 +41,7 @@ const TransactionLayout = ({
           </Row>
           <Row style={{ marginBottom: "36px" }}>
             <Col span={24}>
-              <Transaction />
+              <Transaction height={height} />
             </Col>
           </Row>
           <Row style={{ marginTop: "auto" }}>

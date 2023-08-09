@@ -13,27 +13,27 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const gutterStyle = [16, 16];
+  const firstRow = { height: height * 0.4 - 16 };
+  const secondRow = { height: height * 0.4 - 16 };
   const marginBottomStyle = { marginBottom: "20px" };
   return (
     <div
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
     >
       <Row
         gutter={gutterStyle}
-        style={{
-          ...marginBottomStyle,
-        }}
+        style={{ height: firstRow.height, ...marginBottomStyle }}
       >
         <Col span={24}>
-          <Map width={"100%"} height={"350px"} />
+          <Map width={"100%"} height={firstRow.height} />
         </Col>
       </Row>
-      <Row gutter={gutterStyle}>
+      <Row gutter={gutterStyle} style={{ height: secondRow.height }}>
         <Col span={24}>
           <TransactionNumber />
         </Col>
