@@ -1,5 +1,5 @@
 .dashboard-tile {
-  height: 100%;
+  flex-basis: calc(50% - 8px);
 }
 .dashboard-icon {
   text-align: right;
@@ -10,7 +10,7 @@
 }
 
 .ant-card .ant-card-actions > li {
-  margin: 0px
+  margin: 0px;
 }
 
 .ant-card .ant-card-head {

@@ -11,34 +11,31 @@ const DashboardRights = ({
   width = 231,
   height = 188,
   style,
-  variant
+  variant,
 }) => {
-
   const data = extractor(dataIn);
-  console.log("Right", style)
+  console.log("Right", style);
   return (
     <div className="dashboard-tile">
       <OverviewCard
         title="Rechte & Belastungen"
         subtitle="& Dienstbarkeiten, Baulasten"
         icon={
-        <SettingOutlined 
-          className="text-3xl"
-          style={{color: data.color}}
-        />}
+          <SettingOutlined className="text-3xl" style={{ color: data.color }} />
+        }
       >
-      <div
-        style={{
-          color: data.color,
-          fontSize: "5.5rem",
-          textAlign: "left",
-          width: "100%",
-          lineHeight: "1.2"
-        }}
-      >
-        <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
-      </div>
-    </OverviewCard>
+        <div
+          style={{
+            color: data.color,
+            fontSize: "5.5rem",
+            textAlign: "left",
+            width: "100%",
+            lineHeight: "1.2",
+          }}
+        >
+          <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
+        </div>
+      </OverviewCard>
       {/* <Card
         style={{
           width,

@@ -19,7 +19,7 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
@@ -37,11 +37,11 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-2">
+            <Col span={24} className="pb-1">
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <Overview width={width} height={height} />
             </Col>

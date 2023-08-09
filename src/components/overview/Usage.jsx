@@ -18,24 +18,21 @@ const DashboardUsage = ({
       <OverviewCard
         title="Nutzung"
         subtitle="& Anlagenbuchhaltung"
-        icon={
-        <PieChartOutlined 
-          style={{color: data.color}}
-        />}
+        icon={<PieChartOutlined style={{ color: data.color }} />}
       >
-      <div
-        style={{
-          color: data.color,
-          fontSize: "5.5rem",
-          textAlign: "left",
-          width: "100%",
-          lineHeight: "1.2"
-        }}
-      >
-        <strong>{data.numberOfUsages.toString().padStart(2, "0")}</strong>
-      </div>
-    </OverviewCard>
-  </div>
+        <div
+          style={{
+            color: data.color,
+            fontSize: "5.5rem",
+            textAlign: "left",
+            width: "100%",
+            lineHeight: "1.2",
+          }}
+        >
+          <strong>{data.numberOfUsages.toString().padStart(2, "0")}</strong>
+        </div>
+      </OverviewCard>
+    </div>
   );
 };
 export default DashboardUsage;

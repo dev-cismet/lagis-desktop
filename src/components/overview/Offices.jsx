@@ -16,7 +16,7 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let square = "14ppx";
+  let square = "14px";
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">

@@ -23,7 +23,6 @@ const DashboardRent = ({
           className="text-8xl"
           style={{
             color: data.color,
-            // fontSize: "5.5rem",
             textAlign: "left",
             width: "100%",
             lineHeight: "1.2",
