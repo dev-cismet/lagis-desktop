@@ -38,11 +38,11 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-1">
+            <Col span={24}>
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <RightsPage height={height} />
             </Col>

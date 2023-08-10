@@ -45,7 +45,7 @@ const OperationsLayout = ({
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <OperationsPage />
             </Col>

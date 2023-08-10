@@ -35,11 +35,11 @@ const TransactionLayout = ({
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-3">
+            <Col span={24} className="pb-1">
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <Transaction height={height} />
             </Col>

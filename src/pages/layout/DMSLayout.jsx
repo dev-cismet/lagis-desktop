@@ -36,7 +36,7 @@ const DMSLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-3">
+            <Col span={24} className="pb-1">
               <UserBar />
             </Col>
           </Row>

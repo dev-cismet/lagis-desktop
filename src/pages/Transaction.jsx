@@ -15,7 +15,7 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
   const gutterStyle = [16, 16];
   const firstRow = { height: height * 0.4 - 16 };
   const secondRow = { height: height * 0.4 - 16 };
-  const marginBottomStyle = { marginBottom: "20px" };
+  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
