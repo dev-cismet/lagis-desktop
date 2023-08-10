@@ -104,7 +104,7 @@ const CrossReferences = ({
       }}
     >
       <InfoBlock
-        title="Querverweise/Kosten/Beschlüsse"
+        title="QKB"
         controlBar={
           <ToggleModal
             section="Querverweise"
