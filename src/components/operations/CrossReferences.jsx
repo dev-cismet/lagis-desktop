@@ -5,7 +5,7 @@ import TableMock from "../ui/tables/TableMock";
 import CustomNotes from "../ui/notes/CustomNotes";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./operations.css";
 const { TabPane } = Tabs;
 
@@ -94,9 +94,39 @@ const CrossReferences = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
-
+  const [activecCosts, setActiveCosts] = useState({});
+  const [activeResolution, setActiveResolution] = useState({});
+  const [activeTabe, setActiveTab] = useState(1);
   const data = extractor(dataIn);
+  const costFields = [
+    {
+      title: "Kostenart",
+      value: activecCosts.kostenart,
+      rules: [{ required: true }],
+    },
+    {
+      title: "Betrag",
+      value: activecCosts.betrag,
+      rules: [{ required: true }],
+    },
+    {
+      title: "Anweisung",
+      value: activecCosts.anweisung,
+      rules: [{ required: true }],
+    },
+  ];
+  const resolutionsFields = [
+    {
+      title: "Beschlussart",
+      value: activeResolution.beschlussart,
+      rules: [{ required: true }],
+    },
+    {
+      title: "Datum",
+      value: activeResolution.datum,
+      rules: [{ required: true }],
+    },
+  ];
   return (
     <div
       className="cross-data shadow-md"
@@ -110,26 +140,10 @@ const CrossReferences = ({
         title="QKB"
         controlBar={
           <ToggleModal
-            section="Querverweise"
+            section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
             content={
               <ModalForm
-                fields={[
-                  {
-                    title: "Kostenart",
-                    value: activeRow.kostenart,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Betrag",
-                    value: activeRow.betrag,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Anweisung",
-                    value: activeRow.anweisung,
-                    rules: [{ required: true }],
-                  },
-                ]}
+                fields={activeTabe === "3" ? resolutionsFields : costFields}
                 size={24}
                 buttonPosition={{ justifyContent: "end" }}
                 tagsBar={[]}
@@ -138,7 +152,12 @@ const CrossReferences = ({
           />
         }
       >
-        <Tabs defaultActiveKey="1" size="small" style={{ padding: "0 18px" }}>
+        <Tabs
+          defaultActiveKey="1"
+          size="small"
+          style={{ padding: "0 18px" }}
+          onChange={(activeKey) => setActiveTab(activeKey)}
+        >
           <TabPane tab="Querverweise" key="1">
             <CustomNotes />
           </TabPane>
@@ -146,11 +165,15 @@ const CrossReferences = ({
             <TableMock
               columns={columnsCosts}
               data={data.costs}
-              activerow={setActiveRow}
+              activerow={setActiveCosts}
             />
           </TabPane>
           <TabPane tab="Beschlüsse" key="3">
-            <TableMock columns={columns} data={data.resolution} />
+            <TableMock
+              columns={columns}
+              data={data.resolution}
+              activerow={setActiveResolution}
+            />
           </TabPane>
         </Tabs>
       </InfoBlock>
