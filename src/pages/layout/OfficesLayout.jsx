@@ -42,11 +42,11 @@ const OfficesLayout = ({
         </Col>
         <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
           <Row>
-            <Col span={24} className="pb-3">
+            <Col span={24} className="pb-2">
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "36px" }}>
+          <Row style={{ marginBottom: "10px" }}>
             <Col span={24}>
               <Offices height={height} />
             </Col>
