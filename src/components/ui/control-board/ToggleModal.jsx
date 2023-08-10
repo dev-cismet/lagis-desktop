@@ -6,6 +6,7 @@ const ToggleModal = ({
   section,
   name,
   content,
+  showModalButton = true,
   modalWidth = 520,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,10 +22,14 @@ const ToggleModal = ({
   return (
     <div className="flex gap-1 items-center">
       {children}
-      <span style={btnStyle} onClick={() => setModalOpen(true)}>
-        +
-      </span>
-      <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
+      {showModalButton && (
+        <>
+          <span style={btnStyle} onClick={() => setModalOpen(true)}>
+            +
+          </span>
+          <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
+        </>
+      )}
       <Modal
         width={modalWidth}
         title={

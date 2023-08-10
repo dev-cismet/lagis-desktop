@@ -96,7 +96,7 @@ const CrossReferences = ({
 }) => {
   const [activecCosts, setActiveCosts] = useState({});
   const [activeResolution, setActiveResolution] = useState({});
-  const [activeTabe, setActiveTab] = useState(1);
+  const [activeTabe, setActiveTab] = useState("1");
   const data = extractor(dataIn);
   const costFields = [
     {
@@ -141,6 +141,7 @@ const CrossReferences = ({
         controlBar={
           <ToggleModal
             section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
+            showModalButton={activeTabe === "1" ? false : true}
             content={
               <ModalForm
                 fields={activeTabe === "3" ? resolutionsFields : costFields}
