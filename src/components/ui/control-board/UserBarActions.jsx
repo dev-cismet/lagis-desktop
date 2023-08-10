@@ -8,7 +8,7 @@ import {
   BellFilled,
 } from "@ant-design/icons";
 const UserBarActions = () => {
-  const iconStyles = { color: "#1890FF", fontSize: "18px" };
+  const iconStyles = { color: "#1890FF", fontSize: "14px" };
   return (
     <Space>
       <FilterFilled style={iconStyles} />

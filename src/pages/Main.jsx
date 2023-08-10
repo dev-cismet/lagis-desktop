@@ -13,7 +13,6 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       borderColor: "#ddd",
     };
   }
-
   return (
     <div
       style={{

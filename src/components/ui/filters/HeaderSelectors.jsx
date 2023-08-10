@@ -1,4 +1,5 @@
-import { Select, Space } from "antd";
+import { Select } from "antd";
+import "./header-selector.css";
 const HeaderSelectors = () => {
   const names = [
     { value: "Vohwinkel", label: "vohwinkel" },
@@ -16,7 +17,7 @@ const HeaderSelectors = () => {
     console.log(`selected ${value}`);
   };
   return (
-    <Space>
+    <div className="select-header flex gap-2">
       <Select
         defaultValue="Vohwinkel"
         onChange={handleChange}
@@ -28,7 +29,7 @@ const HeaderSelectors = () => {
         options={numbersSmall}
       />
       <Select defaultValue="10" onChange={handleChange} options={numbersBig} />
-    </Space>
+    </div>
   );
 };
 export default HeaderSelectors;

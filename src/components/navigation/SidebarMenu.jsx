@@ -52,7 +52,7 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
     >
       <div
         style={{
-          padding: "1.3rem",
+          padding: "1rem",
           margin: "0.6rem 0",
         }}
       >
