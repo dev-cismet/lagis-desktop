@@ -2,7 +2,6 @@ import React from "react";
 import { Row, Col } from "antd";
 import SidebarMenu from "../../components/navigation/SidebarMenu";
 import UserBar from "../../components/header/UserBar";
-import BreadcrumbBlock from "../../components/ui/breadcrumb/BreadcrumbBlock";
 import FooterSection from "../../components/navigation/FooterSection";
 import RightsPage from "../RightsPage";
 const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -14,7 +13,6 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       borderColor: "#ddd",
     };
   }
-
   return (
     <div
       style={{

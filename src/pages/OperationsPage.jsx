@@ -4,7 +4,6 @@ import Contracts from "../components/operations/Contracts";
 import ContractData from "../components/operations/ContractData";
 import CrossReferences from "../components/operations/CrossReferences";
 import NoteOperations from "../components/operations/NoteOperations";
-
 const OperationsPage = ({
   width = "100%",
   height = "100%",

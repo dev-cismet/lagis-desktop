@@ -6,7 +6,7 @@ import ModalForm from "../ui/forms/ModalForm";
 import { Row, Col, Tag } from "antd";
 import CustomNotes from "../ui/notes/CustomNotes";
 import CustomH3 from "../ui/titles/CustomH3";
-
+import { useState } from "react";
 const columns = [
   {
     title: "Lage",
@@ -104,6 +104,7 @@ const RentBlock = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -127,12 +128,36 @@ const RentBlock = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Lage", rules: [{ required: true }] },
-                  { title: "Aktenzeichen", rules: [{ required: true }] },
-                  { title: "Fläche m2", rules: [{ required: true }] },
-                  { title: "Nutzung", rules: [{ required: true }] },
-                  { title: "Vertragsbegin", rules: [{ required: true }] },
-                  { title: "Vertragsende", rules: [{ required: true }] },
+                  {
+                    title: "Lage",
+                    value: activeRow.lage,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Aktenzeichen",
+                    value: activeRow.aktenzeichen,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Fläche m2",
+                    value: activeRow.fläche,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Nutzung",
+                    value: activeRow.nutzung,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Vertragsbegin",
+                    value: activeRow.vertragsbegin,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Vertragsende",
+                    value: activeRow.vertragsende,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
@@ -143,7 +168,12 @@ const RentBlock = ({
           />
         }
       >
-        <TableMock columns={columns} data={data} pagination={false} />
+        <TableMock
+          columns={columns}
+          data={data}
+          pagination={false}
+          activerow={setActiveRow}
+        />
         <Row gutter={[8, 0]}>
           <Col span={12}>
             <div className="">

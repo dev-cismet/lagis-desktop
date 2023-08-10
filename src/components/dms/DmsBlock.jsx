@@ -4,6 +4,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import mockFoto from "../../assets/docksMock.png";
+import { useState } from "react";
 const columns = [
   {
     title: "Name",
@@ -68,6 +69,8 @@ const DmsBlock = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
+
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -88,9 +91,21 @@ const DmsBlock = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Name", rules: [{ required: true }] },
-                  { title: "Dateiname", rules: [{ required: true }] },
-                  { title: "Beschreibung", rules: [{ required: true }] },
+                  {
+                    title: "Name",
+                    value: activeRow.name,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Dateiname",
+                    value: activeRow.file,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Beschreibung",
+                    value: activeRow.beschreibung,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 file={true}
               />
@@ -98,7 +113,7 @@ const DmsBlock = ({
           />
         }
       >
-        <TableMock columns={columns} data={data} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

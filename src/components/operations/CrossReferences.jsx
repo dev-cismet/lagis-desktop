@@ -5,6 +5,7 @@ import TableMock from "../ui/tables/TableMock";
 import CustomNotes from "../ui/notes/CustomNotes";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
+import { useState } from "react";
 import "./operations.css";
 const { TabPane } = Tabs;
 
@@ -93,6 +94,8 @@ const CrossReferences = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
+
   const data = extractor(dataIn);
   return (
     <div
@@ -111,9 +114,21 @@ const CrossReferences = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Kostenart", rules: [{ required: true }] },
-                  { title: "Betrag", rules: [{ required: true }] },
-                  { title: "Anweisung", rules: [{ required: true }] },
+                  {
+                    title: "Kostenart",
+                    value: activeRow.kostenart,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Betrag",
+                    value: activeRow.betrag,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Anweisung",
+                    value: activeRow.anweisung,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={24}
                 buttonPosition={{ justifyContent: "end" }}
@@ -128,7 +143,11 @@ const CrossReferences = ({
             <CustomNotes />
           </TabPane>
           <TabPane tab="Kosten" key="2">
-            <TableMock columns={columnsCosts} data={data.costs} />
+            <TableMock
+              columns={columnsCosts}
+              data={data.costs}
+              activerow={setActiveRow}
+            />
           </TabPane>
           <TabPane tab="Beschlüsse" key="3">
             <TableMock columns={columns} data={data.resolution} />

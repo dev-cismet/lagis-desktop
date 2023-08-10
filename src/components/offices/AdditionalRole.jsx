@@ -46,7 +46,7 @@ const AdditionalRole = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState("");
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };

@@ -5,6 +5,7 @@ import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
+import { useState } from "react";
 const columns = [
   {
     title: "Anlageklasse",
@@ -46,6 +47,7 @@ const NFKOverwie = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -80,8 +82,16 @@ const NFKOverwie = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Anlageklasse", rules: [{ required: true }] },
-                  { title: "Summe", rules: [{ required: true }] },
+                  {
+                    title: "Anlageklasse",
+                    value: activeRow.anlageklasse,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Summe",
+                    value: activeRow.summe,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={24}
                 buttonPosition={{ justifyContent: "center" }}
@@ -96,7 +106,7 @@ const NFKOverwie = ({
           </ToggleModal>
         }
       >
-        <TableMock columns={columns} data={data} pagination={false} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

@@ -4,6 +4,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
+import { useState } from "react";
 const columns = [
   {
     title: "Nutzung Nr",
@@ -62,9 +63,9 @@ const mockExtractor = (input) => {
       fläche: "2132",
       preis: "38274€",
       gesamtpreis: "38274€",
-      stille: "",
-      buchwert: "",
-      bemerkung: "",
+      stille: "Stille 1",
+      buchwert: "Buchwert 1",
+      bemerkung: "Bemerkung 1",
     },
     {
       key: "2",
@@ -118,6 +119,7 @@ const UsageBlock = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -142,20 +144,61 @@ const UsageBlock = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Nutzung Nr", rules: [{ required: true }] },
-                  { title: "Buchungs-Nr", rules: [{ required: true }] },
-                  { title: "Anlageklasse", rules: [{ required: true }] },
-                  { title: "Nutzungsart", rules: [{ required: true }] },
                   {
-                    title: "Nutzungsarten-bezeichnung",
+                    title: "Nutzung Nr",
+                    value: activeRow.nutzung,
                     rules: [{ required: true }],
                   },
-                  { title: "Fläche/m2", rules: [{ required: true }] },
-                  { title: "m2 Preis", rules: [{ required: true }] },
-                  { title: "Gesamtpreis", rules: [{ required: true }] },
-                  { title: "Buchwert", rules: [{ required: true }] },
-                  { title: "Stille Reserve", rules: [{ required: true }] },
-                  { title: "Bemerkung", rules: [{ required: true }] },
+                  {
+                    title: "Buchungs-Nr",
+                    value: activeRow.buchungs,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Anlageklasse",
+                    value: activeRow.anlageklasse,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Nutzungsart",
+                    value: activeRow.nutzungsart,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Nutzungsarten-bezeichnung",
+                    value: activeRow.bezeichnung,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Fläche/m2",
+                    value: activeRow.fläche,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "m2 Preis",
+                    value: activeRow.preis,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Gesamtpreis",
+                    value: activeRow.gesamtpreis,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Buchwert",
+                    value: activeRow.buchwert,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Stille Reserve",
+                    value: activeRow.stille,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Bemerkung",
+                    value: activeRow.bemerkung,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
@@ -170,7 +213,7 @@ const UsageBlock = ({
         <TableMock
           columns={columns}
           data={data}
-          pagination={false}
+          activerow={setActiveRow}
           addClass="nfk-cover"
         />
       </InfoBlock>

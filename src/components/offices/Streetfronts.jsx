@@ -4,6 +4,7 @@ import { ReloadOutlined } from "@ant-design/icons";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { useState } from "react";
 const columns = [
   {
     title: "Street",
@@ -45,6 +46,7 @@ const Streetfronts = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -66,8 +68,16 @@ const Streetfronts = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Straßen", rules: [{ required: true }] },
-                  { title: "Length", rules: [{ required: true }] },
+                  {
+                    title: "Straßen",
+                    value: activeRow.street,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Length",
+                    value: activeRow.length,
+                    rules: [{ required: true }],
+                  },
                 ]}
               />
             }
@@ -86,7 +96,7 @@ const Streetfronts = ({
           </ToggleModal>
         }
       >
-        <TableMock columns={columns} data={data} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

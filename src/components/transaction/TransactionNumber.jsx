@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { useState } from "react";
 const columns = [
   {
     title: "Kassenzeichen",
@@ -44,6 +45,7 @@ const TransactionNumber = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -64,15 +66,23 @@ const TransactionNumber = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Kassenzeichen", rules: [{ required: true }] },
-                  { title: "Zugeordnet am", rules: [{ required: true }] },
+                  {
+                    title: "Kassenzeichen",
+                    value: activeRow.kassenzeichen,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Zugeordnet am",
+                    value: activeRow.zugeordnet,
+                    rules: [{ required: true }],
+                  },
                 ]}
               />
             }
           />
         }
       >
-        <TableMock columns={columns} data={data} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

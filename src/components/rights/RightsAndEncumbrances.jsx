@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { useState } from "react";
 const columns = [
   {
     title: "ist Recht",
@@ -85,6 +86,7 @@ const RightsAndEncumbrances = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -102,13 +104,41 @@ const RightsAndEncumbrances = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Is Right", rules: [{ required: true }] },
-                  { title: "Type", rules: [{ required: true }] },
-                  { title: "Type of Right", rules: [{ required: true }] },
-                  { title: "Number", rules: [{ required: true }] },
-                  { title: "Deletion Data", rules: [{ required: true }] },
-                  { title: "Entry Data", rules: [{ required: true }] },
-                  { title: "Remark", rules: [{ required: true }] },
+                  {
+                    title: "Ist Recht",
+                    value: activeRow.recht,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Art",
+                    value: activeRow.art,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Art des Rechts",
+                    value: activeRow.artrecht,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Nummer",
+                    value: activeRow.nummer,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Eintragung",
+                    value: activeRow.eintragung,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Löschung",
+                    value: activeRow.löschung,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Bemerkung",
+                    value: activeRow.bemerkung,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
@@ -118,7 +148,7 @@ const RightsAndEncumbrances = ({
           />
         }
       >
-        <TableMock columns={columns} data={data} pagination={false} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );
