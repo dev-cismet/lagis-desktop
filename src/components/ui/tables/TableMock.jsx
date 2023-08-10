@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Table } from "antd";
 import "./table-style.css";
 
@@ -6,7 +7,14 @@ const TableMock = ({
   data,
   pagination = false,
   addClass = "table-wrapper",
+  activerow,
 }) => {
+  const [selectedRow, setSelectedRow] = useState(null);
+  const handleRowClick = (record) => {
+    console.log("Clicked Row:", record);
+    setSelectedRow(record.key);
+    activerow(record);
+  };
   let paginationConfig = !pagination
     ? pagination
     : {
@@ -15,6 +23,10 @@ const TableMock = ({
   return (
     <div className={addClass} style={{ padding: "0 0 8px" }}>
       <Table
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+          className: record.key === selectedRow ? "ant-table-row-selected" : "",
+        })}
         columns={columns}
         dataSource={data}
         pagination={paginationConfig}

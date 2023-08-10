@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { useState } from "react";
 const columns = [
   {
     title: "Service",
@@ -45,6 +46,7 @@ const AdditionalRole = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState("");
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -66,15 +68,23 @@ const AdditionalRole = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Service", rules: [{ required: true }] },
-                  { title: "Role", rules: [{ required: true }] },
+                  {
+                    title: "Dienst",
+                    value: activeRow.service,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Role",
+                    value: activeRow.role,
+                    rules: [{ required: true }],
+                  },
                 ]}
               />
             }
           />
         }
       >
-        <TableMock columns={columns} data={data} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

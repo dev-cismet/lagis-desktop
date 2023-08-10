@@ -41,7 +41,7 @@ const ModalForm = ({
               label={<Labelform name={i.title} />}
               rules={i.rules}
             >
-              <Input style={inputStyle} placeholder={`Type ${i.title}...`} />
+              <Input style={inputStyle} placeholder={i.value} />
             </Form.Item>
           </Col>
         ))}

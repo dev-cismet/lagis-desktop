@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
+import { useEffect } from "react";
 const columns = [
   {
-    title: "Agency name",
+    title: "Dienststelle",
     dataIndex: "agency",
     render: (title, record, rowIndex) => (
       <div className="flex items-center">
@@ -23,7 +25,7 @@ const columns = [
     ),
   },
   {
-    title: "Area in m²",
+    title: "Gläche in m2",
     dataIndex: "area",
   },
 ];
@@ -58,9 +60,13 @@ const Agencies = ({
   height = 188,
   style,
 }) => {
+  const [activeRow, setActiveRow] = useState("");
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  useEffect(() => {
+    console.log("Active user", activeRow);
+  }, [activeRow]);
   return (
     <div
       style={
@@ -79,8 +85,16 @@ const Agencies = ({
             content={
               <ModalForm
                 fields={[
-                  { title: "Dienststelle", rules: [{ required: true }] },
-                  { title: "Gläche in m2", rules: [{ required: true }] },
+                  {
+                    title: "Dienststelle",
+                    value: activeRow.agency,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Gläche in m2",
+                    value: activeRow.area,
+                    rules: [{ required: true }],
+                  },
                 ]}
                 size={24}
               />
@@ -88,7 +102,7 @@ const Agencies = ({
           />
         }
       >
-        <TableMock columns={columns} data={data} />
+        <TableMock columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

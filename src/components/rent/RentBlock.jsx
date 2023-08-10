@@ -154,7 +154,7 @@ const RentBlock = ({
           <Col span={12}>
             <div className="">
               <CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
-              <CustomNotes styles="px-2" />
+              <CustomNotes styles="p-2" />
             </div>
           </Col>
         </Row>
