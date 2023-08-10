@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import { ConfigProvider } from "antd";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import locale from "antd/locale/de_DE";
 import ErrorPage from "./components/ui/errors-template/ErrorsPage";
 import Overview from "./pages/Overview";
 import AppLayout from "./pages/AppLayout";
@@ -69,8 +71,11 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ConfigProvider locale={locale}>
+      <Provider store={store}>
+        {/* <RouterProvider router={router} /> */}
+        <App />
+      </Provider>
+    </ConfigProvider>
   </React.StrictMode>
 );
