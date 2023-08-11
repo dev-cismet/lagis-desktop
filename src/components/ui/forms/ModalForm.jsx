@@ -81,7 +81,7 @@ const ModalForm = ({
             Abbrechen
           </Button>
           <Button type="primary" htmlType="submit" disabled={!submittable}>
-            {file ? " Hochladen" : " Einreichen"}
+            {showFileUpload ? " Hochladen" : "Einreichen"}
           </Button>
         </div>
       </Form.Item>

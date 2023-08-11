@@ -4,6 +4,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState } from "react";
+import RightsForm from "./form/RightsForm";
 const columns = [
   {
     title: "ist Recht",
@@ -100,51 +101,8 @@ const RightsAndEncumbrances = ({
         controlBar={
           <ToggleModal
             section="Rechte und Belastungen"
-            name="Rechte und Belastungen"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Ist Recht",
-                    value: activeRow.recht,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Art",
-                    value: activeRow.art,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Art des Rechts",
-                    value: activeRow.artrecht,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nummer",
-                    value: activeRow.nummer,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Eintragung",
-                    value: activeRow.eintragung,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Löschung",
-                    value: activeRow.löschung,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Bemerkung",
-                    value: activeRow.bemerkung,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                size={8}
-                buttonPosition={{ justifyContent: "end" }}
-              />
-            }
-            modalWidth={900}
+            content={<RightsForm />}
+            modalWidth={600}
           />
         }
       >

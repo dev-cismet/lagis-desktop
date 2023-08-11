@@ -38,6 +38,13 @@ const preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <ConfigProvider locale={locale}>
+        <Story />
+      </ConfigProvider>
+    ),
+  ],
 };
 
 export default preview;
