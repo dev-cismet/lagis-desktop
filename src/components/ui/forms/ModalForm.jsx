@@ -8,7 +8,7 @@ const ModalForm = ({
   size = 24,
   buttonPosition = { justifyContent: "end" },
   tagsBar = [],
-  file = false,
+  showFileUpload = false,
 }) => {
   const [form] = Form.useForm();
   const [submittable, setSubmittable] = useState(false);
@@ -62,7 +62,7 @@ const ModalForm = ({
           </Col>
         </Row>
       )}
-      {file && (
+      {showFileUpload && (
         <Row style={{ marginBottom: "30px" }}>
           <Col span={24}>
             <div className="flex gap-2 mb-5 mt-2">

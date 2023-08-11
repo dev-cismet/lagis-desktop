@@ -107,7 +107,7 @@ const DmsBlock = ({
                     rules: [{ required: true }],
                   },
                 ]}
-                file={true}
+                showFileUpload={true}
               />
             }
           />
