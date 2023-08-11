@@ -102,7 +102,7 @@ const RightsAndEncumbrances = ({
           <ToggleModal
             section="Rechte und Belastungen"
             content={<RightsForm />}
-            modalWidth={600}
+            modalWidth={500}
           />
         }
       >

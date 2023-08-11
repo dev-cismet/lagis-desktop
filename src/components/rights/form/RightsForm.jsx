@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../../../index.css";
+import "./styleRform.css";
 import { DatePicker, Form, Input, Select, Switch, Button } from "antd";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -38,45 +39,47 @@ const RightsForm = ({
   return (
     <>
       <Form
-        name="validateOnly"
         labelCol={{
-          span: 4,
+          span: 12,
         }}
         wrapperCol={{
-          span: 20,
+          span: 24,
         }}
-        layout="horizontal"
-        style={{
-          maxWidth: 600,
-        }}
+        layout="vertical"
       >
-        <Form.Item label="Ist richtig" valuePropName="checked">
+        <Form.Item
+          label={<span style={{ padding: 0 }}>"Ist richtig"</span>}
+          valuePropName="checked"
+          required
+          style={{ marginBottom: "0.4rem", paddingBottom: "0.2rem" }}
+        >
           <Switch />
         </Form.Item>
-        <Form.Item label="Art">
+        <Form.Item label="Art" required>
           <Select defaultValue={fields.art}>
             <Select.Option value="art">{fields.art}</Select.Option>
             <Select.Option value="artrecht">{fields.artrecht}</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="Nummer">
-          <Input
-            style={{
-              width: "100%",
-            }}
-            placeholder={fields.nummer}
-          />
+        <Form.Item label="Nummer" required>
+          <Input placeholder={fields.nummer} />
         </Form.Item>
-        <Form.Item label="Eintragung">
+        <Form.Item label="Eintragung" required>
           <DatePicker
             defaultValue={dayjs(fields.eintragung, dateFormat)}
             format={dateFormat}
+            style={{
+              width: "100%",
+            }}
           />
         </Form.Item>
-        <Form.Item label="Löschung">
+        <Form.Item label="Löschung" required>
           <DatePicker
             defaultValue={dayjs(fields.loschung, dateFormat)}
             format={dateFormat}
+            style={{
+              width: "100%",
+            }}
           />
         </Form.Item>
         <Form.Item label="Bemerkung">
@@ -93,7 +96,7 @@ const RightsForm = ({
             Abbrechen
           </Button>
           <Button type="primary" htmlType="submit" disabled={!submittable}>
-            "Einreichen"
+            Einreichen
           </Button>
         </div>
       </Form>
