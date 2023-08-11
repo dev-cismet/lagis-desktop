@@ -28,7 +28,7 @@ const columns = [
   },
   {
     title: "Löschung",
-    dataIndex: "löschung",
+    dataIndex: "loschung",
   },
   {
     title: "Bemerkung",
@@ -43,9 +43,9 @@ const mockExtractor = (input) => {
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 22",
-      eintragung: "7.5.2001",
-      löschung: "21.7.2016",
-      bemerkung: "21.7.2016",
+      eintragung: "07.05.2001",
+      loschung: "21.07.2016",
+      bemerkung: "21.07.2016",
     },
     {
       key: "2",
@@ -54,7 +54,7 @@ const mockExtractor = (input) => {
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 23",
       eintragung: "7.5.2001",
-      löschung: "21.7.2016",
+      loschung: "21.7.2016",
       bemerkung: "",
     },
     {
@@ -64,7 +64,7 @@ const mockExtractor = (input) => {
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 24",
       eintragung: "7.5.2001",
-      löschung: "21.7.2016",
+      loschung: "21.7.2016",
       bemerkung: "",
     },
     {
@@ -74,7 +74,7 @@ const mockExtractor = (input) => {
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 25",
       eintragung: "7.5.2001",
-      löschung: "",
+      loschung: "",
       bemerkung: "",
     },
   ];

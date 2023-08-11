@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import "../../../index.css";
 import { DatePicker, Form, Input, Select, Switch, Button } from "antd";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
-
+import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const { TextArea } = Input;
 const RightsForm = ({
   fields = {
@@ -17,7 +17,7 @@ const RightsForm = ({
     artrecht: "Geh- und Fahrrecht",
     nummer: "Dept. II, No. 22",
     eintragung: "07.05.2001",
-    löschung: "08.05.2001",
+    loschung: "21.05.2001",
     bemerkung: "21.7.2016",
   },
 }) => {
@@ -67,9 +67,15 @@ const RightsForm = ({
             placeholder={fields.nummer}
           />
         </Form.Item>
-        <Form.Item label="Daten">
+        <Form.Item label="Eintragung">
           <DatePicker
-            defaultValue={dayjs(fields.eintragung)}
+            defaultValue={dayjs(fields.eintragung, dateFormat)}
+            format={dateFormat}
+          />
+        </Form.Item>
+        <Form.Item label="Löschung">
+          <DatePicker
+            defaultValue={dayjs(fields.loschung, dateFormat)}
             format={dateFormat}
           />
         </Form.Item>
