@@ -40,7 +40,7 @@ const RightsLayout = ({ width = "100%", height = "100%", inStory = false }) => {
               <UserBar />
             </Col>
           </Row>
-          <Row style={{ marginBottom: "10px" }}>
+          <Row style={{ marginBottom: "20px" }}>
             <Col span={24}>
               <RightsPage height={height} />
             </Col>

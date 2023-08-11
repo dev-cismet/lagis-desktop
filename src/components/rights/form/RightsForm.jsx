@@ -10,18 +10,7 @@ dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 const { TextArea } = Input;
-const RightsForm = ({
-  fields = {
-    key: "1",
-    recht: false,
-    art: "Dienstbarkeit",
-    artrecht: "Geh- und Fahrrecht",
-    nummer: "Dept. II, No. 22",
-    eintragung: "07.05.2001",
-    loschung: "21.05.2001",
-    bemerkung: "21.7.2016",
-  },
-}) => {
+const RightsForm = ({ fields }) => {
   const [form] = Form.useForm();
   const [submittable, setSubmittable] = useState(false);
   const values = Form.useWatch([], form);
@@ -36,6 +25,9 @@ const RightsForm = ({
       }
     );
   }, [values]);
+  useEffect(() => {
+    console.log("rightform", fields);
+  }, [fields]);
   return (
     <>
       <Form
@@ -46,6 +38,7 @@ const RightsForm = ({
           span: 24,
         }}
         layout="vertical"
+        autoComplete="off"
       >
         <Form.Item
           label={<span style={{ padding: 0 }}>"Ist richtig"</span>}

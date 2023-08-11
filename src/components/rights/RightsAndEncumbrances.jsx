@@ -53,9 +53,9 @@ const mockExtractor = (input) => {
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 23",
-      eintragung: "7.5.2001",
-      loschung: "21.7.2016",
-      bemerkung: "",
+      eintragung: "07.05.2001",
+      loschung: "21.07.2016",
+      bemerkung: "1111111",
     },
     {
       key: "3",
@@ -63,9 +63,9 @@ const mockExtractor = (input) => {
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 24",
-      eintragung: "7.5.2001",
-      loschung: "21.7.2016",
-      bemerkung: "",
+      eintragung: "07.5.2001",
+      loschung: "21.07.2016",
+      bemerkung: "22222",
     },
     {
       key: "4",
@@ -73,9 +73,9 @@ const mockExtractor = (input) => {
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
       nummer: "Dept. II, No. 25",
-      eintragung: "7.5.2001",
-      loschung: "",
-      bemerkung: "",
+      eintragung: "07.05.2001",
+      loschung: "12.06.2002",
+      bemerkung: "3333333",
     },
   ];
 };
@@ -101,7 +101,7 @@ const RightsAndEncumbrances = ({
         controlBar={
           <ToggleModal
             section="Rechte und Belastungen"
-            content={<RightsForm />}
+            content={<RightsForm fields={activeRow} />}
             modalWidth={500}
           />
         }
