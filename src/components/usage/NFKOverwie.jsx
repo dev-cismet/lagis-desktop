@@ -94,7 +94,6 @@ const NFKOverwie = ({
                   },
                 ]}
                 size={24}
-                buttonPosition={{ justifyContent: "center" }}
               />
             }
           >
