@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import "../../../index.css";
 import { DatePicker, Form, Input, Select, Switch, Button } from "antd";
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-const customLocale = {
-  lang: {
-    placeholder: "Bitte auswählen",
-    rangePlaceholder: ["Eintragung", "Löschung"],
-  },
-};
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
 
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+const { TextArea } = Input;
 const RightsForm = ({
   fields = {
     key: "1",
@@ -17,14 +16,15 @@ const RightsForm = ({
     art: "Dienstbarkeit",
     artrecht: "Geh- und Fahrrecht",
     nummer: "Dept. II, No. 22",
-    eintragung: "7.5.2001",
-    löschung: "7.5.2001",
+    eintragung: "07.05.2001",
+    löschung: "08.05.2001",
     bemerkung: "21.7.2016",
   },
 }) => {
   const [form] = Form.useForm();
   const [submittable, setSubmittable] = useState(false);
   const values = Form.useWatch([], form);
+  const dateFormat = "DD.MM.YYYY";
   useEffect(() => {
     form.validateFields({ validateOnly: true }).then(
       () => {
@@ -68,12 +68,9 @@ const RightsForm = ({
           />
         </Form.Item>
         <Form.Item label="Daten">
-          <RangePicker
-            picker="date"
-            {...customLocale}
-            style={{
-              width: "100%",
-            }}
+          <DatePicker
+            defaultValue={dayjs(fields.eintragung)}
+            format={dateFormat}
           />
         </Form.Item>
         <Form.Item label="Bemerkung">
