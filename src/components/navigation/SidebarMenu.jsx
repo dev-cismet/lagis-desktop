@@ -55,18 +55,18 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         ...storyStyle,
       }}
     >
-      <div className="mt-4 mb-4 mx-4">
+      <div className="mt-6 mb-10 mx-4 flex flex-wrap items-center justify-center gap-2">
         <Logo />
+        <Button
+          onClick={toggleCollapsed}
+          style={{
+            margin: "auto 0",
+          }}
+        >
+          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        </Button>
       </div>
-      <Button
-        type="primary"
-        onClick={toggleCollapsed}
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
+
       <Menu
         style={{
           minWidth: "120px",
