@@ -1,8 +1,8 @@
 import LogoIcon from "../../../assets/logo.png";
-const Logo = ({ classes = "ml-2 text-xl font-semibold" }) => {
+const Logo = ({ classes = "text-base font-semibold" }) => {
   return (
-    <div className="flex flex-wrap justify-center items-center">
-      <img src={LogoIcon} alt="LagIS-online" />
+    <div className="flex flex-wrap justify-start items-center gap-1">
+      <img src={LogoIcon} alt="LagIS-online" style={{ width: "28px" }} />
       <span className={classes}>LagIS-online</span>
     </div>
   );

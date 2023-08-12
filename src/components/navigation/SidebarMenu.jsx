@@ -55,16 +55,8 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         ...storyStyle,
       }}
     >
-      <div
-        style={{
-          padding: "1rem",
-          margin: "0.6rem 0",
-        }}
-      >
-        <Space size={20}>
-          <MenuOutlined />
-          <Logo />
-        </Space>
+      <div className="mt-4 mb-4 mx-4">
+        <Logo />
       </div>
       <Button
         type="primary"
@@ -77,7 +69,8 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
       </Button>
       <Menu
         style={{
-          maxWidth: "256",
+          minWidth: "120px",
+          border: 0,
         }}
         defaultSelectedKeys={activeKey}
         items={items}
