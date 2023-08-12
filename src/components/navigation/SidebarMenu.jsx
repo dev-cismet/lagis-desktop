@@ -10,8 +10,11 @@ import {
   TransactionOutlined,
   FilePdfOutlined,
   MenuOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
 } from "@ant-design/icons";
-import { Menu, Space } from "antd";
+import { useState } from "react";
+import { Menu, Space, Button } from "antd";
 import "./menu.css";
 import Logo from "../ui/logo/Logo";
 function getItem(label, key, icon, children) {
@@ -34,19 +37,21 @@ const items = [
   getItem("DMS", "9", <FilePdfOutlined />),
 ];
 const SidebarMenu = ({ activeKey = ["1"] }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed);
+  };
   const storyWidth = 256;
   const isStory = false;
   const storyStyle = {
     width: isStory ? storyWidth : "100%",
     height: isStory ? "600px" : "100%",
   };
+
   return (
     <div
+      className="flex flex-col bg-white max-w-min"
       style={{
-        background: "#ffffff",
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
         ...storyStyle,
       }}
     >
@@ -61,12 +66,23 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
           <Logo />
         </Space>
       </div>
+      <Button
+        type="primary"
+        onClick={toggleCollapsed}
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </Button>
       <Menu
         style={{
-          width: "100%",
+          maxWidth: "256",
         }}
         defaultSelectedKeys={activeKey}
         items={items}
+        mode="inline"
+        inlineCollapsed={collapsed}
       />
       <div className="logout mt-auto">
         <Space size={5}>
