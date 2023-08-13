@@ -30,16 +30,13 @@ const OperationsLayout = ({
         paddingRight: "16px",
       }}
     >
-      <Row
-        style={{
-          height: "100%",
-        }}
-        gutter={[16, 16]}
-      >
-        <Col span={5}>
+      <div className="flex gap-4">
+        <div>
           <SidebarMenu activeKey={["6"]} />
-        </Col>
-        <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
           <Row>
             <Col span={24} className="pb-1">
               <UserBar />
@@ -55,8 +52,8 @@ const OperationsLayout = ({
               <FooterSection />
             </Col>
           </Row>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };

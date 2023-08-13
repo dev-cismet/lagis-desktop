@@ -26,19 +26,16 @@ const HistoryLayout = ({
         display: "flex",
         flexDirection: "column",
         background: "#F1F1F1",
-        paddingRight: "16px",
       }}
+      className="pr-4"
     >
-      <Row
-        style={{
-          height: "100%",
-        }}
-        gutter={[16, 16]}
-      >
-        <Col span={5}>
+      <div className="flex gap-4">
+        <div>
           <SidebarMenu activeKey={["7"]} />
-        </Col>
-        <Col span={19} style={{ display: "flex", flexDirection: "column" }}>
+        </div>
+        <width
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+        >
           <Row>
             <Col span={24} className="pb-1">
               <UserBar />
@@ -54,8 +51,8 @@ const HistoryLayout = ({
               <FooterSection />
             </Col>
           </Row>
-        </Col>
-      </Row>
+        </width>
+      </div>
     </div>
   );
 };
