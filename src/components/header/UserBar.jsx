@@ -14,7 +14,8 @@ const UserBar = () => {
       <div className="ml-auto flex gap-4 items-center">
         <UserName />
         <div className="logout ml-auto pr-1">
-          <LogoutOutlined style={{ fontSize: "14px" }} /> <span>Logout</span>
+          <LogoutOutlined style={{ fontSize: "14px" }} />{" "}
+          <span style={{ lineHeight: "22px" }}>Logout</span>
         </div>
       </div>
     </div>
