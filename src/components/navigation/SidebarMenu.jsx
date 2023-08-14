@@ -14,7 +14,7 @@ import {
   MenuFoldOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
-import { Menu, Space, Button } from "antd";
+import { Menu, Button } from "antd";
 import "./menu.css";
 import Logo from "../ui/logo/Logo";
 function getItem(label, key, icon, children) {

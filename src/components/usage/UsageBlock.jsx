@@ -55,7 +55,7 @@ const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      nutzung: "2372846",
+      nutzung: "237284656",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",
@@ -69,7 +69,7 @@ const mockExtractor = (input) => {
     },
     {
       key: "2",
-      nutzung: "2372846",
+      nutzung: "746",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",

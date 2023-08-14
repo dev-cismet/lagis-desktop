@@ -29,29 +29,29 @@ const mockExtractor = (input) => {
       key: "1",
       vertragsart: "text 1",
       nummer: "Nummer 1",
-      quadratmeterpreis: "",
-      kaufpreis: "",
+      quadratmeterpreis: "1500",
+      kaufpreis: "1000",
     },
     {
       key: "2",
       vertragsart: "text 2",
       nummer: "Nummer 2",
-      quadratmeterpreis: "",
-      kaufpreis: "",
+      quadratmeterpreis: "1600",
+      kaufpreis: "2100",
     },
     {
       key: "3",
       vertragsart: "text 3",
       nummer: "Nummer 3",
-      quadratmeterpreis: "",
-      kaufpreis: "",
+      quadratmeterpreis: "1900",
+      kaufpreis: "3100",
     },
     {
       key: "4",
       vertragsart: "text 4",
       nummer: "Nummer 4",
-      quadratmeterpreis: "",
-      kaufpreis: "",
+      quadratmeterpreis: "400",
+      kaufpreis: "4000",
     },
   ];
 };
@@ -86,28 +86,7 @@ const Contracts = ({
             section="Verträge"
             content={
               <ModalForm
-                fields={[
-                  {
-                    title: "Vertragsart",
-                    value: activeRow.vertragsart,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nummer",
-                    value: activeRow.nummer,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Quadratmeterpreis",
-                    value: activeRow.quadratmeterpreis,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Kaufpreis (i. NK)",
-                    value: activeRow.kaufpreis,
-                    rules: [{ required: true }],
-                  },
-                ]}
+                fields={activeRow}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
                 tagsBar={[]}

@@ -3,6 +3,7 @@ import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
+
 const ModalForm = ({
   fields,
   size = 24,
@@ -34,14 +35,14 @@ const ModalForm = ({
   return (
     <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
       <Row gutter={12}>
-        {fields.map((i) => (
-          <Col span={size} key={i.title}>
+        {Object.keys(fields).map((itemKey) => (
+          <Col span={size}>
             <Form.Item
-              name={i.title}
-              label={<Labelform name={i.title} />}
-              rules={i.rules}
+              name={fields[itemKey]}
+              label={<Labelform name={itemKey} />}
+              initialValue={fields[itemKey]}
             >
-              <Input style={inputStyle} placeholder={i.value} />
+              <Input style={inputStyle} />
             </Form.Item>
           </Col>
         ))}
