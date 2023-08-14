@@ -5,6 +5,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState } from "react";
+import "./offices.css";
 const columns = [
   {
     title: "Street",
@@ -83,6 +84,7 @@ const Streetfronts = ({
             }
           >
             <ReloadOutlined
+              className="reload-button"
               style={{
                 width: "15px",
                 height: "15px",
