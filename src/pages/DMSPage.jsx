@@ -16,7 +16,7 @@ const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
         width,
-        height,
+        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
     >

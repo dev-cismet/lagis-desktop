@@ -77,11 +77,11 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         mode="inline"
         inlineCollapsed={collapsed}
       />
-      <div className="logout mt-auto">
+      {/* <div className="logout mt-auto">
         <Space size={5}>
           <LogoutOutlined /> <span>Logout</span>
         </Space>
-      </div>
+      </div> */}
     </div>
   );
 };
