@@ -29,29 +29,29 @@ const mockExtractor = (input) => {
       key: "1",
       vertragsart: "text 1",
       nummer: "Nummer 1",
-      quadratmeterpreis: "1500",
-      kaufpreis: "1000",
+      quadratmeterpreis: "quadratmeterpreis 1",
+      kaufpreis: "kaufpreis 1",
     },
     {
       key: "2",
       vertragsart: "text 2",
       nummer: "Nummer 2",
-      quadratmeterpreis: "1600",
-      kaufpreis: "2100",
+      quadratmeterpreis: "quadratmeterpreis 2",
+      kaufpreis: "kaufpreis 2",
     },
     {
       key: "3",
       vertragsart: "text 3",
       nummer: "Nummer 3",
-      quadratmeterpreis: "1900",
-      kaufpreis: "3100",
+      quadratmeterpreis: "quadratmeterpreis 3",
+      kaufpreis: "kaufpreis 3",
     },
     {
       key: "4",
       vertragsart: "text 4",
       nummer: "Nummer 4",
-      quadratmeterpreis: "400",
-      kaufpreis: "4000",
+      quadratmeterpreis: "quadratmeterpreis 4",
+      kaufpreis: "kaufpreis 4",
     },
   ];
 };
@@ -86,7 +86,37 @@ const Contracts = ({
             section="Verträge"
             content={
               <ModalForm
-                fields={activeRow}
+                customFields={[
+                  {
+                    title: "Vertragsart",
+                    value: activeRow.vertragsart,
+                    key: 1,
+                    name: "vertragsart",
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Nummer",
+                    value: activeRow.nummer,
+                    name: "nummer",
+                    key: 2,
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Quadratmeterpreis",
+                    key: 3,
+                    value: activeRow.quadratmeterpreis,
+                    name: "quadratmeterpreis",
+                    rules: [{ required: true }],
+                  },
+                  {
+                    title: "Kaufpreis (i. NK)",
+                    value: activeRow.kaufpreis,
+                    name: "kaufpreis",
+                    rules: [{ required: true }],
+                    key: "4",
+                  },
+                ]}
+                name={`Contract${activeRow.key}`}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
                 tagsBar={[]}

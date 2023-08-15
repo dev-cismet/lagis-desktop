@@ -3,27 +3,18 @@ import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
-
+const onChange = (e) => {
+  console.log("Change:", e.target.value);
+};
 const ModalForm = ({
-  fields,
+  customFields,
   size = 24,
   buttonPosition = { justifyContent: "end" },
   tagsBar = [],
   showFileUpload = false,
 }) => {
   const [form] = Form.useForm();
-  const [submittable, setSubmittable] = useState(false);
-  const values = Form.useWatch([], form);
-  useEffect(() => {
-    form.validateFields({ validateOnly: true }).then(
-      () => {
-        setSubmittable(true);
-      },
-      () => {
-        setSubmittable(false);
-      }
-    );
-  }, [values]);
+
   const inputStyle = {
     border: "1px solid #D9D9D9",
     borderRadius: "2px",
@@ -35,12 +26,13 @@ const ModalForm = ({
   return (
     <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
       <Row gutter={12}>
-        {Object.keys(fields).map((itemKey) => (
-          <Col span={size}>
+        {customFields.map((items, index) => (
+          <Col span={size} key={index}>
             <Form.Item
-              name={fields[itemKey]}
-              label={<Labelform name={itemKey} />}
-              initialValue={fields[itemKey]}
+              name={[items.value, index]}
+              label={<Labelform name={items.title} />}
+              rules={items.rules}
+              initialValue={items.value !== "" ? items.value : undefined}
             >
               <Input style={inputStyle} />
             </Form.Item>
@@ -81,7 +73,7 @@ const ModalForm = ({
           <Button type="primary" ghost htmlType="reset" className="mr-4">
             Abbrechen
           </Button>
-          <Button type="primary" htmlType="submit" disabled={!submittable}>
+          <Button type="primary" htmlType="submit">
             {showFileUpload ? " Hochladen" : "Einreichen"}
           </Button>
         </div>
