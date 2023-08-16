@@ -20,9 +20,7 @@ const ModalForm = ({
   formName,
 }) => {
   const [form] = Form.useForm();
-  const onChange = (e) => {
-    console.log("Change:", e.target.value);
-  };
+  const onChange = (e) => {};
   const handleFinish = (values) => {
     updateHandle({ key: formName, ...values });
   };
@@ -32,7 +30,6 @@ const ModalForm = ({
       fieldValues[field.name] = field.value !== "" ? field.value : undefined;
     });
     form.setFieldsValue(fieldValues);
-    console.log("fieldValues", fieldValues);
   }, [customFields, form]);
 
   return (

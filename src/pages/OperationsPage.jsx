@@ -13,6 +13,7 @@ const mockExtractor = (input) => {
       nummer: "Nummer 1",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
+      note: "Text of note 1",
     },
     {
       key: 2,
@@ -20,6 +21,7 @@ const mockExtractor = (input) => {
       nummer: "Nummer 2",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
+      note: "Text of note 2",
     },
     {
       key: 3,
@@ -27,6 +29,7 @@ const mockExtractor = (input) => {
       nummer: "Nummer 3",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
+      note: "Text of note 3",
     },
     {
       key: 4,
@@ -34,6 +37,7 @@ const mockExtractor = (input) => {
       nummer: "Nummer 4",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
+      note: "Text of note 4",
     },
   ];
 };
@@ -82,7 +86,11 @@ const OperationsPage = ({
           />
         </Col>
         <Col span={8}>
-          <NoteOperations />
+          <NoteOperations
+            activeRow={activeRow}
+            dataContract={dataContract}
+            setDataContract={setDataContract}
+          />
         </Col>
       </Row>
       <Row gutter={gutterStyle}>

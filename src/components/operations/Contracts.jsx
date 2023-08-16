@@ -4,7 +4,6 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
-import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 
@@ -28,8 +27,6 @@ const columns = [
 ];
 
 const Contracts = ({
-  // dataIn,
-  // extractor = mockExtractor,
   width = 231,
   height = 188,
   style,
@@ -38,9 +35,6 @@ const Contracts = ({
   dataContract,
   setDataContract,
 }) => {
-  // const data = extractor(dataIn);
-  // const [activeRow, setActiveRow] = useState(null);
-  // const [dataContract, setDataContract] = useState(data);
   const handleAddRow = () => {
     const newData = {
       key: nanoid(),
@@ -63,7 +57,6 @@ const Contracts = ({
       setActiveRow(null);
     }
   };
-
   const handleEditActiveContract = (updatedObject) => {
     setActiveRow(updatedObject);
     setDataContract(

@@ -1,6 +1,6 @@
 import { Input } from "antd";
 const { TextArea } = Input;
-const CustomNotes = ({ styles }) => {
+const CustomNotes = ({ styles, textValue = "", setTextNote }) => {
   return (
     <div
       className={styles}
@@ -11,12 +11,14 @@ const CustomNotes = ({ styles }) => {
       }}
     >
       <TextArea
-        className="shadow-md "
+        className="shadow-md"
         style={{
           resize: "none",
           outline: "none",
           flexGrow: 1,
         }}
+        value={textValue}
+        onChange={(e) => setTextNote(e.target.value)}
       />
     </div>
   );
