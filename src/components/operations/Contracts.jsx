@@ -79,10 +79,16 @@ const Contracts = ({
     setDataContract((prev) => [...prev, newData]);
   };
   const handleActiveRow = (rowObject) => {
-    // setActiveRow(
-    //   activeRow && activeRow.key === rowObject.key ? null : rowObject
-    // );
     setActiveRow(rowObject);
+  };
+  const deleteActiveRow = () => {
+    if (activeRow) {
+      const updatedArray = dataContract.filter(
+        (row) => row.key !== activeRow.key
+      );
+      setDataContract(updatedArray);
+      setActiveRow(null);
+    }
   };
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -106,6 +112,7 @@ const Contracts = ({
           <ToggleModal
             section="Verträge"
             addRow={handleAddRow}
+            deleteActiveRow={deleteActiveRow}
             isActiveRow={activeRow ? true : false}
             modalWidth={900}
             content={<DocsIcons />}

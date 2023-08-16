@@ -10,6 +10,7 @@ const ToggleModal = ({
   modalWidth = 520,
   isActiveRow,
   addRow,
+  deleteActiveRow,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const btnStyle = {
@@ -37,7 +38,12 @@ const ToggleModal = ({
           <span style={btnStyle} onClick={addOrOpen}>
             +
           </span>
-          <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
+          <span
+            style={{ ...btnStyle, lineHeight: "12px" }}
+            onClick={deleteActiveRow}
+          >
+            -
+          </span>
         </>
       )}
       <Modal
