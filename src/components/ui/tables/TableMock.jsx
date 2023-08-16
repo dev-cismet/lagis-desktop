@@ -7,17 +7,23 @@ const TableMock = ({
   data,
   pagination = false,
   addClass = "table-wrapper",
-  activerow,
+  setActiveRow,
+  activeRow,
 }) => {
   const [selectedRow, setSelectedRow] = useState(null);
-  const handleRowClick = (record) => {
-    console.log("Clicked Row:", record);
-    const activField = data.map((item) =>
-      item.key === record.key ? { ...item, active: true } : item
-    );
-    setSelectedRow(record.key);
-    activerow(record);
+  const resetAciveRow = () => {
+    setActiveRow(null);
+    setSelectedRow(null);
   };
+  const handleRowClick = (record) => {
+    if (activeRow && record.key === selectedRow) {
+      resetAciveRow();
+    } else {
+      setSelectedRow(record.key);
+      setActiveRow(record);
+    }
+  };
+
   let paginationConfig = !pagination
     ? pagination
     : {

@@ -34,7 +34,6 @@ const mockExtractor = (input) => {
       nummer: "Nummer 1",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
-      active: false,
     },
     {
       key: nanoid(),
@@ -42,7 +41,6 @@ const mockExtractor = (input) => {
       nummer: "Nummer 2",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
-      active: false,
     },
     {
       key: nanoid(),
@@ -50,7 +48,6 @@ const mockExtractor = (input) => {
       nummer: "Nummer 3",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
-      active: false,
     },
     {
       key: nanoid(),
@@ -58,7 +55,6 @@ const mockExtractor = (input) => {
       nummer: "Nummer 4",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
-      active: false,
     },
   ];
 };
@@ -70,9 +66,9 @@ const Contracts = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  const [activeRow, setActiveRow] = useState({});
+  const [activeRow, setActiveRow] = useState(null);
   const [dataContract, setDataContract] = useState(data);
-  const handleAdd = () => {
+  const handleAddRow = () => {
     const newData = {
       key: nanoid(),
       vertragsart: "",
@@ -82,12 +78,15 @@ const Contracts = ({
     };
     setDataContract((prev) => [...prev, newData]);
   };
+  const handleActiveRow = (rowObject) => {
+    // setActiveRow(
+    //   activeRow && activeRow.key === rowObject.key ? null : rowObject
+    // );
+    setActiveRow(rowObject);
+  };
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  useEffect(() => {
-    const findActive = dataContract.find((row) => row.active === true);
-    findActive && setActiveRow(findActive);
-  }, [dataContract]);
+  useEffect(() => {}, [activeRow]);
   return (
     <div
       style={
@@ -106,7 +105,8 @@ const Contracts = ({
         controlBar={
           <ToggleModal
             section="Verträge"
-            addRow={handleAdd}
+            addRow={handleAddRow}
+            isActiveRow={activeRow ? true : false}
             modalWidth={900}
             content={<DocsIcons />}
           >
@@ -114,30 +114,30 @@ const Contracts = ({
               customFields={[
                 {
                   lable: "Vertragsart",
-                  value: activeRow.vertragsart,
+                  value: activeRow?.vertragsart,
                   key: nanoid(),
                   name: "vertragsart",
                 },
                 {
                   lable: "Nummer",
-                  value: activeRow.nummer,
+                  value: activeRow?.nummer,
                   name: "nummer",
                   key: nanoid(),
                 },
                 {
                   lable: "Quadratmeterpreis",
                   key: nanoid(),
-                  value: activeRow.quadratmeterpreis,
+                  value: activeRow?.quadratmeterpreis,
                   name: "quadratmeterpreis",
                 },
                 {
                   lable: "Kaufpreis (i. NK)",
-                  value: activeRow.kaufpreis,
+                  value: activeRow?.kaufpreis,
                   name: "kaufpreis",
                   key: nanoid(),
                 },
               ]}
-              formName={activeRow.key}
+              formName={activeRow?.key}
             />
           </ToggleModal>
         }
@@ -145,7 +145,8 @@ const Contracts = ({
         <TableMock
           columns={columns}
           data={dataContract}
-          activerow={setActiveRow}
+          setActiveRow={handleActiveRow}
+          activeRow={activeRow}
         />
       </InfoBlock>
     </div>

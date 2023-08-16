@@ -24,7 +24,6 @@ const ModalForm = ({
   const [form] = Form.useForm();
 
   useEffect(() => {
-    console.log("CustomFilds", customFields);
     const fieldValues = {};
     customFields?.forEach((field) => {
       fieldValues[field.name] = field.value !== "" ? field.value : undefined;

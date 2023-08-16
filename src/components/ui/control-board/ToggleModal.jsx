@@ -8,6 +8,7 @@ const ToggleModal = ({
   content,
   showModalButton = true,
   modalWidth = 520,
+  isActiveRow,
   addRow,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,8 +22,12 @@ const ToggleModal = ({
     cursor: "pointer",
   };
   const addOrOpen = () => {
-    setModalOpen(true);
-    // addRow();
+    if (isActiveRow) {
+      setModalOpen(true);
+    } else {
+      setModalOpen(false);
+      addRow();
+    }
   };
   return (
     <div className="flex gap-1 items-center">
