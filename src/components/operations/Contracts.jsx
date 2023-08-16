@@ -90,6 +90,15 @@ const Contracts = ({
       setActiveRow(null);
     }
   };
+
+  const handleEditActiveContract = (updatedObject) => {
+    setActiveRow(updatedObject);
+    setDataContract(
+      dataContract.map((obj) =>
+        obj.key === updatedObject.key ? updatedObject : obj
+      )
+    );
+  };
   const isStory = false;
   const storyStyle = { width, height, ...style };
   useEffect(() => {}, [activeRow]);
@@ -118,6 +127,7 @@ const Contracts = ({
             content={<DocsIcons />}
           >
             <ModalForm
+              updateHandle={handleEditActiveContract}
               customFields={[
                 {
                   lable: "Vertragsart",

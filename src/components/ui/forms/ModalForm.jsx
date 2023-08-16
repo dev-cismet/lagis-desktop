@@ -12,6 +12,7 @@ const inputStyle = {
 };
 const ModalForm = ({
   customFields,
+  updateHandle,
   size = 24,
   buttonPosition = { justifyContent: "end" },
   tagsBar = [],
@@ -23,7 +24,7 @@ const ModalForm = ({
     console.log("Change:", e.target.value);
   };
   const handleFinish = (values) => {
-    console.log("Finish", { key: formName, ...values });
+    updateHandle({ key: formName, ...values });
   };
   useEffect(() => {
     const fieldValues = {};
