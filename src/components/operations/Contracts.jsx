@@ -29,28 +29,28 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: nanoid(),
+      key: 1,
       vertragsart: "text 1",
       nummer: "Nummer 1",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
     },
     {
-      key: nanoid(),
+      key: 2,
       vertragsart: "text 2",
       nummer: "Nummer 2",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
     },
     {
-      key: nanoid(),
+      key: 3,
       vertragsart: "text 3",
       nummer: "Nummer 3",
       quadratmeterpreis: "",
       kaufpreis: "kaufpreis",
     },
     {
-      key: nanoid(),
+      key: 4,
       vertragsart: "text 4",
       nummer: "Nummer 4",
       quadratmeterpreis: "",

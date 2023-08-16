@@ -3,9 +3,6 @@ import { Button, Row, Col, Form, Input } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
-const onChange = (e) => {
-  console.log("Change:", e.target.value);
-};
 const inputStyle = {
   border: "1px solid #D9D9D9",
   borderRadius: "2px",
@@ -22,7 +19,12 @@ const ModalForm = ({
   formName,
 }) => {
   const [form] = Form.useForm();
-
+  const onChange = (e) => {
+    console.log("Change:", e.target.value);
+  };
+  const handleFinish = (values) => {
+    console.log("Finish", { key: formName, ...values });
+  };
   useEffect(() => {
     const fieldValues = {};
     customFields?.forEach((field) => {
@@ -33,12 +35,18 @@ const ModalForm = ({
   }, [customFields, form]);
 
   return (
-    <Form form={form} name={formName} layout="vertical" autoComplete="off">
+    <Form
+      form={form}
+      name={formName}
+      layout="vertical"
+      autoComplete="off"
+      onFinish={handleFinish}
+    >
       <Row gutter={12}>
         {customFields?.map((items) => (
           <Col span={size} key={items.key}>
             <Form.Item name={items.name} label={items.label}>
-              <Input style={inputStyle} />
+              <Input style={inputStyle} onChange={onChange} />
             </Form.Item>
           </Col>
         ))}
@@ -78,7 +86,7 @@ const ModalForm = ({
             Abbrechen
           </Button>
           <Button type="primary" htmlType="submit">
-            {showFileUpload ? " Hochladen" : "Einreichen"}
+            {showFileUpload ? " Hochladen" : "Ok"}
           </Button>
         </div>
       </Form.Item>
