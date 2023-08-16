@@ -26,48 +26,21 @@ const columns = [
     dataIndex: "kaufpreis",
   },
 ];
-const mockExtractor = (input) => {
-  return [
-    {
-      key: 1,
-      vertragsart: "text 1",
-      nummer: "Nummer 1",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
-    },
-    {
-      key: 2,
-      vertragsart: "text 2",
-      nummer: "Nummer 2",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
-    },
-    {
-      key: 3,
-      vertragsart: "text 3",
-      nummer: "Nummer 3",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
-    },
-    {
-      key: 4,
-      vertragsart: "text 4",
-      nummer: "Nummer 4",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
-    },
-  ];
-};
+
 const Contracts = ({
-  dataIn,
-  extractor = mockExtractor,
+  // dataIn,
+  // extractor = mockExtractor,
   width = 231,
   height = 188,
   style,
+  activeRow,
+  setActiveRow,
+  dataContract,
+  setDataContract,
 }) => {
-  const data = extractor(dataIn);
-  const [activeRow, setActiveRow] = useState(null);
-  const [dataContract, setDataContract] = useState(data);
+  // const data = extractor(dataIn);
+  // const [activeRow, setActiveRow] = useState(null);
+  // const [dataContract, setDataContract] = useState(data);
   const handleAddRow = () => {
     const newData = {
       key: nanoid(),
@@ -103,69 +76,71 @@ const Contracts = ({
   const storyStyle = { width, height, ...style };
   useEffect(() => {}, [activeRow]);
   return (
-    <div
-      style={
-        isStory
-          ? storyStyle
-          : {
-              height: "100%",
-              backgroundColor: "#FFFFFF",
-              borderRadius: "6px",
-            }
-      }
-      className="shadow-md"
-    >
-      <InfoBlock
-        title="Vorgänge"
-        controlBar={
-          <ToggleModal
-            section="Verträge"
-            addRow={handleAddRow}
-            deleteActiveRow={deleteActiveRow}
-            isActiveRow={activeRow ? true : false}
-            modalWidth={900}
-            content={<DocsIcons />}
-          >
-            <ModalForm
-              updateHandle={handleEditActiveContract}
-              customFields={[
-                {
-                  lable: "Vertragsart",
-                  value: activeRow?.vertragsart,
-                  key: nanoid(),
-                  name: "vertragsart",
-                },
-                {
-                  lable: "Nummer",
-                  value: activeRow?.nummer,
-                  name: "nummer",
-                  key: nanoid(),
-                },
-                {
-                  lable: "Quadratmeterpreis",
-                  key: nanoid(),
-                  value: activeRow?.quadratmeterpreis,
-                  name: "quadratmeterpreis",
-                },
-                {
-                  lable: "Kaufpreis (i. NK)",
-                  value: activeRow?.kaufpreis,
-                  name: "kaufpreis",
-                  key: nanoid(),
-                },
-              ]}
-              formName={activeRow?.key}
-            />
-          </ToggleModal>
+    <div>
+      <div
+        style={
+          isStory
+            ? storyStyle
+            : {
+                height: "100%",
+                backgroundColor: "#FFFFFF",
+                borderRadius: "6px",
+              }
         }
+        className="shadow-md"
       >
-        <TableMock
-          columns={columns}
-          data={dataContract}
-          setActiveRow={handleActiveRow}
-          activeRow={activeRow}
-        />
-      </InfoBlock>
+        <InfoBlock
+          title="Vorgänge"
+          controlBar={
+            <ToggleModal
+              section="Verträge"
+              addRow={handleAddRow}
+              deleteActiveRow={deleteActiveRow}
+              isActiveRow={activeRow ? true : false}
+              modalWidth={900}
+              content={<DocsIcons />}
+            >
+              <ModalForm
+                updateHandle={handleEditActiveContract}
+                customFields={[
+                  {
+                    lable: "Vertragsart",
+                    value: activeRow?.vertragsart,
+                    key: nanoid(),
+                    name: "vertragsart",
+                  },
+                  {
+                    lable: "Nummer",
+                    value: activeRow?.nummer,
+                    name: "nummer",
+                    key: nanoid(),
+                  },
+                  {
+                    lable: "Quadratmeterpreis",
+                    key: nanoid(),
+                    value: activeRow?.quadratmeterpreis,
+                    name: "quadratmeterpreis",
+                  },
+                  {
+                    lable: "Kaufpreis (i. NK)",
+                    value: activeRow?.kaufpreis,
+                    name: "kaufpreis",
+                    key: nanoid(),
+                  },
+                ]}
+                formName={activeRow?.key}
+              />
+            </ToggleModal>
+          }
+        >
+          <TableMock
+            columns={columns}
+            data={dataContract}
+            setActiveRow={handleActiveRow}
+            activeRow={activeRow}
+          />
+        </InfoBlock>
+      </div>
     </div>
   );
 };
