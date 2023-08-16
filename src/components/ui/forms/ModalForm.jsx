@@ -6,34 +6,39 @@ import UploadFiles from "./UploadFiles";
 const onChange = (e) => {
   console.log("Change:", e.target.value);
 };
+const inputStyle = {
+  border: "1px solid #D9D9D9",
+  borderRadius: "2px",
+  padding: "5px 8px",
+  textTransform: "lowercase",
+  fontWeight: "normal",
+};
 const ModalForm = ({
   customFields,
   size = 24,
   buttonPosition = { justifyContent: "end" },
   tagsBar = [],
   showFileUpload = false,
+  formName,
 }) => {
   const [form] = Form.useForm();
 
-  const inputStyle = {
-    border: "1px solid #D9D9D9",
-    borderRadius: "2px",
-    padding: "5px 8px",
-    textTransform: "lowercase",
-    fontWeight: "normal",
-  };
+  useEffect(() => {
+    console.log("CustomFilds", customFields);
+    const fieldValues = {};
+    customFields?.forEach((field) => {
+      fieldValues[field.name] = field.value !== "" ? field.value : undefined;
+    });
+    form.setFieldsValue(fieldValues);
+    console.log("fieldValues", fieldValues);
+  }, [customFields, form]);
 
   return (
-    <Form form={form} name="validateOnly" layout="vertical" autoComplete="off">
+    <Form form={form} name={formName} layout="vertical" autoComplete="off">
       <Row gutter={12}>
-        {customFields.map((items, index) => (
-          <Col span={size} key={index}>
-            <Form.Item
-              name={[items.value, index]}
-              label={<Labelform name={items.title} />}
-              rules={items.rules}
-              initialValue={items.value !== "" ? items.value : undefined}
-            >
+        {customFields?.map((items) => (
+          <Col span={size} key={items.key}>
+            <Form.Item name={items.name} label={items.label}>
               <Input style={inputStyle} />
             </Form.Item>
           </Col>

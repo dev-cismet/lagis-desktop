@@ -8,6 +8,7 @@ const ToggleModal = ({
   content,
   showModalButton = true,
   modalWidth = 520,
+  addRow,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const btnStyle = {
@@ -19,12 +20,16 @@ const ToggleModal = ({
     textAlign: "center",
     cursor: "pointer",
   };
+  const addOrOpen = () => {
+    setModalOpen(true);
+    // addRow();
+  };
   return (
     <div className="flex gap-1 items-center">
-      {children}
+      {content}
       {showModalButton && (
         <>
-          <span style={btnStyle} onClick={() => setModalOpen(true)}>
+          <span style={btnStyle} onClick={addOrOpen}>
             +
           </span>
           <span style={{ ...btnStyle, lineHeight: "12px" }}>-</span>
@@ -67,7 +72,7 @@ const ToggleModal = ({
         wrapClassName="custom-modal-wrapper"
         footer={null}
       >
-        {content}
+        {children}
       </Modal>
     </div>
   );

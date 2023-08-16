@@ -12,6 +12,9 @@ const TableMock = ({
   const [selectedRow, setSelectedRow] = useState(null);
   const handleRowClick = (record) => {
     console.log("Clicked Row:", record);
+    const activField = data.map((item) =>
+      item.key === record.key ? { ...item, active: true } : item
+    );
     setSelectedRow(record.key);
     activerow(record);
   };

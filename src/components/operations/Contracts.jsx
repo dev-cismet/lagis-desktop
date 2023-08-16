@@ -5,6 +5,9 @@ import TableMock from "../ui/tables/TableMock";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import { useEffect } from "react";
+
 const columns = [
   {
     title: "Vertragsart",
@@ -26,32 +29,36 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      key: nanoid(),
       vertragsart: "text 1",
       nummer: "Nummer 1",
-      quadratmeterpreis: "quadratmeterpreis 1",
-      kaufpreis: "kaufpreis 1",
+      quadratmeterpreis: "",
+      kaufpreis: "kaufpreis",
+      active: false,
     },
     {
-      key: "2",
+      key: nanoid(),
       vertragsart: "text 2",
       nummer: "Nummer 2",
-      quadratmeterpreis: "quadratmeterpreis 2",
-      kaufpreis: "kaufpreis 2",
+      quadratmeterpreis: "",
+      kaufpreis: "kaufpreis",
+      active: false,
     },
     {
-      key: "3",
+      key: nanoid(),
       vertragsart: "text 3",
       nummer: "Nummer 3",
-      quadratmeterpreis: "quadratmeterpreis 3",
-      kaufpreis: "kaufpreis 3",
+      quadratmeterpreis: "",
+      kaufpreis: "kaufpreis",
+      active: false,
     },
     {
-      key: "4",
+      key: nanoid(),
       vertragsart: "text 4",
       nummer: "Nummer 4",
-      quadratmeterpreis: "quadratmeterpreis 4",
-      kaufpreis: "kaufpreis 4",
+      quadratmeterpreis: "",
+      kaufpreis: "kaufpreis",
+      active: false,
     },
   ];
 };
@@ -62,10 +69,25 @@ const Contracts = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
+  const [activeRow, setActiveRow] = useState({});
+  const [dataContract, setDataContract] = useState(data);
+  const handleAdd = () => {
+    const newData = {
+      key: nanoid(),
+      vertragsart: "",
+      nummer: "",
+      quadratmeterpreis: "",
+      kaufpreis: "",
+    };
+    setDataContract((prev) => [...prev, newData]);
+  };
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  useEffect(() => {
+    const findActive = dataContract.find((row) => row.active === true);
+    findActive && setActiveRow(findActive);
+  }, [dataContract]);
   return (
     <div
       style={
@@ -84,51 +106,47 @@ const Contracts = ({
         controlBar={
           <ToggleModal
             section="Verträge"
-            content={
-              <ModalForm
-                customFields={[
-                  {
-                    title: "Vertragsart",
-                    value: activeRow.vertragsart,
-                    key: 1,
-                    name: "vertragsart",
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nummer",
-                    value: activeRow.nummer,
-                    name: "nummer",
-                    key: 2,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Quadratmeterpreis",
-                    key: 3,
-                    value: activeRow.quadratmeterpreis,
-                    name: "quadratmeterpreis",
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Kaufpreis (i. NK)",
-                    value: activeRow.kaufpreis,
-                    name: "kaufpreis",
-                    rules: [{ required: true }],
-                    key: "4",
-                  },
-                ]}
-                name={`Contract${activeRow.key}`}
-                size={8}
-                buttonPosition={{ justifyContent: "end" }}
-                tagsBar={[]}
-              />
-            }
+            addRow={handleAdd}
             modalWidth={900}
+            content={<DocsIcons />}
           >
-            <DocsIcons />
+            <ModalForm
+              customFields={[
+                {
+                  lable: "Vertragsart",
+                  value: activeRow.vertragsart,
+                  key: nanoid(),
+                  name: "vertragsart",
+                },
+                {
+                  lable: "Nummer",
+                  value: activeRow.nummer,
+                  name: "nummer",
+                  key: nanoid(),
+                },
+                {
+                  lable: "Quadratmeterpreis",
+                  key: nanoid(),
+                  value: activeRow.quadratmeterpreis,
+                  name: "quadratmeterpreis",
+                },
+                {
+                  lable: "Kaufpreis (i. NK)",
+                  value: activeRow.kaufpreis,
+                  name: "kaufpreis",
+                  key: nanoid(),
+                },
+              ]}
+              formName={activeRow.key}
+            />
           </ToggleModal>
         }
       >
-        <TableMock columns={columns} data={data} activerow={setActiveRow} />
+        <TableMock
+          columns={columns}
+          data={dataContract}
+          activerow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );
