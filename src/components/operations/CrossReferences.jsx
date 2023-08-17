@@ -104,8 +104,8 @@ const CrossReferences = ({
 }) => {
   const contract = dataContract.find((c) => c.key === activeRow?.key);
   const [kosten, setKosten] = useState(null);
-  const [activecCosts, setActiveCosts] = useState({});
-  const [activeResolution, setActiveResolution] = useState({});
+  const [activecCosts, setActiveCosts] = useState(null);
+  const [activeResolution, setActiveResolution] = useState(null);
   const [activeTabe, setActiveTab] = useState("1");
   const data = extractor(dataIn);
   const dateFormat = "DD.MM.YYYY";
@@ -138,18 +138,19 @@ const CrossReferences = ({
       title: "Anweisung",
       key: nanoid(),
       name: "anweisung",
-      value: activecCosts?.anweisung,
+      type: "date",
+      value: dayjs(activecCosts?.anweisung, dateFormat),
     },
   ];
   const resolutionsFields = [
     {
       title: "Beschlussart",
-      value: activeResolution.beschlussart,
+      value: activeResolution?.beschlussart,
       rules: [{ required: true }],
     },
     {
       title: "Datum",
-      value: activeResolution.datum,
+      value: activeResolution?.datum,
       rules: [{ required: true }],
     },
   ];
