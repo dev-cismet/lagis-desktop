@@ -7,6 +7,8 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
 import { useEffect, useState } from "react";
 import "./operations.css";
+import { nanoid } from "@reduxjs/toolkit";
+
 const { TabPane } = Tabs;
 
 const columns = [
@@ -90,10 +92,11 @@ const mockExtractor = (input) => {
 const CrossReferences = ({
   dataIn,
   extractor = mockExtractor,
-  width = 231,
-  height = 188,
-  style,
+  activeRow,
+  dataContract,
 }) => {
+  const contract = dataContract.find((c) => c.key === activeRow?.key);
+  const [kosten, setKosten] = useState(null);
   const [activecCosts, setActiveCosts] = useState({});
   const [activeResolution, setActiveResolution] = useState({});
   const [activeTabe, setActiveTab] = useState("1");
@@ -127,6 +130,21 @@ const CrossReferences = ({
       rules: [{ required: true }],
     },
   ];
+  const handleActiveCosts = (rowObject) => {
+    setActiveCosts(rowObject);
+  };
+  const handleAddCostenRow = () => {
+    const newData = {
+      key: nanoid(),
+      kostenart: "",
+      betrag: "",
+      anweisung: "",
+    };
+    setKosten((prev) => [...prev, newData]);
+  };
+  useEffect(() => {
+    activeRow ? setKosten(contract.kosten) : setKosten(null);
+  }, [activeRow]);
   return (
     <div
       className="cross-data shadow-md"
@@ -141,16 +159,16 @@ const CrossReferences = ({
         controlBar={
           <ToggleModal
             section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
+            addRow={handleAddCostenRow}
             showModalButton={activeTabe === "1" ? false : true}
-            content={
-              <ModalForm
-                fields={activeTabe === "3" ? resolutionsFields : costFields}
-                size={24}
-                buttonPosition={{ justifyContent: "end" }}
-                tagsBar={[]}
-              />
-            }
-          />
+          >
+            <ModalForm
+              fields={activeTabe === "3" ? resolutionsFields : costFields}
+              size={24}
+              buttonPosition={{ justifyContent: "end" }}
+              tagsBar={[]}
+            />
+          </ToggleModal>
         }
       >
         <Tabs
@@ -165,8 +183,9 @@ const CrossReferences = ({
           <TabPane tab="Kosten" key="2">
             <TableMock
               columns={columnsCosts}
-              data={data.costs}
-              activerow={setActiveCosts}
+              data={kosten}
+              activeRow={activecCosts}
+              setActiveRow={handleActiveCosts}
             />
           </TabPane>
           <TabPane tab="Beschlüsse" key="3">

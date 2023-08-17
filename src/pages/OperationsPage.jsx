@@ -14,6 +14,20 @@ const mockExtractor = (input) => {
       quadratmeterpreis: "1000",
       kaufpreis: "kaufpreis 1",
       note: "Text of note 1",
+      kosten: [
+        {
+          key: 1,
+          kostenart: "Type 1",
+          betrag: "01.05.2023",
+          anweisung: "01.06.2023",
+        },
+        {
+          key: 2,
+          kostenart: "Type 2",
+          betrag: "01.02.2023",
+          anweisung: "01.06.2023",
+        },
+      ],
     },
     {
       key: 2,
@@ -22,6 +36,20 @@ const mockExtractor = (input) => {
       quadratmeterpreis: "2000",
       kaufpreis: "kaufpreis 2",
       note: "Text of note 2",
+      kosten: [
+        {
+          key: 1,
+          kostenart: "Type 1",
+          betrag: "02.05.2023",
+          anweisung: "01.06.2023",
+        },
+        {
+          key: 2,
+          kostenart: "Type 2",
+          betrag: "02.02.2023",
+          anweisung: "02.06.2023",
+        },
+      ],
     },
     {
       key: 3,
@@ -30,6 +58,20 @@ const mockExtractor = (input) => {
       quadratmeterpreis: "3000",
       kaufpreis: "kaufpreis 3",
       note: "Text of note 3",
+      kosten: [
+        {
+          key: 1,
+          kostenart: "Type 1",
+          betrag: "03.05.2023",
+          anweisung: "03.06.2023",
+        },
+        {
+          key: 2,
+          kostenart: "Type 2",
+          betrag: "04.02.2023",
+          anweisung: "04.06.2023",
+        },
+      ],
     },
     {
       key: 4,
@@ -38,6 +80,20 @@ const mockExtractor = (input) => {
       quadratmeterpreis: "4000",
       kaufpreis: "kaufpreis 4",
       note: "Text of note 4",
+      kosten: [
+        {
+          key: 1,
+          kostenart: "Type 1",
+          betrag: "01.05.2023",
+          anweisung: "01.06.2023",
+        },
+        {
+          key: 2,
+          kostenart: "Type 2",
+          betrag: "02.02.2023",
+          anweisung: "02.06.2023",
+        },
+      ],
     },
   ];
 };
@@ -98,7 +154,7 @@ const OperationsPage = ({
           <ContractData dataContract={dataContract} activeRow={activeRow} />
         </Col>
         <Col span={12}>
-          <CrossReferences />
+          <CrossReferences activeRow={activeRow} dataContract={dataContract} />
         </Col>
       </Row>
     </div>
