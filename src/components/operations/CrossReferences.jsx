@@ -129,7 +129,10 @@ const CrossReferences = ({
     },
     {
       title: "Betrag",
-      value: dayjs(activecCosts?.betrag, dateFormat),
+      value:
+        activecCosts?.betrag === ""
+          ? null
+          : dayjs(activecCosts?.betrag, dateFormat),
       name: "betrag",
       key: nanoid(),
       type: "date",
@@ -139,7 +142,10 @@ const CrossReferences = ({
       key: nanoid(),
       name: "anweisung",
       type: "date",
-      value: dayjs(activecCosts?.anweisung, dateFormat),
+      value:
+        activecCosts?.betrag === ""
+          ? null
+          : dayjs(activecCosts?.anweisung, dateFormat),
     },
   ];
   const resolutionsFields = [
@@ -166,7 +172,30 @@ const CrossReferences = ({
     };
     setKosten((prev) => [...prev, newData]);
   };
+  const handleEditActiveKosten = (updatedObject) => {
+    updatedObject.betrag = updatedObject.betrag.format("DD.MM.YYYY");
+    updatedObject.anweisung = updatedObject.anweisung.format("DD.MM.YYYY");
+
+    setKosten(
+      kosten.map((k) => (k.key === updatedObject.key ? updatedObject : k))
+    );
+  };
+  const deleteActiveRow = () => {
+    console.log(activecCosts, activeTabe);
+    if (activeTabe === "2" && activecCosts) {
+      const updatedArray = kosten.filter((k) => k.key !== activecCosts.key);
+      setKosten(updatedArray);
+      setActiveCosts(null);
+    }
+    // if (activeTabe === 3 && activeResolution) {
+    //   const updatedArray = kosten.filter(
+    //     (k) => k.key !== activecCosts.key
+    //   );
+    //   setKosten(updatedArray)
+    // }
+  };
   useEffect(() => {
+    console.log(activeTabe);
     activeRow ? setKosten(contract.kosten) : setKosten(null);
   }, [activeRow]);
   return (
@@ -184,10 +213,13 @@ const CrossReferences = ({
           <ToggleModal
             section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
             addRow={handleAddCostenRow}
+            deleteActiveRow={deleteActiveRow}
             showModalButton={activeTabe === "1" ? false : true}
             isActiveRow={activecCosts || activeResolution ? true : false}
           >
             <ModalForm
+              updateHandle={handleEditActiveKosten}
+              formName={activecCosts?.key}
               customFields={activeTabe === "3" ? resolutionsFields : costFields}
               size={24}
               buttonPosition={{ justifyContent: "end" }}

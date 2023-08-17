@@ -3,6 +3,13 @@ import { Button, Row, Col, Form, Input, Select, DatePicker } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const inputStyle = {
   border: "1px solid #D9D9D9",
   borderRadius: "2px",
@@ -20,8 +27,9 @@ const ModalForm = ({
   formName,
 }) => {
   const [form] = Form.useForm();
-  const onChange = (e) => {};
   const handleFinish = (values) => {
+    const obj = { key: formName, ...values };
+    // Object.keys(obj).forEach(item => item ===)
     updateHandle({ key: formName, ...values });
   };
   const dateFormat = "DD.MM.YYYY";
