@@ -8,6 +8,13 @@ import ModalForm from "../ui/forms/ModalForm";
 import { useEffect, useState } from "react";
 import "./operations.css";
 import { nanoid } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 
 const { TabPane } = Tabs;
 
@@ -101,10 +108,11 @@ const CrossReferences = ({
   const [activeResolution, setActiveResolution] = useState({});
   const [activeTabe, setActiveTab] = useState("1");
   const data = extractor(dataIn);
+  const dateFormat = "DD.MM.YYYY";
   const costFields = [
     {
       title: "Kostenart",
-      value: activecCosts.kostenart,
+      value: activecCosts?.kostenart,
       key: nanoid(),
       name: "kostenart",
       type: "select",
@@ -121,15 +129,16 @@ const CrossReferences = ({
     },
     {
       title: "Betrag",
-      value: activecCosts.betrag,
+      value: dayjs(activecCosts?.betrag, dateFormat),
       name: "betrag",
       key: nanoid(),
+      type: "date",
     },
     {
       title: "Anweisung",
       key: nanoid(),
       name: "anweisung",
-      value: activecCosts.anweisung,
+      value: activecCosts?.anweisung,
     },
   ];
   const resolutionsFields = [

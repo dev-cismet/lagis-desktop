@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Row, Col, Form, Input, Select } from "antd";
+import { Button, Row, Col, Form, Input, Select, DatePicker } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
@@ -24,6 +24,7 @@ const ModalForm = ({
   const handleFinish = (values) => {
     updateHandle({ key: formName, ...values });
   };
+  const dateFormat = "DD.MM.YYYY";
   useEffect(() => {
     const fieldValues = {};
     customFields?.forEach((field) => {
@@ -53,9 +54,13 @@ const ModalForm = ({
                   ))}
                 </Select>
               </Form.Item>
+            ) : item.type === "date" ? (
+              <Form.Item name={item.name} label={item.title}>
+                <DatePicker format={dateFormat} />
+              </Form.Item>
             ) : (
               <Form.Item name={item.name} label={item.title}>
-                <Input style={inputStyle} />
+                <Input />
               </Form.Item>
             )}
           </Col>
