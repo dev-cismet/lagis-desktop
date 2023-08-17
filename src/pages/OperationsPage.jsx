@@ -9,34 +9,34 @@ const mockExtractor = (input) => {
   return [
     {
       key: 1,
-      vertragsart: "text 1",
+      vertragsart: "Vermietung",
       nummer: "Nummer 1",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
+      quadratmeterpreis: "1000",
+      kaufpreis: "kaufpreis 1",
       note: "Text of note 1",
     },
     {
       key: 2,
-      vertragsart: "text 2",
+      vertragsart: "Leasing",
       nummer: "Nummer 2",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
+      quadratmeterpreis: "2000",
+      kaufpreis: "kaufpreis 2",
       note: "Text of note 2",
     },
     {
       key: 3,
-      vertragsart: "text 3",
+      vertragsart: "Leasing",
       nummer: "Nummer 3",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
+      quadratmeterpreis: "3000",
+      kaufpreis: "kaufpreis 3",
       note: "Text of note 3",
     },
     {
       key: 4,
-      vertragsart: "text 4",
+      vertragsart: "Vermietung",
       nummer: "Nummer 4",
-      quadratmeterpreis: "",
-      kaufpreis: "kaufpreis",
+      quadratmeterpreis: "4000",
+      kaufpreis: "kaufpreis 4",
       note: "Text of note 4",
     },
   ];
@@ -95,7 +95,7 @@ const OperationsPage = ({
       </Row>
       <Row gutter={gutterStyle}>
         <Col span={12}>
-          <ContractData />
+          <ContractData dataContract={dataContract} activeRow={activeRow} />
         </Col>
         <Col span={12}>
           <CrossReferences />

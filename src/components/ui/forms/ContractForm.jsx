@@ -1,13 +1,21 @@
-import React from "react";
-import { Col, Form, Input, Row, Divider } from "antd";
+import React, { useEffect } from "react";
+import { Col, Form, Input, Row, Divider, Tooltip, Select } from "antd";
 
-const ContractForm = () => {
+const ContractForm = ({ activeRow }) => {
   const [form] = Form.useForm();
-  const nameValue = Form.useWatch("name", form);
+  // const nameValue = Form.useWatch("name", form);
   const customGutter = 24;
   const dividerStyles = { margin: "0" };
   const inputStile = "mt-4 mb-4 text-xs";
-
+  useEffect(() => {
+    form.setFieldsValue({
+      kaufpreis: activeRow?.kaufpreis ? activeRow.kaufpreis : "",
+      quadratmeterpreis: activeRow?.quadratmeterpreis
+        ? activeRow.quadratmeterpreis
+        : "",
+      vertragsart: activeRow?.vertragsart ? activeRow.vertragsart : "",
+    });
+  }, [activeRow, form]);
   return (
     <div>
       <Form
@@ -33,13 +41,14 @@ const ContractForm = () => {
             <Form.Item
               name="kaufpreis"
               label={
-                <span style={{ fontSize: "14px" }}>
-                  Kaufpreis (inkl. Nebenkosten)
-                </span>
+                <Tooltip title="inkl. Nebenkosten">
+                  <span style={{ fontSize: "14px" }}>Kaufpreis</span>
+                </Tooltip>
               }
+              initialValue={activeRow?.kaufpreis ? activeRow.kaufpreis : ""}
               className={inputStile}
             >
-              <Input />
+              <Input value={activeRow?.kaufpreis ? activeRow.kaufpreis : ""} />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -83,11 +92,14 @@ const ContractForm = () => {
         <Row gutter={customGutter}>
           <Col span={12}>
             <Form.Item
-              name="vertragsart"
               label={<span style={{ fontSize: "12px" }}>Vertragsart</span>}
+              name="vertragsart"
               className={inputStile}
             >
-              <Input />
+              <Select>
+                <Select.Option value="vermietung">Vermietung</Select.Option>
+                <Select.Option value="leasing">Leasing</Select.Option>
+              </Select>
             </Form.Item>
           </Col>
           <Col span={12}>
