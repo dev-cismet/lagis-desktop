@@ -17,13 +17,13 @@ const mockExtractor = (input) => {
       kosten: [
         {
           key: 1,
-          kostenart: "Type 1",
+          kostenart: "Vermietung",
           betrag: "01.05.2023",
           anweisung: "01.06.2023",
         },
         {
           key: 2,
-          kostenart: "Type 2",
+          kostenart: "Leasing",
           betrag: "01.02.2023",
           anweisung: "01.06.2023",
         },
@@ -39,13 +39,13 @@ const mockExtractor = (input) => {
       kosten: [
         {
           key: 1,
-          kostenart: "Type 1",
+          kostenart: "Leasing",
           betrag: "02.05.2023",
           anweisung: "01.06.2023",
         },
         {
           key: 2,
-          kostenart: "Type 2",
+          kostenart: "Vermietung",
           betrag: "02.02.2023",
           anweisung: "02.06.2023",
         },
@@ -61,13 +61,13 @@ const mockExtractor = (input) => {
       kosten: [
         {
           key: 1,
-          kostenart: "Type 1",
+          kostenart: "Vermietung",
           betrag: "03.05.2023",
           anweisung: "03.06.2023",
         },
         {
           key: 2,
-          kostenart: "Type 2",
+          kostenart: "Leasing",
           betrag: "04.02.2023",
           anweisung: "04.06.2023",
         },
@@ -83,13 +83,13 @@ const mockExtractor = (input) => {
       kosten: [
         {
           key: 1,
-          kostenart: "Type 1",
+          kostenart: "Leasing",
           betrag: "01.05.2023",
           anweisung: "01.06.2023",
         },
         {
           key: 2,
-          kostenart: "Type 2",
+          kostenart: "Vermietung",
           betrag: "02.02.2023",
           anweisung: "02.06.2023",
         },

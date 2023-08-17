@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Row, Col, Form, Input } from "antd";
+import { Button, Row, Col, Form, Input, Select } from "antd";
 import Labelform from "./Labelform";
 import CustomTags from "../tags/CustomTags";
 import UploadFiles from "./UploadFiles";
@@ -41,11 +41,23 @@ const ModalForm = ({
       onFinish={handleFinish}
     >
       <Row gutter={12}>
-        {customFields?.map((items) => (
-          <Col span={size} key={items.key}>
-            <Form.Item name={items.name} label={items.label}>
-              <Input style={inputStyle} onChange={onChange} />
-            </Form.Item>
+        {customFields?.map((item) => (
+          <Col span={size} key={item.key}>
+            {item?.type === "select" ? (
+              <Form.Item name={item.name} label={item.title}>
+                <Select>
+                  {item.options.map((option) => (
+                    <Option key={option.value} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            ) : (
+              <Form.Item name={item.name} label={item.title}>
+                <Input style={inputStyle} />
+              </Form.Item>
+            )}
           </Col>
         ))}
       </Row>

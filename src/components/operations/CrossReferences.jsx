@@ -105,17 +105,31 @@ const CrossReferences = ({
     {
       title: "Kostenart",
       value: activecCosts.kostenart,
-      rules: [{ required: true }],
+      key: nanoid(),
+      name: "kostenart",
+      type: "select",
+      options: [
+        {
+          value: "Vermietung",
+          lable: "Vermietung",
+        },
+        {
+          value: "Leasing",
+          lable: "Leasing",
+        },
+      ],
     },
     {
       title: "Betrag",
       value: activecCosts.betrag,
-      rules: [{ required: true }],
+      name: "betrag",
+      key: nanoid(),
     },
     {
       title: "Anweisung",
+      key: nanoid(),
+      name: "anweisung",
       value: activecCosts.anweisung,
-      rules: [{ required: true }],
     },
   ];
   const resolutionsFields = [
@@ -161,9 +175,10 @@ const CrossReferences = ({
             section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
             addRow={handleAddCostenRow}
             showModalButton={activeTabe === "1" ? false : true}
+            isActiveRow={activecCosts || activeResolution ? true : false}
           >
             <ModalForm
-              fields={activeTabe === "3" ? resolutionsFields : costFields}
+              customFields={activeTabe === "3" ? resolutionsFields : costFields}
               size={24}
               buttonPosition={{ justifyContent: "end" }}
               tagsBar={[]}

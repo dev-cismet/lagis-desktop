@@ -97,25 +97,25 @@ const Contracts = ({
                 updateHandle={handleEditActiveContract}
                 customFields={[
                   {
-                    lable: "Vertragsart",
+                    title: "Vertragsart",
                     value: activeRow?.vertragsart,
                     key: nanoid(),
                     name: "vertragsart",
                   },
                   {
-                    lable: "Nummer",
+                    title: "Nummer",
                     value: activeRow?.nummer,
                     name: "nummer",
                     key: nanoid(),
                   },
                   {
-                    lable: "Quadratmeterpreis",
+                    title: "Quadratmeterpreis",
                     key: nanoid(),
                     value: activeRow?.quadratmeterpreis,
                     name: "quadratmeterpreis",
                   },
                   {
-                    lable: "Kaufpreis (i. NK)",
+                    title: "Kaufpreis (i. NK)",
                     value: activeRow?.kaufpreis,
                     name: "kaufpreis",
                     key: nanoid(),
