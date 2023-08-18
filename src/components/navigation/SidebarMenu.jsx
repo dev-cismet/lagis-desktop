@@ -77,17 +77,6 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         mode="inline"
         inlineCollapsed={collapsed}
       />
-      <div className="mt-auto px-4 pb-2">
-        <Button
-          onClick={toggleCollapsed}
-          style={{
-            margin: "auto 0",
-            width: "100%",
-          }}
-        >
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </Button>
-      </div>
     </div>
   );
 };
