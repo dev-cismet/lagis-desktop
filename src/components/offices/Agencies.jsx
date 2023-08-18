@@ -3,7 +3,7 @@ import { useState } from "react";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 import ToggleModal from "../ui/control-board/ToggleModal";
-import TableMock from "../ui/tables/TableMock";
+import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { useEffect } from "react";
 const columns = [
@@ -102,7 +102,7 @@ const Agencies = ({
           />
         }
       >
-        <TableMock columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

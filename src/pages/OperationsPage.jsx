@@ -153,7 +153,7 @@ const OperationsPage = ({
   inStory = false,
 }) => {
   const data = extractor(dataIn);
-  const [activeRow, setActiveRow] = useState(null);
+  const [activeRow, setActiveRow] = useState(data[0]);
   const [dataContract, setDataContract] = useState(data);
   let storyStyle = {};
   if (inStory) {

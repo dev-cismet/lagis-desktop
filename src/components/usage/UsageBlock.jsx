@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
-import TableMock from "../ui/tables/TableMock";
+import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { useState } from "react";
@@ -210,7 +210,7 @@ const UsageBlock = ({
           </ToggleModal>
         }
       >
-        <TableMock
+        <TableCustom
           columns={columns}
           data={data}
           activerow={setActiveRow}

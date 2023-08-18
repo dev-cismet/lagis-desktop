@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import InfoBlock from "../ui/Blocks/InfoBlock";
+import InfoBlock from "../ui/blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
-import TableMock from "../ui/tables/TableMock";
+import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import DocsIcons from "../ui/Blocks/DocsIcons";
+import DocsIcons from "../ui/blocks/DocsIcons";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect } from "react";
 
@@ -77,7 +77,6 @@ const Contracts = ({
   };
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  useEffect(() => {}, [activeRow, dataContract]);
   return (
     <div>
       <div
@@ -149,7 +148,7 @@ const Contracts = ({
             </ToggleModal>
           }
         >
-          <TableMock
+          <TableCustom
             columns={columns}
             data={dataContract}
             setActiveRow={handleActiveRow}

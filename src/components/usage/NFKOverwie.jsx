@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
-import TableMock from "../ui/tables/TableMock";
+import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
@@ -105,7 +105,7 @@ const NFKOverwie = ({
           </ToggleModal>
         }
       >
-        <TableMock columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
       </InfoBlock>
     </div>
   );

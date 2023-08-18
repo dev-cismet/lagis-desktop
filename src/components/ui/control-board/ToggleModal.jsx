@@ -7,21 +7,11 @@ const ToggleModal = ({
   section,
   name,
   content,
-  // showModalButton = true,
   modalWidth = 520,
-  isActiveRow,
   addRow,
   deleteActiveRow,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  // const addOrOpen = () => {
-  //   if (isActiveRow) {
-  //     setModalOpen(true);
-  //   } else {
-  //     setModalOpen(false);
-  //     addRow();
-  //   }
-  // };
   const childrenWithProps = React.Children.map(children, (child) => {
     console.log("children", child);
     return React.isValidElement(child)

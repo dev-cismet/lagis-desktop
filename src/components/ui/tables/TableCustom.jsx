@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Table } from "antd";
 import "./table-style.css";
 
-const TableMock = ({
+const TableCustom = ({
   columns,
   data,
   pagination = false,
@@ -10,14 +10,14 @@ const TableMock = ({
   setActiveRow,
   activeRow,
 }) => {
-  const [selectedRow, setSelectedRow] = useState(null);
-  const resetAciveRow = () => {
-    setActiveRow(null);
-    setSelectedRow(null);
-  };
+  const [selectedRow, setSelectedRow] = useState(activeRow);
+  // const resetAciveRow = () => {
+  //   setActiveRow(null);
+  //   setSelectedRow(null);
+  // };
   const handleRowClick = (record) => {
     if (activeRow && record.key === selectedRow) {
-      resetAciveRow();
+      // resetAciveRow();
     } else {
       setSelectedRow(record.key);
       setActiveRow(record);
@@ -34,7 +34,8 @@ const TableMock = ({
       <Table
         onRow={(record) => ({
           onClick: () => handleRowClick(record),
-          className: record.key === selectedRow ? "ant-table-row-selected" : "",
+          className:
+            record.key === selectedRow.key ? "ant-table-row-selected" : "",
         })}
         columns={columns}
         dataSource={data}
@@ -46,4 +47,4 @@ const TableMock = ({
   );
 };
 
-export default TableMock;
+export default TableCustom;

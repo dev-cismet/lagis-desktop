@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import InfoBlock from "../ui/Blocks/InfoBlock";
+import InfoBlock from "../ui/blocks/InfoBlock";
 import { Tabs } from "antd";
-import TableMock from "../ui/tables/TableMock";
+import TableCustom from "../ui/tables/TableCustom";
 import CustomNotes from "../ui/notes/CustomNotes";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
@@ -225,7 +225,7 @@ const CrossReferences = ({ activeRow, dataContract }) => {
             <CustomNotes />
           </TabPane>
           <TabPane tab="Kosten" key="2">
-            <TableMock
+            <TableCustom
               columns={columnsCosts}
               data={kosten}
               activeRow={activecCosts}
@@ -233,7 +233,7 @@ const CrossReferences = ({ activeRow, dataContract }) => {
             />
           </TabPane>
           <TabPane tab="Beschlüsse" key="3">
-            <TableMock
+            <TableCustom
               columns={columns}
               data={resolution}
               setActiveRow={setActiveResolution}

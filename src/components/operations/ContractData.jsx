@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InfoBlock from "../ui/Blocks/InfoBlock";
+import InfoBlock from "../ui/blocks/InfoBlock";
 import ContractForm from "../ui/forms/ContractForm";
 import TableActionBTN from "../ui/btn/TableActionBTN";
 const ContractData = ({ dataContract, activeRow }) => {

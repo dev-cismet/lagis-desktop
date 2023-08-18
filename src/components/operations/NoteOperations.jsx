@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InfoBlock from "../ui/Blocks/InfoBlock";
+import InfoBlock from "../ui/blocks/InfoBlock";
 import CustomNotes from "../ui/notes/CustomNotes";
 import { CheckOutlined } from "@ant-design/icons";
 import { Button } from "antd";
