@@ -101,7 +101,9 @@ const Contracts = ({
               deleteActiveRow={deleteActiveRow}
               isActiveRow={activeRow ? true : false}
               modalWidth={900}
-              content={<DocsIcons />}
+              content={
+                <DocsIcons classnames="flex justify-center items-center" />
+              }
             >
               <ModalForm
                 updateHandle={handleEditActiveContract}

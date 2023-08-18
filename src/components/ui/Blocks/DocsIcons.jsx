@@ -1,15 +1,13 @@
 import { CopyOutlined, SnippetsOutlined } from "@ant-design/icons";
 const DocsIcons = ({ classnames }) => {
+  const iconSize = "17px";
   return (
     <div className={classnames}>
       <SnippetsOutlined
-        className="text-base mx-1"
-        style={{ color: "#1890FF", fontSize: "15px" }}
+        className="mx-1"
+        style={{ color: "#1890FF", fontSize: iconSize }}
       />
-      <CopyOutlined
-        className="text-base mx-1"
-        style={{ color: "#1890FF", fontSize: "15px" }}
-      />
+      <CopyOutlined style={{ color: "#1890FF", fontSize: iconSize }} />
     </div>
   );
 };
