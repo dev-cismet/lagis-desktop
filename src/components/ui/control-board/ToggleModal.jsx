@@ -14,23 +14,14 @@ const ToggleModal = ({
   deleteActiveRow,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const btnStyle = {
-    width: "15px",
-    height: "15px",
-    backgroundColor: "#DDE2E8",
-    borderRadius: "2px",
-    lineHeight: "15px",
-    textAlign: "center",
-    cursor: "pointer",
-  };
-  const addOrOpen = () => {
-    if (isActiveRow) {
-      setModalOpen(true);
-    } else {
-      setModalOpen(false);
-      addRow();
-    }
-  };
+  // const addOrOpen = () => {
+  //   if (isActiveRow) {
+  //     setModalOpen(true);
+  //   } else {
+  //     setModalOpen(false);
+  //     addRow();
+  //   }
+  // };
   const childrenWithProps = React.Children.map(children, (child) => {
     console.log("children", child);
     return React.isValidElement(child)
@@ -41,7 +32,11 @@ const ToggleModal = ({
   return (
     <div className="flex gap-1 items-center">
       {content}
-      <TableActionBTN addOrOpen={addOrOpen} deleteActiveRow={deleteActiveRow} />
+      <TableActionBTN
+        addRow={addRow}
+        deleteActiveRow={deleteActiveRow}
+        editActive={() => setModalOpen(true)}
+      />
       <Modal
         width={modalWidth}
         title={
