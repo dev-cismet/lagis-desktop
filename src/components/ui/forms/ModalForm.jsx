@@ -25,11 +25,13 @@ const ModalForm = ({
   tagsBar = [],
   showFileUpload = false,
   formName,
+  setModalOpen,
 }) => {
   const [form] = Form.useForm();
   const handleFinish = (values) => {
     const obj = { key: formName, ...values };
     updateHandle({ key: formName, ...values });
+    setModalOpen(false);
   };
   const dateFormat = "DD.MM.YYYY";
   useEffect(() => {

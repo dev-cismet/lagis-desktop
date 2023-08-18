@@ -111,6 +111,17 @@ const Contracts = ({
                     value: activeRow?.vertragsart,
                     key: nanoid(),
                     name: "vertragsart",
+                    type: "select",
+                    options: [
+                      {
+                        value: "Vermietung",
+                        lable: "Vermietung",
+                      },
+                      {
+                        value: "Leasing",
+                        lable: "Leasing",
+                      },
+                    ],
                   },
                   {
                     title: "Nummer",

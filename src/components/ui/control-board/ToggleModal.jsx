@@ -30,6 +30,13 @@ const ToggleModal = ({
       addRow();
     }
   };
+  const childrenWithProps = React.Children.map(children, (child) => {
+    console.log("children", child);
+    return React.isValidElement(child)
+      ? React.cloneElement(child, { setModalOpen })
+      : child;
+  });
+
   return (
     <div className="flex gap-1 items-center">
       {content}
@@ -83,7 +90,7 @@ const ToggleModal = ({
         wrapClassName="custom-modal-wrapper"
         footer={null}
       >
-        {children}
+        {childrenWithProps}
       </Modal>
     </div>
   );
