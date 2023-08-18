@@ -4,6 +4,7 @@ import ContractForm from "../ui/forms/ContractForm";
 import { CheckOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import NoteOperations from "./NoteOperations";
+import TableActionBTN from "../ui/btn/TableActionBTN";
 const ContractData = ({ dataContract, activeRow }) => {
   const [showButton, setShowButton] = useState(false);
   return (
@@ -11,28 +12,10 @@ const ContractData = ({ dataContract, activeRow }) => {
       <InfoBlock
         title="Vertragsdaten"
         controlBar={
-          showButton &&
-          activeRow && (
-            <Button
-              icon={
-                <CheckOutlined
-                  style={{
-                    color: "#ffffff",
-                    fontSize: "10px",
-                  }}
-                />
-              }
-              size={"small"}
-              style={{
-                background: "#00b96b",
-                width: "20px",
-                height: "20px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            ></Button>
-          )
+          <TableActionBTN
+            addOrOpen={() => console.log("add an action")}
+            deleteActiveRow={() => console.log("add an action")}
+          />
         }
       >
         <ContractForm activeRow={activeRow} setShowButton={setShowButton} />

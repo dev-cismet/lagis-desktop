@@ -102,7 +102,7 @@ const Contracts = ({
               isActiveRow={activeRow ? true : false}
               modalWidth={900}
               content={
-                <DocsIcons classnames="flex justify-center items-center" />
+                <DocsIcons classnames="flex justify-center items-center gap-1" />
               }
             >
               <ModalForm
