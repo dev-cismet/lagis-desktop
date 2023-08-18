@@ -3,6 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ContractForm from "../ui/forms/ContractForm";
 import { CheckOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import NoteOperations from "./NoteOperations";
 const ContractData = ({ dataContract, activeRow }) => {
   const [showButton, setShowButton] = useState(false);
   return (

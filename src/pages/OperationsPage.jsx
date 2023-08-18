@@ -181,7 +181,7 @@ const OperationsPage = ({
           ...marginBottomStyle,
         }}
       >
-        <Col span={16}>
+        <Col span={24}>
           <Contracts
             activeRow={activeRow}
             setActiveRow={setActiveRow}
@@ -189,13 +189,13 @@ const OperationsPage = ({
             setDataContract={setDataContract}
           />
         </Col>
-        <Col span={8}>
+        {/* <Col span={8}>
           <NoteOperations
             activeRow={activeRow}
             dataContract={dataContract}
             setDataContract={setDataContract}
           />
-        </Col>
+        </Col> */}
       </Row>
       <Row gutter={gutterStyle}>
         <Col span={12}>

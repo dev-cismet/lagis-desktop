@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { Col, Form, Input, Row, Divider, Tooltip, Select } from "antd";
-
+import React, { useEffect, useState } from "react";
+import { Col, Form, Input, Row, Divider } from "antd";
+const { TextArea } = Input;
 const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
+  const [componentDisabled, setComponentDisabled] = useState(true);
   const [form] = Form.useForm();
-  const nameValue = Form.useWatch("name", form);
+  // const nameValue = Form.useWatch("name", form);
   const customGutter = 24;
   const dividerStyles = { margin: "0" };
   const inputStile = "mt-4 mb-4 text-xs";
@@ -29,32 +30,16 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
         autoComplete="off"
         style={{ padding: "0 12px" }}
         onValuesChange={handleValuesChange}
+        disabled={componentDisabled}
       >
         <Row gutter={customGutter}>
-          <Col span={24}>
+          <Col span={12}>
             <Form.Item
               name="voreigentümer"
               label={<span style={{ fontSize: "14px" }}>Voreigentümer</span>}
               className={inputStile}
             >
               <Input />
-            </Form.Item>
-            <Divider style={dividerStyles} />
-          </Col>
-        </Row>
-        <Row gutter={customGutter}>
-          <Col span={12}>
-            <Form.Item
-              name="kaufpreis"
-              label={
-                <Tooltip title="inkl. Nebenkosten">
-                  <span style={{ fontSize: "14px" }}>Kaufpreis</span>
-                </Tooltip>
-              }
-              initialValue={activeRow?.kaufpreis ? activeRow.kaufpreis : ""}
-              className={inputStile}
-            >
-              <Input value={activeRow?.kaufpreis ? activeRow.kaufpreis : ""} />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -66,23 +51,10 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
               <Input />
             </Form.Item>
           </Col>
-          <Col span={24}>
-            <Divider style={dividerStyles} />
-          </Col>
+          <Divider style={dividerStyles} />
         </Row>
         <Row gutter={customGutter}>
-          <Col span={12}>
-            <Form.Item
-              name="quadratmeterpreis"
-              label={
-                <span style={{ fontSize: "14px" }}>Quadratmeterpreis</span>
-              }
-              className={inputStile}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item
               name="eintragung"
               label={<span style={{ fontSize: "12px" }}>Eintragung</span>}
@@ -96,30 +68,16 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
           </Col>
         </Row>
         <Row gutter={customGutter}>
-          <Col span={12}>
-            <Form.Item
-              label={<span style={{ fontSize: "12px" }}>Vertragsart</span>}
-              name="vertragsart"
-              className={inputStile}
-            >
-              <Select>
-                <Select.Option value="vermietung">Vermietung</Select.Option>
-                <Select.Option value="leasing">Leasing</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="aktenzeichen"
-              label={<span style={{ fontSize: "12px" }}>Aktenzeichen</span>}
-              className={inputStile}
-            >
-              <Input />
-            </Form.Item>
-          </Col>
           <Col span={24}>
-            <Divider style={dividerStyles} />
+            <Form.Item
+              name="bemerkung"
+              label={<span style={{ fontSize: "12px" }}>Bemerkung</span>}
+              className={inputStile}
+            >
+              <TextArea rows={4} />
+            </Form.Item>
           </Col>
+          <Col span={24}>{/* <Divider style={dividerStyles} /> */}</Col>
         </Row>
       </Form>
     </div>
