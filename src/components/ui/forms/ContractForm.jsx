@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
 import { Col, Form, Input, Row, Divider, Tooltip, Select } from "antd";
 
-const ContractForm = ({ activeRow }) => {
+const ContractForm = ({ activeRow, setShowButton }) => {
   const [form] = Form.useForm();
-  // const nameValue = Form.useWatch("name", form);
+  const nameValue = Form.useWatch("name", form);
   const customGutter = 24;
   const dividerStyles = { margin: "0" };
   const inputStile = "mt-4 mb-4 text-xs";
+  const handleValuesChange = (changedValues, allValues) => {
+    console.log("Changed values:", changedValues);
+    console.log("All values:", allValues);
+    setShowButton(true);
+  };
   useEffect(() => {
     form.setFieldsValue({
       kaufpreis: activeRow?.kaufpreis ? activeRow.kaufpreis : "",
@@ -23,6 +28,7 @@ const ContractForm = ({ activeRow }) => {
         layout="vertical"
         autoComplete="off"
         style={{ padding: "0 12px" }}
+        onValuesChange={handleValuesChange}
       >
         <Row gutter={customGutter}>
           <Col span={24}>

@@ -170,7 +170,6 @@ const CrossReferences = ({ activeRow, dataContract }) => {
     }
   };
   useEffect(() => {
-    console.log(activeTabe);
     if (activeRow) {
       setKosten(contract.kosten);
       setResolution(contract.resolution);
