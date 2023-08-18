@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Form, Input, Row, Divider, Tooltip, Select } from "antd";
 
-const ContractForm = ({ activeRow, setShowButton }) => {
+const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
   const [form] = Form.useForm();
   const nameValue = Form.useWatch("name", form);
   const customGutter = 24;

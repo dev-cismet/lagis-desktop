@@ -42,8 +42,18 @@ const Contracts = ({
       nummer: "",
       quadratmeterpreis: "",
       kaufpreis: "",
+      note: "",
+      kosten: [{ key: nanoid(), kostenart: "", betrag: "", anweisung: "" }],
+      resolution: [
+        {
+          key: 1,
+          beschlussart: "",
+          datum: "",
+        },
+      ],
     };
     setDataContract((prev) => [...prev, newData]);
+    setActiveRow(null);
   };
   const handleActiveRow = (rowObject) => {
     setActiveRow(rowObject);
@@ -61,13 +71,13 @@ const Contracts = ({
     setActiveRow(updatedObject);
     setDataContract(
       dataContract.map((obj) =>
-        obj.key === updatedObject.key ? updatedObject : obj
+        obj.key === updatedObject.key ? { ...obj, ...updatedObject } : obj
       )
     );
   };
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  useEffect(() => {}, [activeRow]);
+  useEffect(() => {}, [activeRow, dataContract]);
   return (
     <div>
       <div
