@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
 import "./toggle.css";
+import TableActionBTN from "../btn/TableActionBTN";
 const ToggleModal = ({
   children,
   section,
   name,
   content,
-  showModalButton = true,
+  // showModalButton = true,
   modalWidth = 520,
   isActiveRow,
   addRow,
@@ -40,19 +41,7 @@ const ToggleModal = ({
   return (
     <div className="flex gap-1 items-center">
       {content}
-      {showModalButton && (
-        <>
-          <span style={btnStyle} onClick={addOrOpen}>
-            +
-          </span>
-          <span
-            style={{ ...btnStyle, lineHeight: "12px" }}
-            onClick={deleteActiveRow}
-          >
-            -
-          </span>
-        </>
-      )}
+      <TableActionBTN addOrOpen={addOrOpen} deleteActiveRow={deleteActiveRow} />
       <Modal
         width={modalWidth}
         title={
