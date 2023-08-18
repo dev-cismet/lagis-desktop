@@ -29,7 +29,6 @@ const ModalForm = ({
   const [form] = Form.useForm();
   const handleFinish = (values) => {
     const obj = { key: formName, ...values };
-    // Object.keys(obj).forEach(item => item ===)
     updateHandle({ key: formName, ...values });
   };
   const dateFormat = "DD.MM.YYYY";

@@ -28,6 +28,18 @@ const mockExtractor = (input) => {
           anweisung: "01.06.2023",
         },
       ],
+      resolution: [
+        {
+          key: 1,
+          beschlussart: "Vermietung",
+          datum: "01.05.2023",
+        },
+        {
+          key: 2,
+          beschlussart: "Leasing",
+          datum: "01.05.2023",
+        },
+      ],
     },
     {
       key: 2,
@@ -48,6 +60,18 @@ const mockExtractor = (input) => {
           kostenart: "Vermietung",
           betrag: "02.02.2023",
           anweisung: "02.06.2023",
+        },
+      ],
+      resolution: [
+        {
+          key: 1,
+          beschlussart: "Vermietung",
+          datum: "01.05.2023",
+        },
+        {
+          key: 2,
+          beschlussart: "Leasing",
+          datum: "01.05.2023",
         },
       ],
     },
@@ -72,6 +96,18 @@ const mockExtractor = (input) => {
           anweisung: "04.06.2023",
         },
       ],
+      resolution: [
+        {
+          key: 1,
+          beschlussart: "Vermietung",
+          datum: "01.05.2023",
+        },
+        {
+          key: 2,
+          beschlussart: "Leasing",
+          datum: "01.05.2023",
+        },
+      ],
     },
     {
       key: 4,
@@ -92,6 +128,18 @@ const mockExtractor = (input) => {
           kostenart: "Vermietung",
           betrag: "02.02.2023",
           anweisung: "02.06.2023",
+        },
+      ],
+      resolution: [
+        {
+          key: 1,
+          beschlussart: "Vermietung",
+          datum: "01.05.2023",
+        },
+        {
+          key: 2,
+          beschlussart: "Leasing",
+          datum: "01.05.2023",
         },
       ],
     },

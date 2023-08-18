@@ -42,72 +42,13 @@ const columnsCosts = [
     dataIndex: "anweisung",
   },
 ];
-const mockExtractor = (input) => {
-  return {
-    resolution: [
-      {
-        key: "1",
-        beschlussart: "1237563255",
-        datum: "02.05.2023",
-      },
-      {
-        key: "2",
-        beschlussart: "1237563255",
-        datum: "02.05.2023",
-      },
-      {
-        key: "3",
-        beschlussart: "1237563255",
-        datum: "02.05.2023",
-      },
-      {
-        key: "4",
-        beschlussart: "1237563255",
-        datum: "02.05.2023",
-      },
-    ],
-    costs: [
-      {
-        key: "1",
-        kostenart: "1237563255",
-        betrag: "02.05.2023",
-        anweisung: "02.05.2023",
-      },
-      {
-        key: "2",
-        kostenart: "1237563255",
-        betrag: "02.05.2023",
-        anweisung: "02.05.2023",
-      },
-      {
-        key: "3",
-        beschlussart: "1237563255",
-        kostenart: "1237563255",
-        betrag: "02.05.2023",
-        anweisung: "02.05.2023",
-      },
-      {
-        key: "4",
-        beschlussart: "1237563255",
-        kostenart: "1237563255",
-        betrag: "02.05.2023",
-        anweisung: "02.05.2023",
-      },
-    ],
-  };
-};
-const CrossReferences = ({
-  dataIn,
-  extractor = mockExtractor,
-  activeRow,
-  dataContract,
-}) => {
+const CrossReferences = ({ activeRow, dataContract }) => {
   const contract = dataContract.find((c) => c.key === activeRow?.key);
   const [kosten, setKosten] = useState(null);
+  const [resolution, setResolution] = useState(null);
   const [activecCosts, setActiveCosts] = useState(null);
   const [activeResolution, setActiveResolution] = useState(null);
   const [activeTabe, setActiveTab] = useState("1");
-  const data = extractor(dataIn);
   const dateFormat = "DD.MM.YYYY";
   const costFields = [
     {
@@ -152,51 +93,91 @@ const CrossReferences = ({
     {
       title: "Beschlussart",
       value: activeResolution?.beschlussart,
-      rules: [{ required: true }],
+      name: "beschlussart",
+      key: nanoid(),
+      type: "select",
+      options: [
+        {
+          value: "Vermietung",
+          lable: "Vermietung",
+        },
+        {
+          value: "Leasing",
+          lable: "Leasing",
+        },
+      ],
     },
     {
       title: "Datum",
       value: activeResolution?.datum,
-      rules: [{ required: true }],
+      value:
+        activeResolution?.datum === ""
+          ? null
+          : dayjs(activeResolution?.datum, dateFormat),
+      name: "datum",
+      type: "date",
+      key: nanoid(),
     },
   ];
   const handleActiveCosts = (rowObject) => {
     setActiveCosts(rowObject);
   };
-  const handleAddCostenRow = () => {
-    const newData = {
-      key: nanoid(),
-      kostenart: "",
-      betrag: "",
-      anweisung: "",
-    };
-    setKosten((prev) => [...prev, newData]);
+  const handleAddRow = () => {
+    if (activeTabe === "2" && !activecCosts) {
+      const newData = {
+        key: nanoid(),
+        kostenart: "",
+        betrag: "",
+        anweisung: "",
+      };
+      setKosten((prev) => [...prev, newData]);
+    }
+
+    if (activeTabe === "3" && !activeResolution) {
+      const newData = {
+        key: nanoid(),
+        beschlussart: "",
+        datum: "",
+      };
+      setResolution((prev) => [...prev, newData]);
+    }
   };
   const handleEditActiveKosten = (updatedObject) => {
     updatedObject.betrag = updatedObject.betrag.format("DD.MM.YYYY");
     updatedObject.anweisung = updatedObject.anweisung.format("DD.MM.YYYY");
-
     setKosten(
       kosten.map((k) => (k.key === updatedObject.key ? updatedObject : k))
     );
   };
+  const handleEditActiveResolution = (updatedObject) => {
+    updatedObject.datum = updatedObject.datum.format("DD.MM.YYYY");
+    setResolution(
+      resolution.map((r) => (r.key === updatedObject.key ? updatedObject : r))
+    );
+  };
   const deleteActiveRow = () => {
-    console.log(activecCosts, activeTabe);
     if (activeTabe === "2" && activecCosts) {
       const updatedArray = kosten.filter((k) => k.key !== activecCosts.key);
       setKosten(updatedArray);
       setActiveCosts(null);
     }
-    // if (activeTabe === 3 && activeResolution) {
-    //   const updatedArray = kosten.filter(
-    //     (k) => k.key !== activecCosts.key
-    //   );
-    //   setKosten(updatedArray)
-    // }
+    if (activeTabe === "3" && activeResolution) {
+      const updatedArray = resolution.filter(
+        (r) => r.key !== activeResolution.key
+      );
+      setResolution(updatedArray);
+      setActiveResolution(null);
+    }
   };
   useEffect(() => {
     console.log(activeTabe);
-    activeRow ? setKosten(contract.kosten) : setKosten(null);
+    if (activeRow) {
+      setKosten(contract.kosten);
+      setResolution(contract.resolution);
+    } else {
+      setKosten(null);
+      setResolution(null);
+    }
   }, [activeRow]);
   return (
     <div
@@ -212,14 +193,20 @@ const CrossReferences = ({
         controlBar={
           <ToggleModal
             section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
-            addRow={handleAddCostenRow}
+            addRow={handleAddRow}
             deleteActiveRow={deleteActiveRow}
             showModalButton={activeTabe === "1" ? false : true}
             isActiveRow={activecCosts || activeResolution ? true : false}
           >
             <ModalForm
-              updateHandle={handleEditActiveKosten}
-              formName={activecCosts?.key}
+              updateHandle={
+                activeTabe === "2"
+                  ? handleEditActiveKosten
+                  : handleEditActiveResolution
+              }
+              formName={
+                activeTabe === "2" ? activecCosts?.key : activeResolution?.key
+              }
               customFields={activeTabe === "3" ? resolutionsFields : costFields}
               size={24}
               buttonPosition={{ justifyContent: "end" }}
@@ -248,8 +235,9 @@ const CrossReferences = ({
           <TabPane tab="Beschlüsse" key="3">
             <TableMock
               columns={columns}
-              data={data.resolution}
-              activerow={setActiveResolution}
+              data={resolution}
+              setActiveRow={setActiveResolution}
+              activeRow={activeResolution}
             />
           </TabPane>
         </Tabs>
