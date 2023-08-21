@@ -13,7 +13,7 @@ const TableCustom = ({
   const [selectedRow, setSelectedRow] = useState(activeRow);
   const handleRowClick = (record) => {
     setActiveRow(record);
-    setSelectedRow(record.key);
+    setSelectedRow(record?.key);
   };
 
   let paginationConfig = !pagination
@@ -27,7 +27,7 @@ const TableCustom = ({
         onRow={(record) => ({
           onClick: () => handleRowClick(record),
           className:
-            record.key === activeRow.key ? "ant-table-row-selected" : "",
+            record?.key === activeRow?.key ? "ant-table-row-selected" : "",
         })}
         columns={columns}
         dataSource={data}

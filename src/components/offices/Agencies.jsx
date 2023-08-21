@@ -5,7 +5,7 @@ import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import { useEffect } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 const columns = [
   {
     title: "Dienststelle",
@@ -33,23 +33,23 @@ const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      agency: "12345678910",
-      area: 12345678910,
+      agency: "23345678900",
+      area: "11145678910",
     },
     {
       key: "2",
-      agency: "12345678910",
-      area: 12345678910,
+      agency: "1234567890105",
+      area: "22245678910",
     },
     {
       key: "3",
-      agency: "12345678910",
-      area: 12345678910,
+      agency: "33345678933",
+      area: "33345678910",
     },
     {
       key: "4",
-      agency: "12345678910",
-      area: 12345678910,
+      agency: "444345678944",
+      area: "44445678910",
     },
   ];
 };
@@ -60,13 +60,41 @@ const Agencies = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState("");
-  const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  useEffect(() => {
-    console.log("Active user", activeRow);
-  }, [activeRow]);
+  const data = extractor(dataIn);
+  const [agency, setAgency] = useState(data);
+  const [activeRow, setActiveRow] = useState(agency[0]);
+  const addAgency = () => {
+    const newAgency = {
+      key: nanoid(),
+      agency: "",
+      area: "",
+    };
+    setAgency((prev) => [...prev, newAgency]);
+    setActiveRow(newAgency);
+  };
+  const deleteAgency = () => {
+    const updatedArray = agency.filter((row) => row.key !== activeRow.key);
+    setAgency(updatedArray);
+    setAgency(updatedArray);
+    if (activeRow.key === agency[0].key) {
+      setActiveRow(agency[1]);
+    } else {
+      setActiveRow(agency[0]);
+    }
+  };
+  const editHandle = (updatedObject) => {
+    const targetRow = agency.find((c) => c.key === updatedObject.key);
+    const copyRow = {
+      ...targetRow,
+      agency: updatedObject.agency,
+      area: updatedObject.area,
+    };
+
+    setActiveRow(copyRow);
+    setAgency(agency.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
+  };
   return (
     <div
       style={
@@ -82,27 +110,36 @@ const Agencies = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Dienststellen"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Dienststelle",
-                    value: activeRow.agency,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Gläche in m2",
-                    value: activeRow.area,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                size={24}
-              />
-            }
-          />
+            addRow={addAgency}
+            deleteActiveRow={deleteAgency}
+          >
+            <ModalForm
+              updateHandle={editHandle}
+              customFields={[
+                {
+                  title: "Dienststelle",
+                  value: activeRow?.agency,
+                  key: nanoid(),
+                  name: "agency",
+                },
+                {
+                  title: "Gläche in m2",
+                  value: activeRow?.area,
+                  key: nanoid(),
+                  name: "area",
+                },
+              ]}
+              formName={activeRow.key}
+            />
+          </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={agency}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );
