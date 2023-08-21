@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Table } from "antd";
 import "./table-style.css";
 
@@ -11,17 +11,9 @@ const TableCustom = ({
   activeRow,
 }) => {
   const [selectedRow, setSelectedRow] = useState(activeRow);
-  // const resetAciveRow = () => {
-  //   setActiveRow(null);
-  //   setSelectedRow(null);
-  // };
   const handleRowClick = (record) => {
-    if (activeRow && record.key === selectedRow) {
-      // resetAciveRow();
-    } else {
-      setSelectedRow(record.key);
-      setActiveRow(record);
-    }
+    setActiveRow(record);
+    setSelectedRow(record.key);
   };
 
   let paginationConfig = !pagination
@@ -29,13 +21,17 @@ const TableCustom = ({
     : {
         // pageSize: 4,
       };
+
+  useEffect(() => {
+    console.log("active row", activeRow);
+  }, [activeRow]);
   return (
     <div className={addClass} style={{ padding: "0 0 8px" }}>
       <Table
         onRow={(record) => ({
           onClick: () => handleRowClick(record),
           className:
-            record.key === selectedRow.key ? "ant-table-row-selected" : "",
+            record.key === activeRow.key ? "ant-table-row-selected" : "",
         })}
         columns={columns}
         dataSource={data}

@@ -13,7 +13,6 @@ const ToggleModal = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const childrenWithProps = React.Children.map(children, (child) => {
-    console.log("children", child);
     return React.isValidElement(child)
       ? React.cloneElement(child, { setModalOpen })
       : child;
