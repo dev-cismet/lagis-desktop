@@ -129,7 +129,7 @@ const Agencies = ({
                   name: "area",
                 },
               ]}
-              formName={activeRow.key}
+              formName={activeRow?.key}
             />
           </ToggleModal>
         }

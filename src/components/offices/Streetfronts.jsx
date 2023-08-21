@@ -1,11 +1,18 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { ReloadOutlined } from "@ant-design/icons";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState } from "react";
 import "./offices.css";
+import { nanoid } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const columns = [
   {
     title: "Street",
@@ -47,10 +54,46 @@ const Streetfronts = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
-  const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const dateFormat = "DD.MM.YYYY";
+  const data = extractor(dataIn);
+  const [streetfronts, setStreetfronts] = useState(data);
+  const [activeRow, setActiveRow] = useState(streetfronts[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      street: "",
+      length: "",
+    };
+    setStreetfronts((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    const updatedArray = streetfronts.filter(
+      (row) => row.key !== activeRow?.key
+    );
+    setStreetfronts(updatedArray);
+    if (activeRow?.key === streetfronts[0].key) {
+      setActiveRow(streetfronts[1]);
+    } else {
+      setActiveRow(streetfronts[0]);
+    }
+  };
+  const editHandle = (updatedObject) => {
+    updatedObject.length = updatedObject.length.format("DD.MM.YYYY");
+    const targetRow = streetfronts.find((c) => c.key === updatedObject.key);
+    const copyRow = {
+      ...targetRow,
+      street: updatedObject.street,
+      length: updatedObject.length,
+    };
+
+    setActiveRow(copyRow);
+    setStreetfronts(
+      streetfronts.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    );
+  };
   return (
     <div
       className="shadow-md"
@@ -66,39 +109,40 @@ const Streetfronts = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Straßenfronten"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Straßen",
-                    value: activeRow.street,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Length",
-                    value: activeRow.length,
-                    rules: [{ required: true }],
-                  },
-                ]}
-              />
-            }
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
           >
-            <ReloadOutlined
-              className="reload-button"
-              style={{
-                width: "15px",
-                height: "15px",
-                backgroundColor: "#DDE2E8",
-                borderRadius: "2px",
-                lineHeight: "18px",
-                textAlign: "center",
-                fontSize: "8px",
-              }}
+            <ModalForm
+              formName={activeRow?.key}
+              updateHandle={editHandle}
+              customFields={[
+                {
+                  title: "Straßen",
+                  value: activeRow?.street,
+                  key: nanoid(),
+                  name: "street",
+                },
+                {
+                  title: "Length",
+                  value:
+                    activeRow?.length === ""
+                      ? null
+                      : dayjs(activeRow?.length, dateFormat),
+                  key: nanoid(),
+                  name: "length",
+                  type: "date",
+                },
+              ]}
             />
           </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={streetfronts}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );

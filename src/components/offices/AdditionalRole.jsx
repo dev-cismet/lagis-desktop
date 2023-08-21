@@ -72,7 +72,6 @@ const AdditionalRole = ({
   const deleteAgency = () => {
     const updatedArray = rolls.filter((row) => row.key !== activeRow.key);
     setRolls(updatedArray);
-    setRolls(updatedArray);
     if (activeRow.key === rolls[0].key) {
       setActiveRow(rolls[1]);
     } else {
@@ -80,7 +79,6 @@ const AdditionalRole = ({
     }
   };
   const editHandle = (updatedObject) => {
-    console.log("Roll", updatedObject);
     updatedObject.role = updatedObject.role.format("DD.MM.YYYY");
     const targetRow = rolls.find((c) => c.key === updatedObject.key);
     const copyRow = {
@@ -111,26 +109,26 @@ const AdditionalRole = ({
             deleteActiveRow={deleteAgency}
           >
             <ModalForm
+              formName={activeRow?.key}
               updateHandle={editHandle}
               customFields={[
                 {
                   title: "Dienst",
-                  value: activeRow.service,
+                  value: activeRow?.service,
                   key: nanoid(),
                   name: "service",
                 },
                 {
                   title: "Role",
                   value:
-                    activeRow.role === ""
+                    activeRow?.role === ""
                       ? null
-                      : dayjs(activeRow.role, dateFormat),
+                      : dayjs(activeRow?.role, dateFormat),
                   key: nanoid(),
                   name: "role",
                   type: "date",
                 },
               ]}
-              formName={activeRow.key}
             />
           </ToggleModal>
         }
