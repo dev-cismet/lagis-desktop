@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import InfoBlock from "../ui/blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
@@ -68,11 +68,18 @@ const Contracts = ({
     }
   };
   const handleEditActiveContract = (updatedObject) => {
-    setActiveRow(updatedObject);
+    console.log("updatedObject", updatedObject);
+    const targetRow = dataContract.find((c) => c.key === updatedObject.key);
+    const copyRow = {
+      ...targetRow,
+      vertragsart: updatedObject.vertragsart,
+      nummer: updatedObject.nummer,
+      quadratmeterpreis: updatedObject.quadratmeterpreis,
+      kaufpreis: updatedObject.kaufpreis,
+    };
+    setActiveRow(copyRow);
     setDataContract(
-      dataContract.map((obj) =>
-        obj.key === updatedObject.key ? { ...obj, ...updatedObject } : obj
-      )
+      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
   const isStory = false;
@@ -143,7 +150,7 @@ const Contracts = ({
                     key: nanoid(),
                   },
                 ]}
-                formName={activeRow?.key}
+                formName={activeRow.key}
               />
             </ToggleModal>
           }

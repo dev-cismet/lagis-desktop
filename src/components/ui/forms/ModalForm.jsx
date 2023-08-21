@@ -12,13 +12,13 @@ dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 const { TextArea } = Input;
 
-const inputStyle = {
-  border: "1px solid #D9D9D9",
-  borderRadius: "2px",
-  padding: "5px 8px",
-  textTransform: "lowercase",
-  fontWeight: "normal",
-};
+// const inputStyle = {
+//   border: "1px solid #D9D9D9",
+//   borderRadius: "2px",
+//   padding: "5px 8px",
+//   textTransform: "lowercase",
+//   fontWeight: "normal",
+// };
 const ModalForm = ({
   customFields,
   updateHandle,
@@ -55,7 +55,7 @@ const ModalForm = ({
       <Row gutter={12}>
         {customFields?.map((item) => (
           <Col span={size} key={item.key}>
-            {item?.type === "select" ? (
+            {item.type === "select" ? (
               <Form.Item name={item.name} label={item.title}>
                 <Select>
                   {item.options.map((option) => (
