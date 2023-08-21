@@ -65,7 +65,7 @@ const ModalForm = ({
               </Form.Item>
             ) : item.type === "date" ? (
               <Form.Item name={item.name} label={item.title}>
-                <DatePicker format={dateFormat} />
+                <DatePicker format={dateFormat} style={{ width: "100%" }} />
               </Form.Item>
             ) : (
               <Form.Item name={item.name} label={item.title}>
