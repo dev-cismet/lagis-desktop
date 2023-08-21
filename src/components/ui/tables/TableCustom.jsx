@@ -21,10 +21,6 @@ const TableCustom = ({
     : {
         // pageSize: 4,
       };
-
-  useEffect(() => {
-    console.log("active row", activeRow);
-  }, [activeRow]);
   return (
     <div className={addClass} style={{ padding: "0 0 8px" }}>
       <Table

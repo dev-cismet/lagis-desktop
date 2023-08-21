@@ -104,7 +104,6 @@ const Contracts = ({
               section="Verträge"
               addRow={handleAddRow}
               deleteActiveRow={deleteActiveRow}
-              isActiveRow={activeRow ? true : false}
               modalWidth={900}
               content={
                 <DocsIcons classnames="flex justify-center items-center gap-1" />

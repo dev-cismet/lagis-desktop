@@ -42,7 +42,12 @@ const columnsCosts = [
     dataIndex: "anweisung",
   },
 ];
-const CrossReferences = ({ activeRow, dataContract }) => {
+const CrossReferences = ({
+  activeRow,
+  dataContract,
+  setDataContract,
+  setActiveRow,
+}) => {
   const contract = dataContract.find((c) => c.key === activeRow?.key);
   const [kosten, setKosten] = useState(activeRow.kosten);
   const [resolution, setResolution] = useState(activeRow.resolution);
@@ -121,6 +126,15 @@ const CrossReferences = ({ activeRow, dataContract }) => {
       key: nanoid(),
     },
   ];
+  const querverweiseField = [
+    {
+      title: "Querverweise",
+      value: activeRow.querverweise,
+      key: nanoid(),
+      name: "querverweise",
+      type: "note",
+    },
+  ];
   const handleActiveCosts = (rowObject) => {
     setActiveCosts(rowObject);
   };
@@ -160,8 +174,6 @@ const CrossReferences = ({ activeRow, dataContract }) => {
     );
   };
   const deleteActiveRow = () => {
-    console.log("active tab", activeTabe);
-    console.log("tab table", activecCosts);
     if (activeTabe === "2" && activecCosts) {
       const updatedArray = kosten.filter((k) => k.key !== activecCosts.key);
       setKosten(updatedArray);
@@ -178,6 +190,17 @@ const CrossReferences = ({ activeRow, dataContract }) => {
         ? setActiveResolution(resolution[0])
         : setActiveResolution(resolution[1]);
     }
+  };
+  const handleEditNotes = (updatedObject) => {
+    const targetRow = dataContract.find((c) => c.key === activeRow.key);
+    const copyRow = {
+      ...targetRow,
+      querverweise: updatedObject.querverweise,
+    };
+    setActiveRow(copyRow);
+    setDataContract(
+      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    );
   };
   useEffect(() => {
     setKosten(contract.kosten);
@@ -196,22 +219,38 @@ const CrossReferences = ({ activeRow, dataContract }) => {
         title="QKB"
         controlBar={
           <ToggleModal
-            section={activeTabe === "3" ? "Beschlüsse" : "Kosten"}
+            section={
+              activeTabe === "1"
+                ? "Querverweise"
+                : activeTabe === "2"
+                ? "Kosten"
+                : "Beschlüsse"
+            }
             addRow={handleAddRow}
             deleteActiveRow={deleteActiveRow}
-            showModalButton={activeTabe === "1" ? false : true}
-            isActiveRow={activecCosts || activeResolution ? true : false}
           >
             <ModalForm
               updateHandle={
-                activeTabe === "2"
+                activeTabe === "1"
+                  ? handleEditNotes
+                  : activeTabe === "2"
                   ? handleEditActiveKosten
                   : handleEditActiveResolution
               }
               formName={
-                activeTabe === "2" ? activecCosts?.key : activeResolution?.key
+                activeTabe === "1"
+                  ? activeRow.key
+                  : activeTabe === "2"
+                  ? activecCosts?.key
+                  : activeResolution?.key
               }
-              customFields={activeTabe === "3" ? resolutionsFields : costFields}
+              customFields={
+                activeTabe === "1"
+                  ? querverweiseField
+                  : activeTabe === "2"
+                  ? costFields
+                  : resolutionsFields
+              }
               size={24}
               buttonPosition={{ justifyContent: "end" }}
               tagsBar={[]}
@@ -226,7 +265,7 @@ const CrossReferences = ({ activeRow, dataContract }) => {
           onChange={(activeKey) => setActiveTab(activeKey)}
         >
           <TabPane tab="Querverweise" key="1">
-            <CustomNotes />
+            <CustomNotes currentText={activeRow.querverweise} />
           </TabPane>
           <TabPane tab="Kosten" key="2">
             <TableCustom

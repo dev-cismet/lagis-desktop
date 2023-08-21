@@ -12,7 +12,6 @@ const ContractData = ({
 }) => {
   const handleEdit = (updatedObject) => {
     const targetRow = dataContract.find((c) => c.key === updatedObject.key);
-    console.log(targetRow);
     const copyRow = {
       ...targetRow,
       voreigentümer: updatedObject.voreigentümer,

@@ -220,7 +220,12 @@ const OperationsPage = ({
           />
         </Col>
         <Col span={12}>
-          <CrossReferences activeRow={activeRow} dataContract={dataContract} />
+          <CrossReferences
+            activeRow={activeRow}
+            dataContract={dataContract}
+            setActiveRow={setActiveRow}
+            setDataContract={setDataContract}
+          />
         </Col>
       </Row>
     </div>
