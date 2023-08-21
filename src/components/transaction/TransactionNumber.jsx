@@ -4,6 +4,14 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const columns = [
   {
     title: "Kassenzeichen",
@@ -45,10 +53,46 @@ const TransactionNumber = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const dateFormat = "DD.MM.YYYY";
+  const [transaction, setTransaction] = useState(data);
+  const [activeRow, setActiveRow] = useState(transaction[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      kassenzeichen: "",
+      zugeordnet: "",
+    };
+    setTransaction((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    const updatedArray = transaction.filter(
+      (row) => row.key !== activeRow?.key
+    );
+    setTransaction(updatedArray);
+    if (activeRow?.key === transaction[0].key) {
+      setActiveRow(transaction[1]);
+    } else {
+      setActiveRow(transaction[0]);
+    }
+  };
+  const editHandle = (updatedObject) => {
+    updatedObject.zugeordnet = updatedObject.zugeordnet.format("DD.MM.YYYY");
+    const targetRow = transaction.find((c) => c.key === updatedObject.key);
+    const copyRow = {
+      ...targetRow,
+      kassenzeichen: updatedObject.kassenzeichen,
+      zugeordnet: updatedObject.zugeordnet,
+    };
+
+    setActiveRow(copyRow);
+    setTransaction(
+      transaction.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    );
+  };
   return (
     <div
       className="shadow-md"
@@ -63,26 +107,40 @@ const TransactionNumber = ({
         controlBar={
           <ToggleModal
             section="Kassenzeichen"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Kassenzeichen",
-                    value: activeRow.kassenzeichen,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Zugeordnet am",
-                    value: activeRow.zugeordnet,
-                    rules: [{ required: true }],
-                  },
-                ]}
-              />
-            }
-          />
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
+          >
+            <ModalForm
+              formName={activeRow?.key}
+              updateHandle={editHandle}
+              customFields={[
+                {
+                  title: "Kassenzeichen",
+                  value: activeRow?.kassenzeichen,
+                  key: nanoid(),
+                  name: "kassenzeichen",
+                },
+                {
+                  title: "Zugeordnet am",
+                  value:
+                    activeRow?.zugeordnet === ""
+                      ? null
+                      : dayjs(activeRow?.zugeordnet, dateFormat),
+                  key: nanoid(),
+                  name: "zugeordnet",
+                  type: "date",
+                },
+              ]}
+            />
+          </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={transaction}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );
