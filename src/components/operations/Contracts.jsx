@@ -68,7 +68,6 @@ const Contracts = ({
     }
   };
   const handleEditActiveContract = (updatedObject) => {
-    console.log("updatedObject", updatedObject);
     const targetRow = dataContract.find((c) => c.key === updatedObject.key);
     const copyRow = {
       ...targetRow,

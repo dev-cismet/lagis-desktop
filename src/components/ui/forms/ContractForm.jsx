@@ -4,7 +4,6 @@ const { TextArea } = Input;
 const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
   const [componentDisabled, setComponentDisabled] = useState(true);
   const [form] = Form.useForm();
-  // const nameValue = Form.useWatch("name", form);
   const customGutter = 24;
   const dividerStyles = { margin: "0" };
   const inputStile = "mt-4 mb-4 text-xs";

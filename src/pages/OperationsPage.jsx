@@ -209,17 +209,15 @@ const OperationsPage = ({
             setDataContract={setDataContract}
           />
         </Col>
-        {/* <Col span={8}>
-          <NoteOperations
-            activeRow={activeRow}
-            dataContract={dataContract}
-            setDataContract={setDataContract}
-          />
-        </Col> */}
       </Row>
       <Row gutter={gutterStyle}>
         <Col span={12}>
-          <ContractData dataContract={dataContract} activeRow={activeRow} />
+          <ContractData
+            dataContract={dataContract}
+            activeRow={activeRow}
+            setDataContract={setDataContract}
+            setActiveRow={setActiveRow}
+          />
         </Col>
         <Col span={12}>
           <CrossReferences activeRow={activeRow} dataContract={dataContract} />

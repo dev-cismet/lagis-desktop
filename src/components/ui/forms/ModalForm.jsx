@@ -11,14 +11,6 @@ dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 const { TextArea } = Input;
-
-// const inputStyle = {
-//   border: "1px solid #D9D9D9",
-//   borderRadius: "2px",
-//   padding: "5px 8px",
-//   textTransform: "lowercase",
-//   fontWeight: "normal",
-// };
 const ModalForm = ({
   customFields,
   updateHandle,
@@ -31,7 +23,6 @@ const ModalForm = ({
 }) => {
   const [form] = Form.useForm();
   const handleFinish = (values) => {
-    const obj = { key: formName, ...values };
     updateHandle({ key: formName, ...values });
     setModalOpen(false);
   };

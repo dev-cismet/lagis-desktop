@@ -4,14 +4,33 @@ import ContractForm from "../ui/forms/ContractForm";
 import { nanoid } from "@reduxjs/toolkit";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
-const ContractData = ({ dataContract, activeRow }) => {
-  const [showButton, setShowButton] = useState(false);
+const ContractData = ({
+  dataContract,
+  activeRow,
+  setDataContract,
+  setActiveRow,
+}) => {
+  const handleEdit = (updatedObject) => {
+    const targetRow = dataContract.find((c) => c.key === updatedObject.key);
+    console.log(targetRow);
+    const copyRow = {
+      ...targetRow,
+      voreigentümer: updatedObject.voreigentümer,
+      auflassung: updatedObject.auflassung,
+      eintragung: updatedObject.eintragung,
+      bemerkung: updatedObject.bemerkung,
+    };
+    setActiveRow(copyRow);
+    setDataContract(
+      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    );
+  };
   return (
     <div className="contract-data shadow-md">
       <InfoBlock
         title="Vertragsdaten"
         controlBar={
-          <ToggleModal>
+          <ToggleModal onlyEdit={true}>
             <ModalForm
               formName={activeRow?.key}
               customFields={[
@@ -41,22 +60,15 @@ const ContractData = ({ dataContract, activeRow }) => {
                   type: "note",
                 },
               ]}
+              updateHandle={handleEdit}
             />
           </ToggleModal>
         }
       >
-        <ContractForm activeRow={activeRow} setShowButton={setShowButton} />
+        <ContractForm activeRow={activeRow} updateHandle={handleEdit} />
       </InfoBlock>
     </div>
   );
 };
 
 export default ContractData;
-
-{
-  /* <TableActionBTN
-            addRow={() => console.log("add an action")}
-            deleteActiveRow={() => console.log("add an action")}
-            editActive={()=> editActive()}
-          /> */
-}

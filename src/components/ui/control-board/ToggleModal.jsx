@@ -10,6 +10,7 @@ const ToggleModal = ({
   modalWidth = 520,
   addRow,
   deleteActiveRow,
+  onlyEdit,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const childrenWithProps = React.Children.map(children, (child) => {
@@ -25,6 +26,7 @@ const ToggleModal = ({
         addRow={addRow}
         deleteActiveRow={deleteActiveRow}
         editActive={() => setModalOpen(true)}
+        onlyEdit={onlyEdit}
       />
       <Modal
         width={modalWidth}
