@@ -174,7 +174,9 @@ const CrossReferences = ({ activeRow, dataContract }) => {
         (r) => r.key !== activeResolution.key
       );
       setResolution(updatedArray);
-      setActiveResolution(null);
+      activeResolution.key !== kosten[0].key
+        ? setActiveResolution(resolution[0])
+        : setActiveResolution(resolution[1]);
     }
   };
   useEffect(() => {
