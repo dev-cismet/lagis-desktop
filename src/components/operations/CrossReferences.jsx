@@ -125,7 +125,7 @@ const CrossReferences = ({ activeRow, dataContract }) => {
     setActiveCosts(rowObject);
   };
   const handleAddRow = () => {
-    if (activeTabe === "2" && !activecCosts) {
+    if (activeTabe === "2") {
       const newData = {
         key: nanoid(),
         kostenart: "",
@@ -133,15 +133,17 @@ const CrossReferences = ({ activeRow, dataContract }) => {
         anweisung: "",
       };
       setKosten((prev) => [...prev, newData]);
+      setActiveCosts(newData);
     }
 
-    if (activeTabe === "3" && !activeResolution) {
+    if (activeTabe === "3") {
       const newData = {
         key: nanoid(),
         beschlussart: "",
         datum: "",
       };
       setResolution((prev) => [...prev, newData]);
+      setActiveResolution(newData);
     }
   };
   const handleEditActiveKosten = (updatedObject) => {
@@ -158,10 +160,14 @@ const CrossReferences = ({ activeRow, dataContract }) => {
     );
   };
   const deleteActiveRow = () => {
+    console.log("active tab", activeTabe);
+    console.log("tab table", activecCosts);
     if (activeTabe === "2" && activecCosts) {
       const updatedArray = kosten.filter((k) => k.key !== activecCosts.key);
       setKosten(updatedArray);
-      setActiveCosts(null);
+      activecCosts.key !== kosten[0].key
+        ? setActiveCosts(kosten[0])
+        : setActiveCosts(kosten[1]);
     }
     if (activeTabe === "3" && activeResolution) {
       const updatedArray = resolution.filter(
