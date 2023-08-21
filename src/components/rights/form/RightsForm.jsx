@@ -55,7 +55,7 @@ const RightsForm = ({ fields }) => {
           </Select>
         </Form.Item>
         <Form.Item label="Nummer" required>
-          <Input placeholder={fields.nummer} />
+          <Input defaultValue={fields.nummer} />
         </Form.Item>
         <Form.Item label="Eintragung" required>
           <DatePicker
