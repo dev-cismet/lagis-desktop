@@ -40,6 +40,11 @@ const mockExtractor = (input) => {
           datum: "01.05.2023",
         },
       ],
+      voreigentümer: "Voreigentümer 1",
+      auflassung: "Auflassung 1",
+      eintragung: "Eintragung 1",
+      bemerkung: "Bemerkung 1",
+      querverweise: "querverweise 1",
     },
     {
       key: 2,
@@ -74,6 +79,11 @@ const mockExtractor = (input) => {
           datum: "01.05.2023",
         },
       ],
+      voreigentümer: "Voreigentümer 2",
+      auflassung: "Auflassung 2",
+      eintragung: "Eintragung 2",
+      bemerkung: "Bemerkung 2",
+      querverweise: "querverweise 2",
     },
     {
       key: 3,
@@ -108,6 +118,11 @@ const mockExtractor = (input) => {
           datum: "01.05.2023",
         },
       ],
+      voreigentümer: "Voreigentümer 3",
+      auflassung: "Auflassung 3",
+      eintragung: "Eintragung 3",
+      bemerkung: "Bemerkung 3",
+      querverweise: "querverweise 3",
     },
     {
       key: 4,
@@ -142,6 +157,11 @@ const mockExtractor = (input) => {
           datum: "01.05.2023",
         },
       ],
+      voreigentümer: "Voreigentümer 4",
+      auflassung: "Auflassung 4",
+      eintragung: "Eintragung 4",
+      bemerkung: "Bemerkung 4",
+      querverweise: "querverweise 4",
     },
   ];
 };

@@ -10,6 +10,8 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
+const { TextArea } = Input;
+
 const inputStyle = {
   border: "1px solid #D9D9D9",
   borderRadius: "2px",
@@ -66,6 +68,10 @@ const ModalForm = ({
             ) : item.type === "date" ? (
               <Form.Item name={item.name} label={item.title}>
                 <DatePicker format={dateFormat} style={{ width: "100%" }} />
+              </Form.Item>
+            ) : item.type === "note" ? (
+              <Form.Item name={item.name} label={item.title}>
+                <TextArea rows={4} style={{ width: "100%" }} />
               </Form.Item>
             ) : (
               <Form.Item name={item.name} label={item.title}>

@@ -5,8 +5,6 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/blocks/DocsIcons";
 import { nanoid } from "@reduxjs/toolkit";
-import { useEffect } from "react";
-
 const columns = [
   {
     title: "Vertragsart",

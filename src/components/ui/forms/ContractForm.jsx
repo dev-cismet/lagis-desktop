@@ -9,17 +9,14 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
   const dividerStyles = { margin: "0" };
   const inputStile = "mt-4 mb-4 text-xs";
   const handleValuesChange = (changedValues, allValues) => {
-    console.log("Changed values:", changedValues);
-    console.log("All values:", allValues);
     setShowButton(true);
   };
   useEffect(() => {
     form.setFieldsValue({
-      kaufpreis: activeRow?.kaufpreis ? activeRow.kaufpreis : "",
-      quadratmeterpreis: activeRow?.quadratmeterpreis
-        ? activeRow.quadratmeterpreis
-        : "",
-      vertragsart: activeRow?.vertragsart ? activeRow.vertragsart : "",
+      voreigentümer: activeRow?.voreigentümer ? activeRow.voreigentümer : "",
+      auflassung: activeRow?.auflassung ? activeRow.auflassung : "",
+      eintragung: activeRow?.eintragung ? activeRow.eintragung : "",
+      bemerkung: activeRow?.bemerkung ? activeRow.bemerkung : "",
     });
   }, [activeRow, form]);
   return (
