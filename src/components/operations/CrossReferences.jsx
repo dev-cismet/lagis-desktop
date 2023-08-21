@@ -44,10 +44,12 @@ const columnsCosts = [
 ];
 const CrossReferences = ({ activeRow, dataContract }) => {
   const contract = dataContract.find((c) => c.key === activeRow?.key);
-  const [kosten, setKosten] = useState(null);
-  const [resolution, setResolution] = useState(null);
-  const [activecCosts, setActiveCosts] = useState(null);
-  const [activeResolution, setActiveResolution] = useState(null);
+  const [kosten, setKosten] = useState(activeRow.kosten);
+  const [resolution, setResolution] = useState(activeRow.resolution);
+  const [activecCosts, setActiveCosts] = useState(activeRow.kosten[0]);
+  const [activeResolution, setActiveResolution] = useState(
+    activeRow.resolution[0]
+  );
   const [activeTabe, setActiveTab] = useState("1");
   const dateFormat = "DD.MM.YYYY";
   const costFields = [
@@ -170,13 +172,8 @@ const CrossReferences = ({ activeRow, dataContract }) => {
     }
   };
   useEffect(() => {
-    if (activeRow) {
-      setKosten(contract.kosten);
-      setResolution(contract.resolution);
-    } else {
-      setKosten(null);
-      setResolution(null);
-    }
+    setKosten(contract.kosten);
+    setResolution(contract.resolution);
   }, [activeRow]);
   return (
     <div
