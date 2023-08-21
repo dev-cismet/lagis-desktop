@@ -19,7 +19,6 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   const secondRow = { height: height * 0.42 - 16 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "16px" };
-  console.log("Offices", height);
   return (
     <div style={{ ...storyStyle, height: "100%" }} className="offices-page">
       <Row

@@ -4,6 +4,14 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const columns = [
   {
     title: "Service",
@@ -46,10 +54,44 @@ const AdditionalRole = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
-  const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const dateFormat = "DD.MM.YYYY";
+  const data = extractor(dataIn);
+  const [rolls, setRolls] = useState(data);
+  const [activeRow, setActiveRow] = useState(rolls[0]);
+  const addRoll = () => {
+    const newRoll = {
+      key: nanoid(),
+      service: "",
+      role: "",
+    };
+    setRolls((prev) => [...prev, newRoll]);
+    setActiveRow(newRoll);
+  };
+  const deleteAgency = () => {
+    const updatedArray = rolls.filter((row) => row.key !== activeRow.key);
+    setRolls(updatedArray);
+    setRolls(updatedArray);
+    if (activeRow.key === rolls[0].key) {
+      setActiveRow(rolls[1]);
+    } else {
+      setActiveRow(rolls[0]);
+    }
+  };
+  const editHandle = (updatedObject) => {
+    console.log("Roll", updatedObject);
+    updatedObject.role = updatedObject.role.format("DD.MM.YYYY");
+    const targetRow = rolls.find((c) => c.key === updatedObject.key);
+    const copyRow = {
+      ...targetRow,
+      service: updatedObject.service,
+      role: updatedObject.role,
+    };
+
+    setActiveRow(copyRow);
+    setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
+  };
   return (
     <div
       style={
@@ -65,26 +107,40 @@ const AdditionalRole = ({
           <ToggleModal
             section="Verwaltungsbereiche"
             name="Zusätzliche Rollen"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Dienst",
-                    value: activeRow.service,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Role",
-                    value: activeRow.role,
-                    rules: [{ required: true }],
-                  },
-                ]}
-              />
-            }
-          />
+            addRow={addRoll}
+            deleteActiveRow={deleteAgency}
+          >
+            <ModalForm
+              updateHandle={editHandle}
+              customFields={[
+                {
+                  title: "Dienst",
+                  value: activeRow.service,
+                  key: nanoid(),
+                  name: "service",
+                },
+                {
+                  title: "Role",
+                  value:
+                    activeRow.role === ""
+                      ? null
+                      : dayjs(activeRow.role, dateFormat),
+                  key: nanoid(),
+                  name: "role",
+                  type: "date",
+                },
+              ]}
+              formName={activeRow.key}
+            />
+          </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={rolls}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );
