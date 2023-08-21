@@ -53,18 +53,20 @@ const Contracts = ({
       ],
     };
     setDataContract((prev) => [...prev, newData]);
-    setActiveRow(null);
+    setActiveRow(newData);
   };
   const handleActiveRow = (rowObject) => {
     setActiveRow(rowObject);
   };
   const deleteActiveRow = () => {
-    if (activeRow) {
-      const updatedArray = dataContract.filter(
-        (row) => row.key !== activeRow.key
-      );
-      setDataContract(updatedArray);
-      setActiveRow(null);
+    const updatedArray = dataContract.filter(
+      (row) => row.key !== activeRow.key
+    );
+    setDataContract(updatedArray);
+    if (activeRow.key === dataContract[0].key) {
+      setActiveRow(dataContract[1]);
+    } else {
+      setActiveRow(dataContract[0]);
     }
   };
   const handleEditActiveContract = (updatedObject) => {
