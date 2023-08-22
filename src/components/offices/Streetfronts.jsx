@@ -100,7 +100,12 @@ const Streetfronts = ({
       style={
         isStory
           ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "#ffffff" }
+          : {
+              height: "100%",
+              borderRadius: "6px",
+              backgroundColor: "#ffffff",
+              overflow: "auto",
+            }
       }
     >
       <InfoBlock

@@ -33,7 +33,7 @@ const TableCustom = ({
         dataSource={data}
         pagination={paginationConfig}
         bordered={true}
-        scroll={{ x: "auto" }}
+        // scroll={{ y: "auto" }}
       />
     </div>
   );

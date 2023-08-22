@@ -100,7 +100,12 @@ const Agencies = ({
       style={
         isStory
           ? storyStyle
-          : { height: "100%", backgroundColor: "#ffffff", borderRadius: "6px" }
+          : {
+              height: "100%",
+              backgroundColor: "#ffffff",
+              borderRadius: "6px",
+              overflow: "hidden",
+            }
       }
       className="shadow-md"
     >
@@ -134,12 +139,14 @@ const Agencies = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={agency}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="max-h-[300px]" style={{ overflow: "auto" }}>
+          <TableCustom
+            columns={columns}
+            data={agency}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+          />
+        </div>
       </InfoBlock>
     </div>
   );
