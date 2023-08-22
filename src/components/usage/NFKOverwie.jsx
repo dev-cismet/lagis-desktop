@@ -6,6 +6,8 @@ import ModalForm from "../ui/forms/ModalForm";
 import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+
 const columns = [
   {
     title: "Anlageklasse",
@@ -47,10 +49,29 @@ const NFKOverwie = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const [dataTable, setDataTable] = useState(data);
+  const [activeRow, setActiveRow] = useState(dataTable[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      anlageklasse: "",
+      summe: "",
+    };
+    setDataTable((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    const updatedArray = dataTable.filter((row) => row.key !== activeRow?.key);
+    setDataTable(updatedArray);
+    if (activeRow?.key === dataTable[0].key) {
+      setActiveRow(dataTable[1]);
+    } else {
+      setActiveRow(dataTable[0]);
+    }
+  };
   return (
     <div
       style={
@@ -77,35 +98,49 @@ const NFKOverwie = ({
         }
         controlBar={
           <ToggleModal
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
             section="Nutzung"
             name="NKF Overview"
             content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Anlageklasse",
-                    value: activeRow.anlageklasse,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Summe",
-                    value: activeRow.summe,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                size={24}
-              />
+              <div className="mr-auto">
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<EuroCircleOutlined />}
+                >
+                  Buchen
+                </Button>
+              </div>
             }
           >
-            <div className="mr-8 Button">
-              <Button type="primary" size="small" icon={<EuroCircleOutlined />}>
-                Buchen
-              </Button>
-            </div>
+            <ModalForm
+              formName={activeRow?.key}
+              customFields={[
+                {
+                  title: "Anlageklasse",
+                  value: activeRow?.anlageklasse,
+                  key: nanoid(),
+                  name: "anlageklasse",
+                },
+                {
+                  title: "Summe",
+                  value: activeRow?.summe,
+                  key: nanoid(),
+                  name: "summe",
+                },
+              ]}
+              size={24}
+            />
           </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={dataTable}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );

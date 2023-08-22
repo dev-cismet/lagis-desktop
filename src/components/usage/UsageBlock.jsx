@@ -5,6 +5,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 const columns = [
   {
     title: "Nutzung Nr",
@@ -18,10 +19,10 @@ const columns = [
     title: "Anlageklasse",
     dataIndex: "anlageklasse",
   },
-  {
-    title: "Nutzungsart",
-    dataIndex: "nutzungsart",
-  },
+  // {
+  //   title: "Nutzungsart",
+  //   dataIndex: "nutzungsart",
+  // },
   {
     title: "Nutzungsarten-bezeichnung",
     dataIndex: "bezeichnung",
@@ -59,7 +60,7 @@ const mockExtractor = (input) => {
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",
-      bezeichnung: "Verkehr - Fahrweg",
+      bezeichnung: "3273-12376",
       fläche: "2132",
       preis: "38274€",
       gesamtpreis: "38274€",
@@ -73,7 +74,7 @@ const mockExtractor = (input) => {
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",
-      bezeichnung: "Verkehr - Fahrweg",
+      bezeichnung: "3273-12376",
       fläche: "2132",
       preis: "38274€",
       gesamtpreis: "38274€",
@@ -87,7 +88,7 @@ const mockExtractor = (input) => {
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",
-      bezeichnung: "Verkehr - Fahrweg",
+      bezeichnung: "3273-12376",
       fläche: "2132",
       preis: "38274€",
       gesamtpreis: "38274€",
@@ -101,7 +102,7 @@ const mockExtractor = (input) => {
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
       nutzungsart: "3273-12376",
-      bezeichnung: "Verkehr - Fahrweg",
+      bezeichnung: "3273-12376",
       fläche: "2132",
       preis: "38274€",
       gesamtpreis: "38274€",
@@ -119,10 +120,39 @@ const UsageBlock = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const [usage, setUsage] = useState(data);
+  const [activeRow, setActiveRow] = useState(usage[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      nutzung: "",
+      buchungs: "",
+      anlageklasse: "",
+      nutzungsart: "",
+      bezeichnung: "",
+      fläche: "",
+      preis: "",
+      gesamtpreis: "",
+      stille: "",
+      buchwert: "",
+      bemerkung: "",
+    };
+    setUsage((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    console.log("11111111");
+    const updatedArray = usage.filter((row) => row.key !== activeRow?.key);
+    setUsage(updatedArray);
+    if (activeRow?.key === usage[0].key) {
+      setActiveRow(usage[1]);
+    } else {
+      setActiveRow(usage[0]);
+    }
+  };
   return (
     <div
       style={
@@ -141,80 +171,95 @@ const UsageBlock = ({
         controlBar={
           <ToggleModal
             section="Nutzung"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Nutzung Nr",
-                    value: activeRow.nutzung,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Buchungs-Nr",
-                    value: activeRow.buchungs,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Anlageklasse",
-                    value: activeRow.anlageklasse,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nutzungsart",
-                    value: activeRow.nutzungsart,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nutzungsarten-bezeichnung",
-                    value: activeRow.bezeichnung,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Fläche/m2",
-                    value: activeRow.fläche,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "m2 Preis",
-                    value: activeRow.preis,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Gesamtpreis",
-                    value: activeRow.gesamtpreis,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Buchwert",
-                    value: activeRow.buchwert,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Stille Reserve",
-                    value: activeRow.stille,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Bemerkung",
-                    value: activeRow.bemerkung,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                size={8}
-                buttonPosition={{ justifyContent: "end" }}
-              />
-            }
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
+            content={<DocsIcons classnames="mr-4 flex gap-1" />}
             modalWidth={900}
           >
-            <DocsIcons classnames="mr-4" />
+            <ModalForm
+              formName={activeRow?.key}
+              customFields={[
+                {
+                  title: "Nutzung Nr",
+                  value: activeRow?.nutzung,
+                  key: nanoid(),
+                  name: "nutzung",
+                },
+                {
+                  title: "Buchungs-Nr",
+                  value: activeRow?.buchungs,
+                  key: nanoid(),
+                  name: "buchungs",
+                },
+                {
+                  title: "Anlageklasse",
+                  value: activeRow?.anlageklasse,
+                  key: nanoid(),
+                  name: "anlageklasse",
+                },
+                // {
+                //   title: "Nutzungsart",
+                //   value: activeRow?.nutzungsart,
+                //   key: nanoid(),
+                //   name: "nutzungsart",
+                // },
+                {
+                  title: "Nutzungsarten-bezeichnung",
+                  value: activeRow?.bezeichnung,
+                  key: nanoid(),
+                  name: "bezeichnung",
+                },
+                {
+                  title: "Fläche/m2",
+                  value: activeRow?.fläche,
+                  key: nanoid(),
+                  name: "fläche",
+                },
+                {
+                  title: "m2 Preis",
+                  value: activeRow?.preis,
+                  key: nanoid(),
+                  name: "preis",
+                },
+                {
+                  title: "Gesamtpreis",
+                  value: activeRow?.gesamtpreis,
+                  key: nanoid(),
+                  name: "gesamtpreis",
+                },
+                {
+                  title: "Buchwert",
+                  value: activeRow?.buchwert,
+                  key: nanoid(),
+                  name: "buchwert",
+                },
+                {
+                  title: "Stille Reserve",
+                  value: activeRow?.stille,
+                  key: nanoid(),
+                  name: "stille",
+                },
+                {
+                  title: "Bemerkung",
+                  value: activeRow?.bemerkung,
+                  key: nanoid(),
+                  name: "bemerkung",
+                  type: "note",
+                },
+              ]}
+              size={8}
+              buttonPosition={{ justifyContent: "end" }}
+            />
           </ToggleModal>
         }
       >
         <TableCustom
           columns={columns}
-          data={data}
+          data={usage}
           activerow={setActiveRow}
           addClass="nfk-cover"
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
         />
       </InfoBlock>
     </div>
