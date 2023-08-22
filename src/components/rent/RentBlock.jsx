@@ -7,6 +7,14 @@ import { Row, Col, Tag } from "antd";
 import CustomNotes from "../ui/notes/CustomNotes";
 import CustomH3 from "../ui/titles/CustomH3";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
 const columns = [
   {
     title: "Lage",
@@ -104,10 +112,38 @@ const RentBlock = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const dateFormat = "DD.MM.YYYY";
+  const [rents, setRents] = useState(data);
+  const [activeRow, setActiveRow] = useState(rents[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      lage: "",
+      aktenzeichen: "",
+      fläche: "",
+      nutzung: "",
+      vertragsbegin: "",
+      vertragsende: "",
+      merkmale: [
+        { text: "", color: "gold" },
+        { text: "", color: "cyan" },
+      ],
+    };
+    setRents((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    const updatedArray = rents.filter((row) => row.key !== activeRow?.key);
+    setRents(updatedArray);
+    if (activeRow?.key === rents[0].key) {
+      setActiveRow(rents[1]);
+    } else {
+      setActiveRow(rents[0]);
+    }
+  };
   return (
     <div
       style={
@@ -125,54 +161,70 @@ const RentBlock = ({
         controlBar={
           <ToggleModal
             section="Vermietung / Verpachtung"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Lage",
-                    value: activeRow.lage,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Aktenzeichen",
-                    value: activeRow.aktenzeichen,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Fläche m2",
-                    value: activeRow.fläche,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Nutzung",
-                    value: activeRow.nutzung,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Vertragsbegin",
-                    value: activeRow.vertragsbegin,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Vertragsende",
-                    value: activeRow.vertragsende,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                size={8}
-                buttonPosition={{ justifyContent: "end" }}
-                tagsBar={[1]}
-              />
-            }
             modalWidth={900}
-          />
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
+          >
+            <ModalForm
+              formName={activeRow?.key}
+              customFields={[
+                {
+                  title: "Lage",
+                  value: activeRow?.lage,
+                  key: nanoid(),
+                  name: "lage",
+                },
+                {
+                  title: "Aktenzeichen",
+                  value: activeRow?.aktenzeichen,
+                  key: nanoid(),
+                  name: "aktenzeichen",
+                },
+                {
+                  title: "Fläche m2",
+                  value: activeRow?.fläche,
+                  key: nanoid(),
+                  name: "fläche",
+                },
+                {
+                  title: "Nutzung",
+                  value: activeRow?.nutzung,
+                  key: nanoid(),
+                  name: "aktenzeichen",
+                },
+                {
+                  title: "Vertragsbegin",
+                  key: nanoid(),
+                  value:
+                    activeRow?.vertragsbegin === ""
+                      ? null
+                      : dayjs(activeRow?.vertragsbegin, dateFormat),
+                  name: "nutzung",
+                  type: "date",
+                },
+                {
+                  title: "Vertragsende",
+                  key: nanoid(),
+                  name: "vertragsende",
+                  value:
+                    activeRow?.vertragsende === ""
+                      ? null
+                      : dayjs(activeRow?.vertragsende, dateFormat),
+                  type: "date",
+                },
+              ]}
+              size={8}
+              buttonPosition={{ justifyContent: "end" }}
+              tagsBar={[1]}
+            />
+          </ToggleModal>
         }
       >
         <TableCustom
           columns={columns}
-          data={data}
-          pagination={false}
-          activerow={setActiveRow}
+          data={rents}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
         />
         <Row gutter={[8, 0]}>
           <Col span={12}>
