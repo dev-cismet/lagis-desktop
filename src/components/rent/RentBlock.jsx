@@ -69,6 +69,8 @@ const mockExtractor = (input) => {
         { text: "Altlast", color: "gold" },
         { text: "Biotop", color: "cyan" },
       ],
+      querverweise: "Querverweise 1",
+      note: "Bemerkung 1",
     },
     {
       key: "2",
@@ -79,6 +81,8 @@ const mockExtractor = (input) => {
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
       merkmale: [{ text: "Unentgeltlich", color: "gold" }],
+      querverweise: "Querverweise 2",
+      note: "Bemerkung 2",
     },
     {
       key: "3",
@@ -89,6 +93,8 @@ const mockExtractor = (input) => {
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
       merkmale: [{ text: "keine Akte", color: "cyan" }],
+      querverweise: "Querverweise 3",
+      note: "Bemerkung 3",
     },
     {
       key: "4",
@@ -102,6 +108,8 @@ const mockExtractor = (input) => {
         { text: "Altlast", color: "gold" },
         { text: "keine Akte", color: "cyan" },
       ],
+      querverweise: "Querverweise 4",
+      note: "Bemerkung 4",
     },
   ];
 };
@@ -150,7 +158,7 @@ const RentBlock = ({
         isStory
           ? storyStyle
           : {
-              height: "100%",
+              // height: "100%",
               backgroundColor: "#FFFFFF",
               borderRadius: "6px",
             }
@@ -226,21 +234,63 @@ const RentBlock = ({
           activeRow={activeRow}
           setActiveRow={setActiveRow}
         />
-        <Row gutter={[8, 0]}>
-          <Col span={12}>
-            <div className="">
-              <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
-              <CustomNotes styles={"p-2"} />
-            </div>
-          </Col>
-          <Col span={12}>
-            <div className="">
-              <CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
-              <CustomNotes styles="p-2" />
-            </div>
-          </Col>
-        </Row>
       </InfoBlock>
+      <div className="flex gap-4">
+        <div className="w-full">
+          <InfoBlock
+            title="Bemerkung"
+            controlBar={
+              <ToggleModal onlyEdit={true} section="Bemerkung">
+                <ModalForm
+                  formName={activeRow?.key}
+                  // updateHandle={handleEdit}
+                  customFields={[
+                    {
+                      title: "Bemerkung",
+                      value: activeRow?.note,
+                      key: nanoid(),
+                      name: "note",
+                      type: "note",
+                    },
+                  ]}
+                />
+              </ToggleModal>
+            }
+          >
+            <CustomNotes
+              styles={"pt-2 pl-2 pb-2"}
+              currentText={activeRow?.note}
+            />
+          </InfoBlock>
+        </div>
+        <div className="w-full">
+          <InfoBlock
+            title="Querverweise"
+            controlBar={
+              <ToggleModal onlyEdit={true} section="Querverweise">
+                <ModalForm
+                  formName={activeRow?.key}
+                  // updateHandle={handleEdit}
+                  customFields={[
+                    {
+                      title: "Querverweise",
+                      value: activeRow?.querverweise,
+                      key: nanoid(),
+                      name: "querverweise",
+                      type: "note",
+                    },
+                  ]}
+                />
+              </ToggleModal>
+            }
+          >
+            <CustomNotes
+              styles={"pt-2 pr-2 pb-2"}
+              currentText={activeRow?.querverweise}
+            />
+          </InfoBlock>
+        </div>
+      </div>
     </div>
   );
 };
@@ -278,3 +328,14 @@ RentBlock.propTypes = {
 
   height: PropTypes.number,
 };
+
+{
+  /* <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
+<CustomNotes styles={"p-2"} /> */
+}
+{
+  /* <div className="">
+<CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
+<CustomNotes styles="p-2" />
+</div> */
+}
