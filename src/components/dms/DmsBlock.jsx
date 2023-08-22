@@ -5,6 +5,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import mockFoto from "../../assets/docksMock.png";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 const columns = [
   {
     title: "Name",
@@ -69,11 +70,31 @@ const DmsBlock = ({
   height = 188,
   style,
 }) => {
-  const [activeRow, setActiveRow] = useState({});
-
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  const [dms, setDms] = useState(data);
+  const [activeRow, setActiveRow] = useState(dms[0]);
+  const addRow = () => {
+    const newRow = {
+      key: nanoid(),
+      name: "",
+      file: "",
+      beschreibung: "",
+      vorschau: "",
+    };
+    setDms((prev) => [...prev, newRow]);
+    setActiveRow(newRow);
+  };
+  const deleteRow = () => {
+    const updatedArray = dms.filter((row) => row.key !== activeRow?.key);
+    setDms(updatedArray);
+    if (activeRow?.key === dms[0].key) {
+      setActiveRow(dms[1]);
+    } else {
+      setActiveRow(dms[0]);
+    }
+  };
   return (
     <div
       className="shadow-md"
@@ -88,32 +109,43 @@ const DmsBlock = ({
         controlBar={
           <ToggleModal
             section="Kassenzeichen"
-            content={
-              <ModalForm
-                fields={[
-                  {
-                    title: "Name",
-                    value: activeRow.name,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Dateiname",
-                    value: activeRow.file,
-                    rules: [{ required: true }],
-                  },
-                  {
-                    title: "Beschreibung",
-                    value: activeRow.beschreibung,
-                    rules: [{ required: true }],
-                  },
-                ]}
-                showFileUpload={true}
-              />
-            }
-          />
+            addRow={addRow}
+            deleteActiveRow={deleteRow}
+          >
+            <ModalForm
+              formName={activeRow?.key}
+              customFields={[
+                {
+                  title: "Name",
+                  value: activeRow?.name,
+                  key: nanoid(),
+                  name: "name",
+                },
+                {
+                  title: "Dateiname",
+                  value: activeRow?.file,
+                  key: nanoid(),
+                  name: "file",
+                },
+                {
+                  title: "Beschreibung",
+                  value: activeRow?.beschreibung,
+                  key: nanoid(),
+                  name: "beschreibung",
+                },
+              ]}
+              showFileUpload={true}
+            />
+          </ToggleModal>
         }
       >
-        <TableCustom columns={columns} data={data} activerow={setActiveRow} />
+        <TableCustom
+          columns={columns}
+          data={dms}
+          activerow={setActiveRow}
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+        />
       </InfoBlock>
     </div>
   );

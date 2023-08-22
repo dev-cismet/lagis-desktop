@@ -26,10 +26,12 @@ const UploadFiles = () => (
     <p className="text-3xl my-2">
       <InboxOutlined style={{ color: "light-blue" }} />
     </p>
-    <p className="ant-upload-text">Click or drag file to this area to upload</p>
+    <p className="ant-upload-text">
+      Klicken oder ziehen Sie die Datei zum Hochladen
+    </p>
     <p className="ant-upload-hint">
-      Support for a single or bulk upload. Strictly prohibited from uploading
-      company data or other banned files.
+      Unterstützung für einen Einzel- oder Massenupload. Strenges Verbot des
+      Hochladens von Unternehmensdaten oder anderen verbotenen Dateien.
     </p>
   </Dragger>
 );
