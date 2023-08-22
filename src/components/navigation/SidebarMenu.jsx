@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Menu, Button } from "antd";
 import "./menu.css";
 import Logo from "../ui/logo/Logo";
+import { useEffect } from "react";
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -44,7 +45,9 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
     width: isStory ? storyWidth : "100%",
     height: isStory ? "600px" : "100%",
   };
-
+  useEffect(() => {
+    window.innerWidth <= 768 && setCollapsed(true);
+  }, []);
   return (
     <div
       className="flex flex-col bg-white max-w-min"
@@ -66,7 +69,6 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
 
       <Menu
         style={{
-          // minWidth: "10px",
           border: 0,
         }}
         defaultSelectedKeys={activeKey}
