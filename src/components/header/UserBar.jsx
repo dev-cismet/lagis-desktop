@@ -15,7 +15,9 @@ const UserBar = () => {
         <UserName />
         <div className="logout ml-auto pr-1">
           <LogoutOutlined style={{ fontSize: "12px" }} />
-          <span style={{ lineHeight: "22px" }}>Logout</span>
+          <span style={{ lineHeight: "22px" }} className="ml-2">
+            Logout
+          </span>
         </div>
       </div>
     </div>

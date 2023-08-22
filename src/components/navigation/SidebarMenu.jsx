@@ -4,14 +4,11 @@ import {
   FileSearchOutlined,
   DashboardOutlined,
   SettingOutlined,
-  LogoutOutlined,
   PieChartOutlined,
   HistoryOutlined,
   TransactionOutlined,
   FilePdfOutlined,
   MenuOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { Menu, Button } from "antd";
@@ -55,26 +52,26 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         ...storyStyle,
       }}
     >
-      <div className="mt-6 mb-10 mx-4 flex flex-wrap items-center justify-center gap-2">
-        <Logo />
-        <Button
-          onClick={toggleCollapsed}
-          style={{
-            margin: "auto 0",
-          }}
-        >
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      <div
+        className="mt-6 mb-10 flex flex-wrap items-center gap-2"
+        style={{
+          justifyContent: !collapsed ? "start" : "center",
+        }}
+      >
+        <Button onClick={toggleCollapsed} type="text">
+          <MenuOutlined />
         </Button>
+        <Logo showText={collapsed} />
       </div>
 
       <Menu
         style={{
-          minWidth: "120px",
+          // minWidth: "10px",
           border: 0,
         }}
         defaultSelectedKeys={activeKey}
         items={items}
-        mode="inline"
+        mode="vertical"
         inlineCollapsed={collapsed}
       />
     </div>
