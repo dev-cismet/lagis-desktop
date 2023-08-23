@@ -83,7 +83,6 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
         </Button>
         <Logo showText={collapsed} />
       </div>
-
       <Menu
         style={{
           border: 0,
@@ -97,18 +96,3 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
   );
 };
 export default SidebarMenu;
-
-// const items = [
-//   getItem("Übersicht", "1", <DashboardOutlined />),
-//   getItem(Verwaltungsbereiche,
-//     2,
-//     <FolderOpenOutlined />
-//   ),
-//   getItem("Miet- und Pachtverträge", "3", <DollarOutlined />),
-//   getItem("Rechte und Belastungen", "4", <SettingOutlined />),
-//   getItem("Nutzung", "5", <PieChartOutlined />),
-//   getItem("Vorgänge", "6", <FileSearchOutlined />),
-//   getItem("Historie", "7", <HistoryOutlined />),
-//   getItem("Kassenzeichen", "8", <TransactionOutlined />),
-//   getItem("DMS", "9", <FilePdfOutlined />),
-// ];

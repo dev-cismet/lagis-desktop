@@ -27,22 +27,16 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
         <div>
           <SidebarMenu />
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <Row>
-            <Col span={24} className="pb-1">
-              <UserBar />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={24}>
-              <Overview width={width} height={height} />
-            </Col>
-          </Row>
-          <Row style={{ marginTop: "auto" }}>
-            <Col span={24}>
-              <FooterSection />
-            </Col>
-          </Row>
+        <div className="flex flex-col">
+          <div className="pb-1">
+            <UserBar />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Overview width={width} height={height} />
+          </div>
+          <div style={{ marginTop: "auto" }}>
+            <FooterSection />
+          </div>
         </div>
       </div>
     </div>
