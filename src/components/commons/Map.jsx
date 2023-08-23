@@ -3,7 +3,7 @@ import TopicMapComponent from "react-cismap/topicmaps/TopicMapComponent.js";
 import "react-cismap/topicMaps.css";
 import "leaflet/dist/leaflet.css";
 import { Card } from "antd";
-
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,24 @@ const Map = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
+  const cardRef = useRef(null);
+  const [mapWidth, setMapWidth] = useState(0);
+  const [mapHeight, setMapHeight] = useState(0);
+
+  useEffect(() => {
+    setMapWidth(cardRef?.current?.offsetWidth);
+    setMapHeight(cardRef?.current?.offsetHeight);
+
+    const setSize = () => {
+      setMapWidth(cardRef?.current?.offsetWidth);
+      setMapHeight(cardRef?.current?.offsetHeight);
+    };
+
+    window.addEventListener("resize", setSize);
+
+    return () => window.removeEventListener("resize", setSize);
+  }, []);
+
   return (
     <Card
       size="small"
@@ -40,12 +58,13 @@ const Map = ({
       bodyStyle={{ padding }}
       headStyle={{ backgroundColor: "white" }}
       type="inner"
+      ref={cardRef}
     >
       <TopicMapContextProvider appKey="lagis-online.map">
         <TopicMapComponent
           mapStyle={{
-            width: width - 2 * padding,
-            height: height - 2 * padding - headHeight,
+            width: mapWidth - 2 * padding,
+            height: mapHeight - 2 * padding - headHeight,
           }}
           homeZoom={data.homeZoom}
           homeCenter={data.homeCenter}

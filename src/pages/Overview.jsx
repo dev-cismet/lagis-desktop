@@ -18,16 +18,17 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
+  console.log("height", height * 1);
+  console.log("width", width);
   return (
     <div
       style={{
         ...storyStyle,
-        height: "100%",
-        width: "100%",
       }}
+      className="h-full"
     >
-      <div className="flex gap-2">
-        <div className="flex flex-wrap gap-3 w-full">
+      <div className="flex gap-2 h-full">
+        <div className="flex flex-wrap gap-3 w-full h-full">
           <Offices />
           <Rent />
           <Rights />
@@ -37,8 +38,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Transaction />
           <DMS />
         </div>
-        <div className="w-10/12">
-          <Map width={"100%"} height={height * 0.88} />
+        <div className="w-10/12 h-full">
+          <Map width={"100%"} height={height} />
         </div>
       </div>
     </div>

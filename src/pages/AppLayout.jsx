@@ -9,20 +9,18 @@ const AppLayout = () => {
       style={{
         background: "#F1F1F1",
       }}
-      className="pr-4"
+      className="pr-4 h-screen"
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 h-full">
         <div>
           <SidebarMenu />
         </div>
-        <div className="flex flex-col w-full">
-          <div>
-            <UserBar />
-          </div>
-          <div className="mt-3">
-            <Outlet />
-          </div>
-          <div className="mt-auto">
+        <div className="flex flex-col w-full h-full">
+          <UserBar />
+
+          <Outlet />
+
+          <div className="mt-auto pt-1">
             <FooterSection />
           </div>
         </div>
