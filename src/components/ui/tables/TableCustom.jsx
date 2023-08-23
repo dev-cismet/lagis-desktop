@@ -9,20 +9,36 @@ const TableCustom = ({
   addClass = "table-wrapper",
   setActiveRow,
   activeRow,
+  fixHeight = false,
 }) => {
   const [selectedRow, setSelectedRow] = useState(activeRow);
   const handleRowClick = (record) => {
     setActiveRow(record);
     setSelectedRow(record?.key);
   };
-
+  const fixStyles = {
+    position: "absolute",
+    padding: "0 0 8px",
+    left: 0,
+    top: 0,
+    width: "100%",
+  };
   let paginationConfig = !pagination
     ? pagination
     : {
         // pageSize: 4,
       };
   return (
-    <div className={addClass} style={{ padding: "0 0 8px" }}>
+    <div
+      className={addClass}
+      style={
+        fixHeight
+          ? fixStyles
+          : {
+              padding: "0 0 8px",
+            }
+      }
+    >
       <Table
         onRow={(record) => ({
           onClick: () => handleRowClick(record),

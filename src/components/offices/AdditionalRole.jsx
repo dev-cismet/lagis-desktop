@@ -138,12 +138,15 @@ const AdditionalRole = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={rolls}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div style={{ position: "relative" }}>
+          <TableCustom
+            columns={columns}
+            data={rolls}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+            fixHeight={true}
+          />
+        </div>
       </InfoBlock>
     </div>
   );

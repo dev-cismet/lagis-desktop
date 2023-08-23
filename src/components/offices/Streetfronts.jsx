@@ -142,12 +142,15 @@ const Streetfronts = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={streetfronts}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="relative">
+          <TableCustom
+            columns={columns}
+            data={streetfronts}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+            fixHeight={true}
+          />
+        </div>
       </InfoBlock>
     </div>
   );

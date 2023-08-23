@@ -5,7 +5,7 @@ const InfoBlock = ({ title, children, controlBar, titleAction }) => {
       style={{
         background: "#FFFFFF",
         borderRadius: "6px",
-        // height: "100%",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
       }}

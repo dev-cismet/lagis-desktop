@@ -36,7 +36,7 @@ const Notes = ({
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <CustomNotes styles="p-3" />
+        <CustomNotes styles="p-3 flex" />
       </InfoBlock>
     </div>
   );

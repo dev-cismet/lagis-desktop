@@ -104,7 +104,7 @@ const Agencies = ({
               height: "100%",
               backgroundColor: "#ffffff",
               borderRadius: "6px",
-              overflow: "hidden",
+              overflow: "auto",
             }
       }
       className="shadow-md"
@@ -139,12 +139,13 @@ const Agencies = ({
           </ToggleModal>
         }
       >
-        <div className="max-h-[300px]" style={{ overflow: "auto" }}>
+        <div className="relative">
           <TableCustom
             columns={columns}
             data={agency}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
+            fixHeight={true}
           />
         </div>
       </InfoBlock>
