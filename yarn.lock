@@ -4654,6 +4654,11 @@ commondir@^1.0.1:
   resolved "https://registry.npmjs.org/commondir/-/commondir-1.0.1.tgz"
   integrity sha512-W9pAhw0ja1Edb5GVdIF1mjZw/ASI0AlShXM83UUGe2DVr5TdAPEA1OA8m/g8zWp9x6On7gqufY+FatDbC3MDQg==
 
+compare-versions@^6.0.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/compare-versions/-/compare-versions-6.1.0.tgz#3f2131e3ae93577df111dba133e6db876ffe127a"
+  integrity sha512-LNZQXhqUvqUTotpZ00qLSaify3b4VFD588aRr8MKFw4CMUr98ytzCW5wDH5qx/DEY5kCDXcbcRuCqL0szEf2tg==
+
 component-emitter@^1.2.1:
   version "1.3.0"
   resolved "https://registry.npmjs.org/component-emitter/-/component-emitter-1.3.0.tgz"
@@ -5211,14 +5216,9 @@ d3v4@^4.2.2:
     d3-voronoi "1.0.2"
     d3-zoom "1.0.3"
 
-dayjs@^1.11.1:
+dayjs@^1.11.1, dayjs@^1.11.9:
   version "1.11.9"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.9.tgz"
-  integrity sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==
-
-dayjs@^1.11.9:
-  version "1.11.9"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.9.tgz#9ca491933fadd0a60a2c19f6c237c03517d71d1a"
   integrity sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
@@ -9674,6 +9674,11 @@ react-image-lightbox@^5.1.1:
     prop-types "^15.7.2"
     react-modal "^3.11.1"
 
+react-inspector@6.0.2, react-inspector@^6.0.0:
+  version "6.0.2"
+  resolved "https://registry.npmjs.org/react-inspector/-/react-inspector-6.0.2.tgz"
+  integrity sha512-x+b7LxhmHXjHoU/VrFAzw5iutsILRoYyDq97EDYdFpPLcvqtEzk4ZSZSQjnFPbr5T57tLXnHcqFYoN1pI6u8uQ==
+
 react-inspector@^5.1.0:
   version "5.1.1"
   resolved "https://registry.npmjs.org/react-inspector/-/react-inspector-5.1.1.tgz"
@@ -9682,11 +9687,6 @@ react-inspector@^5.1.0:
     "@babel/runtime" "^7.0.0"
     is-dom "^1.0.0"
     prop-types "^15.0.0"
-
-react-inspector@^6.0.0:
-  version "6.0.2"
-  resolved "https://registry.npmjs.org/react-inspector/-/react-inspector-6.0.2.tgz"
-  integrity sha512-x+b7LxhmHXjHoU/VrFAzw5iutsILRoYyDq97EDYdFpPLcvqtEzk4ZSZSQjnFPbr5T57tLXnHcqFYoN1pI6u8uQ==
 
 react-is@18.1.0:
   version "18.1.0"
@@ -10645,6 +10645,14 @@ storybook-addon-designs@^7.0.0-beta.2:
   integrity sha512-ljBNmyCJdPTXhiBSfA1S+GBxtMooW2M7nxlt49OoCRH7jcxZOYQdiI8JYQiMF5Ur0MGakbSci0Xm+JzAvcm02g==
   dependencies:
     "@figspec/react" "^1.0.0"
+
+storybook-addon-react-router-v6@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/storybook-addon-react-router-v6/-/storybook-addon-react-router-v6-2.0.5.tgz#c466cfe2aca1f1e13519b6ca6b1b7a0cf79ec4eb"
+  integrity sha512-pUQFJf1rBhe8xOWagwK6PqbZejl4k9/198oRGNvSVOVuKCs+6iqFtF32Hw7fc+2U6otHwaUYqRK1HJf4vX+0cw==
+  dependencies:
+    compare-versions "^6.0.0"
+    react-inspector "6.0.2"
 
 storybook@^7.0.18:
   version "7.0.26"
