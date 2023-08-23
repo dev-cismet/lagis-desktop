@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Space } from "antd";
 import { Typography } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
         </a>
@@ -120,7 +120,7 @@ function App() {
             maxRows: 20,
           }}
         ></TextArea>
-      </div>
+      </div> */}
     </div>
   );
 }

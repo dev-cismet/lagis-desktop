@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <UsagePage />,
       },
       {
-        path: "/operations",
+        path: "/vorgänge",
         element: <OperationsPage />,
       },
       {
@@ -55,11 +55,11 @@ const router = createBrowserRouter([
         element: <HistoryPage />,
       },
       {
-        path: "/transaction",
+        path: "/kassenzeichen",
         element: <Transaction />,
       },
       {
-        path: "/documents",
+        path: "/dms",
         element: <DMSPage />,
       },
     ],
@@ -73,8 +73,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider locale={locale}>
       <Provider store={store}>
-        {/* <RouterProvider router={router} /> */}
-        <App />
+        <RouterProvider router={router} />
       </Provider>
     </ConfigProvider>
   </React.StrictMode>
