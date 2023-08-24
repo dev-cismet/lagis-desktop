@@ -13,11 +13,11 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   return (
-    <div className="flex flex-col h-full gap-4">
-      <div className="flex-1">
+    <div className="h-full">
+      <div className="h-[50%] mb-4">
         <UsageBlock />
       </div>
-      <div className="flex-1">
+      <div className="h-[calc(50%-2rem)]">
         <NFKOverwie />
       </div>
     </div>

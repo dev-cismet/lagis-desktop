@@ -83,10 +83,10 @@ const NFKOverwie = ({
               backgroundColor: "white",
             }
       }
-      className="shadow-md"
+      className="shadow-md overflow-auto"
     >
       <InfoBlock
-        title="Nutzung"
+        title="NKF Overview"
         titleAction={
           <Tag
             bordered={false}
@@ -135,12 +135,14 @@ const NFKOverwie = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={dataTable}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="relative">
+          <TableCustom
+            columns={columns}
+            data={dataTable}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+          />
+        </div>
       </InfoBlock>
     </div>
   );

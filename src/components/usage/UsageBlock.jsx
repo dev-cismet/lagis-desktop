@@ -164,7 +164,7 @@ const UsageBlock = ({
               borderRadius: "6px",
             }
       }
-      className="shadow-md"
+      className="shadow-md overflow-auto"
     >
       <InfoBlock
         title="Nutzung"
@@ -253,14 +253,17 @@ const UsageBlock = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={usage}
-          activerow={setActiveRow}
-          addClass="nfk-cover"
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="relative">
+          <TableCustom
+            columns={columns}
+            data={usage}
+            activerow={setActiveRow}
+            addClass="nfk-cover"
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+            fixHeight={true}
+          />
+        </div>
       </InfoBlock>
     </div>
   );
