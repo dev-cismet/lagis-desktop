@@ -158,84 +158,86 @@ const RentBlock = ({
         isStory
           ? storyStyle
           : {
-              // height: "100%",
               backgroundColor: "#FFFFFF",
               borderRadius: "6px",
             }
       }
+      className="flex flex-col h-full"
     >
-      <InfoBlock
-        title="Miet und Pachtverträge"
-        controlBar={
-          <ToggleModal
-            section="Vermietung / Verpachtung"
-            modalWidth={900}
-            addRow={addRow}
-            deleteActiveRow={deleteRow}
-          >
-            <ModalForm
-              formName={activeRow?.key}
-              customFields={[
-                {
-                  title: "Lage",
-                  value: activeRow?.lage,
-                  key: nanoid(),
-                  name: "lage",
-                },
-                {
-                  title: "Aktenzeichen",
-                  value: activeRow?.aktenzeichen,
-                  key: nanoid(),
-                  name: "aktenzeichen",
-                },
-                {
-                  title: "Fläche m2",
-                  value: activeRow?.fläche,
-                  key: nanoid(),
-                  name: "fläche",
-                },
-                {
-                  title: "Nutzung",
-                  value: activeRow?.nutzung,
-                  key: nanoid(),
-                  name: "aktenzeichen",
-                },
-                {
-                  title: "Vertragsbegin",
-                  key: nanoid(),
-                  value:
-                    activeRow?.vertragsbegin === ""
-                      ? null
-                      : dayjs(activeRow?.vertragsbegin, dateFormat),
-                  name: "nutzung",
-                  type: "date",
-                },
-                {
-                  title: "Vertragsende",
-                  key: nanoid(),
-                  name: "vertragsende",
-                  value:
-                    activeRow?.vertragsende === ""
-                      ? null
-                      : dayjs(activeRow?.vertragsende, dateFormat),
-                  type: "date",
-                },
-              ]}
-              size={8}
-              buttonPosition={{ justifyContent: "end" }}
-              tagsBar={[1]}
-            />
-          </ToggleModal>
-        }
-      >
-        <TableCustom
-          columns={columns}
-          data={rents}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
-      </InfoBlock>
-      <div className="flex gap-4">
+      <div className="flex-auto h-3/5">
+        <InfoBlock
+          title="Miet und Pachtverträge"
+          controlBar={
+            <ToggleModal
+              section="Vermietung / Verpachtung"
+              modalWidth={900}
+              addRow={addRow}
+              deleteActiveRow={deleteRow}
+            >
+              <ModalForm
+                formName={activeRow?.key}
+                customFields={[
+                  {
+                    title: "Lage",
+                    value: activeRow?.lage,
+                    key: nanoid(),
+                    name: "lage",
+                  },
+                  {
+                    title: "Aktenzeichen",
+                    value: activeRow?.aktenzeichen,
+                    key: nanoid(),
+                    name: "aktenzeichen",
+                  },
+                  {
+                    title: "Fläche m2",
+                    value: activeRow?.fläche,
+                    key: nanoid(),
+                    name: "fläche",
+                  },
+                  {
+                    title: "Nutzung",
+                    value: activeRow?.nutzung,
+                    key: nanoid(),
+                    name: "aktenzeichen",
+                  },
+                  {
+                    title: "Vertragsbegin",
+                    key: nanoid(),
+                    value:
+                      activeRow?.vertragsbegin === ""
+                        ? null
+                        : dayjs(activeRow?.vertragsbegin, dateFormat),
+                    name: "nutzung",
+                    type: "date",
+                  },
+                  {
+                    title: "Vertragsende",
+                    key: nanoid(),
+                    name: "vertragsende",
+                    value:
+                      activeRow?.vertragsende === ""
+                        ? null
+                        : dayjs(activeRow?.vertragsende, dateFormat),
+                    type: "date",
+                  },
+                ]}
+                size={8}
+                buttonPosition={{ justifyContent: "end" }}
+                tagsBar={[1]}
+              />
+            </ToggleModal>
+          }
+        >
+          <TableCustom
+            columns={columns}
+            data={rents}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+          />
+        </InfoBlock>
+      </div>
+      <div className="flex-auto h-2/5 flex gap-4">
         <div className="w-full">
           <InfoBlock
             title="Bemerkung"

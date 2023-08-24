@@ -11,31 +11,21 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const firstRowStyle = { width: "100%", height: height * 0.4 - 10 };
-  const gutterStyle = [0, 0];
-  const marginBottomStyle = { marginBottom: "10px" };
   return (
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
+      className="flex flex-col h-full gap-3"
     >
-      <Row
-        gutter={gutterStyle}
-        style={{ height: firstRowStyle.height, ...marginBottomStyle }}
-      >
-        <Col span={24}>
-          <Map width={"100%"} height={firstRowStyle.height} />
-        </Col>
-      </Row>
-      <Row gutter={gutterStyle} style={{ ...marginBottomStyle }}>
-        <Col span={24}>
-          <RentBlock />
-        </Col>
-      </Row>
+      <div className="flex-auto h-2/5">
+        <Map width={"100%"} height={"100%"} />
+      </div>
+
+      <div className="flex-auto h-3/5">
+        <RentBlock />
+      </div>
     </div>
   );
 };
