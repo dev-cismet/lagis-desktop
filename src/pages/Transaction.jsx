@@ -12,32 +12,20 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const gutterStyle = [16, 16];
-  const firstRow = { height: height * 0.4 - 16 };
-  const secondRow = { height: height * 0.4 - 16 };
-  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
+      className="flex flex-col h-full gap-4"
     >
-      <Row
-        gutter={gutterStyle}
-        style={{ height: firstRow.height, ...marginBottomStyle }}
-      >
-        <Col span={24}>
-          <Map width={"100%"} height={firstRow.height} />
-        </Col>
-      </Row>
-      <Row gutter={gutterStyle} style={{ height: secondRow.height }}>
-        <Col span={24}>
-          <TransactionNumber />
-        </Col>
-      </Row>
+      <div className="flex-1">
+        <Map width={"100%"} height={"100%"} />
+      </div>
+      <div className="flex-1">
+        <TransactionNumber />
+      </div>
     </div>
   );
 };
