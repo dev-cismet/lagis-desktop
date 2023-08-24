@@ -15,35 +15,30 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-  const firstRow = { height: height * 0.5 - 16 };
-  const secondRow = { height: height * 0.42 - 16 };
-  const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "16px" };
   return (
-    <div style={{ ...storyStyle, height: "100%" }} className="offices-page">
-      <Row
-        gutter={gutterStyle}
-        style={{ height: firstRow.height, ...marginBottomStyle }}
-      >
-        <Col span={8} flex="auto">
+    <div
+      style={{ ...storyStyle, height }}
+      className="offices-page flex flex-col gap-4"
+    >
+      <div className="flex gap-3 h-4/6">
+        <div className="flex-auto w-2/5">
           <Agencies />
-        </Col>
-        <Col span={16}>
-          <Map width={"100%"} height={firstRow.height} />
-        </Col>
-      </Row>
-
-      <Row gutter={gutterStyle} style={{ height: secondRow.height }}>
-        <Col span={8}>
+        </div>
+        <div className="flex-auto w-3/5">
+          <Map width={"100%"} height={"100%"} />
+        </div>
+      </div>
+      <div className="flex gap-3 h-2/6">
+        <dib className="flex-1">
           <AdditionalRole />
-        </Col>
-        <Col span={8}>
+        </dib>
+        <div className="flex-1">
           <Streetfronts />
-        </Col>
-        <Col span={8}>
+        </div>
+        <div className="flex-1">
           <Notes />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
