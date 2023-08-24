@@ -25,7 +25,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
       }}
-      className="h-full"
+      className="h-[90%]"
     >
       <div className="flex gap-2 h-full">
         <div className="flex flex-wrap gap-3 w-full h-full">

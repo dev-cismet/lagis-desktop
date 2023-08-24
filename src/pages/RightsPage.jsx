@@ -1,6 +1,5 @@
 import React from "react";
 import Map from "../components/commons/Map";
-import { Col, Row } from "antd";
 import RightsAndEncumbrances from "../components/rights/RightsAndEncumbrances";
 
 const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -13,28 +12,14 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-  const firstRow = { height: height * 0.5 - 16 };
-  const secondRow = { height: height * 0.32 };
-  const gutterStyle = [12, 12];
-  const marginBottomStyle = { marginBottom: "16px" };
   return (
-    <div style={{ ...storyStyle }}>
-      <Row
-        gutter={gutterStyle}
-        style={{ height: firstRow.height, ...marginBottomStyle }}
-      >
-        <Col span={24}>
-          <Map width={"100%"} height={firstRow.height} />
-        </Col>
-      </Row>
-      <Row
-        gutter={gutterStyle}
-        style={{ height: secondRow.height, ...marginBottomStyle }}
-      >
-        <Col span={24}>
-          <RightsAndEncumbrances />
-        </Col>
-      </Row>
+    <div style={{ ...storyStyle }} className="flex flex-col h-[100%] gap-4">
+      <div className="flex-1 h-1/2">
+        <Map width={"100%"} height={"100%"} />
+      </div>
+      <div children className="flex-1 h-1/2">
+        <RightsAndEncumbrances />
+      </div>
     </div>
   );
 };

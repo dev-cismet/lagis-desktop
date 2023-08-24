@@ -9,9 +9,9 @@ const AppLayout = () => {
       style={{
         background: "#F1F1F1",
       }}
-      className="pr-4 h-screen"
+      className="pr-4"
     >
-      <div className="flex gap-4 h-full">
+      <div className="flex gap-4 h-full h-screen">
         <div>
           <SidebarMenu />
         </div>

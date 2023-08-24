@@ -162,9 +162,9 @@ const RentBlock = ({
               borderRadius: "6px",
             }
       }
-      className="flex flex-col h-full"
+      className="flex flex-col h-full gap-1"
     >
-      <div className="flex-auto h-3/5">
+      <div className="flex-1 h-4/5">
         <InfoBlock
           title="Miet und Pachtverträge"
           controlBar={
@@ -237,7 +237,7 @@ const RentBlock = ({
           />
         </InfoBlock>
       </div>
-      <div className="flex-auto h-2/5 flex gap-4">
+      <div className="flex-1 h-1/5 flex gap-4">
         <div className="w-full">
           <InfoBlock
             title="Bemerkung"

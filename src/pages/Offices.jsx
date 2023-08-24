@@ -1,6 +1,5 @@
 import React from "react";
 import Map from "../components/commons/Map";
-import { Col, Row } from "antd";
 import Agencies from "../components/offices/Agencies";
 import AdditionalRole from "../components/offices/AdditionalRole";
 import Streetfronts from "../components/offices/Streetfronts";
