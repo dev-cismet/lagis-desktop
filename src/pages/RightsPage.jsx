@@ -13,11 +13,11 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   return (
-    <div style={{ ...storyStyle }} className="flex flex-col h-[100%] gap-4">
-      <div className="flex-1 h-1/2">
-        <Map width={"100%"} height={"100%"} />
+    <div style={{ ...storyStyle }} className="h-[100%]">
+      <div className="h-1/2 mb-4">
+        <Map width={"99%"} height={"100%"} />
       </div>
-      <div children className="flex-1 h-1/2">
+      <div className="h-[calc(50%-2em)]">
         <RightsAndEncumbrances />
       </div>
     </div>
