@@ -10,21 +10,17 @@ const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const gutterStyle = [16, 16];
   return (
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
         backgroundColor: "#F1F1F1",
       }}
+      className="flex h-full"
     >
-      <Row gutter={gutterStyle}>
-        <Col span={24}>
-          <DmsBlock />
-        </Col>
-      </Row>
+      <div className="flex-1">
+        <DmsBlock />
+      </div>
     </div>
   );
 };

@@ -184,8 +184,6 @@ const OperationsPage = ({
       padding: "4px",
     };
   }
-  const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "16px" };
   return (
     <div
       style={{
