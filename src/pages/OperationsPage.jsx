@@ -194,40 +194,34 @@ const OperationsPage = ({
         height,
         backgroundColor: "#F1F1F1",
       }}
+      className="flex flex-col gap-4"
     >
-      <Row
-        gutter={gutterStyle}
-        style={{
-          ...marginBottomStyle,
-        }}
-      >
-        <Col span={24}>
-          <Contracts
-            activeRow={activeRow}
-            setActiveRow={setActiveRow}
-            dataContract={dataContract}
-            setDataContract={setDataContract}
-          />
-        </Col>
-      </Row>
-      <Row gutter={gutterStyle}>
-        <Col span={12}>
+      <div className="flex-auto">
+        <Contracts
+          activeRow={activeRow}
+          setActiveRow={setActiveRow}
+          dataContract={dataContract}
+          setDataContract={setDataContract}
+        />
+      </div>
+      <div className="flex-auto flex gap-4">
+        <div className="flex-1">
           <ContractData
             dataContract={dataContract}
             activeRow={activeRow}
             setDataContract={setDataContract}
             setActiveRow={setActiveRow}
           />
-        </Col>
-        <Col span={12}>
+        </div>
+        <div className="flex-1">
           <CrossReferences
             activeRow={activeRow}
             dataContract={dataContract}
             setActiveRow={setActiveRow}
             setDataContract={setDataContract}
           />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
