@@ -30,3 +30,7 @@ const AppLayout = () => {
 };
 
 export default AppLayout;
+
+{
+  /* <div className="flex gap-4 h-full h-screen max-h-screen overflow-clip"></div> */
+}

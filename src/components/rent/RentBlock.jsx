@@ -164,7 +164,7 @@ const RentBlock = ({
       }
       className="flex flex-col h-full gap-1"
     >
-      <div className="flex-1 h-4/5">
+      <div className="h-[70%] overflow-auto">
         <InfoBlock
           title="Miet und Pachtverträge"
           controlBar={
@@ -229,15 +229,18 @@ const RentBlock = ({
             </ToggleModal>
           }
         >
-          <TableCustom
-            columns={columns}
-            data={rents}
-            activeRow={activeRow}
-            setActiveRow={setActiveRow}
-          />
+          <div className="relative">
+            <TableCustom
+              columns={columns}
+              data={rents}
+              activeRow={activeRow}
+              setActiveRow={setActiveRow}
+              fixHeight={true}
+            />
+          </div>
         </InfoBlock>
       </div>
-      <div className="flex-1 h-1/5 flex gap-4">
+      <div className="h-[30%] flex gap-4">
         <div className="w-full">
           <InfoBlock
             title="Bemerkung"

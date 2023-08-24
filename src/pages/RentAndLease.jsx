@@ -16,13 +16,13 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         ...storyStyle,
         backgroundColor: "#F1F1F1",
       }}
-      className="flex flex-col h-full gap-3"
+      className="h-full w-full"
     >
-      <div className="flex-1 h-2/5">
-        <Map width={"100%"} height={"100%"} />
+      <div className="w-full h-[40%] bg-white mb-2">
+        <Map width={"99%"} height={"100%"} />
       </div>
 
-      <div className="flex-1 h-3/5">
+      <div className="h-[60%]">
         <RentBlock />
       </div>
     </div>
