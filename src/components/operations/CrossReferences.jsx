@@ -208,7 +208,7 @@ const CrossReferences = ({
   }, [activeRow]);
   return (
     <div
-      className="cross-data shadow-md"
+      className="cross-data h-full shadow-md"
       style={{
         height: "100%",
         backgroundColor: "#ffffff",

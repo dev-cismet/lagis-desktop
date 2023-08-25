@@ -84,83 +84,83 @@ const Contracts = ({
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
-    <div>
-      <div
-        style={
-          isStory
-            ? storyStyle
-            : {
-                height: "100%",
-                backgroundColor: "#FFFFFF",
-                borderRadius: "6px",
-              }
+    <div
+      style={
+        isStory
+          ? storyStyle
+          : {
+              backgroundColor: "#FFFFFF",
+              borderRadius: "6px",
+            }
+      }
+      className="shadow-md overflow-auto h-full"
+    >
+      <InfoBlock
+        title="Vorgänge"
+        controlBar={
+          <ToggleModal
+            section="Verträge"
+            addRow={handleAddRow}
+            deleteActiveRow={deleteActiveRow}
+            modalWidth={900}
+            content={
+              <DocsIcons classnames="flex justify-center items-center gap-1" />
+            }
+          >
+            <ModalForm
+              updateHandle={handleEditActiveContract}
+              customFields={[
+                {
+                  title: "Vertragsart",
+                  value: activeRow?.vertragsart,
+                  key: nanoid(),
+                  name: "vertragsart",
+                  type: "select",
+                  options: [
+                    {
+                      value: "Vermietung",
+                      lable: "Vermietung",
+                    },
+                    {
+                      value: "Leasing",
+                      lable: "Leasing",
+                    },
+                  ],
+                },
+                {
+                  title: "Nummer",
+                  value: activeRow?.nummer,
+                  name: "nummer",
+                  key: nanoid(),
+                },
+                {
+                  title: "Quadratmeterpreis",
+                  key: nanoid(),
+                  value: activeRow?.quadratmeterpreis,
+                  name: "quadratmeterpreis",
+                },
+                {
+                  title: "Kaufpreis (i. NK)",
+                  value: activeRow?.kaufpreis,
+                  name: "kaufpreis",
+                  key: nanoid(),
+                },
+              ]}
+              formName={activeRow.key}
+            />
+          </ToggleModal>
         }
-        className="shadow-md"
       >
-        <InfoBlock
-          title="Vorgänge"
-          controlBar={
-            <ToggleModal
-              section="Verträge"
-              addRow={handleAddRow}
-              deleteActiveRow={deleteActiveRow}
-              modalWidth={900}
-              content={
-                <DocsIcons classnames="flex justify-center items-center gap-1" />
-              }
-            >
-              <ModalForm
-                updateHandle={handleEditActiveContract}
-                customFields={[
-                  {
-                    title: "Vertragsart",
-                    value: activeRow?.vertragsart,
-                    key: nanoid(),
-                    name: "vertragsart",
-                    type: "select",
-                    options: [
-                      {
-                        value: "Vermietung",
-                        lable: "Vermietung",
-                      },
-                      {
-                        value: "Leasing",
-                        lable: "Leasing",
-                      },
-                    ],
-                  },
-                  {
-                    title: "Nummer",
-                    value: activeRow?.nummer,
-                    name: "nummer",
-                    key: nanoid(),
-                  },
-                  {
-                    title: "Quadratmeterpreis",
-                    key: nanoid(),
-                    value: activeRow?.quadratmeterpreis,
-                    name: "quadratmeterpreis",
-                  },
-                  {
-                    title: "Kaufpreis (i. NK)",
-                    value: activeRow?.kaufpreis,
-                    name: "kaufpreis",
-                    key: nanoid(),
-                  },
-                ]}
-                formName={activeRow.key}
-              />
-            </ToggleModal>
-          }
-        >
+        <div className="relative">
           <TableCustom
             columns={columns}
             data={dataContract}
             setActiveRow={handleActiveRow}
             activeRow={activeRow}
+            fixHeight={true}
           />
-        </InfoBlock>
-      </div>
+        </div>
+      </InfoBlock>
     </div>
   );
 };

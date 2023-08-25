@@ -25,7 +25,7 @@ const ContractData = ({
     );
   };
   return (
-    <div className="contract-data shadow-md">
+    <div className="contract-data h-full w-full overflow-auto shadow-md">
       <InfoBlock
         title="Vertragsdaten"
         controlBar={

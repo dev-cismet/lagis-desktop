@@ -18,12 +18,12 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
         ...storyStyle,
         backgroundColor: "#F1F1F1",
       }}
-      className="flex flex-col h-full gap-4"
+      className="h-full"
     >
-      <div className="flex-1">
-        <Map width={"100%"} height={"100%"} />
+      <div className="h-1/2 w-full mb-4 bg-[#ffffff]">
+        <Map width={"99%"} height={"100%"} />
       </div>
-      <div className="flex-1">
+      <div className="h-[calc(50%-2rem)]">
         <TransactionNumber />
       </div>
     </div>

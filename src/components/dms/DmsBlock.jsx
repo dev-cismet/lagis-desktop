@@ -97,7 +97,7 @@ const DmsBlock = ({
   };
   return (
     <div
-      className="shadow-md"
+      className="shadow-md h-full overflow-auto"
       style={
         isStory
           ? storyStyle
@@ -139,13 +139,16 @@ const DmsBlock = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={dms}
-          activerow={setActiveRow}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="relative">
+          <TableCustom
+            columns={columns}
+            data={dms}
+            activerow={setActiveRow}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+            fixHeight={true}
+          />
+        </div>
       </InfoBlock>
     </div>
   );

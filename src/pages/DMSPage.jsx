@@ -1,4 +1,3 @@
-import { Col, Row } from "antd";
 import DmsBlock from "../components/dms/DmsBlock";
 const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -16,9 +15,9 @@ const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
         ...storyStyle,
         backgroundColor: "#F1F1F1",
       }}
-      className="flex h-full"
+      className="h-full"
     >
-      <div className="flex-1">
+      <div className="h-full">
         <DmsBlock />
       </div>
     </div>

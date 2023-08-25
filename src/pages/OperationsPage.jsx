@@ -188,13 +188,11 @@ const OperationsPage = ({
     <div
       style={{
         ...storyStyle,
-        width,
-        height,
         backgroundColor: "#F1F1F1",
       }}
-      className="flex flex-col gap-4"
+      className="h-full"
     >
-      <div className="flex-auto">
+      <div className="h-[40%] mb-4">
         <Contracts
           activeRow={activeRow}
           setActiveRow={setActiveRow}
@@ -202,16 +200,14 @@ const OperationsPage = ({
           setDataContract={setDataContract}
         />
       </div>
-      <div className="flex-auto flex gap-4">
-        <div className="flex-1">
-          <ContractData
-            dataContract={dataContract}
-            activeRow={activeRow}
-            setDataContract={setDataContract}
-            setActiveRow={setActiveRow}
-          />
-        </div>
-        <div className="flex-1">
+      <div className="h-[calc(60%-2rem)] flex gap-4">
+        <ContractData
+          dataContract={dataContract}
+          activeRow={activeRow}
+          setDataContract={setDataContract}
+          setActiveRow={setActiveRow}
+        />
+        <div className="w-full">
           <CrossReferences
             activeRow={activeRow}
             dataContract={dataContract}

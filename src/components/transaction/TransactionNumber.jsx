@@ -95,12 +95,8 @@ const TransactionNumber = ({
   };
   return (
     <div
-      className="shadow-md"
-      style={
-        isStory
-          ? storyStyle
-          : { height: "100%", borderRadius: "6px", backgroundColor: "#FFFFFF" }
-      }
+      className="shadow-md bg-white overflow-auto"
+      style={isStory ? storyStyle : { height: "100%", borderRadius: "6px" }}
     >
       <InfoBlock
         title="Kassenzeicheninformationen"
@@ -135,12 +131,15 @@ const TransactionNumber = ({
           </ToggleModal>
         }
       >
-        <TableCustom
-          columns={columns}
-          data={transaction}
-          activeRow={activeRow}
-          setActiveRow={setActiveRow}
-        />
+        <div className="relative">
+          <TableCustom
+            columns={columns}
+            data={transaction}
+            activeRow={activeRow}
+            setActiveRow={setActiveRow}
+            fixHeight={true}
+          />
+        </div>
       </InfoBlock>
     </div>
   );
