@@ -11,7 +11,7 @@ const AppLayout = () => {
       }}
       className="pr-4"
     >
-      <div className="flex gap-4 h-full h-screen">
+      <div className="flex gap-4 h-screen">
         <div>
           <SidebarMenu />
         </div>
@@ -30,7 +30,3 @@ const AppLayout = () => {
 };
 
 export default AppLayout;
-
-{
-  /* <div className="flex gap-4 h-full h-screen max-h-screen overflow-clip"></div> */
-}

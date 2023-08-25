@@ -1,9 +1,17 @@
 .logout {
-  /* border-top: 1px solid #f0f0f0; */
   color: "#303030";
   cursor: pointer;
 }
 .logout:hover span {
   color: red;
   transition: all 0.3s;
+}
+
+.ant-menu-item {
+  margin-bottom: 100px; /* Adjust this value as needed */
+  padding-left: 15px;
+}
+
+.ant-menu-inline .ant-menu-item {
+  height: 35px;
 }

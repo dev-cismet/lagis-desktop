@@ -11,7 +11,7 @@ import {
   MenuOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
-import { Menu, Button } from "antd";
+import { Menu } from "antd";
 import "./menu.css";
 import Logo from "../ui/logo/Logo";
 import { useEffect } from "react";
@@ -67,31 +67,36 @@ const SidebarMenu = ({ activeKey = ["1"] }) => {
   }, []);
   return (
     <div
-      className="flex flex-col bg-white max-w-min"
+      className="bg-white border-solid border-white"
       style={{
         ...storyStyle,
       }}
     >
       <div
-        className="mt-6 mb-10 flex flex-wrap items-center gap-2"
+        className="my-4 mb-5 flex flex-wrap items-center gap-2"
         style={{
           justifyContent: !collapsed ? "start" : "center",
+          marginLeft: !collapsed ? "20px" : "0px",
         }}
       >
-        <Button onClick={toggleCollapsed} type="text">
+        <span onClick={toggleCollapsed} className="cursor-pointer">
           <MenuOutlined />
-        </Button>
+        </span>
         <Logo showText={collapsed} />
       </div>
-      <Menu
-        style={{
-          border: 0,
-        }}
-        defaultSelectedKeys={activeKey}
-        items={items}
-        mode="vertical"
-        inlineCollapsed={collapsed}
-      />
+
+      <div className="side-menu">
+        <Menu
+          style={{
+            border: 0,
+            marginLeft: "-5px",
+          }}
+          defaultSelectedKeys={activeKey}
+          items={items}
+          mode="inline"
+          inlineCollapsed={collapsed}
+        />
+      </div>
     </div>
   );
 };
