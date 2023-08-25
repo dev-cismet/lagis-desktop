@@ -17,7 +17,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
       <div className="h-1/2 mb-4">
         <Map width={"99%"} height={"100%"} />
       </div>
-      <div className="h-[calc(50%-2em)]">
+      <div className="h-[calc(50%-2rem)]">
         <RightsAndEncumbrances />
       </div>
     </div>

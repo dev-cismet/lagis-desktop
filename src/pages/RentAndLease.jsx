@@ -16,13 +16,13 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         ...storyStyle,
         backgroundColor: "#F1F1F1",
       }}
-      className="h-full w-full"
+      className="h-full w-full overflow-clip max-h[calc(100%-30px)]"
     >
       <div className="w-full h-[40%] bg-white mb-2">
         <Map width={"99%"} height={"100%"} />
       </div>
 
-      <div className="h-[60%]">
+      <div className="h-[calc(60%-15px)]">
         <RentBlock />
       </div>
     </div>
