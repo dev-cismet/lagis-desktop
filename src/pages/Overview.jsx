@@ -18,8 +18,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-  console.log("height", height * 1);
-  console.log("width", width);
   return (
     <div
       style={{

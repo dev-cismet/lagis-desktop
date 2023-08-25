@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import "./index.css";
 import "antd/dist/reset.css";
 import { Provider } from "react-redux";
 import store from "./store";
 import { ConfigProvider } from "antd";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import locale from "antd/locale/de_DE";
 import ErrorPage from "./components/ui/errors-template/ErrorsPage";
 import Overview from "./pages/Overview";
@@ -20,84 +19,66 @@ import HistoryPage from "./pages/HistoryPage";
 import Transaction from "./pages/Transaction";
 import DMSPage from "./pages/DMSPage";
 import LoginPage from "./components/login/LoginPage";
-import PrivateRoute from "./components/routes/PrivateRoute";
-const router = createBrowserRouter([
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import {
+  getJWT,
+  setLoginRequested,
+  storeJWT,
+  storeLogin,
+} from "./store/slices/auth";
+
+const NavBarWrapper = () => {
+  const jwt = useSelector(getJWT);
+  // const readOnly = useSelector(getReadOnly);
+  if (!jwt) {
+    return <Navigate to="/login" />;
+  }
+
+  return <AppLayout />;
+};
+
+const router = createHashRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: <NavBarWrapper />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: (
-          <PrivateRoute>
-            <Overview />
-          </PrivateRoute>
-        ),
+        element: <Overview />,
       },
       {
         path: "/verwaltungsbereiche",
-        element: (
-          <PrivateRoute>
-            <Offices />
-          </PrivateRoute>
-        ),
+        element: <Offices />,
       },
       {
         path: "/miet",
-        element: (
-          <PrivateRoute>
-            <RentAndLease />
-          </PrivateRoute>
-        ),
+        element: <RentAndLease />,
       },
       {
         path: "/rechte",
-        element: (
-          <PrivateRoute>
-            <RightsPage />
-          </PrivateRoute>
-        ),
+        element: <RightsPage />,
       },
       {
         path: "/nutzung",
-        element: (
-          <PrivateRoute>
-            <UsagePage />
-          </PrivateRoute>
-        ),
+        element: <UsagePage />,
       },
       {
         path: "/vorgänge",
-        element: (
-          <PrivateRoute>
-            <OperationsPage />
-          </PrivateRoute>
-        ),
+        element: <OperationsPage />,
       },
       {
         path: "/historie",
-        element: (
-          <PrivateRoute>
-            <HistoryPage />
-          </PrivateRoute>
-        ),
+        element: <HistoryPage />,
       },
       {
         path: "/kassenzeichen",
-        element: (
-          <PrivateRoute>
-            <Transaction />
-          </PrivateRoute>
-        ),
+        element: <Transaction />,
       },
       {
         path: "/dms",
-        element: (
-          <PrivateRoute>
-            <DMSPage />
-          </PrivateRoute>
-        ),
+        element: <DMSPage />,
       },
     ],
   },
