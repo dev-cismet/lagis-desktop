@@ -20,6 +20,7 @@ import HistoryPage from "./pages/HistoryPage";
 import Transaction from "./pages/Transaction";
 import DMSPage from "./pages/DMSPage";
 import LoginPage from "./components/login/LoginPage";
+import PrivateRoute from "./components/routes/PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,39 +29,75 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Overview />,
+        element: (
+          <PrivateRoute>
+            <Overview />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/verwaltungsbereiche",
-        element: <Offices />,
+        element: (
+          <PrivateRoute>
+            <Offices />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/miet",
-        element: <RentAndLease />,
+        element: (
+          <PrivateRoute>
+            <RentAndLease />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/rechte",
-        element: <RightsPage />,
+        element: (
+          <PrivateRoute>
+            <RightsPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/nutzung",
-        element: <UsagePage />,
+        element: (
+          <PrivateRoute>
+            <UsagePage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/vorgänge",
-        element: <OperationsPage />,
+        element: (
+          <PrivateRoute>
+            <OperationsPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/historie",
-        element: <HistoryPage />,
+        element: (
+          <PrivateRoute>
+            <HistoryPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/kassenzeichen",
-        element: <Transaction />,
+        element: (
+          <PrivateRoute>
+            <Transaction />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dms",
-        element: <DMSPage />,
+        element: (
+          <PrivateRoute>
+            <DMSPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
