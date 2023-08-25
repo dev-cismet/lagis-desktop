@@ -23,20 +23,22 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{
         ...storyStyle,
       }}
-      className="h-[90%]"
+      className="h-full overflow-clip max-h[calc(100%-30px)]"
     >
-      <div className="flex gap-2 h-full">
-        <div className="flex flex-wrap gap-3 w-full h-full">
-          <Offices />
-          <Rent />
-          <Rights />
-          <Usage />
-          <Operations />
-          <History />
-          <Transaction />
-          <DMS />
+      <div className="flex gap-2 w-full  h-[calc(100%-4px)]">
+        <div className="w-1/2 gap-2 overflow-auto">
+          <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
+            <Offices />
+            <Rent />
+            <Rights />
+            <Usage />
+            <Operations />
+            <History />
+            <Transaction />
+            <DMS />
+          </div>
         </div>
-        <div className="w-10/12 h-full">
+        <div className="w-1/2 h-[calc(100%-4px)]">
           <Map width={"100%"} height={height} />
         </div>
       </div>

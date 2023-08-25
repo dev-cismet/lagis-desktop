@@ -31,9 +31,9 @@ import {
 const NavBarWrapper = () => {
   const jwt = useSelector(getJWT);
   // const readOnly = useSelector(getReadOnly);
-  if (!jwt) {
-    return <Navigate to="/login" />;
-  }
+  // if (!jwt) {
+  //   return <Navigate to="/login" />;
+  // }
 
   return <AppLayout />;
 };

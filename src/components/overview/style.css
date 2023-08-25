@@ -1,5 +1,5 @@
 .dashboard-tile {
-  flex-basis: calc(50% - 8px);
+  /* flex-basis: calc(50% - 8px); */
 }
 .dashboard-icon {
   text-align: right;
