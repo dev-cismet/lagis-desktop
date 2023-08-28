@@ -21,6 +21,7 @@ const RawData = ({ data }) => {
           maxRows: 20,
         }}
       />
+      {/* <div>{text}</div> */}
       {/* {productionMode && (
         <TextArea
           value={text}
@@ -28,8 +29,8 @@ const RawData = ({ data }) => {
             minRows: 2,
             maxRows: 20,
           }}
-        />
-      )} */}
+        /> */}
+      {/* )} */}
     </div>
   );
 };

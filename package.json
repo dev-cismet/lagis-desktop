@@ -29,7 +29,8 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.7",
     "react-router-dom": "^6.14.2",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.18",
