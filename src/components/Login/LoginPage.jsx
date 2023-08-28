@@ -13,12 +13,16 @@ import {
 import { DOMAIN, REST_SERVICE } from "../../constants/lagis";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import queries from "../../core/queries/online";
+import { fetchGraphQL } from "../../core/graphql";
+import RawData from "../../pages/RawData";
 const LoginPage = () => {
   const jwt = useSelector(getJWT);
   const dispatch = useDispatch();
   const [user, setUser] = useState("");
   const [pw, setPw] = useState("");
   const [keepStatus, setKeepStatus] = useState(false);
+  const [rawData, setDataRow] = useState({});
   const navigate = useNavigate();
   const loginHandle = (e) => {
     setUser(e.target.value);
@@ -39,17 +43,40 @@ const LoginPage = () => {
     })
       .then(function (response) {
         if (response.status >= 200 && response.status < 300) {
-          response.json().then(function (responseWithJWT) {
-            const jwt = responseWithJWT.jwt;
-            console.log("Anmeldung erfolgreich.");
+          response
+            .json()
+            .then(function (responseWithJWT) {
+              const jwt = responseWithJWT.jwt;
+              console.log("Anmeldung erfolgreich.");
+              setTimeout(() => {
+                dispatch(storeJWT(jwt));
+                dispatch(storeLogin(user));
+                dispatch(setLoginRequested(false));
+                // navigate("/");
+              }, 500);
+            })
+            .then((res) => {
+              console.log("!!!!!!!!!!!!!");
+              const gqlQuery = queries.first;
 
-            setTimeout(() => {
-              dispatch(storeJWT(jwt));
-              dispatch(storeLogin(user));
-              dispatch(setLoginRequested(false));
-              navigate("/");
-            }, 500);
-          });
+              const queryParameter = {
+                gemarkung: "Barmen",
+                flur: 1,
+                fstkZaehler: 367,
+                fstkNenner: 0,
+              };
+
+              //local async query
+              (async () => {
+                const result = await fetchGraphQL(
+                  gqlQuery,
+                  queryParameter,
+                  jwt
+                );
+                console.log("result!!!!!!!", result);
+                setDataRow(result);
+              })();
+            });
         } else {
           console.log("Bei der Anmeldung ist ein Fehler aufgetreten. ");
         }
@@ -191,6 +218,9 @@ const LoginPage = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div>
+              <RawData data={rawData} />
             </div>
           </Col>
         </Row>
