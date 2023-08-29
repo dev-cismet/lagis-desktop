@@ -95,3 +95,12 @@ export const exampleQueryParameter = {
   fstkZaehler: 367,
   fstkNenner: 0,
 };
+
+queries.gemarkung = `query MyQuery($_eq: String = "") {
+  gemarkung(where: {bezeichnung: {_eq: $_eq}}) {
+    id
+    schluessel
+    bezeichnung
+  }
+}
+`;

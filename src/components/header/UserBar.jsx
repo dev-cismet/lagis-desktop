@@ -2,10 +2,18 @@ import HeaderSelectors from "../ui/filters/HeaderSelectors";
 import UserBarActions from "../ui/control-board/UserBarActions";
 import UserName from "./UserName";
 import { LogoutOutlined } from "@ant-design/icons";
-import { useSelector, useDispatch } from "react-redux";
 import { getJWT, storeJWT, storeLogin } from "../../store/slices/auth";
+import { useEffect } from "react";
 const UserBar = () => {
-  const dispatch = useDispatch();
+  // const [gemarkunk]
+  // const gqlQuery = queries.first;
+  // const queryParameter = {
+  //   gemarkung: "Barmen",
+  //   flur: 1,
+  //   fstkZaehler: 367,
+  //   fstkNenner: 0,
+  // };
+  useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
       <div>
