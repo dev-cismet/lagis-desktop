@@ -9,13 +9,13 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-// import localForage from "localforage";
-import storage from "redux-persist/lib/storage";
+import localForage from "localforage";
+// import storage from "redux-persist/lib/storage";
 console.log("store initializing ....");
 
 const persistConfig = {
-  key: "root",
-  storage,
+  key: "@lagis-desktop.1.app.auth",
+  storage: localForage,
   whitelist: ["jwt", "login"],
 };
 

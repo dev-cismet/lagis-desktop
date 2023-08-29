@@ -14,7 +14,6 @@ const DashboardRights = ({
   variant,
 }) => {
   const data = extractor(dataIn);
-  console.log("Right", style);
   return (
     <div className="dashboard-tile">
       <OverviewCard

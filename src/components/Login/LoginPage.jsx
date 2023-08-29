@@ -43,37 +43,16 @@ const LoginPage = () => {
     })
       .then(function (response) {
         if (response.status >= 200 && response.status < 300) {
-          response
-            .json()
-            .then(function (responseWithJWT) {
-              const jwt = responseWithJWT.jwt;
-              console.log("Anmeldung erfolgreich.");
-              setTimeout(() => {
-                dispatch(storeJWT(jwt));
-                dispatch(storeLogin(user));
-                dispatch(setLoginRequested(false));
-                navigate("/");
-              }, 500);
-            })
-            .then((res) => {
-              // const gqlQuery = queries.first;
-              // const queryParameter = {
-              //   gemarkung: "Barmen",
-              //   flur: 1,
-              //   fstkZaehler: 367,
-              //   fstkNenner: 0,
-              // };
-              // //local async query
-              // (async () => {
-              //   const result = await fetchGraphQL(
-              //     gqlQuery,
-              //     queryParameter,
-              //     jwt
-              //   );
-              //   console.log("result!!!!!!!", result);
-              //   setDataRow(result);
-              // })();
-            });
+          response.json().then(function (responseWithJWT) {
+            const jwt = responseWithJWT.jwt;
+            console.log("Anmeldung erfolgreich.");
+            setTimeout(() => {
+              dispatch(storeJWT(jwt));
+              dispatch(storeLogin(user));
+              dispatch(setLoginRequested(false));
+              navigate("/");
+            }, 500);
+          });
         } else {
           console.log("Bei der Anmeldung ist ein Fehler aufgetreten. ");
         }
