@@ -23,35 +23,51 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
-import { Link } from "react-router-dom";
+import { useLocation, NavLink } from "react-router-dom";
+
 const items = [
-  getItem(<Link to="/">Übersicht</Link>, "1", <DashboardOutlined />),
+  getItem(<NavLink to="/">Übersicht</NavLink>, "/", <DashboardOutlined />),
   getItem(
-    <Link to="/verwaltungsbereiche">Verwaltungsbereiche</Link>,
-    2,
+    <NavLink to="/verwaltungsbereiche">Verwaltungsbereiche</NavLink>,
+    "/verwaltungsbereiche",
     <FolderOpenOutlined />
   ),
   getItem(
-    <Link to="miet">Miet- und Pachtverträge</Link>,
-    "3",
+    <NavLink to="/miet">Miet- und Pachtverträge</NavLink>,
+    "/miet",
     <DollarOutlined />
   ),
   getItem(
-    <Link to="rechte"> Rechte und Belastungen</Link>,
-    "4",
+    <NavLink to="/rechte">Rechte und Belastungen</NavLink>,
+    "/rechte",
     <SettingOutlined />
   ),
-  getItem(<Link to="/nutzung">Nutzung</Link>, "5", <PieChartOutlined />),
-  getItem(<Link to="/vorgänge">Vorgänge</Link>, "6", <FileSearchOutlined />),
-  getItem(<Link to="/historie">Historie</Link>, "7", <HistoryOutlined />),
   getItem(
-    <Link to="kassenzeichen">Kassenzeichen</Link>,
-    "8",
+    <NavLink to="/nutzung">Nutzung</NavLink>,
+    "/nutzung",
+    <PieChartOutlined />
+  ),
+  getItem(
+    <NavLink to="/vorgange">Vorgänge</NavLink>,
+    "/vorgange",
+    <FileSearchOutlined />
+  ),
+  getItem(
+    <NavLink to="/historie">Historie</NavLink>,
+    "/historie",
+    <HistoryOutlined />
+  ),
+  getItem(
+    <NavLink to="/kassenzeichen">Kassenzeichen</NavLink>,
+    "/kassenzeichen",
     <TransactionOutlined />
   ),
-  getItem(<Link to="/dms">DMS</Link>, "9", <FilePdfOutlined />),
+  getItem(<NavLink to="/dms">DMS</NavLink>, "/dms", <FilePdfOutlined />),
 ];
-const SidebarMenu = ({ activeKey = ["1"] }) => {
+const SidebarMenu = () => {
+  const location = useLocation();
+  const activeKey = location.pathname;
+  console.log("!!!!!!", location, activeKey);
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);

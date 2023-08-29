@@ -66,7 +66,7 @@ const router = createHashRouter([
         element: <UsagePage />,
       },
       {
-        path: "/vorgänge",
+        path: "/vorgange",
         element: <OperationsPage />,
       },
       {

@@ -10,7 +10,6 @@ import {
   REGISTER,
 } from "redux-persist";
 import localForage from "localforage";
-// import storage from "redux-persist/lib/storage";
 console.log("store initializing ....");
 
 const persistConfig = {

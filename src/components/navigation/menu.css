@@ -15,3 +15,8 @@
 .ant-menu-inline .ant-menu-item {
   height: 35px;
 }
+
+.active-menu-link {
+  color: red;
+  background-color: blue;
+}
