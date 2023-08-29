@@ -29,9 +29,9 @@ import {
   storeJWT,
   storeLogin,
 } from "./store/slices/auth";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const NavBarWrapper = () => {
   const jwt = useSelector(getJWT);
-  // const readOnly = useSelector(getReadOnly);
   if (!jwt) {
     return <Navigate to="/login" />;
   }
@@ -88,14 +88,17 @@ const router = createHashRouter([
     element: <LoginPage />,
   },
 ]);
+const queryClient = new QueryClient();
 const persistor = persistStore(store);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider locale={locale}>
       <PersistGate locale={locale} loading={null} persistor={persistor}>
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <RouterProvider router={router} />
+          </Provider>
+        </QueryClientProvider>
       </PersistGate>
     </ConfigProvider>
   </React.StrictMode>

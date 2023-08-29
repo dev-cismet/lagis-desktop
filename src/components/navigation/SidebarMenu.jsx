@@ -67,7 +67,6 @@ const items = [
 const SidebarMenu = () => {
   const location = useLocation();
   const activeKey = location.pathname;
-  console.log("!!!!!!", location, activeKey);
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
