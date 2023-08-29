@@ -52,30 +52,27 @@ const LoginPage = () => {
                 dispatch(storeJWT(jwt));
                 dispatch(storeLogin(user));
                 dispatch(setLoginRequested(false));
-                // navigate("/");
+                navigate("/");
               }, 500);
             })
             .then((res) => {
-              console.log("!!!!!!!!!!!!!");
-              const gqlQuery = queries.first;
-
-              const queryParameter = {
-                gemarkung: "Barmen",
-                flur: 1,
-                fstkZaehler: 367,
-                fstkNenner: 0,
-              };
-
-              //local async query
-              (async () => {
-                const result = await fetchGraphQL(
-                  gqlQuery,
-                  queryParameter,
-                  jwt
-                );
-                console.log("result!!!!!!!", result);
-                setDataRow(result);
-              })();
+              // const gqlQuery = queries.first;
+              // const queryParameter = {
+              //   gemarkung: "Barmen",
+              //   flur: 1,
+              //   fstkZaehler: 367,
+              //   fstkNenner: 0,
+              // };
+              // //local async query
+              // (async () => {
+              //   const result = await fetchGraphQL(
+              //     gqlQuery,
+              //     queryParameter,
+              //     jwt
+              //   );
+              //   console.log("result!!!!!!!", result);
+              //   setDataRow(result);
+              // })();
             });
         } else {
           console.log("Bei der Anmeldung ist ein Fehler aufgetreten. ");
@@ -219,9 +216,7 @@ const LoginPage = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <RawData data={rawData} />
-            </div>
+            <div>{/* <RawData data={rawData} /> */}</div>
           </Col>
         </Row>
       </div>

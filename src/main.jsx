@@ -21,19 +21,20 @@ import DMSPage from "./pages/DMSPage";
 import LoginPage from "./components/login/LoginPage";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import {
   getJWT,
   setLoginRequested,
   storeJWT,
   storeLogin,
 } from "./store/slices/auth";
-
 const NavBarWrapper = () => {
   const jwt = useSelector(getJWT);
   // const readOnly = useSelector(getReadOnly);
-  // if (!jwt) {
-  //   return <Navigate to="/login" />;
-  // }
+  if (!jwt) {
+    return <Navigate to="/login" />;
+  }
 
   return <AppLayout />;
 };
@@ -87,12 +88,15 @@ const router = createHashRouter([
     element: <LoginPage />,
   },
 ]);
+const persistor = persistStore(store);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider locale={locale}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <PersistGate locale={locale} loading={null} persistor={persistor}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </PersistGate>
     </ConfigProvider>
   </React.StrictMode>
 );
