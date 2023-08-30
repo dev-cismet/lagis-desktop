@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth";
+import flurstueckSlice from "./slices/flurstueck";
 import {
   persistReducer,
   FLUSH,
@@ -21,6 +22,7 @@ const persistConfig = {
 export default configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authSlice.reducer),
+    flurstueck: flurstueckSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
