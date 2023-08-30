@@ -96,8 +96,8 @@ export const exampleQueryParameter = {
   fstkNenner: 0,
 };
 
-queries.gemarkung = `query MyQuery($_eq: String = "") {
-  gemarkung(where: {bezeichnung: {_eq: $_eq}}) {
+queries.gemarkung = `query MyQuery{
+  gemarkung{
     id
     schluessel
     bezeichnung
@@ -105,9 +105,15 @@ queries.gemarkung = `query MyQuery($_eq: String = "") {
 }
 `;
 
-queries.nennen = `query MyQuery {
-  flurstueck_schluessel {
+queries.zaehler = `query q($gemarkung_id: Int) {
+  flurstueck_schluessel(distinct_on: flurstueck_zaehler, where: {fk_gemarkung: {_eq: $gemarkung_id}}) {
     flurstueck_zaehler
-    }
+  }
+}`;
+
+queries.nenner = `query q($gemarkung_id: Int, $zaehler: Int) {
+  flurstueck_schluessel(distinct_on: flurstueck_nenner, where: {_and: {flurstueck_zaehler: {_eq: $zaehler}, fk_gemarkung: {_eq: $gemarkung_id}}}) {
+    flurstueck_nenner
+  }
 }
 `;
