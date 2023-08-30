@@ -104,3 +104,10 @@ queries.gemarkung = `query MyQuery($_eq: String = "") {
   }
 }
 `;
+
+queries.nennen = `query MyQuery {
+  flurstueck_schluessel {
+    flurstueck_zaehler
+    }
+}
+`;

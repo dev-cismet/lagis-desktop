@@ -11,6 +11,10 @@ const HeaderSelectors = () => {
   const jwt = useSelector(getJWT);
   const [gemarkunk, setGemarkunk] = useState("Haan");
 
+  const testNennen = async () => {
+    const result = await fetchGraphQL(queries.nennen, {}, jwt);
+    console.log("Nennen", result);
+  };
   const getGemerkung = async () => {
     console.log("Start fetching");
     const result = await fetchGraphQL(
@@ -47,6 +51,9 @@ const HeaderSelectors = () => {
     refetch();
     console.log("Refetch");
   }, [gemarkunk]);
+  useEffect(() => {
+    testNennen();
+  }, []);
 
   return (
     <div className="select-header flex gap-2">
