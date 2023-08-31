@@ -2,8 +2,8 @@ import { Select } from "antd";
 import "./header-selector.css";
 import queries from "../../../core/queries/online";
 import { fetchGraphQL } from "../../../core/graphql";
-import { getJWT, storeJWT, storeLogin } from "../../../store/slices/auth";
-import { useQuery } from "@tanstack/react-query";
+import { getJWT } from "../../../store/slices/auth";
+import { storeFlurstueck } from "../../../store/slices/flurstueck";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 const HeaderSelectors = () => {
@@ -14,7 +14,7 @@ const HeaderSelectors = () => {
   const [zaehler, setZaehler] = useState([]);
   const [activeZaehler, setActiveZaehler] = useState();
   const [nenner, setNenner] = useState([]);
-  const [activeNenner, setActiveNenner] = useState([]);
+  const [activeNenner, setActiveNenner] = useState();
 
   const getNenner = async () => {
     const result = await fetchGraphQL(
@@ -25,26 +25,26 @@ const HeaderSelectors = () => {
       },
       jwt
     );
-    console.log("Gemarkung", gemarkung);
-    console.log("Zaehler", activeZaehler);
-    console.log("Nenner", result.data.flurstueck_schluessel);
-    setActiveNenner(result.data.flurstueck_schluessel[0].flurstueck_nenner);
-    setNenner(
-      result.data.flurstueck_schluessel.map((n) => ({
-        value: n.flurstueck_nenner,
-        label: n.flurstueck_nenner,
-      }))
-    );
+    if (result.status !== 401) {
+      setActiveNenner(result.data.flurstueck_schluessel[0].flurstueck_nenner);
+      setNenner(
+        result.data.flurstueck_schluessel.map((n) => ({
+          value: n.flurstueck_nenner,
+          label: n.flurstueck_nenner,
+        }))
+      );
+    }
   };
   const getGemerkung = async () => {
-    console.log("Start fetching");
     const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-    setBezeichnung(
-      result.data.gemarkung.map((g) => ({
-        value: g.id,
-        label: g.bezeichnung,
-      }))
-    );
+    if (result.status !== 401) {
+      setBezeichnung(
+        result.data.gemarkung.map((g) => ({
+          value: g.id,
+          label: g.bezeichnung,
+        }))
+      );
+    }
     return result;
   };
   const getZaehlerGemerkung = async () => {
@@ -53,22 +53,36 @@ const HeaderSelectors = () => {
       { gemarkung_id: gemarkung },
       jwt
     );
-    console.log("Zahler", result);
-    setActiveZaehler(
-      (prev) => (prev = result.data.flurstueck_schluessel[0].flurstueck_zaehler)
-    );
+    if (result.status !== 401) {
+      setActiveZaehler(
+        (prev) =>
+          (prev = result.data.flurstueck_schluessel[0].flurstueck_zaehler)
+      );
 
-    setZaehler(
-      result.data.flurstueck_schluessel.map((z) => ({
-        value: z.flurstueck_zaehler,
-        label: z.flurstueck_zaehler,
-      }))
-    );
+      setZaehler(
+        result.data.flurstueck_schluessel.map((z) => ({
+          value: z.flurstueck_zaehler,
+          label: z.flurstueck_zaehler,
+        }))
+      );
+    }
   };
-  // const { isLoading, error, data, refetch } = useQuery({
-  //   queryKey: ["gemarkung", gemarkung],
-  //   queryFn: getGemerkung,
-  // });
+  const getFlurstueck = async () => {
+    console.log("Gemerkung", gemarkung);
+    const result = await fetchGraphQL(
+      queries.flurstueck,
+      {
+        gemarkung_id: gemarkung,
+        flurstueck_zaehler: activeZaehler,
+        flurstueck_nenner: activeNenner,
+      },
+      jwt
+    );
+    if (result.data.flurstueck) {
+      dispatch(storeFlurstueck(result.data.flurstueck));
+      console.log("flurstueck", result.data.flurstueck);
+    }
+  };
 
   const handleChangeGemarkung = (value) => {
     console.log(`selected ${value}`);
@@ -89,6 +103,9 @@ const HeaderSelectors = () => {
   useEffect(() => {
     getNenner();
   }, [activeZaehler]);
+  useEffect(() => {
+    getFlurstueck();
+  }, [activeNenner]);
 
   return (
     <div className="select-header flex gap-2">
