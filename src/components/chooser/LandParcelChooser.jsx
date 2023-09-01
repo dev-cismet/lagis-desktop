@@ -180,9 +180,41 @@ const LandParcelChooser = ({
         filterOption={(input, option) =>
           (option?.value ?? "").toLowerCase().startsWith(input)
         }
-        filterSort={(optionA, optionB) =>
-          parseInt(optionA.label, 10) - parseInt(optionB.label, 10)
-        }
+        filterSort={(optionA, optionB) => {
+          const compareNumericParts = (a, b) => {
+            const numericA = parseFloat(a) || 0;
+            const numericB = parseFloat(b) || 0;
+            return numericA - numericB;
+          };
+
+          const labelA = optionA.value;
+          const labelB = optionB.value;
+
+          const partsA = labelA.match(/\d+|\D+/g);
+          const partsB = labelB.match(/\d+|\D+/g);
+
+          for (let i = 0; i < Math.min(partsA.length, partsB.length); i++) {
+            const partA = partsA[i];
+            const partB = partsB[i];
+
+            if (!isNaN(partA) && !isNaN(partB)) {
+              const result = compareNumericParts(partA, partB);
+              if (result !== 0) {
+                return result;
+              }
+            }
+
+            if (isNaN(partA) || isNaN(partB)) {
+              const result = partA.localeCompare(partB);
+              if (result !== 0) {
+                return result;
+              }
+            }
+          }
+
+          // If all parts are the same up to this point, compare the lengths
+          return partsA.length - partsB.length;
+        }}
         onChange={handleFlurstueckChange}
         options={Object.keys(selectedFlur?.flurstuecke || []).map((key) => {
           const el = selectedFlur?.flurstuecke[key];
@@ -231,4 +263,24 @@ const removeLeadingZeros = (numberStr) => {
   const result = trimmedParts.join("/");
 
   return result;
+};
+
+const numericSort = (a, b) => {
+  // Split values into numeric and non-numeric parts
+  const [aNumeric, aNonNumeric] = a.match(/\d+|\D+/g);
+  const [bNumeric, bNonNumeric] = b.match(/\d+|\D+/g);
+
+  // Convert numeric parts to numbers
+  const numericA = parseFloat(aNumeric) || 0;
+  const numericB = parseFloat(bNumeric) || 0;
+
+  // Compare numeric parts
+  if (numericA < numericB) {
+    return -1;
+  } else if (numericA > numericB) {
+    return 1;
+  } else {
+    // If numeric parts are equal, compare non-numeric parts
+    return aNonNumeric.localeCompare(bNonNumeric);
+  }
 };
