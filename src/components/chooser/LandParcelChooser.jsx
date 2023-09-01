@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 
@@ -12,6 +12,9 @@ const LandParcelChooser = ({
 }) => {
   const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
+  const gemarkungRef = useRef();
+  const flurRef = useRef();
+  const flurstueckRef = useRef();
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
@@ -73,6 +76,9 @@ const LandParcelChooser = ({
     console.log("setSelectedGemarkung(data[value]);", data[gemarkungValue]);
     setSelectedGemarkung(data[gemarkungValue]);
     setSelectedFlur(undefined);
+    setTimeout(() => {
+      flurRef.current.focus();
+    }, 10);
   };
   const handleFlurChange = (flurValue) => {
     console.log(`handleFlurChange`, flurValue);
@@ -82,7 +88,11 @@ const LandParcelChooser = ({
       selectedGemarkung.flure[flurValue]
     );
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
+    setTimeout(() => {
+      flurstueckRef.current.focus();
+    }, 10);
   };
+  // flurstueckRef.current.focus()
   const handleFlurstueckChange = (flurstueckValue) => {
     flurstueckChoosen({
       gemarkung: selectedGemarkung.gemarkung,
@@ -90,15 +100,27 @@ const LandParcelChooser = ({
       ...selectedFlur.flurstuecke[flurstueckValue],
     });
   };
-  const handleKeyDown = (e) => {
-    console.log("selected value");
-    if (e.key === "Tab") {
-      console.log("selected value", e.key);
+  const handleKeyGemarkung = (e) => {
+    if (e.key === "Enter") {
+      flurRef.current.focus();
     }
   };
+  const handleKeyFlur = (e) => {
+    console.log("handleKeyGemarkung", e.key);
+
+    if (e.key === "Enter") {
+      flurstueckRef.current.focus();
+    }
+  };
+  // const handleKeyFlurstueck = (e) => {
+  //   if (e.key === "Enter") {
+  //     flurstueckRef.current.focus();
+  //   }
+  // };
   return (
     <>
       <Select
+        ref={gemarkungRef}
         showSearch
         placeholder="Gemarkung"
         style={{
@@ -113,7 +135,7 @@ const LandParcelChooser = ({
             .toLowerCase()
             .localeCompare((optionB?.label ?? "").toLowerCase())
         }
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleKeyGemarkung}
         onChange={handleGemarkungChange}
         options={Object.keys(data).map((key) => {
           const el = data[key];
@@ -121,12 +143,14 @@ const LandParcelChooser = ({
         })}
       />
       <Select
+        ref={flurRef}
         placeholder="Flur"
         key={"Flure.for." + (selectedGemarkung?.gemarkung || "-")}
         showSearch
         style={{
           width: 200,
         }}
+        onKeyDown={handleKeyFlur}
         className="mx-1"
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().startsWith(input)
@@ -141,6 +165,7 @@ const LandParcelChooser = ({
         })}
       />
       <Select
+        ref={flurstueckRef}
         key={
           "Flurstuecke.for." +
           (selectedGemarkung?.gemarkung || "-") +
