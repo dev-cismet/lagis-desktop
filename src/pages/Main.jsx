@@ -16,22 +16,20 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
         background: "#F1F1F1",
       }}
-      className="pr-4"
+      className="pr-4 w-full"
     >
       <div className="flex gap-4">
         <div>
           <SidebarMenu />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           <div className="pb-1">
             <UserBar />
           </div>
           <div style={{ marginBottom: "10px" }}>
-            <Overview width={width} height={height} />
+            <Overview />
           </div>
           <div style={{ marginTop: "auto" }}>
             <FooterSection />

@@ -21,36 +21,24 @@ const TransactionLayout = ({
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
         background: "#F1F1F1",
       }}
-      className="pr-4"
+      className="pr-4 w-full"
     >
-      <div className="flex gap-4">
+      <div className="flex gap-4 h-screen">
         <div>
-          <SidebarMenu activeKey={["8"]} />
+          <SidebarMenu />
         </div>
-        <div
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
-        >
-          <Row>
-            <Col span={24} className="pb-1">
-              <UserBar />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: "10px" }}>
-            <Col span={24}>
-              <Transaction height={height} />
-            </Col>
-          </Row>
-          <Row style={{ marginTop: "auto" }}>
-            <Col span={24}>
-              <FooterSection />
-            </Col>
-          </Row>
+        <div className="flex flex-col w-full">
+          <div className="pb-1">
+            <UserBar />
+          </div>
+          <div className="flex flex-col w-full h-full">
+            <Transaction />
+          </div>
+          <div style={{ marginTop: "auto" }}>
+            <FooterSection />
+          </div>
         </div>
       </div>
     </div>
