@@ -90,6 +90,7 @@ const LandParcelChooser = ({
     });
   };
   const handleKeyDown = (e) => {
+    console.log("selected value");
     if (e.key === "Tab") {
       console.log("selected value", e.key);
     }
@@ -103,7 +104,7 @@ const LandParcelChooser = ({
           width: 200,
         }}
         filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+          (option?.label ?? "").toLowerCase().startsWith(input)
         }
         optionFilterProp="children"
         filterSort={(optionA, optionB) =>

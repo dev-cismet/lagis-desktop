@@ -94,11 +94,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ConfigProvider locale={locale}>
       <PersistGate locale={locale} loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
-          <Provider store={store}>
-            <RouterProvider router={router} />
-          </Provider>
-        </QueryClientProvider>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </PersistGate>
     </ConfigProvider>
   </React.StrictMode>

@@ -118,7 +118,11 @@ const HeaderSelectors = () => {
         onChange={handleChangeGemarkung}
         filterOption={(input, option) => {
           if (option && option.label) {
-            return option.label.toLowerCase().includes(input.toLowerCase());
+            const label = option.label.toLowerCase();
+            const search = input.toLowerCase();
+
+            // Check if the label starts with the input
+            return label.startsWith(search);
           }
           return false;
         }}

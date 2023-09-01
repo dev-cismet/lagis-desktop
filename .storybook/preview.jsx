@@ -3,6 +3,9 @@ import { ConfigProvider } from "antd";
 import locale from "antd/locale/de_DE";
 import "tailwindcss/tailwind.css";
 import { withRouter } from "storybook-addon-react-router-v6";
+import { Provider } from "react-redux";
+import store from "../src/store";
+
 const preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -42,7 +45,9 @@ const preview = {
   decorators: [
     (Story) => (
       <ConfigProvider locale={locale}>
-        <Story />
+        <Provider store={store}>
+          <Story />
+        </Provider>
       </ConfigProvider>
     ),
     withRouter,
