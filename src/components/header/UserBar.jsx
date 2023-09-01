@@ -18,9 +18,8 @@ const UserBar = () => {
   const navigate = useNavigate();
   return (
     <div className="flex items-center py-2">
-      <div>
-        <HeaderSelectors />
-      </div>
+      {/* <HeaderSelectors /> */}
+
       <LandParcelChooser />
       <div className="ml-10">
         <UserBarActions />

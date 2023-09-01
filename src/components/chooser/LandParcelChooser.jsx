@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-// import './index.css';
+import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
+
 import { allExample, gemarkungenExample } from "./demo-data";
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
@@ -126,13 +127,12 @@ const LandParcelChooser = ({
         style={{
           width: 200,
         }}
+        className="mx-1"
         filterOption={(input, option) =>
           (option?.label ?? "").toLowerCase().startsWith(input)
         }
         filterSort={(optionA, optionB) =>
-          (optionA?.label ?? "")
-            .toLowerCase()
-            .localeCompare((optionB?.label ?? "").toLowerCase())
+          parseInt(optionA.label, 10) - parseInt(optionB.label, 10)
         }
         onChange={handleFlurChange}
         options={Object.keys(selectedGemarkung?.flure || []).map((key) => {
@@ -156,9 +156,7 @@ const LandParcelChooser = ({
           (option?.value ?? "").toLowerCase().startsWith(input)
         }
         filterSort={(optionA, optionB) =>
-          (optionA?.value ?? "")
-            .toLowerCase()
-            .localeCompare((optionB?.value ?? "").toLowerCase())
+          parseInt(optionA.label, 10) - parseInt(optionB.label, 10)
         }
         onChange={handleFlurstueckChange}
         options={Object.keys(selectedFlur?.flurstuecke || []).map((key) => {
@@ -171,7 +169,16 @@ const LandParcelChooser = ({
           }
           return {
             label: (
-              <span style={{ color }}>{removeLeadingZeros(el.label)}</span>
+              <span style={{ color }}>
+                <span className="mr-1 text-sm">
+                  {color === "black" || color === "purple" ? (
+                    <UnlockOutlined />
+                  ) : (
+                    <LockOutlined />
+                  )}
+                </span>
+                {removeLeadingZeros(el.label)}
+              </span>
             ),
             value: key,
           };
@@ -184,13 +191,19 @@ const LandParcelChooser = ({
 export default LandParcelChooser;
 
 const removeLeadingZeros = (numberStr) => {
-  let startIndex = 0;
+  const parts = numberStr.split("/");
 
-  while (startIndex < numberStr.length && numberStr[startIndex] === "0") {
-    startIndex++;
-  }
+  const trimmedParts = parts.map((part) => {
+    let startIndex = 0;
 
-  const result = numberStr.substring(startIndex);
+    while (startIndex < part.length && part[startIndex] === "0") {
+      startIndex++;
+    }
+
+    return part.substring(startIndex);
+  });
+
+  const result = trimmedParts.join("/");
 
   return result;
 };
