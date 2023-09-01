@@ -35,7 +35,7 @@ const HeaderSelectors = () => {
       );
     }
   };
-  const getGemerkung = async () => {
+  const getGemarkung = async () => {
     const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
     if (result.status !== 401) {
       setBezeichnung(
@@ -95,7 +95,8 @@ const HeaderSelectors = () => {
     setActiveNenner((prev) => value);
   };
   useEffect(() => {
-    getGemerkung();
+    getGemarkung();
+    console.log("bezeichnung", bezeichnung);
   }, []);
   useEffect(() => {
     getZaehlerGemerkung();
@@ -105,13 +106,27 @@ const HeaderSelectors = () => {
   }, [activeZaehler]);
   useEffect(() => {
     getFlurstueck();
-  }, [activeNenner]);
-
+  }, [activeNenner, activeZaehler]);
+  useEffect(() => {
+    console.log("bezeichnung", bezeichnung);
+  }, [bezeichnung]);
   return (
     <div className="select-header flex gap-2">
       <Select
-        defaultValue={gemarkung}
+        showSearch
+        style={{ width: "200px" }}
         onChange={handleChangeGemarkung}
+        filterOption={(input, option) => {
+          if (option && option.label) {
+            return option.label.toLowerCase().includes(input.toLowerCase());
+          }
+          return false;
+        }}
+        // filterSort={(optionA, optionB) =>
+        //   optionA.label.localeCompare(optionB.label, undefined, {
+        //     sensitivity: "base",
+        //   })
+        // }
         options={bezeichnung}
       />
       <Select

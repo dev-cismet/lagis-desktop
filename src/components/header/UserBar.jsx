@@ -10,6 +10,7 @@ import {
 } from "../../store/slices/auth";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import LandParcelChooser from "../chooser/LandParcelChooser";
 const UserBar = () => {
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
@@ -17,9 +18,10 @@ const UserBar = () => {
   const navigate = useNavigate();
   return (
     <div className="flex items-center py-2">
-      <div>
+      {/* <div>
         <HeaderSelectors />
-      </div>
+      </div> */}
+      <LandParcelChooser />
       <div className="ml-10">
         <UserBarActions />
       </div>

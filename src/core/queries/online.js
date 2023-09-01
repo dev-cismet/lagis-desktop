@@ -105,6 +105,8 @@ queries.gemarkung = `query MyQuery{
 }
 `;
 
+queries.flur = `query q($gemarkung)`;
+
 queries.zaehler = `query q($gemarkung_id: Int) {
   flurstueck_schluessel(distinct_on: flurstueck_zaehler, where: {fk_gemarkung: {_eq: $gemarkung_id}}) {
     flurstueck_zaehler
