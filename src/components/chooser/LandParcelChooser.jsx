@@ -1,14 +1,12 @@
 import React, { useState, useRef } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
-
-import { allExample, gemarkungenExample } from "./demo-data";
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
-    // console.log("!!!! flurstueck choosen", fstck);
+    console.log("!!!! flurstueck choosen", fstck);
   },
-  all = allExample,
-  gemarkungen = gemarkungenExample,
+  all,
+  gemarkungen,
 }) => {
   const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
@@ -20,7 +18,6 @@ const LandParcelChooser = ({
     for (const g of gemarkungen) {
       gemarkungLookup[g.schluessel] = g.bezeichnung;
     }
-
     const result = {};
     for (const f of xx) {
       const splitted = f.alkis_id.split("-");
@@ -70,7 +67,7 @@ const LandParcelChooser = ({
 
   const data = buildData(all);
 
-  // console.log(data);
+  console.log(data);
 
   const handleGemarkungChange = (gemarkungValue) => {
     // console.log("setSelectedGemarkung(data[value]);", data[gemarkungValue]);

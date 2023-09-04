@@ -8,6 +8,7 @@ import {
   storeJWT,
   storeLogin,
 } from "../../store/slices/auth";
+import { getLandParcels, getLandmarks } from "../../store/slices/landParcels";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
@@ -16,11 +17,15 @@ const UserBar = () => {
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
+  const { landParcels } = useSelector(getLandParcels);
+  const { landmarks } = useSelector(getLandmarks);
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
-
-      <LandParcelChooser />
+      <LandParcelChooser
+        all={landParcels ? landParcels : []}
+        gemarkungen={landmarks ? landmarks : []}
+      />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
       </div>

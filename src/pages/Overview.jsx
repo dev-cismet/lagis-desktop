@@ -11,7 +11,17 @@ import DMS from "../components/overview/DMS";
 import { fetchGraphQL } from "../core/graphql";
 import { useSelector, useDispatch } from "react-redux";
 import { getJWT } from "../store/slices/auth";
-import { storeLandParcels, getLandParcels } from "../store/slices/landParcels";
+import { Spin } from "antd";
+import {
+  storeLandParcels,
+  storeLandmarks,
+  getLandParcels,
+  getLandmarks,
+  fetchLandParcelsStart,
+  fetchLandParcelsFailure,
+  fetchLandLandmarksFailure,
+  getLandmarksLoading,
+} from "../store/slices/landParcels";
 import { useEffect } from "react";
 import queries from "../core/queries/online";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -26,20 +36,41 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
+  const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
+  const loading = useSelector(getLandmarksLoading);
   const getflurstuecke = async () => {
     if (!landParcels && jwt) {
       console.log("fetching");
+      dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
       if (result.data.alkis_flurstueck) {
         console.log("Store");
         dispatch(storeLandParcels(result.data.alkis_flurstueck));
+      } else {
+        console.log("!!!error!!!!", result.data);
+        dispatch(fetchLandParcelsFailure("error message"));
+      }
+    }
+  };
+  const getGemarkungen = async () => {
+    if (jwt) {
+      dispatch(fetchLandParcelsStart());
+      const resalt = await fetchGraphQL(queries.gemarkung, {}, jwt);
+      if (resalt.data.gemarkung) {
+        dispatch(storeLandmarks(resalt.data.gemarkung));
+      } else {
+        dispatch(fetchLandLandmarksFailure("error message"));
       }
     }
   };
   useEffect(() => {
     getflurstuecke();
+    getGemarkungen();
   }, []);
+  if (loading) {
+    return <Spin />;
+  }
   return (
     <div
       style={{
@@ -69,3 +100,4 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
 };
 
 export default Overview;
+// if (!landmarks && jwt)

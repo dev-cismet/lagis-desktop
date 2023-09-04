@@ -23,7 +23,7 @@ const persistConfig = {
 const persistParcelsConfig = {
   key: "@lagis-desktop.1.app.landparcels",
   storage: localForage,
-  whitelist: ["landParcels"],
+  whitelist: ["landParcels", "landmarks"],
 };
 
 export default configureStore({
