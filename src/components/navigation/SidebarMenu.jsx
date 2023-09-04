@@ -78,7 +78,20 @@ const SidebarMenu = () => {
     height: isStory ? "600px" : "100%",
   };
   useEffect(() => {
-    window.innerWidth <= 768 && setCollapsed(true);
+    const handleResize = () => {
+      if (window.innerWidth <= 1000) {
+        setCollapsed(true);
+      } else {
+        setCollapsed(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
   return (
     <div
