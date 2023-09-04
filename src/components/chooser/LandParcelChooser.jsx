@@ -172,9 +172,14 @@ const LandParcelChooser = ({
         style={{
           width: 100,
         }}
-        filterOption={(input, option) =>
-          (option?.value ?? "").toLowerCase().startsWith(input)
-        }
+        filterOption={(input, option) => {
+          console.log("input!!!!", input, option);
+          const inputValue = input.toLowerCase();
+          const optionValue = (
+            removeLeadingZeros(option.value) || ""
+          ).toLowerCase();
+          return optionValue.startsWith(inputValue);
+        }}
         filterSort={(optionA, optionB) => {
           return parseFloat(optionA.value) - parseFloat(optionB.value);
         }}

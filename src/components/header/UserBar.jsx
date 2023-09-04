@@ -21,16 +21,16 @@ const UserBar = () => {
       {/* <HeaderSelectors /> */}
 
       <LandParcelChooser />
-      <div className="ml-10">
+      <div className="mx-2 md:ml-4">
         <UserBarActions />
       </div>
       <div className="ml-auto flex gap-2 items-center">
         <UserName name={userLogin} />
-        <div className="logout ml-auto pr-1">
+        <div className="logout ml-auto pl-1 flex items-center">
           <LogoutOutlined style={{ fontSize: "12px" }} />
           <span
             style={{ lineHeight: "22px", fontSize: "13px" }}
-            className="ml-1"
+            className="ml-1 hidden md:block"
             onClick={() => {
               dispatch(storeJWT(undefined));
               dispatch(storeLogin(undefined));

@@ -19,15 +19,15 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       style={{ ...storyStyle, height }}
       className="offices-page flex flex-col gap-4"
     >
-      <div className="flex gap-3 h-4/6">
-        <div className="flex-auto w-2/5">
+      <div className="flex gap-3 h-[60%]">
+        <div className="w-2/5">
           <Agencies />
         </div>
-        <div className="flex-auto w-3/5">
+        <div className="w-3/5">
           <Map width={"100%"} height={"100%"} />
         </div>
       </div>
-      <div className="flex gap-3 h-2/6">
+      <div className="flex gap-3 h-[calc(40%-20px)]">
         <dib className="flex-1">
           <AdditionalRole />
         </dib>

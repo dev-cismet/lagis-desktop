@@ -2,8 +2,10 @@ import { Avatar, Space } from "antd";
 const UserName = ({ name = "User" }) => {
   const firstLetter = name.charAt(0);
   return (
-    <Space size={8}>
-      <span style={{ fontSize: "13px" }}>{name}</span>
+    <div className="hidden md:block">
+      <span style={{ fontSize: "13px" }} className="mr-2">
+        {name}
+      </span>
       <Avatar
         size="small"
         style={{
@@ -14,7 +16,7 @@ const UserName = ({ name = "User" }) => {
           {firstLetter}
         </span>
       </Avatar>
-    </Space>
+    </div>
   );
 };
 
