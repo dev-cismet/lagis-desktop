@@ -5,7 +5,7 @@ import { Select } from "antd";
 import { allExample, gemarkungenExample } from "./demo-data";
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
-    console.log("!!!! flurstueck choosen", fstck);
+    // console.log("!!!! flurstueck choosen", fstck);
   },
   all = allExample,
   gemarkungen = gemarkungenExample,
@@ -70,10 +70,10 @@ const LandParcelChooser = ({
 
   const data = buildData(all);
 
-  console.log(data);
+  // console.log(data);
 
   const handleGemarkungChange = (gemarkungValue) => {
-    console.log("setSelectedGemarkung(data[value]);", data[gemarkungValue]);
+    // console.log("setSelectedGemarkung(data[value]);", data[gemarkungValue]);
     setSelectedGemarkung(data[gemarkungValue]);
     setSelectedFlur(undefined);
     setTimeout(() => {
@@ -81,12 +81,12 @@ const LandParcelChooser = ({
     }, 10);
   };
   const handleFlurChange = (flurValue) => {
-    console.log(`handleFlurChange`, flurValue);
-    console.log("electedGemarkung.flure", selectedGemarkung.flure);
-    console.log(
-      `setSelectedFlur(selectedGemarkung[]);`,
-      selectedGemarkung.flure[flurValue]
-    );
+    // console.log(`handleFlurChange`, flurValue);
+    // console.log("electedGemarkung.flure", selectedGemarkung.flure);
+    // console.log(
+    //   `setSelectedFlur(selectedGemarkung[]);`,
+    //   selectedGemarkung.flure[flurValue]
+    // );
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setTimeout(() => {
       flurstueckRef.current.focus();
@@ -105,7 +105,7 @@ const LandParcelChooser = ({
     }
   };
   const handleKeyFlur = (e) => {
-    console.log("handleKeyGemarkung", e.key);
+    // console.log("handleKeyGemarkung", e.key);
 
     if (e.key === "Enter") {
       flurstueckRef.current.focus();
@@ -173,7 +173,7 @@ const LandParcelChooser = ({
           width: 100,
         }}
         filterOption={(input, option) => {
-          console.log("input!!!!", input, option);
+          // console.log("input!!!!", input, option);
           const inputValue = input.toLowerCase();
           const optionValue = (
             removeLeadingZeros(option.value) || ""

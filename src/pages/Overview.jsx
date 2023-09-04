@@ -11,6 +11,7 @@ import DMS from "../components/overview/DMS";
 import { fetchGraphQL } from "../core/graphql";
 import { useSelector, useDispatch } from "react-redux";
 import { getJWT } from "../store/slices/auth";
+import { storeLandParcels, getLandParcels } from "../store/slices/landParcels";
 import { useEffect } from "react";
 import queries from "../core/queries/online";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -25,12 +26,14 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
+  const { landParcels } = useSelector(getLandParcels);
   const getflurstuecke = async () => {
-    if (jwt) {
+    if (!landParcels && jwt) {
+      console.log("fetching");
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-      console.log("fetching", result.data);
       if (result.data.alkis_flurstueck) {
         console.log("Store");
+        dispatch(storeLandParcels(result.data.alkis_flurstueck));
       }
     }
   };
