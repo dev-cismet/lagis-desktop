@@ -8,6 +8,11 @@ import Operations from "../components/overview/Operations";
 import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
+import { fetchGraphQL } from "../core/graphql";
+import { useSelector, useDispatch } from "react-redux";
+import { getJWT } from "../store/slices/auth";
+import { useEffect } from "react";
+import queries from "../core/queries/online";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -18,6 +23,20 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
+  const dispatch = useDispatch();
+  const jwt = useSelector(getJWT);
+  const getflurstuecke = async () => {
+    if (jwt) {
+      const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
+      console.log("fetching", result.data);
+      if (result.data.alkis_flurstueck) {
+        console.log("Store");
+      }
+    }
+  };
+  useEffect(() => {
+    getflurstuecke();
+  }, []);
   return (
     <div
       style={{
