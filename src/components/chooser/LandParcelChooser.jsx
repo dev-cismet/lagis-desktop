@@ -67,10 +67,7 @@ const LandParcelChooser = ({
 
   const data = buildData(all);
 
-  console.log(data);
-
   const handleGemarkungChange = (gemarkungValue) => {
-    // console.log("setSelectedGemarkung(data[value]);", data[gemarkungValue]);
     setSelectedGemarkung(data[gemarkungValue]);
     setSelectedFlur(undefined);
     setTimeout(() => {
@@ -78,12 +75,6 @@ const LandParcelChooser = ({
     }, 10);
   };
   const handleFlurChange = (flurValue) => {
-    // console.log(`handleFlurChange`, flurValue);
-    // console.log("electedGemarkung.flure", selectedGemarkung.flure);
-    // console.log(
-    //   `setSelectedFlur(selectedGemarkung[]);`,
-    //   selectedGemarkung.flure[flurValue]
-    // );
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setTimeout(() => {
       flurstueckRef.current.focus();

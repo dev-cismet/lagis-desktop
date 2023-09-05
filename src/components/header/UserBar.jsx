@@ -12,6 +12,9 @@ import { getLandParcels, getLandmarks } from "../../store/slices/landParcels";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
+import queries from "../../core/queries/online";
+import { fetchGraphQL } from "../../core/graphql";
+
 const UserBar = () => {
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
@@ -19,12 +22,31 @@ const UserBar = () => {
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
+  const getflurstueck = async (schluessel_id) => {
+    const result = await fetchGraphQL(
+      queries.getLagisLandparcelByFlurstueckSchluesselId,
+      {
+        schluessel_id,
+      },
+      jwt
+    );
+
+    console.log("active flurstueck", result);
+  };
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
       <LandParcelChooser
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
+        flurstueckChoosen={(fstck) => {
+          console.log("Flurstueck has been choosen", fstck);
+          // 1. If fstck.lfk is  set
+          // if yes: it is a lagis flurstueck then fetch the data of choosen one
+          if (fstck.lfk) {
+            getflurstueck(fstck.lfk);
+          }
+        }}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />

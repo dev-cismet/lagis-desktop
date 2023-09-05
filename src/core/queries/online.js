@@ -132,3 +132,216 @@ queries.flurstuecke = `query MyQuery {
     schluessel
   }
 }`;
+
+queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_id: Int) {
+  flurstueck(where: {flurstueck_schluessel: {_and: {id: {_eq: $schluessel_id}}}}) {
+    id
+    flurstueck_schluessel {
+      gemarkung {
+        bezeichnung
+      }
+      flur
+      flurstueck_zaehler
+      flurstueck_nenner
+    }
+    ar_baeumeArray {
+      baum {
+        alte_nutzung
+        ar_baum_merkmale
+        ar_baum_merkmaleArray {
+          baum_merkmal {
+            bezeichnung
+            id
+          }
+        }
+        auftragnehmer
+        baum_nutzung {
+          baum_kategorie {
+            bezeichnung
+            id
+            ar_kategorie_auspraegungenArray {
+              baum_kategorie_auspraegung {
+                bezeichnung
+                id
+              }
+            }
+          }
+          baum_kategorie_auspraegung {
+            id
+            bezeichnung
+          }
+          id
+        }
+        baumnummer
+        bemerkung
+        erfassungsdatum
+        faelldatum
+        flaeche
+        lage
+        id
+        geom {
+          geo_field
+        }
+      }
+    }
+    ar_vertraegeArray {
+      vertrag {
+        id
+        vertragspartner
+        quadratmeterpreis
+        vertragsart {
+          bezeichnung
+          id
+        }
+        gesamtpreis
+        datum_eintragung
+        datum_auflassung
+        bemerkung
+        aktenzeichen
+        beschlussArrayRelationShip {
+          datum
+          beschlussart {
+            bezeichnung
+            id
+          }
+          fk_vertrag
+        }
+        kostenArrayRelationShip {
+          kostenart {
+            bezeichnung
+            id
+            ist_nebenkostenart
+          }
+          datum
+          betrag
+          fk_vertrag
+        }
+      }
+    }
+    bemerkung
+    in_stadtbesitz
+    kassenzeichenArrayRelationShip {
+      id
+      kassenzeichennummer
+      zugeordnet_am
+      zugeordnet_von
+    }
+    nutzungArrayRelationShip {
+      nutzung_buchungArrayRelationShip {
+        quadratmeterpreis
+        ist_buchwert
+        gueltig_von
+        gueltig_bis
+        flaeche
+        bemerkung
+        nutzungsart {
+          bezeichnung
+          id
+          schluessel
+        }
+        anlageklasse {
+          bezeichnung
+          id
+          schluessel
+        }
+        ar_bebauungenArray {
+          bebauung {
+            bezeichnung
+            id
+          }
+        }
+        ar_flaechennutzungenArray {
+          flaechennutzung {
+            bezeichnung
+            id
+          }
+        }
+      }
+    }
+    spielplatz {
+      id
+      ist_klettergeruest_wartung_erforderlich
+      ist_rutsche_wartung_erforderlich
+      ist_sandkasten_wartung_erforderlich
+      ist_schaukel_wartung_erforderlich
+      ist_wippe_wartung_erforderlich
+      klettergeruest_vorhanden
+      rutsche_vorhanden
+      sandkasten_vorhanden
+      schaukel_vorhanden
+      wippe_vorhanden
+    }
+    strassenfrontArrayRelationShip {
+      strassenname
+      laenge
+      id
+    }
+    verwaltungsbereiche_eintragArrayRelationShip {
+      id
+      geaendert_von
+      geaendert_am
+      verwaltungsbereichArrayRelationShip {
+        geom {
+          geo_field
+        }
+        verwaltende_dienststelle {
+          abkuerzung_abteilung
+          bezeichnung_abteilung
+          email_adresse
+          farbeArrayRelationShip {
+            rgb_farbwert
+            stil {
+              bezeichnung
+            }
+          }
+          ressort {
+            abkuerzung
+            bezeichnung
+            id
+          }
+        }
+        verwaltungsgebrauch {
+          abkuerzung
+          bezeichnung
+          unterabschnitt
+          kategorie {
+            abkuerzung
+            bezeichnung
+            oberkategorie {
+              abkuerzung
+              bezeichnung
+              id
+            }
+          }
+        }
+      }
+    }
+    zusatz_rolleArrayRelationShip {
+      geom {
+        geo_field
+      }
+      verwaltende_dienststelle {
+        abkuerzung_abteilung
+        bezeichnung_abteilung
+        email_adresse
+        farbeArrayRelationShip {
+          rgb_farbwert
+          stil {
+            bezeichnung
+            id
+          }
+        }
+        ressort {
+          abkuerzung
+          bezeichnung
+          id
+        }
+      }
+      zusatz_rolle_art {
+        id
+        name
+        schluessel
+      }
+    }
+  }
+}`;
