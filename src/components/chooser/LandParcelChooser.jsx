@@ -93,8 +93,6 @@ const LandParcelChooser = ({
     }
   };
   const handleKeyFlur = (e) => {
-    // console.log("handleKeyGemarkung", e.key);
-
     if (e.key === "Enter") {
       flurstueckRef.current.focus();
     }

@@ -8,7 +8,13 @@ import {
   storeJWT,
   storeLogin,
 } from "../../store/slices/auth";
-import { getLandParcels, getLandmarks } from "../../store/slices/landParcels";
+import {
+  storeLandParcels,
+  storeLandmarks,
+  getLandParcels,
+  getLandmarks,
+} from "../../store/slices/landParcels";
+import { storeLandparcel } from "../../store/slices/lagisLandparsel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
@@ -22,7 +28,7 @@ const UserBar = () => {
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
-  const getflurstueck = async (schluessel_id) => {
+  const getFlurstueck = async (schluessel_id) => {
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
       {
@@ -30,8 +36,7 @@ const UserBar = () => {
       },
       jwt
     );
-
-    console.log("active flurstueck", result);
+    dispatch(storeLandparcel(result?.data.flurstueck));
   };
   return (
     <div className="flex items-center py-2">
@@ -40,11 +45,8 @@ const UserBar = () => {
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
-          console.log("Flurstueck has been choosen", fstck);
-          // 1. If fstck.lfk is  set
-          // if yes: it is a lagis flurstueck then fetch the data of choosen one
           if (fstck.lfk) {
-            getflurstueck(fstck.lfk);
+            getFlurstueck(fstck.lfk);
           }
         }}
       />
@@ -61,6 +63,8 @@ const UserBar = () => {
             onClick={() => {
               dispatch(storeJWT(undefined));
               dispatch(storeLogin(undefined));
+              dispatch(storeLandParcels(undefined));
+              dispatch(storeLandmarks(undefined));
               navigate("/login");
             }}
           >

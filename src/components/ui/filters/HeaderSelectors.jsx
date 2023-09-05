@@ -3,7 +3,7 @@ import "./header-selector.css";
 import queries from "../../../core/queries/online";
 import { fetchGraphQL } from "../../../core/graphql";
 import { getJWT } from "../../../store/slices/auth";
-import { storeFlurstueck } from "../../../store/slices/flurstueck";
+import { storeLandparcel } from "../../../store/slices/lagisLandparsel";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 const HeaderSelectors = () => {
@@ -15,7 +15,6 @@ const HeaderSelectors = () => {
   const [activeZaehler, setActiveZaehler] = useState();
   const [nenner, setNenner] = useState([]);
   const [activeNenner, setActiveNenner] = useState();
-
   const getNenner = async () => {
     const result = await fetchGraphQL(
       queries.nenner,
@@ -79,7 +78,7 @@ const HeaderSelectors = () => {
       jwt
     );
     if (result.data.flurstueck) {
-      dispatch(storeFlurstueck(result.data.flurstueck));
+      dispatch(storeLandparcel(result.data.flurstueck));
       console.log("flurstueck", result.data.flurstueck);
     }
   };

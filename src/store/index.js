@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth";
-import flurstueckSlice from "./slices/flurstueck";
+import lagisLandparcelSlice from "./slices/lagisLandparsel";
 import landParcels from "./slices/landParcels";
 import {
   persistReducer,
@@ -26,10 +26,19 @@ const persistParcelsConfig = {
   whitelist: ["landParcels", "landmarks"],
 };
 
+const persistlagisLandparcelConfig = {
+  key: "@lagis-desktop.1.app.lagisLandparcel",
+  storage: localForage,
+  whitelist: ["lagisLandparcel"],
+};
+
 export default configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authSlice.reducer),
-    flurstueck: flurstueckSlice.reducer,
+    lagisLandparce: persistReducer(
+      persistlagisLandparcelConfig,
+      lagisLandparcelSlice.reducer
+    ),
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
   },
   middleware: (getDefaultMiddleware) =>
