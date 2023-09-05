@@ -18,25 +18,25 @@ const slice = createSlice({
       state.landParcels = action.payload;
       state.loading = false;
       state.error = null;
-      // return state;
+      return state;
     },
     fetchLandParcelsFailure(state, action) {
       state.landParcels = null;
       state.loading = false;
       state.error = action.payload;
-      // return state;
+      return state;
     },
     storeLandmarks(state, action) {
       state.landmarks = action.payload;
       state.loading = false;
       state.error = null;
-      // return state;
+      return state;
     },
     fetchLandLandmarksFailure(state, action) {
       state.landParcels = null;
       state.loading = false;
       state.error = action.payload;
-      // return state;
+      return state;
     },
   },
 });

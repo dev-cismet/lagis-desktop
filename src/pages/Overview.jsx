@@ -41,24 +41,24 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const loading = useSelector(getLandmarksLoading);
   const getflurstuecke = async () => {
     if (!landParcels && jwt) {
-      console.log("fetching");
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-      if (result.data.alkis_flurstueck) {
-        console.log("Store");
+      console.log("LandParcels start", result);
+      if (result.data?.alkis_flurstueck) {
         dispatch(storeLandParcels(result.data.alkis_flurstueck));
+        console.log("LandParcels success");
       } else {
-        console.log("!!!error!!!!", result.data);
-        dispatch(fetchLandParcelsFailure("error message"));
+        console.log("LandParcels error");
+        dispatch(fetchLandParcelsFailure(result.status));
       }
     }
   };
   const getGemarkungen = async () => {
-    if (jwt) {
+    if (!landmarks && jwt) {
       dispatch(fetchLandParcelsStart());
-      const resalt = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      if (resalt.data.gemarkung) {
-        dispatch(storeLandmarks(resalt.data.gemarkung));
+      const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
+      if (result.data?.gemarkung) {
+        dispatch(storeLandmarks(result.data.gemarkung));
       } else {
         dispatch(fetchLandLandmarksFailure("error message"));
       }
@@ -100,4 +100,3 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
 };
 
 export default Overview;
-// if (!landmarks && jwt)

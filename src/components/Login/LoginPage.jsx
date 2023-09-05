@@ -9,15 +9,19 @@ import {
   setLoginRequested,
   storeJWT,
   storeLogin,
+  authStart,
+  authFailure,
+  authStopLoading,
+  getAuthLoading,
 } from "../../store/slices/auth";
 import { DOMAIN, REST_SERVICE } from "../../constants/lagis";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import queries from "../../core/queries/online";
-import { fetchGraphQL } from "../../core/graphql";
-import RawData from "../../pages/RawData";
+import { Spin } from "antd";
+
 const LoginPage = () => {
   const jwt = useSelector(getJWT);
+  const loading = useSelector(getAuthLoading);
   const dispatch = useDispatch();
   const [user, setUser] = useState("");
   const [pw, setPw] = useState("");
@@ -34,6 +38,7 @@ const LoginPage = () => {
     setKeepStatus(e.target.checked);
   };
   const login = (user, pw, dispatch) => {
+    dispatch(authStart());
     fetch(REST_SERVICE + "/users", {
       method: "GET",
       headers: {
@@ -54,18 +59,22 @@ const LoginPage = () => {
             }, 500);
           });
         } else {
-          console.log("Bei der Anmeldung ist ein Fehler aufgetreten. ");
+          console.log("Bei der Anmeldung ist ein Fehler aufgetreten.");
+          dispatch(authStopLoading());
         }
       })
       .catch(function (err) {
-        console.log("Bei der Anmeldung ist ein Fehler aufgetreten. ", err);
+        console.log("error", err);
+        dispatch(authFailure(err));
       });
   };
 
   const clickHandle = () => {
     login(user, pw, dispatch);
   };
-
+  if (loading) {
+    return <Spin />;
+  }
   return (
     <>
       <div className="login-page">
