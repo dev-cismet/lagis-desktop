@@ -13,6 +13,7 @@ const LandParcelChooser = ({
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
+  console.log("Gemarkungen", gemarkungen);
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {

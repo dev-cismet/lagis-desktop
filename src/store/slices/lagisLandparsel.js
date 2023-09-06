@@ -20,5 +20,16 @@ export default slice;
 export const { storeLandparcel } = slice.actions;
 
 export const getLandparcel = (state) => {
-  return state.lagisLandparcel;
+  if (state.lagisLandparce.lagisLandparcel[0]) {
+    return state.lagisLandparce.lagisLandparcel[0];
+  }
+  return state.lagisLandparce;
+};
+
+export const getStreetfronts = (state) => {
+  if (state.lagisLandparce.lagisLandparcel[0].strassenfrontArrayRelationShip) {
+    return state.lagisLandparce.lagisLandparcel[0]
+      .strassenfrontArrayRelationShip;
+  }
+  return undefined;
 };

@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./offices.css";
 import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
@@ -94,6 +94,14 @@ const Streetfronts = ({
       streetfronts.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
+  useEffect(() => {
+    const streetfrontsTableFormat = dataIn.map((s) => ({
+      key: s.id,
+      street: s.strassenname,
+      length: s.laenge,
+    }));
+    setStreetfronts(streetfrontsTableFormat);
+  }, [dataIn]);
   return (
     <div
       className="shadow-md"
