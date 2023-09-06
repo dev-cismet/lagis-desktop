@@ -19,6 +19,7 @@ const Notes = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  console.log("note data", data);
   return (
     <div
       className="shadow-md"
@@ -36,7 +37,7 @@ const Notes = ({
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <CustomNotes styles="p-3 flex" />
+        <CustomNotes styles="p-3 flex" currentText={data} />
       </InfoBlock>
     </div>
   );

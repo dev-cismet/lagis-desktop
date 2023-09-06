@@ -46,6 +46,7 @@ const UserBar = () => {
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
+            console.log("choosen Id", fstck);
             getFlurstueck(fstck.lfk);
           }
         }}

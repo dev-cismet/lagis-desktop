@@ -18,6 +18,7 @@ const LandParcelChooser = ({
     for (const g of gemarkungen) {
       gemarkungLookup[g.schluessel] = g.bezeichnung;
     }
+
     const result = {};
     for (const f of xx) {
       const splitted = f.alkis_id.split("-");
@@ -142,7 +143,7 @@ const LandParcelChooser = ({
         onChange={handleFlurChange}
         options={Object.keys(selectedGemarkung?.flure || []).map((key) => {
           const el = selectedGemarkung?.flure[key];
-          return { label: removeLeadingZeros(el.flur), value: key };
+          return { label: removeLeadingZeros(el.flur, true), value: key };
         })}
       />
       <Select
@@ -201,7 +202,7 @@ const LandParcelChooser = ({
 
 export default LandParcelChooser;
 
-const removeLeadingZeros = (numberStr) => {
+const removeLeadingZeros = (numberStr, flur = false) => {
   const parts = numberStr.split("/");
 
   const trimmedParts = parts.map((part) => {
@@ -214,7 +215,12 @@ const removeLeadingZeros = (numberStr) => {
     return part.substring(startIndex);
   });
 
-  const result = trimmedParts.join("/");
+  const flurResalt = trimmedParts.join("/");
 
-  return result;
+  const result =
+    trimmedParts.length > 1
+      ? trimmedParts.join("/")
+      : trimmedParts.join("") + "/0";
+
+  return !flur ? result : flurResalt;
 };

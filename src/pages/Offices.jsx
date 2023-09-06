@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Map from "../components/commons/Map";
 import Agencies from "../components/offices/Agencies";
 import AdditionalRole from "../components/offices/AdditionalRole";
 import Streetfronts from "../components/offices/Streetfronts";
 import Notes from "../components/offices/Notes";
+import { useSelector } from "react-redux";
+import { getLandparcel } from "../store/slices/lagisLandparsel";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
+  const landparcel = useSelector((state) => state);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -14,6 +17,13 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
+  const noteExtractor = (input) => input;
+  // useEffect(() => {
+  //   console.log(
+  //     "Landparcel",
+  //     landparcel.lagisLandparce.lagisLandparcel
+  //   );
+  // }, [landparcel]);
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -35,7 +45,10 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           <Streetfronts />
         </div>
         <div className="flex-1">
-          <Notes />
+          <Notes
+            extractor={noteExtractor}
+            dataIn={landparcel.lagisLandparce.lagisLandparcel[0].bemerkung}
+          />
         </div>
       </div>
     </div>
