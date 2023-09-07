@@ -3,7 +3,7 @@ import "./header-selector.css";
 import queries from "../../../core/queries/online";
 import { fetchGraphQL } from "../../../core/graphql";
 import { getJWT } from "../../../store/slices/auth";
-import { storeLagisLandparcel } from "../../../store/slices/lagisLandparsel";
+import { storeLagisLandparcel } from "../../../store/slices/lagisLandparcel";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 const HeaderSelectors = () => {

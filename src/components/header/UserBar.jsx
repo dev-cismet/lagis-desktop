@@ -17,7 +17,7 @@ import {
 import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
-} from "../../store/slices/lagisLandparsel";
+} from "../../store/slices/lagisLandparcel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";

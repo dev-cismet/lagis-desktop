@@ -9,7 +9,6 @@ import {
   getLandparcel,
   getStreetfronts,
   getAdditionalRoll,
-  getAgenciesRoll,
 } from "../store/slices/lagisLandparsel";
 import { nanoid } from "@reduxjs/toolkit";
 

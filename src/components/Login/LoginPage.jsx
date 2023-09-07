@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row, Typography, Input, Checkbox, Button } from "antd";
 import logo from "../../assets/logo.png";
 import loginLeft from "../../assets/loginLeft.png";
@@ -18,13 +18,17 @@ import { DOMAIN, REST_SERVICE } from "../../constants/lagis";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
+import useDevSecrets from "../../core/hooks/useDevSecrets";
 
 const LoginPage = () => {
+  const { user: devSecretUser, pw: devSecretPassword } = useDevSecrets();
+
   const jwt = useSelector(getJWT);
   const loading = useSelector(getAuthLoading);
   const dispatch = useDispatch();
-  const [user, setUser] = useState("");
-  const [pw, setPw] = useState("");
+  const [user, setUser] = useState(devSecretUser);
+
+  const [pw, setPw] = useState(devSecretPassword);
   const [keepStatus, setKeepStatus] = useState(false);
   const [rawData, setDataRow] = useState({});
   const navigate = useNavigate();
@@ -39,10 +43,26 @@ const LoginPage = () => {
   };
   const login = (user, pw, dispatch) => {
     dispatch(authStart());
+
+    let u, p;
+
+    // can be removed if the form gets proper populated with the devSecrets
+    if (user === null || user === undefined || user === "") {
+      u = devSecretUser;
+    } else {
+      u = user;
+    }
+
+    if (pw === null || pw === undefined || pw === "") {
+      p = devSecretPassword;
+    } else {
+      p = pw;
+    }
+
     fetch(REST_SERVICE + "/users", {
       method: "GET",
       headers: {
-        Authorization: "Basic " + btoa(user + "@" + DOMAIN + ":" + pw),
+        Authorization: "Basic " + btoa(devSecretUser + "@" + DOMAIN + ":" + p),
         "Content-Type": "application/json",
       },
     })
@@ -53,7 +73,7 @@ const LoginPage = () => {
             console.log("Anmeldung erfolgreich.");
             setTimeout(() => {
               dispatch(storeJWT(jwt));
-              dispatch(storeLogin(user));
+              dispatch(storeLogin(u));
               dispatch(setLoginRequested(false));
               navigate("/");
             }, 500);
@@ -75,6 +95,9 @@ const LoginPage = () => {
   if (loading) {
     return <Spin />;
   }
+
+  console.log("login", { user, pw, devSecretUser, devSecretPassword });
+
   return (
     <>
       <div className="login-page">
@@ -166,6 +189,7 @@ const LoginPage = () => {
                       onChange={loginHandle}
                     />
                     <Input.Password
+                      initialValue="xx"
                       placeholder="input password"
                       onChange={passwordnHandle}
                       style={{ marginTop: "30px" }}
