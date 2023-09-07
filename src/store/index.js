@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth";
-import lagisLandparcelSlice from "./slices/lagisLandparsel";
+import lagisLandparcelSlice from "./slices/lagisLandparcel";
 import landParcels from "./slices/landParcels";
 import {
   persistReducer,
