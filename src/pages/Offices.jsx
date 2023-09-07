@@ -22,28 +22,32 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-
   const landparcel = useSelector(getLandparcel);
   const streetfronts = useSelector(getStreetfronts);
   const additionalRoll = useSelector(getAdditionalRoll);
-  const tableFormat = additionalRoll.map((r) => ({
-    key: nanoid(),
-    agency: `${additionalRoll[0].verwaltende_dienststelle.ressort.abkuerzung}.${additionalRoll[0].verwaltende_dienststelle.abkuerzung_abteilung}`,
-    rolle: `${additionalRoll[0].zusatz_rolle_art.name}`,
-  }));
-  const mockcolor = "#12004320";
+  const tableFormat = additionalRoll
+    ? additionalRoll.map((r) => ({
+        key: nanoid(),
+        agency: `${additionalRoll[0].verwaltende_dienststelle.ressort.abkuerzung}.${additionalRoll[0].verwaltende_dienststelle.abkuerzung_abteilung}`,
+        rolle: `${additionalRoll[0].zusatz_rolle_art.name}`,
+      }))
+    : [];
+  const additionalRoleColor = getColorFromCode(
+    additionalRoll[0]?.verwaltende_dienststelle.farbeArrayRelationShip[0]
+      .rgb_farbwert
+  );
   const columns = [
     {
       title: "Dienststelle",
       dataIndex: "agency",
-      render: (title, record, rowIndex) => (
+      render: (title) => (
         <div className="flex items-center">
           <span
             style={{
               width: "9px",
               height: "11px",
               marginRight: "6px",
-              backgroundColor: mockcolor,
+              backgroundColor: additionalRoleColor,
             }}
           ></span>
           <span>{title}</span>
@@ -56,7 +60,9 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
     },
   ];
   const extractor = (input) => input;
-
+  useEffect(() => {
+    console.log("!!!!!!!!!!!!Color", additionalRoleColor);
+  }, [additionalRoll]);
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -75,7 +81,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           <AdditionalRole
             columns={columns}
             extractor={extractor}
-            dataIn={tableFormat}
+            dataIn={additionalRoll ? tableFormat : []}
           />
         </div>
         <div className="flex-1">
@@ -96,3 +102,20 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
 };
 
 export default Offices;
+
+const getColorFromCode = (code = 12004320) => {
+  if (code) {
+    let c = code;
+    let r = (c & 0xff0000) >> 16;
+    let g = (c & 0xff00) >> 8;
+    let b = c & 0xff;
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+  return null;
+};
+
+// backgroundColor: `rgb(
+//   ${additionalRoleColor.a},
+//   ${additionalRoleColor.b},
+//   ${additionalRoleColor.c}
+// )`,

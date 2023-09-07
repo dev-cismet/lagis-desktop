@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -91,7 +91,9 @@ const AdditionalRole = ({
     setActiveRow(copyRow);
     setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
-  console.log("data Additional rollen Component", data);
+  useEffect(() => {
+    setRolls(dataIn);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -128,9 +130,9 @@ const AdditionalRole = ({
                 {
                   title: "Role",
                   value:
-                    activeRow?.role === ""
+                    activeRow?.rolle === ""
                       ? null
-                      : dayjs(activeRow?.role, dateFormat),
+                      : dayjs(activeRow?.rolle, dateFormat),
                   key: nanoid(),
                   name: "role",
                   type: "date",

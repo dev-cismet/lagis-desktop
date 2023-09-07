@@ -158,7 +158,6 @@ const LandParcelChooser = ({
           width: 100,
         }}
         filterOption={(input, option) => {
-          // console.log("input!!!!", input, option);
           const inputValue = input.toLowerCase();
           const optionValue = (
             removeLeadingZeros(option.value) || ""
