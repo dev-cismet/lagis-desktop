@@ -25,7 +25,7 @@ const columns = [
     ),
   },
   {
-    title: "Gläche in m2",
+    title: "Fläche in m²",
     dataIndex: "area",
   },
 ];

@@ -52,3 +52,16 @@ export const getAdditionalRoll = (state) => {
   }
   return state.lagisLandparcel.lagisLandparcel;
 };
+export const getAgenciesRoll = (state) => {
+  if (
+    state.lagisLandparcel &&
+    state.lagisLandparcel.lagisLandparcel[0]
+      ?.verwaltungsbereiche_eintragArrayRelationShip[0]
+      .verwaltungsbereichArrayRelationShip[0]
+  ) {
+    return state.lagisLandparcel.lagisLandparcel[0]
+      ?.verwaltungsbereiche_eintragArrayRelationShip[0]
+      .verwaltungsbereichArrayRelationShip[0];
+  }
+  return undefined;
+};

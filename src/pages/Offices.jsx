@@ -9,6 +9,7 @@ import {
   getLandparcel,
   getStreetfronts,
   getAdditionalRoll,
+  getAgenciesRoll,
 } from "../store/slices/lagisLandparsel";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -25,6 +26,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
   const streetfronts = useSelector(getStreetfronts);
   const additionalRoll = useSelector(getAdditionalRoll);
+  const agencies = useSelector(getAgenciesRoll);
   const tableFormat = additionalRoll
     ? additionalRoll.map((r) => ({
         key: nanoid(),
@@ -61,8 +63,8 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   ];
   const extractor = (input) => input;
   useEffect(() => {
-    console.log("!!!!!!!!!!!!Color", additionalRoleColor);
-  }, [additionalRoll]);
+    console.log("agencies", agencies);
+  }, [agencies]);
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -113,9 +115,3 @@ const getColorFromCode = (code = 12004320) => {
   }
   return null;
 };
-
-// backgroundColor: `rgb(
-//   ${additionalRoleColor.a},
-//   ${additionalRoleColor.b},
-//   ${additionalRoleColor.c}
-// )`,

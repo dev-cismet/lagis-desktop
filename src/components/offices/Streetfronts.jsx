@@ -15,11 +15,11 @@ dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 const columns = [
   {
-    title: "Street",
+    title: "Straße",
     dataIndex: "street",
   },
   {
-    title: "Length",
+    title: "Länge (in m)",
     dataIndex: "length",
   },
 ];
