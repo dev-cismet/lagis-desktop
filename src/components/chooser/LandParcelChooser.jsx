@@ -13,13 +13,11 @@ const LandParcelChooser = ({
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
-  console.log("Gemarkungen", gemarkungen);
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
       gemarkungLookup[g.schluessel] = g.bezeichnung;
     }
-
     const result = {};
     for (const f of xx) {
       const splitted = f.alkis_id.split("-");
@@ -63,7 +61,6 @@ const LandParcelChooser = ({
         };
       }
     }
-
     return result;
   };
 

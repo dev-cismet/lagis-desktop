@@ -2,14 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   lagisLandparcel: undefined,
+  alkisLandparcel: undefined,
 };
 
 const slice = createSlice({
   name: "lagisLandparcel",
   initialState,
   reducers: {
-    storeLandparcel(state, action) {
+    storeLagisLandparcel(state, action) {
       state.lagisLandparcel = action.payload;
+      return state;
+    },
+    storeAlkisLandparcel(state, action) {
+      state.alkisLandparcel = action.payload;
       return state;
     },
   },
@@ -17,19 +22,33 @@ const slice = createSlice({
 
 export default slice;
 
-export const { storeLandparcel } = slice.actions;
+export const { storeLagisLandparcel, storeAlkisLandparcel } = slice.actions;
 
 export const getLandparcel = (state) => {
-  if (state.lagisLandparce.lagisLandparcel[0]) {
-    return state.lagisLandparce.lagisLandparcel[0];
-  }
-  return state.lagisLandparce;
+  return state.lagisLandparcel.lagisLandparcel;
+};
+export const getAlkisLandparcel = (state) => {
+  return state.lagisLandparcel.alkisLandparcel;
 };
 
 export const getStreetfronts = (state) => {
-  if (state.lagisLandparce.lagisLandparcel[0].strassenfrontArrayRelationShip) {
-    return state.lagisLandparce.lagisLandparcel[0]
+  if (
+    state.lagisLandparcel &&
+    state.lagisLandparcel.lagisLandparcel[0]?.strassenfrontArrayRelationShip
+  ) {
+    return state.lagisLandparcel.lagisLandparcel[0]
       .strassenfrontArrayRelationShip;
   }
-  return undefined;
+  return state.lagisLandparcel.lagisLandparcel;
+};
+
+export const getAdditionalRoll = (state) => {
+  if (
+    state.lagisLandparcel &&
+    state.lagisLandparcel.lagisLandparcel[0]?.zusatz_rolleArrayRelationShip
+  ) {
+    return state.lagisLandparcel.lagisLandparcel[0]
+      .zusatz_rolleArrayRelationShip;
+  }
+  return state.lagisLandparcel.lagisLandparcel;
 };

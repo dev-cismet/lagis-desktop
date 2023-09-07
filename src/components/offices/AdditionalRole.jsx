@@ -12,37 +12,37 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
-const columns = [
-  {
-    title: "Service",
-    dataIndex: "service",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-  },
-];
+// const columns = [
+//   {
+//     title: "Service",
+//     dataIndex: "service",
+//   },
+//   {
+//     title: "Role",
+//     dataIndex: "role",
+//   },
+// ];
 const mockExtractor = (input) => {
   return [
     {
       key: "1",
-      service: "12345678910",
-      role: "02.05.2023",
+      agency: "12345678910",
+      rolle: "02.05.2023",
     },
     {
       key: "2",
-      service: "12345678910",
-      role: "02.05.2023",
+      agency: "12345678910",
+      rolle: "02.05.2023",
     },
     {
       key: "3",
-      service: "12345678910",
-      role: "02.05.2023",
+      agency: "12345678910",
+      rolle: "02.05.2023",
     },
     {
       key: "4",
-      service: "12345678910",
-      role: "02.05.2023",
+      agency: "12345678910",
+      rolle: "02.05.2023",
     },
   ];
 };
@@ -50,6 +50,7 @@ const mockExtractor = (input) => {
 const AdditionalRole = ({
   dataIn,
   extractor = mockExtractor,
+  columns,
   width = 231,
   height = 188,
   style,
@@ -90,6 +91,7 @@ const AdditionalRole = ({
     setActiveRow(copyRow);
     setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
+  console.log("data Additional rollen Component", data);
   return (
     <div
       style={

@@ -14,13 +14,15 @@ import {
   getLandParcels,
   getLandmarks,
 } from "../../store/slices/landParcels";
-import { storeLandparcel } from "../../store/slices/lagisLandparsel";
+import {
+  storeLagisLandparcel,
+  storeAlkisLandparcel,
+} from "../../store/slices/lagisLandparsel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
-
 const UserBar = () => {
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
@@ -28,26 +30,30 @@ const UserBar = () => {
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
-  const getFlurstueck = async (schluessel_id) => {
+  const getFlurstueck = async (schluessel_id, alkis_id) => {
+    console.log("getFlurstueck Args", schluessel_id, alkis_id);
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
       {
         schluessel_id,
+        alkis_id,
       },
       jwt
     );
-    dispatch(storeLandparcel(result?.data.flurstueck));
+    console.log("getFlurstueck Fetch result", result);
+    dispatch(storeLagisLandparcel(result?.data.flurstueck));
+    dispatch(storeAlkisLandparcel(result?.data.alkis_flurstueck));
   };
   return (
     <div className="flex items-center py-2">
-      {/* <HeaderSelectors /> */}
+      <HeaderSelectors />
       <LandParcelChooser
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
             console.log("choosen Id", fstck);
-            getFlurstueck(fstck.lfk);
+            getFlurstueck(fstck.lfk, fstck.alkis_id);
           }
         }}
       />

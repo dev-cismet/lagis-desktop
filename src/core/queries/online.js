@@ -133,9 +133,14 @@ queries.flurstuecke = `query MyQuery {
   }
 }`;
 
-queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_id: Int) {
+queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_id: Int, $alkis_id: String) {
+  alkis_flurstueck(where: {alkis_id: {_eq: $alkis_id}}) {
+    alkis_id
+    geometrie
+  }
   flurstueck(where: {flurstueck_schluessel: {_and: {id: {_eq: $schluessel_id}}}}) {
     id
+    
     flurstueck_schluessel {
       gemarkung {
         bezeichnung
@@ -143,6 +148,7 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
       flur
       flurstueck_zaehler
       flurstueck_nenner
+      
     }
     ar_baeumeArray {
       baum {

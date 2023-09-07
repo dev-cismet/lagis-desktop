@@ -8,10 +8,11 @@ import { useSelector } from "react-redux";
 import {
   getLandparcel,
   getStreetfronts,
+  getAdditionalRoll,
 } from "../store/slices/lagisLandparsel";
+import { nanoid } from "@reduxjs/toolkit";
+
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
-  const landparcel = useSelector(getLandparcel);
-  const streetfronts = useSelector(getStreetfronts);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -22,11 +23,40 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
 
+  const landparcel = useSelector(getLandparcel);
+  const streetfronts = useSelector(getStreetfronts);
+  const additionalRoll = useSelector(getAdditionalRoll);
+  const tableFormat = additionalRoll.map((r) => ({
+    key: nanoid(),
+    agency: `${additionalRoll[0].verwaltende_dienststelle.ressort.abkuerzung}.${additionalRoll[0].verwaltende_dienststelle.abkuerzung_abteilung}`,
+    rolle: `${additionalRoll[0].zusatz_rolle_art.name}`,
+  }));
+  const mockcolor = "#12004320";
+  const columns = [
+    {
+      title: "Dienststelle",
+      dataIndex: "agency",
+      render: (title, record, rowIndex) => (
+        <div className="flex items-center">
+          <span
+            style={{
+              width: "9px",
+              height: "11px",
+              marginRight: "6px",
+              backgroundColor: mockcolor,
+            }}
+          ></span>
+          <span>{title}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Rolle",
+      dataIndex: "rolle",
+    },
+  ];
   const extractor = (input) => input;
 
-  // useEffect(() => {
-  //   console.log("streetfronts", streetfronts.length);
-  // }, [streetfronts]);
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -41,16 +71,23 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
         </div>
       </div>
       <div className="flex gap-3 h-[calc(40%-20px)]">
-        <dib className="flex-1">
-          <AdditionalRole />
-        </dib>
         <div className="flex-1">
-          <Streetfronts extractor={extractor} dataIn={streetfronts} />
+          <AdditionalRole
+            columns={columns}
+            extractor={extractor}
+            dataIn={tableFormat}
+          />
+        </div>
+        <div className="flex-1">
+          <Streetfronts
+            extractor={extractor}
+            dataIn={streetfronts ? streetfronts : []}
+          />
         </div>
         <div className="flex-1">
           <Notes
             extractor={extractor}
-            dataIn={landparcel ? landparcel.bemerkung : null}
+            dataIn={landparcel ? landparcel[0].bemerkung : null}
           />
         </div>
       </div>
