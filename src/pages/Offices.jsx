@@ -9,7 +9,7 @@ import {
   getLandparcel,
   getStreetfronts,
   getAdditionalRoll,
-} from "../store/slices/lagisLandparsel";
+} from "../store/slices/lagisLandparcel";
 import { nanoid } from "@reduxjs/toolkit";
 
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
