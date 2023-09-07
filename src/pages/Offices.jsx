@@ -9,7 +9,7 @@ import {
   getLandparcel,
   getStreetfronts,
   getAdditionalRoll,
-} from "../store/slices/lagisLandparsel";
+} from "../store/slices/lagisLandparcel";
 import { nanoid } from "@reduxjs/toolkit";
 
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -114,3 +114,9 @@ const getColorFromCode = (code = 12004320) => {
   }
   return null;
 };
+
+// backgroundColor: `rgb(
+//   ${additionalRoleColor.a},
+//   ${additionalRoleColor.b},
+//   ${additionalRoleColor.c}
+// )`,
