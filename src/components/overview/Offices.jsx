@@ -26,7 +26,7 @@ const DashboardOffices = ({
         icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
       >
         <div className="flex flex-col mt-auto">
-          {data.map((item) => (
+          {data?.map((item) => (
             <div className="flex justify-between items-center mt-1 mb-1">
               <div className="flex justify-between items-center">
                 <span
