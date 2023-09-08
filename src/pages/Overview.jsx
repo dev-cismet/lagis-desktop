@@ -29,6 +29,7 @@ import {
   getLandparcel,
 } from "../store/slices/lagisLandparcel";
 import { rentExtractor } from "../core/extractors/overviewExtractors";
+import { officesExtractor } from "../core/extractors/overviewExtractors";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -90,7 +91,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       <div className="flex gap-2 w-full  h-[calc(100%-4px)]">
         <div className="w-1/2 gap-2 overflow-auto">
           <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
-            <Offices dataIn={landparcel} />
+            <Offices dataIn={landparcel} extractor={officesExtractor} />
             <Rent dataIn={landparcel} extractor={rentExtractor} />
             <Rights dataIn={landparcel} />
             <Usage dataIn={landparcel} />
