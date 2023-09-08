@@ -30,6 +30,16 @@ import {
   storeLogin,
 } from "./store/slices/auth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TopicMapContextProvider from "react-cismap/contexts/TopicMapContextProvider";
+import {
+  backgroundConfigurations,
+  backgroundModes,
+  extendBaseLayerConf,
+  offlineConfig,
+} from "./constants/backgrounds";
+import { defaultLayerConf } from "react-cismap/tools/layerFactory";
+const baseLayerConf = extendBaseLayerConf({ ...defaultLayerConf });
+
 const NavBarWrapper = () => {
   const jwt = useSelector(getJWT);
   if (!jwt) {
@@ -95,7 +105,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ConfigProvider locale={locale}>
       <PersistGate locale={locale} loading={null} persistor={persistor}>
         <Provider store={store}>
-          <RouterProvider router={router} />
+          <TopicMapContextProvider
+            appKey="lagis-desktop.map"
+            backgroundModes={backgroundModes}
+            backgroundConfigurations={backgroundConfigurations}
+            baseLayerConf={baseLayerConf}
+            offlineCacheConfig={offlineConfig}
+          >
+            <RouterProvider router={router} />
+          </TopicMapContextProvider>
         </Provider>
       </PersistGate>
     </ConfigProvider>
