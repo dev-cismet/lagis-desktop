@@ -21,7 +21,7 @@ export function officesExtractor(dataIn) {
   if (dataIn === undefined) {
     return [];
   } else {
-    const landparcel = dataIn[0];
+    const landparcel = dataIn;
     console.log("xxx Offices Overview Extractor Landparcel!", landparcel);
 
     const officesData =
@@ -31,6 +31,7 @@ export function officesExtractor(dataIn) {
     officesData.forEach((of) => {
       const officesArr = of.verwaltungsbereichArrayRelationShip;
       officesArr.forEach((item) => {
+        console.log("xxx item ", item);
         const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
         if (!checkTitleArray.includes(currentTitle)) {
           const color =
@@ -38,11 +39,14 @@ export function officesExtractor(dataIn) {
               .rgb_farbwert;
           let square =
             item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
-          console.log("xxx Geometry", square);
           let area;
-          if (!square) {
+          if (square !== undefined) {
+            console.log("xxx Geometry", square);
+
             // const polygon = turf.polygon(square);
             area = calcArea(square);
+            console.log("xxx area", area);
+
             square = area;
           }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
@@ -57,7 +61,7 @@ export function officesExtractor(dataIn) {
     });
 
     console.log(
-      "Offices Overview Extractor nameGeomColorData",
+      "xxx Offices Overview Extractor nameGeomColorData",
       nameGeomColorData
     );
 
@@ -73,12 +77,15 @@ const calcArea = (geom) => {
 
   try {
     for (const coord of geom.coordinates) {
+      console.log("yyy coord", coord);
+
       if (geom.type === "MultiPolygon") {
         let coordArray = [];
         isMulti = true;
 
         for (const coordPair of coord) {
           const transformedGeom = proj4(proj4crs25832def, targetCrs, coordPair);
+
           coordArray.push(transformedGeom);
         }
         newCoords.push(coordArray);
@@ -102,6 +109,8 @@ const calcArea = (geom) => {
     },
     properties: {},
   };
+
+  // console.log("yyy feature", geo.geometry);
 
   let len = area(geo);
   return len;
