@@ -22,9 +22,10 @@ export function officesExtractor(dataIn) {
     return [];
   } else {
     const landparcel = dataIn[0];
-    console.log("Offices Overview Extractor Landparcel!", landparcel);
+    console.log("xxx Offices Overview Extractor Landparcel!", landparcel);
 
-    const officesData = landparcel.verwaltungsbereiche_eintragArrayRelationShip;
+    const officesData =
+      landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
     const nameGeomColorData = [];
     const checkTitleArray = [];
     officesData.forEach((of) => {
@@ -35,16 +36,19 @@ export function officesExtractor(dataIn) {
           const color =
             item.verwaltende_dienststelle.farbeArrayRelationShip[0]
               .rgb_farbwert;
-          let square = item.geom?.geo_field || 0;
-          if (square !== 0) {
+          let square =
+            item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
+          console.log("xxx Geometry", square);
+          let area;
+          if (!square) {
             // const polygon = turf.polygon(square);
-            const area = calcArea(square);
+            area = calcArea(square);
             square = area;
           }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
             title,
-            size: square,
+            size: area,
             color: getColorFromCode(color),
           });
           checkTitleArray.push(currentTitle);

@@ -17,14 +17,19 @@ import {
 import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
+  getUrlLandparcelParams,
 } from "../../store/slices/lagisLandparcel";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
+import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const urlLandparcelParams = useSelector(getUrlLandparcelParams);
+  const [urlParams, setUrlParams] = useSearchParams("");
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
@@ -40,10 +45,27 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("getFlurstueck Fetch result", result);
-    dispatch(storeLagisLandparcel(result?.data.flurstueck));
-    dispatch(storeAlkisLandparcel(result?.data.alkis_flurstueck));
+    console.log("xxx getFlurstueck Fetch result", result);
+    const f = result?.data.flurstueck;
+    // f.alkisLandparcel[0] = result?.data.alkis_flurstueck[0];
+    f.alkisLandparcel = result?.data.alkis_flurstueck[0];
+    console.log("xxx stored lagislandparcel f", f);
+    dispatch(storeLagisLandparcel(f));
+    dispatch(storeAlkisLandparcel(result?.data.alkis_flurstueck[0]));
   };
+  const setUrlHandle = (schluessel_id, alkis_id) => {
+    setUrlParams({ schluessel_id, alkis_id });
+  };
+  useEffect(() => {
+    // console.log("schluesselID + alkisId", urlLandparcelParams);
+    if (urlLandparcelParams) {
+      setUrlHandle(
+        urlLandparcelParams.schluesselId,
+        urlLandparcelParams.alkisId
+      );
+    }
+  }, [location.pathname, urlLandparcelParams]);
+
   return (
     <div className="flex items-center py-2">
       <HeaderSelectors />
