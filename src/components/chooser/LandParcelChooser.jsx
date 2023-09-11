@@ -7,6 +7,7 @@ const LandParcelChooser = ({
   },
   all,
   gemarkungen,
+  defaultValue,
 }) => {
   const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
@@ -121,6 +122,10 @@ const LandParcelChooser = ({
           const el = data[key];
           return { label: el.gemarkung, value: key };
         })}
+        defaultValue={{
+          value: "053001",
+          label: "Barmen",
+        }}
       />
       <Select
         ref={flurRef}
@@ -143,6 +148,10 @@ const LandParcelChooser = ({
           const el = selectedGemarkung?.flure[key];
           return { label: removeLeadingZeros(el.flur, true), value: key };
         })}
+        defaultValue={{
+          value: "001",
+          label: removeLeadingZeros("001", true),
+        }}
       />
       <Select
         ref={flurstueckRef}
@@ -192,6 +201,10 @@ const LandParcelChooser = ({
             value: key,
           };
         })}
+        defaultValue={{
+          value: "00007/0009",
+          label: removeLeadingZeros("00007/0009"),
+        }}
       />
     </>
   );

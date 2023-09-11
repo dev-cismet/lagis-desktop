@@ -59,9 +59,10 @@ const UserBar = () => {
   }, [getFlurstueck]);
   useEffect(() => {
     const alkisId = urlParams.get("alkis_id");
+    console.log("get alkis_id from url!", alkisId);
     if (alkisId && urlLandparcelParams === undefined) {
       setUrlHandle(alkisId);
-      console.log("get alkis_id from url!");
+      console.log("get alkis_id start to fetch");
     }
   }, []);
 
