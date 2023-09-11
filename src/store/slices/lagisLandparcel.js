@@ -65,3 +65,15 @@ export const getAgenciesRoll = (state) => {
   }
   return undefined;
 };
+
+export const getUrlLandparcelParams = (state) => {
+  const alkisId = state.lagisLandparcel?.alkisLandparcel[0]?.alkis_id;
+  const schluesselId = state.lagisLandparcel.lagisLandparcel[0].id;
+  if (alkisId && schluesselId) {
+    return {
+      alkisId: alkisId,
+      schluesselId: schluesselId,
+    };
+  }
+  return undefined;
+};

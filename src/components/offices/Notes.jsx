@@ -4,13 +4,13 @@ import { Input, Checkbox } from "antd";
 import CustomNotes from "../ui/notes/CustomNotes";
 const { TextArea } = Input;
 const mockExtractor = (input) => {
-  return { note: "3" };
+  return "";
 };
 const onChange = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 const Notes = ({
-  dataIn,
+  dataIn = "",
   extractor = mockExtractor,
   width = 231,
   height = 188,

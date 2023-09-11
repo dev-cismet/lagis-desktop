@@ -91,17 +91,17 @@ const Streetfronts = ({
 
     setActiveRow(copyRow);
     setStreetfronts(
-      streetfronts.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+      streetfronts?.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
-  useEffect(() => {
-    const streetfrontsTableFormat = dataIn.map((s) => ({
-      key: s.id,
-      street: s.strassenname,
-      length: s.laenge,
-    }));
-    setStreetfronts(streetfrontsTableFormat);
-  }, [dataIn]);
+  // useEffect(() => {
+  //   const streetfrontsTableFormat = dataIn?.map((s) => ({
+  //     key: s.id,
+  //     street: s.strassenname,
+  //     length: s.laenge,
+  //   }));
+  //   setStreetfronts(streetfrontsTableFormat);
+  // }, [dataIn]);
   return (
     <div
       className="shadow-md"
