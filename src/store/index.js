@@ -86,19 +86,16 @@ const persistParcelsConfig = {
   whitelist: ["landParcels", "landmarks"],
 };
 
-const persistlagisLandparcelConfig = {
-  key: "@lagis-desktop.1.app.lagisLandparcel",
-  storage: localForage,
-  whitelist: ["lagisLandparcel", "alkisLandparcel"],
-};
+// const persistlagisLandparcelConfig = {
+//   key: "@lagis-desktop.1.app.lagisLandparcel",
+//   storage: localForage,
+//   whitelist: ["lagisLandparcel", "alkisLandparcel"],
+// };
 
 export default configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authSlice.reducer),
-    lagisLandparcel: persistReducer(
-      persistlagisLandparcelConfig,
-      lagisLandparcelSlice.reducer
-    ),
+    lagisLandparcel: lagisLandparcelSlice.reducer,
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
   },
   middleware,
