@@ -1,7 +1,7 @@
-import * as turf from "@turf/turf";
 import { getColorFromCode } from "../tools/helper";
 import area from "@turf/area";
 import proj4 from "proj4";
+import { getArea25832 } from "../tools/mappingTools";
 export function rentExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
@@ -22,7 +22,6 @@ export function officesExtractor(dataIn) {
     return [];
   } else {
     const landparcel = dataIn;
-    console.log("xxx Offices Overview Extractor Landparcel!", landparcel);
 
     const officesData =
       landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
@@ -31,7 +30,6 @@ export function officesExtractor(dataIn) {
     officesData.forEach((of) => {
       const officesArr = of.verwaltungsbereichArrayRelationShip;
       officesArr.forEach((item) => {
-        console.log("xxx item ", item);
         const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
         if (!checkTitleArray.includes(currentTitle)) {
           const color =
@@ -41,13 +39,8 @@ export function officesExtractor(dataIn) {
             item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
           let area;
           if (square !== undefined) {
-            console.log("xxx Geometry", square);
-
-            // const polygon = turf.polygon(square);
-            area = calcArea(square);
-            console.log("xxx area", area);
-
-            square = area;
+            const raw = getArea25832(square);
+            area = Math.round(raw * 10) / 10;
           }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
@@ -61,57 +54,10 @@ export function officesExtractor(dataIn) {
     });
 
     console.log(
-      "xxx Offices Overview Extractor nameGeomColorData",
+      "Offices Overview Extractor nameGeomColorData",
       nameGeomColorData
     );
 
     return nameGeomColorData;
   }
 }
-
-const calcArea = (geom) => {
-  let newCoords = [];
-  const proj4crs25832def = "+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs";
-  const targetCrs = proj4.defs("EPSG:4326");
-  let isMulti = false;
-
-  try {
-    for (const coord of geom.coordinates) {
-      console.log("yyy coord", coord);
-
-      if (geom.type === "MultiPolygon") {
-        let coordArray = [];
-        isMulti = true;
-
-        for (const coordPair of coord) {
-          const transformedGeom = proj4(proj4crs25832def, targetCrs, coordPair);
-
-          coordArray.push(transformedGeom);
-        }
-        newCoords.push(coordArray);
-      } else {
-        console.log("Offices Overview Extractor geom else");
-        const transformedGeom = proj4(proj4crs25832def, targetCrs, coord);
-        newCoords.push(transformedGeom);
-      }
-    }
-  } catch (o) {
-    console.log(
-      "Offices Overview Extractor cannot calculate geometry area " + geom
-    );
-  }
-
-  const geo = {
-    type: "Feature",
-    geometry: {
-      type: isMulti === true ? "MultiPolygon" : "Polygon",
-      coordinates: newCoords,
-    },
-    properties: {},
-  };
-
-  // console.log("yyy feature", geo.geometry);
-
-  let len = area(geo);
-  return len;
-};

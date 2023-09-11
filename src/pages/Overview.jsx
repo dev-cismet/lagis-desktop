@@ -24,7 +24,10 @@ import {
 } from "../store/slices/landParcels";
 import { useEffect } from "react";
 import queries from "../core/queries/online";
-import { getLandparcel } from "../store/slices/lagisLandparcel";
+import {
+  getAlkisLandparcel,
+  getLandparcel,
+} from "../store/slices/lagisLandparcel";
 import { rentExtractor } from "../core/extractors/overviewExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -76,6 +79,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }
 
   const landparcel = useSelector(getLandparcel);
+  const alkisLandparcel = useSelector(getAlkisLandparcel);
 
   return (
     <div
@@ -98,7 +102,50 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           </div>
         </div>
         <div className="w-1/2 h-[calc(100%-4px)]">
-          <Map width={"100%"} height={height} />
+          <Map
+            width={"100%"}
+            height={height}
+            dataIn={alkisLandparcel}
+            extractor={(dataIn) => {
+              if (dataIn) {
+                const alkisLandparcel = dataIn;
+
+                const feature = {
+                  type: "Feature",
+                  featureType: "landparcel",
+                  id: "landparcel." + alkisLandparcel.alkis_id,
+                  geometry: alkisLandparcel.geometrie,
+                  crs: alkisLandparcel.geometrie.crs,
+                  properties: {
+                    id: alkisLandparcel.alkis_id,
+                  },
+                };
+
+                return {
+                  homeCenter: [51.272570027476256, 7.19963690266013],
+                  homeZoom: 16,
+                  featureCollection: [feature],
+                  styler: (feature) => {
+                    const style = {
+                      color: "#005F6B",
+                      weight: 1,
+                      opacity: 0.6,
+                      fillColor: "#26ADE4",
+                      fillOpacity: 0.6,
+                      className: "landparcek-" + feature.properties.id,
+                    };
+                    return style;
+                  },
+                };
+              } else {
+                return {
+                  homeCenter: [51.272570027476256, 7.19963690266013],
+                  homeZoom: 13,
+                  featureCollection: [],
+                };
+              }
+            }}
+          />
         </div>
       </div>
     </div>
