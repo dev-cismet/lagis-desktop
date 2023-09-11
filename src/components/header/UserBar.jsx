@@ -27,8 +27,7 @@ import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  // const urlLandparcelParams = useSelector(getUrlLandparcelParams);
+  const urlLandparcelParams = useSelector(getUrlLandparcelParams);
   const [urlParams, setUrlParams] = useSearchParams("");
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
@@ -36,7 +35,6 @@ const UserBar = () => {
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
   const getFlurstueck = async (schluessel_id, alkis_id) => {
-    // console.log("getFlurstueck Args", schluessel_id, alkis_id);
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
       {
@@ -47,25 +45,20 @@ const UserBar = () => {
     );
     console.log("xxx getFlurstueck Fetch result", result);
     const f = result?.data.flurstueck[0];
-    // f.alkisLandparcel[0] = result?.data.alkis_flurstueck[0];
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     console.log("xxx stored lagislandparcel f", f);
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
-    // dispatch(storeAlkisLandparcel(result?.data.alkis_flurstueck[0]));
   };
-  const setUrlHandle = (schluessel_id, alkis_id) => {
-    setUrlParams({ schluessel_id, alkis_id });
+  const setUrlHandle = (alkis_id) => {
+    setUrlParams({ alkis_id });
   };
   useEffect(() => {
-    // console.log("schluesselID + alkisId", urlLandparcelParams);
-    // if (urlLandparcelParams) {
-    //   setUrlHandle(
-    //     urlLandparcelParams.schluesselId,
-    //     urlLandparcelParams.alkisId
-    //   );
-    // }
-  }, [location.pathname]);
+    console.log("alkisId", urlLandparcelParams);
+    if (urlLandparcelParams) {
+      setUrlHandle(urlLandparcelParams?.alkisId);
+    }
+  }, [getFlurstueck]);
 
   return (
     <div className="flex items-center py-2">
