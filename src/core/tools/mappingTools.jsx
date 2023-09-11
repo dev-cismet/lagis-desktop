@@ -2,6 +2,28 @@ import bbox from "@turf/bbox";
 import proj4 from "proj4";
 import L from "leaflet";
 import ColorHash from "color-hash";
+import getArea from "@turf/area";
+
+export const projectionData = {
+  25832: {
+    def: "+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs",
+    geojson: {
+      type: "name",
+      properties: {
+        name: "urn:ogc:def:crs:EPSG::25832",
+      },
+    },
+  },
+  4326: {
+    def: "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
+    geojson: {
+      type: "name",
+      properties: {
+        name: "urn:ogc:def:crs:EPSG::4326",
+      },
+    },
+  },
+};
 
 export const fitFeatureArray = (featureArray, mapRef) => {
   const bounds = getBoundsForFeatureArray(featureArray);
@@ -60,4 +82,26 @@ export const getCenterAndZoomForBounds = (map, bounds) => {
   const center = bounds.getCenter();
   const zoom = map.getBoundsZoom(bounds); // Returns the maximum zoom level on which the given bounds fit to the map view in its entirety. If inside is set to true, it instead returns the minimum zoom level on which the map view fits into the given bounds in its entirety.
   return { center, zoom };
+};
+
+export const getWGS84GeoJSON = (geoJSON) => {
+  try {
+    const reprojectedGeoJSON = reproject(
+      geoJSON,
+      projectionData["25832"].def,
+      proj4.WGS84
+    );
+
+    return reprojectedGeoJSON;
+  } catch (e) {
+    console.log("excepotion reproject", e);
+    return undefined;
+  }
+};
+
+export const getArea25832 = (geoJSON) => {
+  const wGS84GeoJSON = getWGS84GeoJSON(geoJSON);
+  if (wGS84GeoJSON !== undefined) {
+    return getArea(wGS84GeoJSON);
+  }
 };

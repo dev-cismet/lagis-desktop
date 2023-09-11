@@ -11280,6 +11280,17 @@ reproject@^1.2.5:
     minimist "^1.2.5"
     proj4 "^2.6.2"
 
+reproject@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.npmjs.org/reproject/-/reproject-1.2.7.tgz#75e716896221267a93e47359a71865bbc89259ee"
+  integrity sha512-x3wGpoHBsXDa1iyZZA3Nn52iTgzfLLPBLvsj1j4v3Kwcy3if5IRgi/s/Ayy/qAIm6BsjCwnuojShpfYG+FBAjA==
+  dependencies:
+    concat-stream "^2.0.0"
+    event-stream "^4.0.0"
+    geojson-stream "0.1.0"
+    minimist "^1.2.5"
+    proj4 "^2.6.2"
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz"
