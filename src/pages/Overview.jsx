@@ -107,8 +107,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             height={height}
             dataIn={alkisLandparcel}
             extractor={(dataIn) => {
-              if (dataIn && dataIn?.length > 0) {
-                const alkisLandparcel = dataIn[0];
+              if (dataIn) {
+                const alkisLandparcel = dataIn;
 
                 const feature = {
                   type: "Feature",
