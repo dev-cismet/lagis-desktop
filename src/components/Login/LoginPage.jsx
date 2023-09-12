@@ -92,9 +92,9 @@ const LoginPage = () => {
   const clickHandle = () => {
     login(user, pw, dispatch);
   };
-  if (loading) {
-    return <Spin />;
-  }
+  // if (loading) {
+  //   return <Spin />;
+  // }
 
   console.log("login", { user, pw, devSecretUser, devSecretPassword });
 
