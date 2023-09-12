@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
+import { getLandparcel } from "../../store/slices/lagisLandparcel";
+import { useSelector } from "react-redux";
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
     console.log("!!!! flurstueck choosen", fstck);
@@ -14,6 +16,7 @@ const LandParcelChooser = ({
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
+  const landparcel = useSelector(getLandparcel);
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
@@ -97,7 +100,27 @@ const LandParcelChooser = ({
       flurstueckRef.current.focus();
     }
   };
-
+  useEffect(() => {
+    if (defaultValue !== undefined && landparcel === undefined) {
+      handleGemarkungChange(defaultValue.gemarkung);
+    }
+  }, [defaultValue]);
+  useEffect(() => {
+    if (selectedGemarkung !== undefined && defaultValue !== undefined) {
+      handleFlurChange(defaultValue.flur);
+    }
+  }, [selectedGemarkung]);
+  useEffect(() => {
+    if (
+      selectedFlur !== undefined &&
+      defaultValue !== undefined &&
+      landparcel === undefined
+    ) {
+      handleFlurstueckChange(defaultValue.flurstueckValue);
+    } else {
+      console.log("LandParcel selectedFlur landparcel false");
+    }
+  }, [selectedFlur]);
   return (
     <>
       <Select
@@ -122,10 +145,12 @@ const LandParcelChooser = ({
           const el = data[key];
           return { label: el.gemarkung, value: key };
         })}
-        defaultValue={{
-          value: "053001",
-          label: "Barmen",
-        }}
+        defaultValue={
+          defaultValue && {
+            value: "053001",
+            label: "Barmen",
+          }
+        }
       />
       <Select
         ref={flurRef}
@@ -148,10 +173,12 @@ const LandParcelChooser = ({
           const el = selectedGemarkung?.flure[key];
           return { label: removeLeadingZeros(el.flur, true), value: key };
         })}
-        defaultValue={{
-          value: "001",
-          label: removeLeadingZeros("001", true),
-        }}
+        defaultValue={
+          defaultValue && {
+            value: "001",
+            label: removeLeadingZeros("001", true),
+          }
+        }
       />
       <Select
         ref={flurstueckRef}
@@ -201,10 +228,12 @@ const LandParcelChooser = ({
             value: key,
           };
         })}
-        defaultValue={{
-          value: "00007/0009",
-          label: removeLeadingZeros("00007/0009"),
-        }}
+        defaultValue={
+          defaultValue && {
+            value: "00007/0009",
+            label: removeLeadingZeros("00007/0009"),
+          }
+        }
       />
     </>
   );
