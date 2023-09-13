@@ -18,7 +18,7 @@ import OperationsPage from "./pages/OperationsPage";
 import HistoryPage from "./pages/HistoryPage";
 import Transaction from "./pages/Transaction";
 import DMSPage from "./pages/DMSPage";
-import LoginPage from "./components/login/LoginPage";
+import LoginPage from "./components/Login/LoginPage";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { persistStore } from "redux-persist";

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import InfoBlock from "../ui/blocks/InfoBlock";
+import InfoBlock from "../ui/Blocks/InfoBlock";
 import { Tabs } from "antd";
 import TableCustom from "../ui/tables/TableCustom";
 import CustomNotes from "../ui/notes/CustomNotes";

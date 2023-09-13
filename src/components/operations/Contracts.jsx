@@ -1,9 +1,9 @@
 import PropTypes, { object } from "prop-types";
-import InfoBlock from "../ui/blocks/InfoBlock";
+import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import DocsIcons from "../ui/blocks/DocsIcons";
+import DocsIcons from "../ui/Blocks/DocsIcons";
 import { nanoid } from "@reduxjs/toolkit";
 const columns = [
   {
