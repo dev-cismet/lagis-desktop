@@ -150,7 +150,8 @@ const LandParcelChooser = ({
   }, []);
   useEffect(() => {
     if (selectedGemarkung !== undefined && flurParams) {
-      handleFlurChange(addLeadingZeros(flurParams));
+      console.log("lll flurParams", flurParams);
+      handleFlurChange(flurParams);
     }
   }, [selectedGemarkung]);
   useEffect(() => {
