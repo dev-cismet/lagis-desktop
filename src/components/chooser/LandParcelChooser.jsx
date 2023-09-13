@@ -76,12 +76,11 @@ const LandParcelChooser = ({
     }
     return result;
   };
-  console.log("ggg checking fstckParams", fstckParams);
   const data = buildData(all);
   const handleGemarkungChange = (gemarkungValue) => {
     const gem = data[gemarkungValue]?.gemarkung || undefined;
     setUrlParams({ gem });
-    if (flurParams !== null) {
+    if (flurParams) {
       setUrlParams({ gem, flur: removeLeadingZeros(flurParams, true) });
     }
     if (copyFstckParams) {
@@ -122,11 +121,16 @@ const LandParcelChooser = ({
       flur: selectedFlur.flur,
       ...selectedFlur.flurstuecke[flurstueckValue],
     });
-    setUrlParams({
-      gem: gemParams,
-      flur: removeLeadingZeros(flurParams, true),
-      fstck: flurstueckValue.replace(/[\/\/]/g, "-"),
-    });
+    const flurstuecParams = removeLeadingZeros(flurstueckValue);
+    if (flurstuecParams) {
+      setUrlParams({
+        gem: gemParams,
+        flur: removeLeadingZeros(flurParams, true),
+        fstck: removeLeadingZeros(flurstueckValue).replace(/[\/\/]/g, "-"),
+      });
+    }
+
+    // replace(/[\/\/]/g, "-")
   };
   const handleKeyGemarkung = (e) => {
     if (e.key === "Enter") {
@@ -157,10 +161,13 @@ const LandParcelChooser = ({
   useEffect(() => {
     const flurstuecke = selectedFlur?.flurstuecke || {};
     const flurstueckeArr = Object.keys(flurstuecke);
-    console.log(Object.keys(flurstuecke));
+    const flurstueck = Object.keys(flurstuecke).filter(
+      (item) => removeLeadingZeros(item) === fstckParams
+    );
+    console.log("lllll array of flurstuecke", flurstueck);
     const fstc = urlParams.get("fstck");
     if (selectedFlur !== undefined && fstc) {
-      handleFlurstueckChange(fstc);
+      handleFlurstueckChange(flurstueck[0]);
     }
   }, [selectedFlur]);
 
@@ -273,6 +280,9 @@ const LandParcelChooser = ({
 export default LandParcelChooser;
 
 const removeLeadingZeros = (numberStr, flur = false) => {
+  if (!numberStr) {
+    return undefined;
+  }
   const parts = numberStr.split("/");
 
   const trimmedParts = parts.map((part) => {
