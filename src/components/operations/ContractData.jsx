@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InfoBlock from "../ui/blocks/InfoBlock";
+import InfoBlock from "../ui/Blocks/InfoBlock";
 import ContractForm from "../ui/forms/ContractForm";
 import { nanoid } from "@reduxjs/toolkit";
 import ToggleModal from "../ui/control-board/ToggleModal";
