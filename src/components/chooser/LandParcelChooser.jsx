@@ -84,7 +84,11 @@ const LandParcelChooser = ({
       setUrlParams({ gem, flur: flurParams });
     }
     if (copyFstckParams) {
-      setUrlParams({ gem, flur: flurParams, fstck: copyFstckParams });
+      setUrlParams({
+        gem,
+        flur: flurParams,
+        fstck: copyFstckParams.replace(/[\/\/]/g, "-"),
+      });
     }
     setSelectedGemarkung(data[gemarkungValue]);
     setSelectedFlur(undefined);
@@ -94,7 +98,11 @@ const LandParcelChooser = ({
   };
   const handleFlurChange = (flurValue) => {
     if (fstckParams) {
-      setUrlParams({ gem: gemParams, flur: flurParams, fstck: fstckParams });
+      setUrlParams({
+        gem: gemParams,
+        flur: flurParams,
+        fstck: fstckParams.replace(/[\/\/]/g, "-"),
+      });
     } else {
       setUrlParams({ gem: gemParams, flur: flurValue });
     }
@@ -110,7 +118,11 @@ const LandParcelChooser = ({
       flur: selectedFlur.flur,
       ...selectedFlur.flurstuecke[flurstueckValue],
     });
-    setUrlParams({ gem: gemParams, flur: flurParams, fstck: flurstueckValue });
+    setUrlParams({
+      gem: gemParams,
+      flur: flurParams,
+      fstck: flurstueckValue.replace(/[\/\/]/g, "-"),
+    });
   };
   const handleKeyGemarkung = (e) => {
     if (e.key === "Enter") {
@@ -122,7 +134,6 @@ const LandParcelChooser = ({
       flurstueckRef.current.focus();
     }
   };
-  console.log("lll fstck", copyFstckParams);
   useEffect(() => {
     const gem = urlParams.get("gem");
     console.log("ggg flurParams", flurParams);

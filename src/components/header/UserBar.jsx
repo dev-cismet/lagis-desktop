@@ -31,6 +31,8 @@ const UserBar = () => {
   const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
   const [urlParams, setUrlParams] = useSearchParams();
   const [gemParams, setGemParams] = useState();
+  const flurParam = urlParams.get("flur");
+  const fstckParam = urlParams.get("fstck");
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
@@ -56,22 +58,11 @@ const UserBar = () => {
     setUrlParams({ alkis_id });
   };
   useEffect(() => {}, []);
-  useEffect(() => {
-    const alkisId = urlParams.get("alkis_id");
-    if (alkisId === null && urlLandparcelAlkisIdParams !== undefined) {
-      setUrlHandle(urlLandparcelAlkisIdParams.alkisId);
-    }
-  }, [location.pathname]);
-  useEffect(() => {
-    console.log("aaa defaults", landparcelDefaults);
-  }, [landparcelDefaults]);
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
       <LandParcelChooser
         all={landParcels ? landParcels : []}
-        // defaultValue={landparcelDefaults}
-
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
@@ -80,8 +71,8 @@ const UserBar = () => {
           }
         }}
         gemParams={urlParams.get("gem")}
-        flurParams={urlParams.get("flur")}
-        fstckParams={urlParams.get("fstck")}
+        flurParams={flurParam ?? addLeadingZeros()}
+        fstckParams={fstckParam.replace(/[\-\/]/g, "/")}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
@@ -109,3 +100,12 @@ const UserBar = () => {
   );
 };
 export default UserBar;
+
+function addLeadingZeros(number) {
+  let numberString = number.toString();
+  if (numberString.length < 2) {
+    numberString = "00" + numberString;
+  }
+
+  return numberString;
+}
