@@ -3,7 +3,7 @@ import proj4 from "proj4";
 import L from "leaflet";
 import ColorHash from "color-hash";
 import getArea from "@turf/area";
-
+import { reproject } from "reproject";
 export const projectionData = {
   25832: {
     def: "+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs",
