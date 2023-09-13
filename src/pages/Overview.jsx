@@ -70,13 +70,13 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       }
     }
   };
+  // if (loading) {
+  //   return <Spin />;
+  // }
   useEffect(() => {
     getflurstuecke();
     getGemarkungen();
   }, []);
-  if (loading) {
-    return <Spin />;
-  }
 
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);

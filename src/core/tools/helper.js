@@ -18,3 +18,8 @@ export const getColorFromCode = (code = 12004320) => {
   }
   return null;
 };
+
+export function addLeadingZeros(flur) {
+  const correctFlur = "00" + flur;
+  return correctFlur;
+}

@@ -19,6 +19,7 @@ import {
   storeAlkisLandparcel,
   getUrlLandparcelParams,
 } from "../../store/slices/lagisLandparcel";
+import { addLeadingZeros } from "../../core/tools/helper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
@@ -57,6 +58,7 @@ const UserBar = () => {
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
+  console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
   useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
@@ -71,8 +73,8 @@ const UserBar = () => {
           }
         }}
         gemParams={urlParams.get("gem")}
-        flurParams={flurParam ?? addLeadingZeros()}
-        fstckParams={fstckParam.replace(/[\-\/]/g, "/")}
+        flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
+        fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
@@ -101,11 +103,14 @@ const UserBar = () => {
 };
 export default UserBar;
 
-function addLeadingZeros(number) {
-  let numberString = number.toString();
-  if (numberString.length < 2) {
-    numberString = "00" + numberString;
+function replaceWithSlash(inputString) {
+  if (!inputString) {
+    return undefined;
   }
-
-  return numberString;
+  const convertInput = inputString.toString();
+  if (!convertInput.includes("-")) {
+    return `${inputString}/0`;
+  } else {
+    return inputString.replace(/[\-\/]/g, "/");
+  }
 }
