@@ -24,17 +24,19 @@ import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
   const [urlParams, setUrlParams] = useSearchParams();
+  const [gemParams, setGemParams] = useState();
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
+  const [landparcelDefaults, setLandparcelDefaults] = useState(undefined);
   const getFlurstueck = async (schluessel_id, alkis_id) => {
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
@@ -47,36 +49,29 @@ const UserBar = () => {
     // console.log("xxx getFlurstueck Fetch result", result);
     const f = result?.data.flurstueck[0];
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
-    setUrlParams({ alkis_id });
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
   };
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
-  // useEffect(() => {
-  //   if (urlLandparcelAlkisIdParams) {
-  //     setUrlHandle(urlLandparcelAlkisIdParams?.alkisId);
-  //   }
-  // }, [urlLandparcelAlkisIdParams]);
+  useEffect(() => {}, []);
   useEffect(() => {
     const alkisId = urlParams.get("alkis_id");
     if (alkisId === null && urlLandparcelAlkisIdParams !== undefined) {
       setUrlHandle(urlLandparcelAlkisIdParams.alkisId);
     }
   }, [location.pathname]);
-
+  useEffect(() => {
+    console.log("aaa defaults", landparcelDefaults);
+  }, [landparcelDefaults]);
   return (
     <div className="flex items-center py-2">
-      <HeaderSelectors />
+      {/* <HeaderSelectors /> */}
       <LandParcelChooser
         all={landParcels ? landParcels : []}
-        // defaultValue={"053001-001-00007/0009"}
-        defaultValue={{
-          gemarkung: "3001",
-          flur: "001",
-          flurstueckValue: "00007/0009",
-        }}
+        // defaultValue={landparcelDefaults}
+
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
@@ -84,6 +79,9 @@ const UserBar = () => {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
           }
         }}
+        gemParams={urlParams.get("gem")}
+        flurParams={urlParams.get("flur")}
+        fstckParams={urlParams.get("fstck")}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />

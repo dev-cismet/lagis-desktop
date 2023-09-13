@@ -3,6 +3,9 @@ import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
 import { getLandparcel } from "../../store/slices/lagisLandparcel";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import { faLandmark } from "@fortawesome/free-solid-svg-icons";
+
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
     console.log("!!!! flurstueck choosen", fstck);
@@ -10,13 +13,19 @@ const LandParcelChooser = ({
   all,
   gemarkungen,
   defaultValue,
+  gemParams,
+  flurParams,
+  fstckParams,
 }) => {
   const [selectedGemarkung, setSelectedGemarkung] = useState();
+  const [urlParams, setUrlParams] = useSearchParams();
+  const [defaultGemarkung, setDefaultGemarkung] = useState(gemParams);
   const [selectedFlur, setSelectedFlur] = useState();
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
   const landparcel = useSelector(getLandparcel);
+  const copyFstckParams = fstckParams;
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
@@ -67,10 +76,16 @@ const LandParcelChooser = ({
     }
     return result;
   };
-
   const data = buildData(all);
-
   const handleGemarkungChange = (gemarkungValue) => {
+    const gem = data[gemarkungValue]?.gemarkung || undefined;
+    setUrlParams({ gem });
+    if (flurParams !== null) {
+      setUrlParams({ gem, flur: flurParams });
+    }
+    if (copyFstckParams) {
+      setUrlParams({ gem, flur: flurParams, fstck: copyFstckParams });
+    }
     setSelectedGemarkung(data[gemarkungValue]);
     setSelectedFlur(undefined);
     setTimeout(() => {
@@ -78,17 +93,24 @@ const LandParcelChooser = ({
     }, 10);
   };
   const handleFlurChange = (flurValue) => {
+    if (fstckParams) {
+      setUrlParams({ gem: gemParams, flur: flurParams, fstck: fstckParams });
+    } else {
+      setUrlParams({ gem: gemParams, flur: flurValue });
+    }
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setTimeout(() => {
       flurstueckRef.current.focus();
     }, 10);
   };
   const handleFlurstueckChange = (flurstueckValue) => {
+    console.log("lll handleFlurstueckChange", flurstueckValue);
     flurstueckChoosen({
       gemarkung: selectedGemarkung.gemarkung,
       flur: selectedFlur.flur,
       ...selectedFlur.flurstuecke[flurstueckValue],
     });
+    setUrlParams({ gem: gemParams, flur: flurParams, fstck: flurstueckValue });
   };
   const handleKeyGemarkung = (e) => {
     if (e.key === "Enter") {
@@ -100,30 +122,35 @@ const LandParcelChooser = ({
       flurstueckRef.current.focus();
     }
   };
+  console.log("lll fstck", copyFstckParams);
   useEffect(() => {
-    if (defaultValue !== undefined && landparcel === undefined) {
-      handleGemarkungChange(defaultValue.gemarkung);
+    const gem = urlParams.get("gem");
+    console.log("ggg flurParams", flurParams);
+    if (gem) {
+      const gemData = gemarkungen.filter((g) => g.bezeichnung === gem);
+      setDefaultGemarkung((prev) => gem);
+      const schluessel = gemData[0].schluessel.toString();
+      handleGemarkungChange(schluessel);
     }
-  }, [defaultValue]);
+  }, []);
   useEffect(() => {
-    if (selectedGemarkung !== undefined && defaultValue !== undefined) {
-      handleFlurChange(defaultValue.flur);
+    console.log("lll flur use effevt", flurParams);
+    if (selectedGemarkung !== undefined && flurParams) {
+      handleFlurChange(flurParams);
     }
   }, [selectedGemarkung]);
   useEffect(() => {
-    if (
-      selectedFlur !== undefined &&
-      defaultValue !== undefined &&
-      landparcel === undefined
-    ) {
-      handleFlurstueckChange(defaultValue.flurstueckValue);
-    } else {
-      console.log("LandParcel selectedFlur landparcel false");
+    const fstc = urlParams.get("fstck");
+    if (selectedFlur !== undefined && fstc) {
+      console.log("lll get landparcel updated");
+      handleFlurstueckChange(fstc);
     }
   }, [selectedFlur]);
+
   return (
     <>
       <Select
+        defaultValue={defaultGemarkung}
         ref={gemarkungRef}
         showSearch
         placeholder="Gemarkung"
@@ -145,15 +172,10 @@ const LandParcelChooser = ({
           const el = data[key];
           return { label: el.gemarkung, value: key };
         })}
-        defaultValue={
-          defaultValue && {
-            value: "053001",
-            label: "Barmen",
-          }
-        }
       />
       <Select
         ref={flurRef}
+        defaultValue={flurParams}
         placeholder="Flur"
         key={"Flure.for." + (selectedGemarkung?.gemarkung || "-")}
         showSearch
@@ -173,15 +195,10 @@ const LandParcelChooser = ({
           const el = selectedGemarkung?.flure[key];
           return { label: removeLeadingZeros(el.flur, true), value: key };
         })}
-        defaultValue={
-          defaultValue && {
-            value: "001",
-            label: removeLeadingZeros("001", true),
-          }
-        }
       />
       <Select
         ref={flurstueckRef}
+        defaultValue={fstckParams}
         key={
           "Flurstuecke.for." +
           (selectedGemarkung?.gemarkung || "-") +
@@ -228,12 +245,12 @@ const LandParcelChooser = ({
             value: key,
           };
         })}
-        defaultValue={
-          defaultValue && {
-            value: "00007/0009",
-            label: removeLeadingZeros("00007/0009"),
-          }
-        }
+        // defaultValue={
+        //   defaultValue && {
+        //     value: defaultValue.flurstueckValue,
+        //     label: removeLeadingZeros(defaultValue.flurstueckValue),
+        //   }
+        // }
       />
     </>
   );
@@ -263,3 +280,8 @@ const removeLeadingZeros = (numberStr, flur = false) => {
 
   return !flur ? result : flurResalt;
 };
+
+// defaultValue && {
+//   value: defaultValue.gemarkung,
+//   label: defaultValue.gemarkungLabel,
+// }
