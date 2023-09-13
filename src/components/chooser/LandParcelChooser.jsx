@@ -1,31 +1,31 @@
 import React, { useState, useRef, useEffect } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
-import { Select } from "antd";
-import { getLandparcel } from "../../store/slices/lagisLandparcel";
-import { useSelector } from "react-redux";
+import { Button, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { faLandmark } from "@fortawesome/free-solid-svg-icons";
-import { addLeadingZeros } from "../../core/tools/helper";
+function paramsToObject(entries) {
+  const result = {};
+  for (const [key, value] of entries) {
+    // each 'entry' is a [key, value] tupple
+    result[key] = value;
+  }
+  return result;
+}
 const LandParcelChooser = ({
   flurstueckChoosen = (fstck) => {
     console.log("!!!! flurstueck choosen", fstck);
   },
   all,
   gemarkungen,
-  defaultValue,
-  gemParams,
-  flurParams,
-  fstckParams,
 }) => {
-  const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [urlParams, setUrlParams] = useSearchParams();
-  const [defaultGemarkung, setDefaultGemarkung] = useState(gemParams);
+
+  const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
+  const [selectedFlurstueckLabel, setSelectedFlurstueckLabel] = useState();
+
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
-  const landparcel = useSelector(getLandparcel);
-  const copyFstckParams = fstckParams;
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
@@ -76,56 +76,79 @@ const LandParcelChooser = ({
     }
     return result;
   };
-  console.log("ggg checking fstckParams", fstckParams);
+  function padWithZeros(num, length) {
+    return String(num).padStart(length, "0");
+  }
   const data = buildData(all);
+  function replaceSlashWithDash(value) {
+    return value ? value.replace("/", "-") : value;
+  }
+  useEffect(() => {
+    const fromUrl = {
+      gem: urlParams.get("gem") || undefined,
+      flur: urlParams.get("flur") || undefined,
+      fstck: urlParams.get("fstck") || undefined,
+    };
+
+    const fromState = {
+      gem: selectedGemarkung?.gemarkung,
+      flur: removeLeadingZeros(selectedFlur?.flur, true),
+      fstck: replaceSlashWithDash(removeLeadingZeros(selectedFlurstueckLabel)),
+    };
+
+    console.log("xxx _urlParams_ or state changed", fromUrl);
+    console.log("xxx urlParams or _state_ changed", fromState);
+    if (
+      fromUrl.gem !== fromState.gem ||
+      fromUrl.flur !== fromState.flur ||
+      fromUrl.fstck !== fromState.fstck
+    ) {
+      gotoFstck(fromUrl);
+    }
+  }, [urlParams, selectedGemarkung, selectedFlur, selectedFlurstueckLabel]);
+
   const handleGemarkungChange = (gemarkungValue) => {
-    const gem = data[gemarkungValue]?.gemarkung || undefined;
-    setUrlParams({ gem });
-    if (flurParams !== null) {
-      setUrlParams({ gem, flur: removeLeadingZeros(flurParams, true) });
-    }
-    if (copyFstckParams) {
-      setUrlParams({
-        gem,
-        flur: removeLeadingZeros(flurParams, true),
-        fstck: copyFstckParams.replace(/[\/\/]/g, "-"),
-      });
-    }
-    setSelectedGemarkung(data[gemarkungValue]);
+    console.log("xxx handleGemarkungChange", gemarkungValue);
+    const fullGemarkung = data[gemarkungValue];
+    setSelectedGemarkung(fullGemarkung);
     setSelectedFlur(undefined);
+    setSelectedFlurstueckLabel(undefined);
+
+    const newParams = paramsToObject(urlParams);
+    newParams.gem = fullGemarkung.gemarkung;
+    delete newParams.flur;
+    delete newParams.fstck;
+    setUrlParams(newParams);
+
     setTimeout(() => {
       flurRef.current.focus();
     }, 10);
   };
   const handleFlurChange = (flurValue) => {
-    if (fstckParams) {
-      setUrlParams({
-        gem: gemParams,
-        flur: removeLeadingZeros(flurValue, true),
-        fstck: fstckParams.replace(/[\/\/]/g, "-"),
-      });
-    } else {
-      setUrlParams({
-        gem: gemParams,
-        flur: removeLeadingZeros(flurValue, true),
-      });
-    }
+    console.log("xxx handleFlurChange", flurValue);
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
+    setSelectedFlurstueckLabel(undefined);
+
+    const newParams = paramsToObject(urlParams);
+    newParams.flur = removeLeadingZeros(flurValue, true);
+    delete newParams.fstck;
+    setUrlParams(newParams);
+
     setTimeout(() => {
       flurstueckRef.current.focus();
     }, 10);
   };
-  const handleFlurstueckChange = (flurstueckValue) => {
-    console.log("lll handleFlurstueckChange", flurstueckValue);
+
+  const handleFlurstueckChange = (flurstueckLabel) => {
+    setSelectedFlurstueckLabel(flurstueckLabel);
+    const newParams = paramsToObject(urlParams);
+    newParams.fstck = replaceSlashWithDash(removeLeadingZeros(flurstueckLabel));
+    setUrlParams(newParams);
+
     flurstueckChoosen({
       gemarkung: selectedGemarkung.gemarkung,
       flur: selectedFlur.flur,
-      ...selectedFlur.flurstuecke[flurstueckValue],
-    });
-    setUrlParams({
-      gem: gemParams,
-      flur: removeLeadingZeros(flurParams, true),
-      fstck: flurstueckValue.replace(/[\/\/]/g, "-"),
+      ...selectedFlur.flurstuecke[flurstueckLabel],
     });
   };
   const handleKeyGemarkung = (e) => {
@@ -138,37 +161,93 @@ const LandParcelChooser = ({
       flurstueckRef.current.focus();
     }
   };
-  useEffect(() => {
-    const gem = urlParams.get("gem");
-    console.log("lll flurParams", flurParams);
-    if (gem) {
-      const gemData = gemarkungen.filter((g) => g.bezeichnung === gem);
-      setDefaultGemarkung((prev) => gem);
-      const schluessel = gemData[0].schluessel.toString();
-      handleGemarkungChange(schluessel);
+
+  const getGemarkungByName = (name) => {
+    const result = Object.keys(data).find((key) => {
+      return data[key].gemarkung === name;
+    });
+    if (result) {
+      return data[result];
     }
-  }, []);
-  useEffect(() => {
-    if (selectedGemarkung !== undefined && flurParams) {
-      console.log("lll flurParams", flurParams);
-      handleFlurChange(flurParams);
+  };
+
+  const gotoFstck = ({ gem, flur, fstck }) => {
+    if (gem && flur && fstck) {
+      const fullGemarkung = getGemarkungByName(gem);
+      setSelectedGemarkung(fullGemarkung);
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      setSelectedFlur(fullFlur);
+
+      //check whether fstck is conatining a dash
+      const splitted = fstck.split("-");
+      let fstckLabel;
+      if (splitted.length === 2) {
+        fstckLabel =
+          padWithZeros(splitted[0], 5) + "/" + padWithZeros(splitted[1], 4);
+      } else {
+        fstckLabel = fstck;
+        pureLabel = fstck;
+      }
+      const x = {
+        gemarkung: fullGemarkung.gemarkung,
+        flur: fullFlur.flur,
+        ...fullFlur.flurstuecke[fstckLabel],
+      };
+      if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
+        setSelectedFlurstueckLabel(fstckLabel);
+        flurstueckChoosen(x);
+      } else {
+        setSelectedFlurstueckLabel();
+      }
+    } else if (gem && flur) {
+      const fullGemarkung = getGemarkungByName(gem);
+      setSelectedGemarkung(fullGemarkung);
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      setSelectedFlur(fullFlur);
+    } else if (gem) {
+      if (gem) {
+        const fullGemarkung = getGemarkungByName(gem);
+        setSelectedGemarkung(fullGemarkung);
+        setSelectedFlur();
+        setSelectedFlurstueckLabel();
+      }
     }
-  }, [selectedGemarkung]);
-  useEffect(() => {
-    const flurstuecke = selectedFlur?.flurstuecke || {};
-    const flurstueckeArr = Object.keys(flurstuecke);
-    console.log(Object.keys(flurstuecke));
-    const fstc = urlParams.get("fstck");
-    if (selectedFlur !== undefined && fstc) {
-      handleFlurstueckChange(fstc);
-    }
-  }, [selectedFlur]);
+  };
 
   return (
     <>
+      {/* <Button
+        onClick={() => {
+          const gem = getGemarkungByName("Barmen");
+          console.log("gem", gem);
+          setSelectedGemarkung(gem);
+          const flur = gem.flure[padWithZeros(1, 3)];
+          setSelectedFlur(flur);
+
+          const fstckLabel = "00007/0009";
+          setSelectedFlurstueckLabel(fstckLabel);
+
+          const x = {
+            gemarkung: gem.gemarkung,
+            flur: flur.flur,
+            ...flur.flurstuecke[fstckLabel],
+          };
+
+          flurstueckChoosen(x);
+        }}
+      >
+        Test
+      </Button>
+      <Button
+        onClick={() => {
+          console.log(' getGemarkungByName("sss");', getGemarkungByName("sss"));
+        }}
+      >
+        Test2
+      </Button> */}
       <Select
-        defaultValue={defaultGemarkung}
         ref={gemarkungRef}
+        value={selectedGemarkung?.gemarkung || undefined}
         showSearch
         placeholder="Gemarkung"
         style={{
@@ -192,7 +271,7 @@ const LandParcelChooser = ({
       />
       <Select
         ref={flurRef}
-        defaultValue={flurParams}
+        value={selectedFlur?.flur || undefined}
         placeholder="Flur"
         key={"Flure.for." + (selectedGemarkung?.gemarkung || "-")}
         showSearch
@@ -215,10 +294,7 @@ const LandParcelChooser = ({
       />
       <Select
         ref={flurstueckRef}
-        defaultValue={{
-          label: fstckParams,
-          value: fstckParams,
-        }}
+        value={selectedFlurstueckLabel || undefined}
         key={
           "Flurstuecke.for." +
           (selectedGemarkung?.gemarkung || "-") +
@@ -228,7 +304,7 @@ const LandParcelChooser = ({
         placeholder="Flurstück"
         showSearch
         style={{
-          width: 100,
+          width: 150,
         }}
         filterOption={(input, option) => {
           const inputValue = input.toLowerCase();
@@ -273,6 +349,9 @@ const LandParcelChooser = ({
 export default LandParcelChooser;
 
 const removeLeadingZeros = (numberStr, flur = false) => {
+  if (!numberStr) {
+    return undefined;
+  }
   const parts = numberStr.split("/");
 
   const trimmedParts = parts.map((part) => {
