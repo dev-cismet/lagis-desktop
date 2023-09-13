@@ -30,10 +30,10 @@ const UserBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
-  const [urlParams, setUrlParams] = useSearchParams();
+  // const [urlParams, setUrlParams] = useSearchParams();
   const [gemParams, setGemParams] = useState();
-  const flurParam = urlParams.get("flur");
-  const fstckParam = urlParams.get("fstck");
+  // const flurParam = urlParams.get("flur");
+  // const fstckParam = urlParams.get("fstck");
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ const UserBar = () => {
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
-  console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
+  // console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
   useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
@@ -72,9 +72,9 @@ const UserBar = () => {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
           }
         }}
-        gemParams={urlParams.get("gem")}
-        flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
-        fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
+        // gemParams={urlParams.get("gem")}
+        // flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
+        // fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
