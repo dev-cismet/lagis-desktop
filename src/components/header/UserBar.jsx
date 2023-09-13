@@ -72,7 +72,7 @@ const UserBar = () => {
         }}
         gemParams={urlParams.get("gem")}
         flurParams={flurParam ?? addLeadingZeros()}
-        fstckParams={fstckParam.replace(/[\-\/]/g, "/")}
+        fstckParams={fstckParam?.replace(/[\-\/]/g, "/")}
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
@@ -102,8 +102,8 @@ const UserBar = () => {
 export default UserBar;
 
 function addLeadingZeros(number) {
-  let numberString = number.toString();
-  if (numberString.length < 2) {
+  let numberString = number?.toString();
+  if (numberString?.length < 2) {
     numberString = "00" + numberString;
   }
 
