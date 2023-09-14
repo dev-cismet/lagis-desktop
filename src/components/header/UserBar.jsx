@@ -28,12 +28,12 @@ import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const [urlParams, setUrlParams] = useSearchParams();
+  const location = useLocation();
+  const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
+  // const [urlParams, setUrlParams] = useSearchParams();
   const [gemParams, setGemParams] = useState();
-  const flurParam = urlParams.get("flur");
-  const fstckParam = urlParams.get("fstck");
+  // const flurParam = urlParams.get("flur");
+  // const fstckParam = urlParams.get("fstck");
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
@@ -57,12 +57,8 @@ const UserBar = () => {
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
-  console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
-  // useEffect(() => {
-  //   for (const [key, value] of searchParams.entries()) {
-  //     console.log("hash", `${key}, ${value}`);
-  //   }
-  // }, [search]);
+  // console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
+  useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
@@ -76,15 +72,8 @@ const UserBar = () => {
           }
         }}
         // gemParams={urlParams.get("gem")}
-        gemParams={searchParams.get("gem")}
         // flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
-        flurParams={
-          flurParam ? addLeadingZeros(searchParams.get("flur")) : undefined
-        }
         // fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
-        fstckParams={
-          fstckParam ? replaceWithSlash(searchParams.get("fstck")) : undefined
-        }
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />

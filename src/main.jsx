@@ -48,12 +48,13 @@ const NavBarWrapper = () => {
 
   return <AppLayout />;
 };
+const productionMode = process.env.NODE_ENV === "production";
 
 const router = createHashRouter([
   {
     path: "/",
     element: <NavBarWrapper />,
-    errorElement: <ErrorPage />,
+    errorElement: productionMode && <ErrorPage />,
     children: [
       {
         path: "/",
