@@ -2,6 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Button, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
+import {
+  storeLagisLandparcel,
+  storeAlkisLandparcel,
+  getLandparcel,
+  getAlkisLandparcel,
+} from "../../store/slices/lagis";
+import { useDispatch, useSelector } from "react-redux";
+
 function paramsToObject(entries) {
   const result = {};
   for (const [key, value] of entries) {
@@ -18,11 +26,12 @@ const LandParcelChooser = ({
   gemarkungen,
 }) => {
   const [urlParams, setUrlParams] = useSearchParams();
-
+  const dispatch = useDispatch();
+  const landparcel = useSelector(getLandparcel);
+  const alkisLandparcel = useSelector(getAlkisLandparcel);
   const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
   const [selectedFlurstueckLabel, setSelectedFlurstueckLabel] = useState();
-
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
@@ -108,6 +117,10 @@ const LandParcelChooser = ({
   }, [urlParams, selectedGemarkung, selectedFlur, selectedFlurstueckLabel]);
 
   const handleGemarkungChange = (gemarkungValue) => {
+    if (alkisLandparcel !== undefined && landparcel !== undefined) {
+      dispatch(storeAlkisLandparcel(undefined));
+      dispatch(storeLagisLandparcel(undefined));
+    }
     console.log("xxx handleGemarkungChange", gemarkungValue);
     const fullGemarkung = data[gemarkungValue];
     setSelectedGemarkung(fullGemarkung);
@@ -125,6 +138,10 @@ const LandParcelChooser = ({
     }, 10);
   };
   const handleFlurChange = (flurValue) => {
+    if (alkisLandparcel !== undefined && landparcel !== undefined) {
+      dispatch(storeAlkisLandparcel(undefined));
+      dispatch(storeLagisLandparcel(undefined));
+    }
     console.log("xxx handleFlurChange", flurValue);
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setSelectedFlurstueckLabel(undefined);
