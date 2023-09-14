@@ -61,3 +61,21 @@ export function officesExtractor(dataIn) {
     return nameGeomColorData;
   }
 }
+export function transactionExtractor(dataIn) {
+  if (dataIn === undefined) {
+    console.log("ex transaction extractor undefined", dataIn);
+    return {
+      numberOfDocuments: "  ",
+      color: "#BBBBBB",
+    };
+  } else {
+    const landparcel = dataIn;
+    console.log("ex transaction extractor", landparcel);
+    const numberOfDocuments =
+      landparcel?.kassenzeichenArrayRelationShip?.length || 0;
+    return {
+      numberOfDocuments,
+      color: numberOfDocuments > 0 ? "#5D5FEF" : "#999999",
+    };
+  }
+}
