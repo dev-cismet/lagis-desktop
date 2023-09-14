@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { DollarOutlined } from "@ant-design/icons";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
+import { Link } from "react-router-dom";
 const mockExtractor = (input) => {
   return { numberOfRents: "7", color: "#5D5FEF" };
 };
@@ -15,22 +16,24 @@ const DashboardRent = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <OverviewCard
-        title="Miet und Pachtverträge"
-        icon={<DollarOutlined style={{ color: data.color }} />}
-      >
-        <div
-          className="text-8xl"
-          style={{
-            color: data.color,
-            textAlign: "left",
-            width: "100%",
-            lineHeight: "1.2",
-          }}
+      <Link to="/miet">
+        <OverviewCard
+          title="Miet und Pachtverträge"
+          icon={<DollarOutlined style={{ color: data.color }} />}
         >
-          <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>
-        </div>
-      </OverviewCard>
+          <div
+            className="text-8xl"
+            style={{
+              color: data.color,
+              textAlign: "left",
+              width: "100%",
+              lineHeight: "1.2",
+            }}
+          >
+            <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>
+          </div>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };

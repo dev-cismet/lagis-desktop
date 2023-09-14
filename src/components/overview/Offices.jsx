@@ -2,6 +2,7 @@ import { FolderOpenOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 const mockExtractor = (input) => {
   return [
@@ -20,43 +21,45 @@ const DashboardOffices = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <OverviewCard
-        title="Verwaltungsbereiche"
-        subtitle="& Rollen"
-        icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
-      >
-        <div className="flex flex-col mt-auto">
-          {data?.map((item) => (
-            <div className="flex justify-between items-center mt-1 mb-1">
-              <div className="flex justify-between items-center">
+      <Link to="/verwaltungsbereiche">
+        <OverviewCard
+          title="Verwaltungsbereiche"
+          subtitle="& Rollen"
+          icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+        >
+          <div className="flex flex-col mt-auto">
+            {data?.map((item) => (
+              <div className="flex justify-between items-center mt-1 mb-1">
+                <div className="flex justify-between items-center">
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      marginRight: "6px",
+                      backgroundColor: item.color,
+                    }}
+                  ></span>
+                  <span
+                    style={{ color: item.color }}
+                    className="font-bold text-medium"
+                  >
+                    {item.title}
+                  </span>
+                </div>
                 <span
                   style={{
-                    width: "8px",
-                    height: "8px",
-                    marginRight: "6px",
-                    backgroundColor: item.color,
+                    color: "#6C6A6A",
+                    fontSize: square,
                   }}
-                ></span>
-                <span
-                  style={{ color: item.color }}
-                  className="font-bold text-medium"
+                  className="font-base"
                 >
-                  {item.title}
+                  {item.size} m²
                 </span>
               </div>
-              <span
-                style={{
-                  color: "#6C6A6A",
-                  fontSize: square,
-                }}
-                className="font-base"
-              >
-                {item.size} m²
-              </span>
-            </div>
-          ))}
-        </div>
-      </OverviewCard>
+            ))}
+          </div>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };

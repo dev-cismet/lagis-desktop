@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { PayCircleOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
+import Link from "antd/es/typography/Link";
 const mockExtractor = (input) => {
   return { numberOfDocuments: "1", color: "#389EFD" };
 };
@@ -16,25 +17,26 @@ const DashboardTransaction = ({
 
   return (
     <div className="dashboard-tile">
-      <OverviewCard
-        title="Kassenzeichen"
-        icon={
-        <PayCircleOutlined 
-          style={{color: data.color}}
-        />}
-      >
-        <div
-          style={{
-            color: data.color,
-            fontSize: "5.5rem",
-            textAlign: "left",
-            width: "100%",
-            lineHeight: "1.2"
-          }}
+      <Link to="/kassenzeichen">
+        <OverviewCard
+          title="Kassenzeichen"
+          icon={<PayCircleOutlined style={{ color: data.color }} />}
         >
-          <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
-        </div>
-      </OverviewCard>
+          <div
+            style={{
+              color: data.color,
+              fontSize: "5.5rem",
+              textAlign: "left",
+              width: "100%",
+              lineHeight: "1.2",
+            }}
+          >
+            <strong>
+              {data.numberOfDocuments.toString().padStart(2, "0")}
+            </strong>
+          </div>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };

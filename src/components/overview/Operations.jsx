@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { SwapRightOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
+import { Link } from "react-router-dom";
 
 const mockExtractor = (input) => {
   return { numberOfOperations: "4", color: "#FF7A00" };
@@ -16,22 +17,26 @@ const DashboarOperations = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <OverviewCard
-        title="Vorgänge"
-        icon={<SwapRightOutlined style={{ color: data.color }} />}
-      >
-        <div
-          style={{
-            color: data.color,
-            fontSize: "5.5rem",
-            textAlign: "left",
-            width: "100%",
-            lineHeight: "1.2",
-          }}
+      <Link to="/vorgange">
+        <OverviewCard
+          title="Vorgänge"
+          icon={<SwapRightOutlined style={{ color: data.color }} />}
         >
-          <strong>{data.numberOfOperations.toString().padStart(2, "0")}</strong>
-        </div>
-      </OverviewCard>
+          <div
+            style={{
+              color: data.color,
+              fontSize: "5.5rem",
+              textAlign: "left",
+              width: "100%",
+              lineHeight: "1.2",
+            }}
+          >
+            <strong>
+              {data.numberOfOperations.toString().padStart(2, "0")}
+            </strong>
+          </div>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };
