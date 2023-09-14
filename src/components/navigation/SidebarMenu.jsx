@@ -118,6 +118,7 @@ const SidebarMenu = () => {
           style={{
             border: 0,
             marginLeft: "-5px",
+            width: "240px",
           }}
           defaultSelectedKeys={activeKey}
           items={items}
