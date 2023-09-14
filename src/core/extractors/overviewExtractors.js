@@ -79,3 +79,20 @@ export function transactionExtractor(dataIn) {
     };
   }
 }
+export function operationExtractor(dataIn) {
+  if (dataIn === undefined) {
+    console.log("ex transaction extractor undefined", dataIn);
+    return {
+      numberOfOperations: "  ",
+      color: "#BBBBBB",
+    };
+  } else {
+    const landparcel = dataIn;
+    console.log("ex transaction extractor", landparcel);
+    const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
+    return {
+      numberOfOperations,
+      color: numberOfOperations > 0 ? "#5D5FEF" : "#999999",
+    };
+  }
+}

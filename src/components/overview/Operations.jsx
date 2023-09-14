@@ -4,7 +4,7 @@ import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
 
 const mockExtractor = (input) => {
-  return { numberOfHistory: "4", color: "#FF7A00" };
+  return { numberOfOperations: "4", color: "#FF7A00" };
 };
 const DashboarOperations = ({
   dataIn,
@@ -13,16 +13,12 @@ const DashboarOperations = ({
   height = 188,
   style,
 }) => {
-
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
       <OverviewCard
         title="Vorgänge"
-        icon={
-        <SwapRightOutlined 
-          style={{color: data.color}}
-        />}
+        icon={<SwapRightOutlined style={{ color: data.color }} />}
       >
         <div
           style={{
@@ -30,10 +26,10 @@ const DashboarOperations = ({
             fontSize: "5.5rem",
             textAlign: "left",
             width: "100%",
-            lineHeight: "1.2"
+            lineHeight: "1.2",
           }}
         >
-          <strong>{data.numberOfHistory.toString().padStart(2, "0")}</strong>
+          <strong>{data.numberOfOperations.toString().padStart(2, "0")}</strong>
         </div>
       </OverviewCard>
     </div>

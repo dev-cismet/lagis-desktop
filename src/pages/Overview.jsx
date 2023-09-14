@@ -29,6 +29,7 @@ import {
   getLandparcel,
 } from "../store/slices/lagisLandparcel";
 import {
+  operationExtractor,
   rentExtractor,
   transactionExtractor,
 } from "../core/extractors/overviewExtractors";
@@ -98,7 +99,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             <Rent dataIn={landparcel} extractor={rentExtractor} />
             <Rights dataIn={landparcel} />
             <Usage dataIn={landparcel} />
-            <Operations dataIn={landparcel} />
+            <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />
             <Transaction dataIn={landparcel} extractor={transactionExtractor} />
             <DMS />
