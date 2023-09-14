@@ -24,10 +24,7 @@ import {
 } from "../store/slices/landParcels";
 import { useEffect } from "react";
 import queries from "../core/queries/online";
-import {
-  getAlkisLandparcel,
-  getLandparcel,
-} from "../store/slices/lagisLandparcel";
+import { getAlkisLandparcel, getLandparcel } from "../store/slices/lagis";
 import {
   operationExtractor,
   rentExtractor,

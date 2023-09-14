@@ -96,3 +96,21 @@ export function operationExtractor(dataIn) {
     };
   }
 }
+
+export function usageExtractor(dataIn) {
+  if (dataIn === undefined) {
+    console.log("ex transaction extractor undefined", dataIn);
+    return {
+      numberOfUsages: "  ",
+      color: "#389EFD",
+    };
+  } else {
+    const landparcel = dataIn;
+    console.log("ex usage extractor", landparcel);
+    const numberOfUsages = landparcel?.nutzungArrayRelationShip?.length || 0;
+    return {
+      numberOfOperations: numberOfUsages,
+      color: numberOfUsages > 0 ? "#F31630" : "#999999",
+    };
+  }
+}

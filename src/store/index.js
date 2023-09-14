@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth";
-import lagisLandparcelSlice from "./slices/lagisLandparcel";
+import lagisSlice from "./slices/lagis";
 import landParcels from "./slices/landParcels";
 import {
   persistReducer,
@@ -95,7 +95,7 @@ const persistParcelsConfig = {
 export default configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authSlice.reducer),
-    lagisLandparcel: lagisLandparcelSlice.reducer,
+    lagis: lagisSlice.reducer,
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
   },
   middleware,

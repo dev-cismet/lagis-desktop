@@ -18,7 +18,7 @@ import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
   getUrlLandparcelParams,
-} from "../../store/slices/lagisLandparcel";
+} from "../../store/slices/lagis";
 import { addLeadingZeros } from "../../core/tools/helper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";

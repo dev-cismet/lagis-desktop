@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { Select } from "antd";
-import { getLandparcel } from "../../store/slices/lagisLandparcel";
+import { getLandparcel } from "../../store/slices/lagis";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { faLandmark } from "@fortawesome/free-solid-svg-icons";

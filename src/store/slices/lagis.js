@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: "lagisLandparcel",
+  name: "lagis",
   initialState,
   reducers: {
     storeLagisLandparcel(state, action) {
@@ -25,41 +25,39 @@ export default slice;
 export const { storeLagisLandparcel, storeAlkisLandparcel } = slice.actions;
 
 export const getLandparcel = (state) => {
-  return state.lagisLandparcel.lagisLandparcel;
+  return state.lagis.lagisLandparcel;
 };
 export const getAlkisLandparcel = (state) => {
-  return state.lagisLandparcel.alkisLandparcel;
+  return state.lagis.alkisLandparcel;
 };
 
 export const getStreetfronts = (state) => {
   if (
-    state.lagisLandparcel &&
-    state.lagisLandparcel.lagisLandparcel[0]?.strassenfrontArrayRelationShip
+    state.lagis &&
+    state.lagis.lagisLandparcel[0]?.strassenfrontArrayRelationShip
   ) {
-    return state.lagisLandparcel.lagisLandparcel[0]
-      .strassenfrontArrayRelationShip;
+    return state.lagis.lagisLandparcel[0].strassenfrontArrayRelationShip;
   }
-  return state.lagisLandparcel.lagisLandparcel;
+  return state.lagis.lagisLandparcel;
 };
 
 export const getAdditionalRoll = (state) => {
   if (
-    state.lagisLandparcel &&
-    state.lagisLandparcel.lagisLandparcel[0]?.zusatz_rolleArrayRelationShip
+    state.lagis &&
+    state.lagis.lagisLandparcel[0]?.zusatz_rolleArrayRelationShip
   ) {
-    return state.lagisLandparcel.lagisLandparcel[0]
-      .zusatz_rolleArrayRelationShip;
+    return state.lagis.lagisLandparcel[0].zusatz_rolleArrayRelationShip;
   }
-  return state.lagisLandparcel.lagisLandparcel;
+  return state.lagis.lagisLandparcel;
 };
 export const getAgenciesRoll = (state) => {
   if (
-    state.lagisLandparcel &&
-    state.lagisLandparcel.lagisLandparcel[0]
+    state.lagis &&
+    state.lagis.lagisLandparcel[0]
       ?.verwaltungsbereiche_eintragArrayRelationShip[0]
       .verwaltungsbereichArrayRelationShip[0]
   ) {
-    return state.lagisLandparcel.lagisLandparcel[0]
+    return state.lagis.lagisLandparcel[0]
       ?.verwaltungsbereiche_eintragArrayRelationShip[0]
       .verwaltungsbereichArrayRelationShip[0];
   }
@@ -67,13 +65,13 @@ export const getAgenciesRoll = (state) => {
 };
 
 export const getUrlLandparcelParams = (state) => {
-  const alkisId = state.lagisLandparcel?.alkisLandparcel?.alkis_id;
-  // const schluesselId = state.lagisLandparcel.lagisLandparcel.id;
+  const alkisId = state.lagis?.alkisLandparcel?.alkis_id;
+  // const schluesselId = state.lagis.lagisLandparcel.id;
   if (alkisId) {
     return {
       alkisId: alkisId,
       // schluesselId: schluesselId,
     };
   }
-  return state.lagisLandparcel.alkisLandparcel;
+  return state.lagis.alkisLandparcel;
 };
