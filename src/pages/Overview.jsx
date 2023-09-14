@@ -29,6 +29,7 @@ import {
   operationExtractor,
   rentExtractor,
   transactionExtractor,
+  usageExtractor,
 } from "../core/extractors/overviewExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -95,7 +96,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             <Offices dataIn={landparcel} extractor={officesExtractor} />
             <Rent dataIn={landparcel} extractor={rentExtractor} />
             <Rights dataIn={landparcel} />
-            <Usage dataIn={landparcel} />
+            <Usage dataIn={landparcel} extractor={usageExtractor} />
             <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />
             <Transaction dataIn={landparcel} extractor={transactionExtractor} />

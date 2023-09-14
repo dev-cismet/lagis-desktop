@@ -63,7 +63,6 @@ export function officesExtractor(dataIn) {
 }
 export function transactionExtractor(dataIn) {
   if (dataIn === undefined) {
-    console.log("ex transaction extractor undefined", dataIn);
     return {
       numberOfDocuments: "  ",
       color: "#BBBBBB",
@@ -81,7 +80,6 @@ export function transactionExtractor(dataIn) {
 }
 export function operationExtractor(dataIn) {
   if (dataIn === undefined) {
-    console.log("ex transaction extractor undefined", dataIn);
     return {
       numberOfOperations: "  ",
       color: "#389EFD",
@@ -99,17 +97,26 @@ export function operationExtractor(dataIn) {
 
 export function usageExtractor(dataIn) {
   if (dataIn === undefined) {
-    console.log("ex transaction extractor undefined", dataIn);
     return {
       numberOfUsages: "  ",
       color: "#389EFD",
     };
   } else {
     const landparcel = dataIn;
-    console.log("ex usage extractor", landparcel);
     const numberOfUsages = landparcel?.nutzungArrayRelationShip?.length || 0;
+    let counter = 0;
+    if (numberOfUsages !== 0) {
+      landparcel?.nutzungArrayRelationShip?.forEach((u, idx) => {
+        console.log("ex usage", idx, u);
+        u.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
+          if (item.gueltig_bis === null) {
+            counter++;
+          }
+        });
+      });
+    }
     return {
-      numberOfOperations: numberOfUsages,
+      numberOfUsages: counter,
       color: numberOfUsages > 0 ? "#F31630" : "#999999",
     };
   }
