@@ -28,8 +28,8 @@ import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
   const [urlParams, setUrlParams] = useSearchParams();
   const [gemParams, setGemParams] = useState();
   const flurParam = urlParams.get("flur");
@@ -39,7 +39,6 @@ const UserBar = () => {
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
-  const [landparcelDefaults, setLandparcelDefaults] = useState(undefined);
   const getFlurstueck = async (schluessel_id, alkis_id) => {
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
@@ -59,7 +58,11 @@ const UserBar = () => {
     setUrlParams({ alkis_id });
   };
   console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   for (const [key, value] of searchParams.entries()) {
+  //     console.log("hash", `${key}, ${value}`);
+  //   }
+  // }, [search]);
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
@@ -72,9 +75,16 @@ const UserBar = () => {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
           }
         }}
-        gemParams={urlParams.get("gem")}
-        flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
-        fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
+        // gemParams={urlParams.get("gem")}
+        gemParams={searchParams.get("gem")}
+        // flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
+        flurParams={
+          flurParam ? addLeadingZeros(searchParams.get("flur")) : undefined
+        }
+        // fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
+        fstckParams={
+          fstckParam ? replaceWithSlash(searchParams.get("fstck")) : undefined
+        }
       />
       <div className="mx-2 md:ml-4">
         <UserBarActions />
