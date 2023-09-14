@@ -140,7 +140,6 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
   }
   flurstueck(where: {flurstueck_schluessel: {_and: {id: {_eq: $schluessel_id}}}}) {
     id
-    
     flurstueck_schluessel {
       gemarkung {
         bezeichnung
@@ -148,7 +147,6 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
       flur
       flurstueck_zaehler
       flurstueck_nenner
-      
     }
     ar_baeumeArray {
       baum {
@@ -348,6 +346,22 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
         name
         schluessel
       }
+    }
+    dms_urlArrayRelationShip {
+      name
+      typ
+      url {
+        object_name
+        url_base {
+          path
+          prot_prefix
+          server
+          id
+        }
+        id
+      }
+      beschreibung
+      id
     }
   }
 }`;
