@@ -18,8 +18,9 @@ import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
   getUrlLandparcelParams,
+  storeRebe,
 } from "../../store/slices/lagis";
-import { addLeadingZeros } from "../../core/tools/helper";
+// import { addLeadingZeros } from "../../core/tools/helper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
@@ -28,12 +29,9 @@ import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
-  // const [urlParams, setUrlParams] = useSearchParams();
-  const [gemParams, setGemParams] = useState();
-  // const flurParam = urlParams.get("flur");
-  // const fstckParam = urlParams.get("fstck");
+  // const location = useLocation();
+  // const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
+  // const [gemParams, setGemParams] = useState();
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
   const navigate = useNavigate();
@@ -48,11 +46,29 @@ const UserBar = () => {
       },
       jwt
     );
-    // console.log("xxx getFlurstueck Fetch result", result);
     const f = result?.data.flurstueck[0];
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
+    console.log(
+      "ggg result flurstueck fetching",
+      result?.data.flurstueck[0].alkisLandparcel.geometrie
+    );
+    const resultRebe = await getRebe(
+      result?.data.flurstueck[0].alkisLandparcel.geometrie
+    );
+  };
+  const getRebe = async (geo) => {
+    console.log("xxx getRebe geom", geo);
+    const result = await fetchGraphQL(
+      queries.getRebeByGeom,
+      {
+        geo,
+      },
+      jwt
+    );
+    console.log("xxx getRebe result", result.data.rebe);
+    dispatch(storeRebe(result.data.rebe));
   };
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });

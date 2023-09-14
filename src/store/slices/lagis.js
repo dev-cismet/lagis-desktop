@@ -3,6 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
+  history: undefined,
+  rebe: undefined,
+  mipa: undefined,
+  dms: undefined,
 };
 
 const slice = createSlice({
@@ -17,12 +21,17 @@ const slice = createSlice({
       state.alkisLandparcel = action.payload;
       return state;
     },
+    storeRebe(state, action) {
+      state.rebe = action.payload;
+      return state;
+    },
   },
 });
 
 export default slice;
 
-export const { storeLagisLandparcel, storeAlkisLandparcel } = slice.actions;
+export const { storeLagisLandparcel, storeAlkisLandparcel, storeRebe } =
+  slice.actions;
 
 export const getLandparcel = (state) => {
   return state.lagis.lagisLandparcel;

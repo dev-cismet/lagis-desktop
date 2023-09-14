@@ -351,3 +351,20 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
     }
   }
 }`;
+
+queries.getRebeByGeom = `query MyQuery($geo: geometry) {
+  rebe(where: {geom: {geo_field: {_st_intersects: $geo}}}) {
+    bemerkung
+    beschreibung
+    datum_eintragung
+    datum_loeschung
+    ist_recht
+    nummer
+    rebe_art {
+      bezeichnung
+    }
+    geom {
+      geo_field
+    }
+  }
+}`;
