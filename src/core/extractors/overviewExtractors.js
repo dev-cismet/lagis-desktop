@@ -9,11 +9,11 @@ export function rentExtractor(dataIn) {
       color: "#BBBBBB",
     };
   } else {
-    const landparcel = dataIn[0];
+    const landparcel = dataIn;
     const numberOfRents = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfRents,
-      color: numberOfRents > 0 ? "#5D5FEF" : "#999999",
+      color: numberOfRents > 0 ? "#FF7A00" : "#999999",
     };
   }
 }
@@ -84,7 +84,7 @@ export function operationExtractor(dataIn) {
     console.log("ex transaction extractor undefined", dataIn);
     return {
       numberOfOperations: "  ",
-      color: "#BBBBBB",
+      color: "#389EFD",
     };
   } else {
     const landparcel = dataIn;
@@ -92,7 +92,7 @@ export function operationExtractor(dataIn) {
     const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfOperations,
-      color: numberOfOperations > 0 ? "#5D5FEF" : "#999999",
+      color: numberOfOperations > 0 ? "#389EFD" : "#999999",
     };
   }
 }
