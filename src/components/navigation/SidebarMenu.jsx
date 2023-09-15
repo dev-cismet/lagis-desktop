@@ -66,7 +66,6 @@ const items = [
 ];
 const SidebarMenu = () => {
   const location = useLocation();
-  // const activeKey = location.pathname;
   const [activeKey, setActiveKey] = useState("/");
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
@@ -80,7 +79,7 @@ const SidebarMenu = () => {
   };
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 1000) {
+      if (window.innerWidth <= 1024) {
         setCollapsed(true);
       } else {
         setCollapsed(false);
@@ -118,13 +117,9 @@ const SidebarMenu = () => {
         <Logo showText={collapsed} />
       </div>
 
-      <div className="side-menu">
+      <div className="side-menu w-20 lg:ml-[-5px] lg:w-60">
         <Menu
-          style={{
-            border: 0,
-            marginLeft: "-5px",
-            width: "240px",
-          }}
+          style={{ border: 0 }}
           defaultSelectedKeys={activeKey}
           selectedKeys={[activeKey]}
           items={items}
