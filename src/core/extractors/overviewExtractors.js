@@ -138,3 +138,19 @@ export function dmsExtractor(dataIn) {
     };
   }
 }
+
+export function rebeExtractor(dataIn) {
+  if (dataIn === undefined) {
+    return {
+      numberOfRights: "  ",
+      color: "#389EFD",
+    };
+  } else {
+    const rebe = dataIn;
+    const numberOfRights = rebe.length || 0;
+    return {
+      numberOfRights,
+      color: numberOfRights > 0 ? "#180E53" : "#999999",
+    };
+  }
+}

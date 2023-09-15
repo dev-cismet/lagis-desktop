@@ -28,10 +28,12 @@ import {
   getAlkisLandparcel,
   getLandparcel,
   getMipa,
+  getRebe,
 } from "../store/slices/lagis";
 import {
   dmsExtractor,
   operationExtractor,
+  rebeExtractor,
   rentExtractor,
   transactionExtractor,
   usageExtractor,
@@ -52,6 +54,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
   const mipa = useSelector(getMipa);
+  const rebe = useSelector(getRebe);
   const loading = useSelector(getLandmarksLoading);
   const getflurstuecke = async () => {
     console.log("res result getflurstuecke START");
@@ -104,7 +107,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
             <Offices dataIn={landparcel} extractor={officesExtractor} />
             <Rent dataIn={mipa} extractor={rentExtractor} />
-            <Rights dataIn={landparcel} />
+            <Rights dataIn={rebe} extractor={rebeExtractor} />
             <Usage dataIn={landparcel} extractor={usageExtractor} />
             <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />

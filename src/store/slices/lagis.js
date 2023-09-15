@@ -49,6 +49,9 @@ export const getAlkisLandparcel = (state) => {
 export const getMipa = (state) => {
   return state.lagis.mipa;
 };
+export const getRebe = (state) => {
+  return state.lagis.rebe;
+};
 
 export const getStreetfronts = (state) => {
   if (
