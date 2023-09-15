@@ -47,11 +47,12 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
   const loading = useSelector(getLandmarksLoading);
-  const getflurstuecke = async () => {
+  const getFlurstuecke = async () => {
+    console.log("res result getflurstuecke START");
     if (!landParcels && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-      console.log("LandParcels start", result);
+      console.log("res LandParcels result", result);
       if (result.data?.alkis_flurstueck) {
         dispatch(storeLandParcels(result.data.alkis_flurstueck));
         console.log("LandParcels success");
@@ -62,9 +63,11 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     }
   };
   const getGemarkungen = async () => {
+    console.log("res result gemarkungen START");
     if (!landmarks && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
+      console.log("res getGemarkungen result", result);
       if (result.data?.gemarkung) {
         dispatch(storeLandmarks(result.data.gemarkung));
       } else {
@@ -76,7 +79,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   //   return <Spin />;
   // }
   useEffect(() => {
-    getflurstuecke();
+    getFlurstuecke();
     getGemarkungen();
   }, []);
 
