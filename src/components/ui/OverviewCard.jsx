@@ -15,7 +15,7 @@ const OverviewCard = ({
 }) => {
   return (
     <Card
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: "100%", height: "100%", minHeight: "180px" }}
       headStyle={{ padding: "0px 10px" }}
       bodyStyle={{ padding: "1px 10px", marginTop: "auto" }}
       className="custom-card shadow-md flex flex-col"
