@@ -21,9 +21,7 @@ function paramsToObject(entries) {
   return result;
 }
 const LandParcelChooser = ({
-  flurstueckChoosen = (fstck) => {
-    console.log("!!!! flurstueck choosen", fstck);
-  },
+  flurstueckChoosen = (fstck) => {},
   all,
   gemarkungen,
 }) => {
@@ -107,8 +105,6 @@ const LandParcelChooser = ({
       fstck: replaceSlashWithDash(removeLeadingZeros(selectedFlurstueckLabel)),
     };
 
-    // console.log("xxx _urlParams_ or state changed", fromUrl);
-    // console.log("xxx urlParams or _state_ changed", fromState);
     if (
       fromUrl.gem !== fromState.gem ||
       fromUrl.flur !== fromState.flur ||
@@ -125,7 +121,6 @@ const LandParcelChooser = ({
       dispatch(storeRebe(undefined));
       dispatch(storeMipa(undefined));
     }
-    console.log("xxx handleGemarkungChange", gemarkungValue);
     const fullGemarkung = data[gemarkungValue];
     setSelectedGemarkung(fullGemarkung);
     setSelectedFlur(undefined);
@@ -148,7 +143,6 @@ const LandParcelChooser = ({
       dispatch(storeRebe(undefined));
       dispatch(storeMipa(undefined));
     }
-    console.log("xxx handleFlurChange", flurValue);
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setSelectedFlurstueckLabel(undefined);
 
@@ -204,6 +198,7 @@ const LandParcelChooser = ({
       //check whether fstck is conatining a dash
       const splitted = fstck.split("-");
       let fstckLabel;
+      let pureLabel;
       if (splitted.length === 2) {
         fstckLabel =
           padWithZeros(splitted[0], 5) + "/" + padWithZeros(splitted[1], 4);

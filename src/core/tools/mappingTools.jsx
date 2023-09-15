@@ -4,6 +4,7 @@ import L from "leaflet";
 import ColorHash from "color-hash";
 import getArea from "@turf/area";
 import { reproject } from "reproject";
+import getBuffer from "@turf/buffer";
 export const projectionData = {
   25832: {
     def: "+proj=utm +zone=32 +ellps=GRS80 +units=m +no_defs",
@@ -103,5 +104,32 @@ export const getArea25832 = (geoJSON) => {
   const wGS84GeoJSON = getWGS84GeoJSON(geoJSON);
   if (wGS84GeoJSON !== undefined) {
     return getArea(wGS84GeoJSON);
+  }
+};
+
+export const get25832GeoJSON = (geoJSON) => {
+  try {
+    const reprojectedGeoJSON = reproject(
+      geoJSON,
+      proj4.WGS84,
+      projectionData["25832"].def
+    );
+
+    return reprojectedGeoJSON;
+  } catch (e) {
+    console.log("exception reproject", e);
+    return undefined;
+  }
+};
+
+export const getBuffer25832 = (geoJSON, bufferInMeter) => {
+  const wGS84GeoJSON = getWGS84GeoJSON(geoJSON);
+
+  if (wGS84GeoJSON !== undefined) {
+    const bufGeoJSON = getBuffer(wGS84GeoJSON, bufferInMeter / 1000.0, {
+      unit: "kilometers",
+    });
+
+    return get25832GeoJSON(bufGeoJSON);
   }
 };

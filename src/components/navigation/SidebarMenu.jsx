@@ -66,7 +66,8 @@ const items = [
 ];
 const SidebarMenu = () => {
   const location = useLocation();
-  const activeKey = location.pathname;
+  // const activeKey = location.pathname;
+  const [activeKey, setActiveKey] = useState("/");
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -93,6 +94,10 @@ const SidebarMenu = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  useEffect(() => {
+    console.log("sss sidebar menu pathname", location.pathname);
+    setActiveKey(location.pathname);
+  }, [location.pathname]);
   return (
     <div
       className="bg-white border-solid border-white"
@@ -121,6 +126,7 @@ const SidebarMenu = () => {
             width: "240px",
           }}
           defaultSelectedKeys={activeKey}
+          selectedKeys={[activeKey]}
           items={items}
           mode="inline"
           inlineCollapsed={collapsed}

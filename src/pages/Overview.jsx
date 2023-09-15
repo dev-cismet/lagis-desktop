@@ -62,12 +62,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     if (!landParcels && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-      console.log("res LandParcels result", result);
       if (result.data?.alkis_flurstueck) {
         dispatch(storeLandParcels(result.data.alkis_flurstueck));
-        console.log("LandParcels success");
       } else {
-        console.log("LandParcels error");
         dispatch(fetchLandParcelsFailure(result.status));
       }
     }

@@ -70,16 +70,14 @@ const LoginPage = () => {
         if (response.status >= 200 && response.status < 300) {
           response.json().then(function (responseWithJWT) {
             const jwt = responseWithJWT.jwt;
-            console.log("Anmeldung erfolgreich.");
             setTimeout(() => {
               dispatch(storeJWT(jwt));
               dispatch(storeLogin(u));
               dispatch(setLoginRequested(false));
-              navigate("/login");
+              navigate("/");
             }, 500);
           });
         } else {
-          console.log("Bei der Anmeldung ist ein Fehler aufgetreten.");
           dispatch(authStopLoading());
         }
       })

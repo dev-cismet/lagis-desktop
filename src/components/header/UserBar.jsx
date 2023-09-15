@@ -28,6 +28,7 @@ import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
+import { getBuffer25832 } from "../../core/tools/mappingTools";
 const UserBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -47,17 +48,15 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("res result", result);
     const f = result?.data.flurstueck[0];
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
     const geo = result?.data.flurstueck[0].alkisLandparcel.geometrie;
-    const resultRebe = await getRebe(geo);
+    const resultRebe = await getRebe(getBuffer25832(geo, -1).geometry);
     const resultMipa = await getMipa(geo);
   };
   const getRebe = async (geo) => {
-    console.log("xxx getRebe geom", geo);
     const result = await fetchGraphQL(
       queries.getRebeByGeo,
       {
@@ -65,8 +64,8 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("xxx getRebe result", result.data.rebe);
-    dispatch(storeRebe(result.data.rebe));
+    console.log("fff getRebe", result);
+    // dispatch(storeRebe(result.data.rebe));
   };
   const getMipa = async (geo) => {
     const result = await fetchGraphQL(
@@ -76,13 +75,11 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("xxx getMipa result", result.data.mipa);
     dispatch(storeMipa(result.data.mipa));
   };
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
-  // console.log("ggg check fstckParam updated", replaceWithSlash(fstckParam));
   useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
@@ -92,7 +89,6 @@ const UserBar = () => {
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
-            console.log("choosen Id", fstck);
             getFlurstueck(fstck.lfk, fstck.alkis_id);
           }
         }}

@@ -53,11 +53,6 @@ export function officesExtractor(dataIn) {
       });
     });
 
-    console.log(
-      "Offices Overview Extractor nameGeomColorData",
-      nameGeomColorData
-    );
-
     return nameGeomColorData;
   }
 }
@@ -69,7 +64,6 @@ export function transactionExtractor(dataIn) {
     };
   } else {
     const landparcel = dataIn;
-    console.log("ex transaction extractor", landparcel);
     const numberOfDocuments =
       landparcel?.kassenzeichenArrayRelationShip?.length || 0;
     return {
@@ -86,7 +80,6 @@ export function operationExtractor(dataIn) {
     };
   } else {
     const landparcel = dataIn;
-    console.log("ex transaction extractor", landparcel);
     const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfOperations,
@@ -107,7 +100,6 @@ export function usageExtractor(dataIn) {
     let counter = 0;
     if (numberOfUsages !== 0) {
       landparcel?.nutzungArrayRelationShip?.forEach((u, idx) => {
-        console.log("ex usage", idx, u);
         u.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
           if (item.gueltig_bis === null) {
             counter++;
@@ -130,7 +122,6 @@ export function dmsExtractor(dataIn) {
     };
   } else {
     const landparcel = dataIn;
-    console.log("ex dms extractor", landparcel.dms_urlArrayRelationShip);
     const numberOfDocuments = landparcel?.dms_urlArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
