@@ -2,7 +2,7 @@ import { getColorFromCode } from "../tools/helper";
 import area from "@turf/area";
 import proj4 from "proj4";
 import { getArea25832 } from "../tools/mappingTools";
-export function rentExtractor(dataIn) {
+export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfRents: "  ",

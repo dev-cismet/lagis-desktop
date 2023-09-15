@@ -32,13 +32,14 @@ import {
 } from "../store/slices/lagis";
 import {
   dmsExtractor,
+  mipaExtractor,
   operationExtractor,
   rebeExtractor,
-  rentExtractor,
   transactionExtractor,
   usageExtractor,
 } from "../core/extractors/overviewExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
+import { useNavigate } from "react-router-dom";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -51,13 +52,13 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
+  const navigate = useNavigate();
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
   const mipa = useSelector(getMipa);
   const rebe = useSelector(getRebe);
   const loading = useSelector(getLandmarksLoading);
   const getflurstuecke = async () => {
-    console.log("res result getflurstuecke START");
     if (!landParcels && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
@@ -72,11 +73,12 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     }
   };
   const getGemarkungen = async () => {
-    console.log("res result gemarkungen START");
     if (!landmarks && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      console.log("res getGemarkungen result", result);
+      if (result.status == 401) {
+        navigate("/");
+      }
       if (result.data?.gemarkung) {
         dispatch(storeLandmarks(result.data.gemarkung));
       } else {
@@ -106,7 +108,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
         <div className="w-1/2 gap-2 overflow-auto">
           <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
             <Offices dataIn={landparcel} extractor={officesExtractor} />
-            <Rent dataIn={mipa} extractor={rentExtractor} />
+            <Rent dataIn={mipa} extractor={mipaExtractor} />
             <Rights dataIn={rebe} extractor={rebeExtractor} />
             <Usage dataIn={landparcel} extractor={usageExtractor} />
             <Operations dataIn={landparcel} extractor={operationExtractor} />

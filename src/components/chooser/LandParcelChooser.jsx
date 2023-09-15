@@ -7,6 +7,8 @@ import {
   storeAlkisLandparcel,
   getLandparcel,
   getAlkisLandparcel,
+  storeMipa,
+  storeRebe,
 } from "../../store/slices/lagis";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -105,8 +107,8 @@ const LandParcelChooser = ({
       fstck: replaceSlashWithDash(removeLeadingZeros(selectedFlurstueckLabel)),
     };
 
-    console.log("xxx _urlParams_ or state changed", fromUrl);
-    console.log("xxx urlParams or _state_ changed", fromState);
+    // console.log("xxx _urlParams_ or state changed", fromUrl);
+    // console.log("xxx urlParams or _state_ changed", fromState);
     if (
       fromUrl.gem !== fromState.gem ||
       fromUrl.flur !== fromState.flur ||
@@ -120,6 +122,8 @@ const LandParcelChooser = ({
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
       dispatch(storeAlkisLandparcel(undefined));
       dispatch(storeLagisLandparcel(undefined));
+      dispatch(storeRebe(undefined));
+      dispatch(storeMipa(undefined));
     }
     console.log("xxx handleGemarkungChange", gemarkungValue);
     const fullGemarkung = data[gemarkungValue];
@@ -141,6 +145,8 @@ const LandParcelChooser = ({
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
       dispatch(storeAlkisLandparcel(undefined));
       dispatch(storeLagisLandparcel(undefined));
+      dispatch(storeRebe(undefined));
+      dispatch(storeMipa(undefined));
     }
     console.log("xxx handleFlurChange", flurValue);
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
