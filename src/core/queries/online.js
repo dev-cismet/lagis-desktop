@@ -366,7 +366,7 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
   }
 }`;
 
-queries.getRebeByGeom = `query MyQuery($geo: geometry) {
+queries.getRebeByGeo = `query MyQuery($geo: geometry) {
   rebe(where: {geom: {geo_field: {_st_intersects: $geo}}}) {
     bemerkung
     beschreibung
@@ -379,6 +379,33 @@ queries.getRebeByGeom = `query MyQuery($geo: geometry) {
     }
     geom {
       geo_field
+    }
+  }
+}`;
+
+queries.getMipaByGeo = `query MyQuery($geo: geometry) {
+  mipa(where: {geom: {geo_field: {_st_intersects: $geo}}}) {
+    aktenzeichen
+    bemerkung
+    flaeche
+    geom {
+      geo_field
+    }
+    lage
+    vertragsende
+    vertragsbeginn
+    nutzung
+    nutzer
+    mipa_nutzung {
+      ausgewaehlte_nummer
+      mipa_kategorie {
+        bezeichnung
+      }
+    }
+    ar_mipa_merkmaleArray {
+      mipa_merkmal {
+        bezeichnung
+      }
     }
   }
 }`;
