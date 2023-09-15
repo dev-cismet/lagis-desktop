@@ -53,8 +53,8 @@ const UserBar = () => {
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
     const geo = result?.data.flurstueck[0].alkisLandparcel.geometrie;
-    const resultRebe = await getRebe(getBuffer25832(geo, -1).geometry);
-    const resultMipa = await getMipa(geo);
+    const resultRebe = await getRebe(getBuffer25832(geo, -1));
+    const resultMipa = await getMipa(getBuffer25832(geo, -1));
   };
   const getRebe = async (geo) => {
     const result = await fetchGraphQL(
@@ -65,7 +65,7 @@ const UserBar = () => {
       jwt
     );
     console.log("fff getRebe", result);
-    // dispatch(storeRebe(result.data.rebe));
+    dispatch(storeRebe(result.data.rebe));
   };
   const getMipa = async (geo) => {
     const result = await fetchGraphQL(

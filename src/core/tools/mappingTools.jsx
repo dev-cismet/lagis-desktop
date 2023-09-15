@@ -130,6 +130,10 @@ export const getBuffer25832 = (geoJSON, bufferInMeter) => {
       unit: "kilometers",
     });
 
-    return get25832GeoJSON(bufGeoJSON);
+    let reprojectedGeoJSON = get25832GeoJSON(bufGeoJSON).geometry;
+    reprojectedGeoJSON.crs = geoJSON.crs;
+    return reprojectedGeoJSON;
   }
+
+  return geoJSON;
 };
