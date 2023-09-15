@@ -9,11 +9,11 @@ export function rentExtractor(dataIn) {
       color: "#BBBBBB",
     };
   } else {
-    const landparcel = dataIn;
-    const numberOfRents = landparcel?.ar_vertraegeArray?.length || 0;
+    const mipa = dataIn;
+    const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
-      color: numberOfRents > 0 ? "#FF7A00" : "#999999",
+      color: numberOfRents > 0 ? "#5D5FEF" : "#999999",
     };
   }
 }

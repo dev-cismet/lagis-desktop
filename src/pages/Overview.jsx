@@ -24,7 +24,11 @@ import {
 } from "../store/slices/landParcels";
 import { useEffect } from "react";
 import queries from "../core/queries/online";
-import { getAlkisLandparcel, getLandparcel } from "../store/slices/lagis";
+import {
+  getAlkisLandparcel,
+  getLandparcel,
+  getMipa,
+} from "../store/slices/lagis";
 import {
   operationExtractor,
   rentExtractor,
@@ -46,8 +50,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const jwt = useSelector(getJWT);
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
+  const mipa = useSelector(getMipa);
   const loading = useSelector(getLandmarksLoading);
-  const getFlurstuecke = async () => {
+  const getflurstuecke = async () => {
     console.log("res result getflurstuecke START");
     if (!landParcels && jwt) {
       dispatch(fetchLandParcelsStart());
@@ -79,7 +84,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   //   return <Spin />;
   // }
   useEffect(() => {
-    getFlurstuecke();
+    getflurstuecke();
     getGemarkungen();
   }, []);
 
@@ -97,7 +102,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
         <div className="w-1/2 gap-2 overflow-auto">
           <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
             <Offices dataIn={landparcel} extractor={officesExtractor} />
-            <Rent dataIn={landparcel} extractor={rentExtractor} />
+            <Rent dataIn={mipa} extractor={rentExtractor} />
             <Rights dataIn={landparcel} />
             <Usage dataIn={landparcel} extractor={usageExtractor} />
             <Operations dataIn={landparcel} extractor={operationExtractor} />
