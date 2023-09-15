@@ -30,6 +30,7 @@ import {
   getMipa,
 } from "../store/slices/lagis";
 import {
+  dmsExtractor,
   operationExtractor,
   rentExtractor,
   transactionExtractor,
@@ -108,7 +109,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />
             <Transaction dataIn={landparcel} extractor={transactionExtractor} />
-            <DMS />
+            <DMS dataIn={landparcel} extractor={dmsExtractor} />
           </div>
         </div>
         <div className="w-1/2 h-[calc(100%-4px)]">

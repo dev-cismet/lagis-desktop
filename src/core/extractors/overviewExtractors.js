@@ -121,3 +121,20 @@ export function usageExtractor(dataIn) {
     };
   }
 }
+
+export function dmsExtractor(dataIn) {
+  if (dataIn === undefined) {
+    return {
+      numberOfDocuments: "  ",
+      color: "#389EFD",
+    };
+  } else {
+    const landparcel = dataIn;
+    console.log("ex dms extractor", landparcel.dms_urlArrayRelationShip);
+    const numberOfDocuments = landparcel?.dms_urlArrayRelationShip?.length || 0;
+    return {
+      numberOfDocuments,
+      color: numberOfDocuments > 0 ? "#180E53" : "#999999",
+    };
+  }
+}
