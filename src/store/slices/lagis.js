@@ -6,7 +6,6 @@ const initialState = {
   history: undefined,
   rebe: undefined,
   mipa: undefined,
-  dms: undefined,
 };
 
 const slice = createSlice({
@@ -25,13 +24,21 @@ const slice = createSlice({
       state.rebe = action.payload;
       return state;
     },
+    storeMipa(state, action) {
+      state.mipa = action.payload;
+      return state;
+    },
   },
 });
 
 export default slice;
 
-export const { storeLagisLandparcel, storeAlkisLandparcel, storeRebe } =
-  slice.actions;
+export const {
+  storeLagisLandparcel,
+  storeAlkisLandparcel,
+  storeRebe,
+  storeMipa,
+} = slice.actions;
 
 export const getLandparcel = (state) => {
   return state.lagis.lagisLandparcel;
