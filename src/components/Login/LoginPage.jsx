@@ -75,7 +75,7 @@ const LoginPage = () => {
               dispatch(storeJWT(jwt));
               dispatch(storeLogin(u));
               dispatch(setLoginRequested(false));
-              navigate("/");
+              navigate("/login");
             }, 500);
           });
         } else {
