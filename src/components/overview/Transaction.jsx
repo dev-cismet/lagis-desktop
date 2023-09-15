@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { PayCircleOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
-import Link from "antd/es/typography/Link";
+import { Link } from "react-router-dom";
 const mockExtractor = (input) => {
   return { numberOfDocuments: "1", color: "#389EFD" };
 };
