@@ -199,12 +199,12 @@ const LandParcelChooser = ({
       const splitted = fstck.split("-");
       let fstckLabel;
       let pureLabel;
-      if (splitted.length === 2) {
+      if (splitted.length === 2 && splitted[1] !== "0") {
         fstckLabel =
           padWithZeros(splitted[0], 5) + "/" + padWithZeros(splitted[1], 4);
       } else {
-        fstckLabel = fstck;
-        pureLabel = fstck;
+        fstckLabel = padWithZeros(splitted[0], 5);
+        // pureLabel = fstck;
       }
       const x = {
         gemarkung: fullGemarkung.gemarkung,
@@ -222,8 +222,9 @@ const LandParcelChooser = ({
       setSelectedGemarkung(fullGemarkung);
       const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
       setSelectedFlur(fullFlur);
-    } else if (gem) {
-      if (gem) {
+      setSelectedFlurstueckLabel();
+    } else if (gem || selectedGemarkung) {
+      if (gem || selectedGemarkung) {
         const fullGemarkung = getGemarkungByName(gem);
         setSelectedGemarkung(fullGemarkung);
         setSelectedFlur();
