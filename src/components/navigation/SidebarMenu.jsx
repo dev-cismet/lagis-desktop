@@ -15,6 +15,7 @@ import { Menu } from "antd";
 import "./menu.css";
 import Logo from "../ui/logo/Logo";
 import { useEffect } from "react";
+import { buildUrlParams } from "../../core/tools/helper";
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -25,46 +26,7 @@ function getItem(label, key, icon, children) {
 }
 import { useLocation, NavLink } from "react-router-dom";
 
-const items = [
-  getItem(<NavLink to="/">Übersicht</NavLink>, "/", <DashboardOutlined />),
-  getItem(
-    <NavLink to="/verwaltungsbereiche">Verwaltungsbereiche</NavLink>,
-    "/verwaltungsbereiche",
-    <FolderOpenOutlined />
-  ),
-  getItem(
-    <NavLink to="/miet">Miet- und Pachtverträge</NavLink>,
-    "/miet",
-    <DollarOutlined />
-  ),
-  getItem(
-    <NavLink to="/rechte">Rechte und Belastungen</NavLink>,
-    "/rechte",
-    <SettingOutlined />
-  ),
-  getItem(
-    <NavLink to="/nutzung">Nutzung</NavLink>,
-    "/nutzung",
-    <PieChartOutlined />
-  ),
-  getItem(
-    <NavLink to="/vorgange">Vorgänge</NavLink>,
-    "/vorgange",
-    <FileSearchOutlined />
-  ),
-  getItem(
-    <NavLink to="/historie">Historie</NavLink>,
-    "/historie",
-    <HistoryOutlined />
-  ),
-  getItem(
-    <NavLink to="/kassenzeichen">Kassenzeichen</NavLink>,
-    "/kassenzeichen",
-    <TransactionOutlined />
-  ),
-  getItem(<NavLink to="/dms">DMS</NavLink>, "/dms", <FilePdfOutlined />),
-];
-const SidebarMenu = () => {
+const SidebarMenu = ({ parametersForLink }) => {
   const location = useLocation();
   const [activeKey, setActiveKey] = useState("/");
   const [collapsed, setCollapsed] = useState(false);
@@ -77,6 +39,53 @@ const SidebarMenu = () => {
     width: isStory ? storyWidth : "100%",
     height: isStory ? "600px" : "100%",
   };
+  const items = [
+    getItem(
+      <NavLink to={`/?${buildUrlParams(parametersForLink)}`}>
+        Übersicht
+      </NavLink>,
+      "/",
+      <DashboardOutlined />
+    ),
+    getItem(
+      <NavLink to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
+        Verwaltungsbereiche
+      </NavLink>,
+      "/verwaltungsbereiche",
+      <FolderOpenOutlined />
+    ),
+    getItem(
+      <NavLink to="/miet">Miet- und Pachtverträge</NavLink>,
+      "/miet",
+      <DollarOutlined />
+    ),
+    getItem(
+      <NavLink to="/rechte">Rechte und Belastungen</NavLink>,
+      "/rechte",
+      <SettingOutlined />
+    ),
+    getItem(
+      <NavLink to="/nutzung">Nutzung</NavLink>,
+      "/nutzung",
+      <PieChartOutlined />
+    ),
+    getItem(
+      <NavLink to="/vorgange">Vorgänge</NavLink>,
+      "/vorgange",
+      <FileSearchOutlined />
+    ),
+    getItem(
+      <NavLink to="/historie">Historie</NavLink>,
+      "/historie",
+      <HistoryOutlined />
+    ),
+    getItem(
+      <NavLink to="/kassenzeichen">Kassenzeichen</NavLink>,
+      "/kassenzeichen",
+      <TransactionOutlined />
+    ),
+    getItem(<NavLink to="/dms">DMS</NavLink>, "/dms", <FilePdfOutlined />),
+  ];
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 1024) {
@@ -94,9 +103,9 @@ const SidebarMenu = () => {
     };
   }, []);
   useEffect(() => {
-    console.log("sss sidebar menu pathname", location.pathname);
     setActiveKey(location.pathname);
   }, [location.pathname]);
+
   return (
     <div
       className="bg-white border-solid border-white"

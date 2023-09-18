@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Map from "../components/commons/Map";
 import Agencies from "../components/offices/Agencies";
 import AdditionalRole from "../components/offices/AdditionalRole";

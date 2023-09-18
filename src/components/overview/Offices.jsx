@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
-
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
@@ -13,15 +13,17 @@ const mockExtractor = (input) => {
 const DashboardOffices = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
 }) => {
   let square = "14px";
   const data = extractor(dataIn);
+
   return (
     <div className="dashboard-tile">
-      <Link to="/verwaltungsbereiche">
+      <Link to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Verwaltungsbereiche"
           subtitle="& Rollen"

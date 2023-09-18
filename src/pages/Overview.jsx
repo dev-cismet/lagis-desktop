@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Map from "../components/commons/Map";
 import Offices from "../components/overview/Offices";
 import Rent from "../components/overview/Rent";
@@ -39,7 +39,7 @@ import {
   usageExtractor,
 } from "../core/extractors/overviewExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -52,6 +52,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
+  const [urlParams, setUrlParams] = useSearchParams();
+  const [parametersForLink, setParametersForLink] = useState();
   const navigate = useNavigate();
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
@@ -73,8 +75,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     if (!landmarks && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      if (result.status == 401) {
-        navigate("/");
+      if (result.status === 401) {
+        navigate("/login");
       }
       if (result.data?.gemarkung) {
         dispatch(storeLandmarks(result.data.gemarkung));
@@ -90,6 +92,14 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     getflurstuecke();
     getGemarkungen();
   }, []);
+  useEffect(() => {
+    const fromUrl = {
+      gem: urlParams.get("gem") || undefined,
+      flur: urlParams.get("flur") || undefined,
+      fstck: urlParams.get("fstck") || undefined,
+    };
+    setParametersForLink(fromUrl);
+  }, [urlParams]);
 
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
@@ -104,7 +114,11 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       <div className="flex gap-2 w-full  h-[calc(100%-4px)]">
         <div className="w-1/2 gap-2 overflow-auto">
           <div className="grid grid-cols-2 gap-2 h-[calc(100%-4px)]">
-            <Offices dataIn={landparcel} extractor={officesExtractor} />
+            <Offices
+              dataIn={landparcel}
+              extractor={officesExtractor}
+              parametersForLink={parametersForLink}
+            />
             <Rent dataIn={mipa} extractor={mipaExtractor} />
             <Rights dataIn={rebe} extractor={rebeExtractor} />
             <Usage dataIn={landparcel} extractor={usageExtractor} />
@@ -122,7 +136,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             extractor={(dataIn) => {
               if (dataIn) {
                 const alkisLandparcel = dataIn;
-
                 const feature = {
                   type: "Feature",
                   featureType: "landparcel",

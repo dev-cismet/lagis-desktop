@@ -23,3 +23,20 @@ export function addLeadingZeros(flur) {
   const correctFlur = "00" + flur;
   return correctFlur;
 }
+
+export function buildUrlParams(paramsUrl) {
+  if (!paramsUrl?.gem) {
+    return "";
+  }
+  const params = [];
+  if (paramsUrl.gem) {
+    params.push(`gem=${paramsUrl.gem}`);
+  }
+  if (paramsUrl.flur) {
+    params.push(`&flur=${paramsUrl.flur}`);
+  }
+  if (paramsUrl.fstck) {
+    params.push(`&fstck=${paramsUrl.fstck}`);
+  }
+  return params.join("");
+}
