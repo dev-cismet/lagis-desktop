@@ -5,7 +5,8 @@ import AdditionalRole from "../components/offices/AdditionalRole";
 import Streetfronts from "../components/offices/Streetfronts";
 import Notes from "../components/offices/Notes";
 import { useSelector } from "react-redux";
-
+import { getLandparcel } from "../store/slices/lagis";
+import { noteExtractor } from "../core/extractors/officesPageExtractor";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -16,7 +17,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       backgroundColor: "#F1F1F1",
     };
   }
-  // const landparcel = useSelector(getLandparcel);
+  const landparcel = useSelector(getLandparcel);
   // const streetfronts = useSelector(getStreetfronts);
   // const additionalRoll = useSelector(getAdditionalRoll);
   // const tableFormat = additionalRoll
@@ -74,7 +75,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           <Streetfronts />
         </div>
         <div className="flex-1">
-          <Notes />
+          <Notes dataIn={landparcel} extractor={noteExtractor} />
         </div>
       </div>
     </div>

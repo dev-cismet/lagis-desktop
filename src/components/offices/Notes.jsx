@@ -10,7 +10,7 @@ const onChange = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 const Notes = ({
-  dataIn = "",
+  dataIn,
   extractor = mockExtractor,
   width = 231,
   height = 188,
@@ -19,7 +19,6 @@ const Notes = ({
   const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  console.log("note data", data);
   return (
     <div
       className="shadow-md"
@@ -37,7 +36,7 @@ const Notes = ({
         title="Bemerkungen"
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
-        <CustomNotes styles="p-3 flex" currentText={data} />
+        <CustomNotes styles="p-3 flex" currentText={data.currentText} />
       </InfoBlock>
     </div>
   );
