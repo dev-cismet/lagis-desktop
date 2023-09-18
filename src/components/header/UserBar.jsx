@@ -107,6 +107,10 @@ const UserBar = () => {
             style={{ lineHeight: "22px", fontSize: "13px" }}
             className="ml-1 hidden md:block"
             onClick={() => {
+              dispatch(storeAlkisLandparcel(undefined));
+              dispatch(storeLagisLandparcel(undefined));
+              dispatch(storeRebe(undefined));
+              dispatch(storeMipa(undefined));
               dispatch(storeJWT(undefined));
               dispatch(storeLogin(undefined));
               dispatch(storeLandParcels(undefined));

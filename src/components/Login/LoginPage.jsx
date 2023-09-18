@@ -14,6 +14,12 @@ import {
   authStopLoading,
   getAuthLoading,
 } from "../../store/slices/auth";
+import {
+  storeAlkisLandparcel,
+  storeLagisLandparcel,
+  storeRebe,
+  storeMipa,
+} from "../../store/slices/lagis";
 import { DOMAIN, REST_SERVICE } from "../../constants/lagis";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -71,6 +77,10 @@ const LoginPage = () => {
           response.json().then(function (responseWithJWT) {
             const jwt = responseWithJWT.jwt;
             setTimeout(() => {
+              dispatch(storeAlkisLandparcel(undefined));
+              dispatch(storeLagisLandparcel(undefined));
+              dispatch(storeRebe(undefined));
+              dispatch(storeMipa(undefined));
               dispatch(storeJWT(jwt));
               dispatch(storeLogin(u));
               dispatch(setLoginRequested(false));
@@ -86,7 +96,6 @@ const LoginPage = () => {
         dispatch(authFailure(err));
       });
   };
-
   const clickHandle = () => {
     login(user, pw, dispatch);
   };

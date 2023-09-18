@@ -39,7 +39,7 @@ import {
   usageExtractor,
 } from "../core/extractors/overviewExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -55,6 +55,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const [urlParams, setUrlParams] = useSearchParams();
   const [parametersForLink, setParametersForLink] = useState();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
   const mipa = useSelector(getMipa);
@@ -103,7 +104,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
 
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
-
+  useEffect(() => {
+    console.log("ooo", state);
+  }, [state]);
   return (
     <div
       style={{
