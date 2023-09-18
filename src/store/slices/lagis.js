@@ -53,16 +53,6 @@ export const getRebe = (state) => {
   return state.lagis.rebe;
 };
 
-export const getStreetfronts = (state) => {
-  if (
-    state.lagis &&
-    state.lagis.lagisLandparcel[0]?.strassenfrontArrayRelationShip
-  ) {
-    return state.lagis.lagisLandparcel[0].strassenfrontArrayRelationShip;
-  }
-  return state.lagis.lagisLandparcel;
-};
-
 export const getAdditionalRoll = (state) => {
   if (
     state.lagis &&

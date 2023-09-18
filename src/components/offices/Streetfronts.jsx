@@ -94,14 +94,9 @@ const Streetfronts = ({
       streetfronts?.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
-  // useEffect(() => {
-  //   const streetfrontsTableFormat = dataIn?.map((s) => ({
-  //     key: s.id,
-  //     street: s.strassenname,
-  //     length: s.laenge,
-  //   }));
-  //   setStreetfronts(streetfrontsTableFormat);
-  // }, [dataIn]);
+  useEffect(() => {
+    setStreetfronts(data);
+  }, [data]);
   return (
     <div
       className="shadow-md"
