@@ -223,12 +223,20 @@ const LandParcelChooser = ({
       const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
       setSelectedFlur(fullFlur);
       setSelectedFlurstueckLabel();
+      dispatch(storeAlkisLandparcel(undefined));
+      dispatch(storeLagisLandparcel(undefined));
+      dispatch(storeRebe(undefined));
+      dispatch(storeMipa(undefined));
     } else if (gem || selectedGemarkung) {
       if (gem || selectedGemarkung) {
         const fullGemarkung = getGemarkungByName(gem);
         setSelectedGemarkung(fullGemarkung);
         setSelectedFlur();
         setSelectedFlurstueckLabel();
+        dispatch(storeAlkisLandparcel(undefined));
+        dispatch(storeLagisLandparcel(undefined));
+        dispatch(storeRebe(undefined));
+        dispatch(storeMipa(undefined));
       }
     }
   };
