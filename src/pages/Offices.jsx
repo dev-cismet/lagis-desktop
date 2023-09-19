@@ -9,6 +9,7 @@ import { getLandparcel, getAlkisLandparcel } from "../store/slices/lagis";
 import {
   noteExtractor,
   streetfrontsExtractor,
+  additionalRollExtractor,
 } from "../core/extractors/officesPageExtractor";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -22,41 +23,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
-  // const additionalRoll = useSelector(getAdditionalRoll);
-  // const tableFormat = additionalRoll
-  //   ? additionalRoll.map((r) => ({
-  //       key: nanoid(),
-  //       agency: `${additionalRoll[0].verwaltende_dienststelle.ressort.abkuerzung}.${additionalRoll[0].verwaltende_dienststelle.abkuerzung_abteilung}`,
-  //       rolle: `${additionalRoll[0].zusatz_rolle_art.name}`,
-  //     }))
-  //   : [];
-  // const additionalRoleColor = getColorFromCode(
-  //   additionalRoll[0]?.verwaltende_dienststelle.farbeArrayRelationShip[0]
-  //     .rgb_farbwert
-  // );
-  // const columns = [
-  //   {
-  //     title: "Dienststelle",
-  //     dataIndex: "agency",
-  //     render: (title) => (
-  //       <div className="flex items-center">
-  //         <span
-  //           style={{
-  //             width: "9px",
-  //             height: "11px",
-  //             marginRight: "6px",
-  //             backgroundColor: additionalRoleColor,
-  //           }}
-  //         ></span>
-  //         <span>{title}</span>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     title: "Rolle",
-  //     dataIndex: "rolle",
-  //   },
-  // ];
+
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -115,7 +82,10 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
       </div>
       <div className="flex gap-3 h-[calc(40%-20px)]">
         <div className="flex-1">
-          <AdditionalRole />
+          <AdditionalRole
+            dataIn={landparcel}
+            extractor={additionalRollExtractor}
+          />
         </div>
         <div className="flex-1">
           <Streetfronts dataIn={landparcel} extractor={streetfrontsExtractor} />

@@ -58,8 +58,31 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
+  const columns = [
+    {
+      title: "Dienststelle",
+      dataIndex: "agency",
+      render: (title) => (
+        <div className="flex items-center">
+          <span
+            style={{
+              width: "9px",
+              height: "11px",
+              marginRight: "6px",
+              // backgroundColor: data.additionalRoleColor,
+            }}
+          ></span>
+          <span>{title}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Rolle",
+      dataIndex: "rolle",
+    },
+  ];
   const [rolls, setRolls] = useState(data);
-  const [activeRow, setActiveRow] = useState(rolls[0]);
+  const [activeRow, setActiveRow] = useState();
   const addRoll = () => {
     const newRoll = {
       key: nanoid(),
@@ -91,8 +114,8 @@ const AdditionalRole = ({
     setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
   // useEffect(() => {
-  //   setRolls(dataIn);
-  // }, [dataIn]);
+  //   setRolls(data);
+  // }, [data]);
   return (
     <div
       style={

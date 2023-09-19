@@ -94,9 +94,9 @@ const Streetfronts = ({
       streetfronts?.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
-  useEffect(() => {
-    setStreetfronts(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setStreetfronts(data);
+  // }, [data]);
   return (
     <div
       className="shadow-md"
@@ -148,7 +148,7 @@ const Streetfronts = ({
         <div className="relative">
           <TableCustom
             columns={columns}
-            data={streetfronts}
+            data={data}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
