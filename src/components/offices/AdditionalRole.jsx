@@ -12,16 +12,16 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
-const columns = [
-  {
-    title: "Service",
-    dataIndex: "agency",
-  },
-  {
-    title: "Role",
-    dataIndex: "rolle",
-  },
-];
+// const columns = [
+//   {
+//     title: "Service",
+//     dataIndex: "agency",
+//   },
+//   {
+//     title: "Role",
+//     dataIndex: "rolle",
+//   },
+// ];
 const mockExtractor = () => {
   return [
     {
@@ -69,7 +69,7 @@ const AdditionalRole = ({
               width: "9px",
               height: "11px",
               marginRight: "6px",
-              // backgroundColor: data.additionalRoleColor,
+              backgroundColor: data.additionalRoleColor,
             }}
           ></span>
           <span>{title}</span>
@@ -113,9 +113,9 @@ const AdditionalRole = ({
     setActiveRow(copyRow);
     setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
-  // useEffect(() => {
-  //   setRolls(data);
-  // }, [data]);
+  useEffect(() => {
+    console.log("add", data);
+  }, [data]);
   return (
     <div
       style={
@@ -167,7 +167,7 @@ const AdditionalRole = ({
         <div style={{ position: "relative" }}>
           <TableCustom
             columns={columns}
-            data={data}
+            data={data.rolle}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
