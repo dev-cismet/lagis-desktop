@@ -36,7 +36,6 @@ const LoginPage = () => {
 
   const [pw, setPw] = useState(devSecretPassword);
   const [keepStatus, setKeepStatus] = useState(false);
-  const [rawData, setDataRow] = useState({});
   const navigate = useNavigate();
   const loginHandle = (e) => {
     setUser(e.target.value);
@@ -235,7 +234,6 @@ const LoginPage = () => {
                 </div>
               </div>
             </div>
-            <div>{/* <RawData data={rawData} /> */}</div>
           </Col>
         </Row>
       </div>
