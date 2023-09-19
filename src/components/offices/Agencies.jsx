@@ -6,6 +6,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { nanoid } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 const columns = [
   {
     title: "Dienststelle",
@@ -17,7 +18,7 @@ const columns = [
             width: "9px",
             height: "11px",
             marginRight: "6px",
-            backgroundColor: rowIndex % 2 === 1 ? COLOR_AQUA : COLOR_LILA,
+            backgroundColor: record.color,
           }}
         ></span>
         <span>{title}</span>
@@ -95,6 +96,9 @@ const Agencies = ({
     setActiveRow(copyRow);
     setAgency(agency.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
+  useEffect(() => {
+    console.log("agencies page data", data);
+  }, [data]);
   return (
     <div
       style={
@@ -142,7 +146,7 @@ const Agencies = ({
         <div className="relative">
           <TableCustom
             columns={columns}
-            data={agency}
+            data={data}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}

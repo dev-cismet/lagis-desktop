@@ -1,5 +1,5 @@
 import { getColorFromCode } from "../tools/helper";
-import { nanoid } from "@reduxjs/toolkit";
+import { getArea25832 } from "../tools/mappingTools";
 export function noteExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
@@ -56,5 +56,44 @@ export function additionalRollExtractor(dataIn) {
     } else {
       return [];
     }
+  }
+}
+export function officesPageExtractor(dataIn) {
+  if (dataIn === undefined) {
+    return [];
+  } else {
+    const landparcel = dataIn;
+
+    const officesData =
+      landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
+    const nameGeomColorData = [];
+    const checkTitleArray = [];
+    officesData.forEach((of) => {
+      const officesArr = of.verwaltungsbereichArrayRelationShip;
+      officesArr.forEach((item) => {
+        const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
+        if (!checkTitleArray.includes(currentTitle)) {
+          const color =
+            item.verwaltende_dienststelle.farbeArrayRelationShip[0]
+              .rgb_farbwert;
+          let square =
+            item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
+          let area;
+          if (square !== undefined) {
+            const raw = getArea25832(square);
+            area = Math.round(raw * 10) / 10;
+          }
+          const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
+          nameGeomColorData.push({
+            agency: title,
+            area,
+            color: getColorFromCode(color),
+          });
+          checkTitleArray.push(currentTitle);
+        }
+      });
+    });
+
+    return nameGeomColorData;
   }
 }
