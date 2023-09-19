@@ -13,8 +13,14 @@ const AppLayout = () => {
       flur: urlParams.get("flur") || undefined,
       fstck: urlParams.get("fstck") || undefined,
     };
-    setParametersForLink(fromUrl);
-  }, [urlParams]);
+    if (
+      fromUrl.gem !== parametersForLink?.gem ||
+      fromUrl.flur !== parametersForLink?.flur ||
+      fromUrl.fstck !== parametersForLink?.fstck
+    ) {
+      setParametersForLink(fromUrl);
+    }
+  }, [urlParams, parametersForLink]);
   return (
     <div
       style={{
