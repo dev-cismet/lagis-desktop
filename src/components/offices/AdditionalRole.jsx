@@ -12,16 +12,29 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
-// const columns = [
-//   {
-//     title: "Service",
-//     dataIndex: "agency",
-//   },
-//   {
-//     title: "Role",
-//     dataIndex: "rolle",
-//   },
-// ];
+const columns = [
+  {
+    title: "Dienststelle",
+    dataIndex: "agency",
+    render: (title, record, rowIndex) => (
+      <div className="flex items-center">
+        <span
+          style={{
+            width: "9px",
+            height: "11px",
+            marginRight: "6px",
+            backgroundColor: record.color,
+          }}
+        ></span>
+        <span>{title}</span>
+      </div>
+    ),
+  },
+  {
+    title: "Rolle",
+    dataIndex: "rolle",
+  },
+];
 const mockExtractor = () => {
   return [
     {
@@ -58,31 +71,9 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
-  const columns = [
-    {
-      title: "Dienststelle",
-      dataIndex: "agency",
-      render: (title) => (
-        <div className="flex items-center">
-          <span
-            style={{
-              width: "9px",
-              height: "11px",
-              marginRight: "6px",
-              backgroundColor: data.additionalRoleColor,
-            }}
-          ></span>
-          <span>{title}</span>
-        </div>
-      ),
-    },
-    {
-      title: "Rolle",
-      dataIndex: "rolle",
-    },
-  ];
+
   const [rolls, setRolls] = useState(data);
-  const [activeRow, setActiveRow] = useState();
+  const [activeRow, setActiveRow] = useState(rolls[0]);
   const addRoll = () => {
     const newRoll = {
       key: nanoid(),
@@ -109,7 +100,6 @@ const AdditionalRole = ({
       service: updatedObject.service,
       role: updatedObject.role,
     };
-
     setActiveRow(copyRow);
     setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
@@ -167,7 +157,7 @@ const AdditionalRole = ({
         <div style={{ position: "relative" }}>
           <TableCustom
             columns={columns}
-            data={data.rolle}
+            data={data}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}

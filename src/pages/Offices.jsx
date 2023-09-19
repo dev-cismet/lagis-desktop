@@ -10,6 +10,7 @@ import {
   noteExtractor,
   streetfrontsExtractor,
   additionalRollExtractor,
+  officesPageExtractor,
 } from "../core/extractors/officesPageExtractor";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -31,7 +32,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
     >
       <div className="flex gap-3 h-[60%]">
         <div className="w-2/5">
-          <Agencies />
+          <Agencies dataIn={landparcel} extractor={officesPageExtractor} />
         </div>
         <div className="w-3/5">
           <Map

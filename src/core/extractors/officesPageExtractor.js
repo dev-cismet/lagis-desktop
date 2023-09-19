@@ -32,7 +32,7 @@ export function streetfrontsExtractor(dataIn) {
 }
 export function additionalRollExtractor(dataIn) {
   if (dataIn === undefined) {
-    return { rolle: [], additionalRoleColor: "" };
+    return [];
   } else {
     const lagisLandparcel = dataIn;
     const additionalRoll = lagisLandparcel?.zusatz_rolleArrayRelationShip || [];
@@ -40,19 +40,17 @@ export function additionalRollExtractor(dataIn) {
 
     if (additionalRoll.length !== 0) {
       const rolleArr = additionalRoll.map((r) => {
-        if (r.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert) {
-          additionalRoleColor = getColorFromCode(
-            r.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert
-          );
-        }
         return {
           key: r.zusatz_rolle_art.id,
           agency: `${r.verwaltende_dienststelle.ressort.abkuerzung}.${r.verwaltende_dienststelle.abkuerzung_abteilung}`,
           rolle: `${r.zusatz_rolle_art.name}`,
+          color: getColorFromCode(
+            r.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert
+          ),
         };
       });
 
-      return { rolle: rolleArr, additionalRoleColor };
+      return rolleArr;
     } else {
       return [];
     }
