@@ -68,6 +68,7 @@ export function officesPageExtractor(dataIn) {
     const nameGeomColorData = [];
     const checkTitleArray = [];
     officesData.forEach((of) => {
+      const id = of.id;
       const officesArr = of.verwaltungsbereichArrayRelationShip;
       officesArr.forEach((item) => {
         const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
@@ -84,7 +85,7 @@ export function officesPageExtractor(dataIn) {
           }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
-            key: nanoid(),
+            id,
             agency: title,
             area,
             color: getColorFromCode(color),

@@ -32,22 +32,22 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       agency: "23345678900",
       area: "11145678910",
     },
     {
-      key: "2",
+      id: "2",
       agency: "1234567890105",
       area: "22245678910",
     },
     {
-      key: "3",
+      id: "3",
       agency: "33345678933",
       area: "33345678910",
     },
     {
-      key: "4",
+      id: "4",
       agency: "444345678944",
       area: "44445678910",
     },
@@ -67,7 +67,7 @@ const Agencies = ({
   const [activeRow, setActiveRow] = useState();
   const addAgency = () => {
     const newAgency = {
-      key: nanoid(),
+      id: nanoid(),
       agency: "",
       area: "",
     };
@@ -75,17 +75,17 @@ const Agencies = ({
     setActiveRow(newAgency);
   };
   const deleteAgency = () => {
-    const updatedArray = agency.filter((row) => row.key !== activeRow.key);
+    const updatedArray = agency.filter((row) => row.id !== activeRow.id);
     setAgency(updatedArray);
     setAgency(updatedArray);
-    if (activeRow.key === agency[0].key) {
+    if (activeRow.id === agency[0].id) {
       setActiveRow(agency[1]);
     } else {
       setActiveRow(agency[0]);
     }
   };
   const editHandle = (updatedObject) => {
-    const targetRow = agency.find((c) => c.key === updatedObject.key);
+    const targetRow = agency.find((c) => c.id === updatedObject.id);
     const copyRow = {
       ...targetRow,
       agency: updatedObject.agency,
@@ -93,11 +93,11 @@ const Agencies = ({
     };
 
     setActiveRow(copyRow);
-    setAgency(agency.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
+    setAgency(agency.map((obj) => (obj.id === copyRow.id ? copyRow : obj)));
   };
-  useEffect(() => {
-    console.log("agencies page active row", activeRow);
-  }, [activeRow]);
+  // useEffect(() => {
+  //   console.log("agencies page active row", data);
+  // }, [data]);
   return (
     <div
       style={
@@ -127,17 +127,17 @@ const Agencies = ({
                 {
                   title: "Dienststelle",
                   value: activeRow?.agency,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "agency",
                 },
                 {
                   title: "Gläche in m2",
                   value: activeRow?.area,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "area",
                 },
               ]}
-              formName={activeRow?.key}
+              formName={activeRow?.id}
             />
           </ToggleModal>
         }
