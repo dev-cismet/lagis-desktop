@@ -73,7 +73,7 @@ const AdditionalRole = ({
   const data = extractor(dataIn);
 
   const [rolls, setRolls] = useState(data);
-  const [activeRow, setActiveRow] = useState(rolls[0]);
+  const [activeRow, setActiveRow] = useState(data[0]);
   const addRoll = () => {
     const newRoll = {
       key: nanoid(),
@@ -158,7 +158,7 @@ const AdditionalRole = ({
           <TableCustom
             columns={columns}
             data={data}
-            activeRow={activeRow}
+            activeRow={data[0]}
             setActiveRow={setActiveRow}
             fixHeight={true}
           />

@@ -11,10 +11,9 @@ const TableCustom = ({
   activeRow,
   fixHeight = false,
 }) => {
-  const [selectedRow, setSelectedRow] = useState(activeRow);
   const handleRowClick = (record) => {
+    console.log("ttt handleRowClick", record);
     setActiveRow(record);
-    setSelectedRow(record?.key);
   };
   const fixStyles = {
     position: "absolute",
@@ -40,11 +39,12 @@ const TableCustom = ({
       }
     >
       <Table
-        onRow={(record) => ({
-          onClick: () => handleRowClick(record),
-          className:
-            record?.key === activeRow?.key ? "ant-table-row-selected" : "",
-        })}
+        onRow={(record, i) => {
+          return {
+            onClick: () => handleRowClick(i),
+          };
+        }}
+        rowClassName={(record, i) => `${i === activeRow && "bg-blue-100"}`}
         columns={columns}
         dataSource={data}
         pagination={paginationConfig}

@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { getColorFromCode } from "../tools/helper";
 import { getArea25832 } from "../tools/mappingTools";
 export function noteExtractor(dataIn) {
@@ -83,6 +84,7 @@ export function officesPageExtractor(dataIn) {
           }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
+            key: nanoid(),
             agency: title,
             area,
             color: getColorFromCode(color),

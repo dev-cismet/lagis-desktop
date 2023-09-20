@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { COLOR_LILA, COLOR_AQUA } from "../ui/generalConstant";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
@@ -65,7 +64,7 @@ const Agencies = ({
   const storyStyle = { width, height, ...style };
   const data = extractor(dataIn);
   const [agency, setAgency] = useState(data);
-  const [activeRow, setActiveRow] = useState(agency[0]);
+  const [activeRow, setActiveRow] = useState();
   const addAgency = () => {
     const newAgency = {
       key: nanoid(),
@@ -97,8 +96,8 @@ const Agencies = ({
     setAgency(agency.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
   };
   useEffect(() => {
-    console.log("agencies page data", data);
-  }, [data]);
+    console.log("agencies page active row", activeRow);
+  }, [activeRow]);
   return (
     <div
       style={
