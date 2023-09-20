@@ -95,6 +95,6 @@ export function officesPageExtractor(dataIn) {
       });
     });
 
-    return nameGeomColorData;
+    return [nameGeomColorData[0]];
   }
 }

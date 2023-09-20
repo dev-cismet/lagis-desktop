@@ -53,7 +53,7 @@ export function officesExtractor(dataIn) {
       });
     });
 
-    return nameGeomColorData;
+    return [nameGeomColorData[0]];
   }
 }
 export function transactionExtractor(dataIn) {
