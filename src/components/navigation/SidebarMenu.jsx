@@ -55,7 +55,9 @@ const SidebarMenu = ({ parametersForLink }) => {
       <FolderOpenOutlined />
     ),
     getItem(
-      <NavLink to="/miet">Miet- und Pachtverträge</NavLink>,
+      <NavLink to={`/miet?${buildUrlParams(parametersForLink)}`}>
+        Miet- und Pachtverträge
+      </NavLink>,
       "/miet",
       <DollarOutlined />
     ),

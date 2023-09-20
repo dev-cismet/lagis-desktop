@@ -3,12 +3,14 @@ import { DollarOutlined } from "@ant-design/icons";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfRents: "7", color: "#5D5FEF" };
 };
 const DashboardRent = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -16,7 +18,7 @@ const DashboardRent = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to="/miet">
+      <Link to={`/miet?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Miet und Pachtverträge"
           icon={<DollarOutlined style={{ color: data.color }} />}
