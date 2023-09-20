@@ -71,7 +71,6 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
-  console.log("adr", data);
   const [rolls, setRolls] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const addRoll = () => {

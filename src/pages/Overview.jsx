@@ -55,7 +55,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const [urlParams, setUrlParams] = useSearchParams();
   const [parametersForLink, setParametersForLink] = useState();
   const navigate = useNavigate();
-  const { state } = useLocation();
+  // const { state } = useLocation();
   const { landmarks } = useSelector(getLandmarks);
   const { landParcels } = useSelector(getLandParcels);
   const mipa = useSelector(getMipa);
@@ -104,9 +104,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
 
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
-  useEffect(() => {
-    console.log("ooo", state);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log("ooo", state);
+  // }, [state]);
   return (
     <div
       style={{

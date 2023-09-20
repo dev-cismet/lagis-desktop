@@ -6,7 +6,7 @@ import ModalForm from "../ui/forms/ModalForm";
 import { Row, Col, Tag } from "antd";
 import CustomNotes from "../ui/notes/CustomNotes";
 import CustomH3 from "../ui/titles/CustomH3";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -25,8 +25,8 @@ const columns = [
     dataIndex: "aktenzeichen",
   },
   {
-    title: "Fläche m2",
-    dataIndex: "fläche",
+    title: "Flaeche m2",
+    dataIndex: "flaeche",
   },
   {
     title: "Nutzung",
@@ -43,7 +43,7 @@ const columns = [
   {
     title: "Merkmale",
     dataIndex: "merkmale",
-    key: "merkmale",
+    id: "merkmale",
     render: (merkmale) => (
       <>
         {merkmale.map((m, i) => (
@@ -58,10 +58,10 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       lage: "Luntenbecker",
       aktenzeichen: "3434534",
-      fläche: "237",
+      flaeche: "237",
       nutzung: "Other",
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
@@ -73,10 +73,10 @@ const mockExtractor = (input) => {
       note: "Bemerkung 1",
     },
     {
-      key: "2",
+      id: "2",
       lage: "Luntenbecker",
       aktenzeichen: "3434534",
-      fläche: "237",
+      flaeche: "237",
       nutzung: "Other",
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
@@ -85,10 +85,10 @@ const mockExtractor = (input) => {
       note: "Bemerkung 2",
     },
     {
-      key: "3",
+      id: "3",
       lage: "Luntenbecker",
       aktenzeichen: "3434534",
-      fläche: "237",
+      flaeche: "237",
       nutzung: "Other",
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
@@ -97,10 +97,10 @@ const mockExtractor = (input) => {
       note: "Bemerkung 3",
     },
     {
-      key: "4",
+      id: "4",
       lage: "Luntenbecker",
       aktenzeichen: "3434534",
-      fläche: "237",
+      flaeche: "237",
       nutzung: "Other",
       vertragsbegin: "02.05.2023",
       vertragsende: "02.05.2023",
@@ -120,18 +120,18 @@ const RentBlock = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
+  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
-  const [rents, setRents] = useState(data);
-  const [activeRow, setActiveRow] = useState(rents[0]);
+  const [rents, setRents] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       lage: "",
       aktenzeichen: "",
-      fläche: "",
+      flaeche: "",
       nutzung: "",
       vertragsbegin: "",
       vertragsende: "",
@@ -144,14 +144,20 @@ const RentBlock = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    const updatedArray = rents.filter((row) => row.key !== activeRow?.key);
+    const updatedArray = rents.filter((row) => row.id !== activeRow?.id);
     setRents(updatedArray);
-    if (activeRow?.key === rents[0].key) {
+    if (activeRow?.id === rents[0].id) {
       setActiveRow(rents[1]);
     } else {
       setActiveRow(rents[0]);
     }
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    console.log("mipa page", data);
+    setRents(data);
+    // setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -175,35 +181,35 @@ const RentBlock = ({
               deleteActiveRow={deleteRow}
             >
               <ModalForm
-                formName={activeRow?.key}
+                formName={activeRow?.id}
                 customFields={[
                   {
                     title: "Lage",
                     value: activeRow?.lage,
-                    key: nanoid(),
+                    id: nanoid(),
                     name: "lage",
                   },
                   {
                     title: "Aktenzeichen",
                     value: activeRow?.aktenzeichen,
-                    key: nanoid(),
+                    id: nanoid(),
                     name: "aktenzeichen",
                   },
                   {
-                    title: "Fläche m2",
-                    value: activeRow?.fläche,
-                    key: nanoid(),
-                    name: "fläche",
+                    title: "Flaeche m2",
+                    value: activeRow?.flaeche,
+                    id: nanoid(),
+                    name: "flaeche",
                   },
                   {
                     title: "Nutzung",
                     value: activeRow?.nutzung,
-                    key: nanoid(),
+                    id: nanoid(),
                     name: "aktenzeichen",
                   },
                   {
                     title: "Vertragsbegin",
-                    key: nanoid(),
+                    id: nanoid(),
                     value:
                       activeRow?.vertragsbegin === ""
                         ? null
@@ -213,7 +219,7 @@ const RentBlock = ({
                   },
                   {
                     title: "Vertragsende",
-                    key: nanoid(),
+                    id: nanoid(),
                     name: "vertragsende",
                     value:
                       activeRow?.vertragsende === ""
@@ -247,13 +253,13 @@ const RentBlock = ({
             controlBar={
               <ToggleModal onlyEdit={true} section="Bemerkung">
                 <ModalForm
-                  formName={activeRow?.key}
+                  formName={activeRow?.id}
                   // updateHandle={handleEdit}
                   customFields={[
                     {
                       title: "Bemerkung",
                       value: activeRow?.note,
-                      key: nanoid(),
+                      id: nanoid(),
                       name: "note",
                       type: "note",
                     },
@@ -274,13 +280,13 @@ const RentBlock = ({
             controlBar={
               <ToggleModal onlyEdit={true} section="Querverweise">
                 <ModalForm
-                  formName={activeRow?.key}
+                  formName={activeRow?.id}
                   // updateHandle={handleEdit}
                   customFields={[
                     {
                       title: "Querverweise",
                       value: activeRow?.querverweise,
-                      key: nanoid(),
+                      id: nanoid(),
                       name: "querverweise",
                       type: "note",
                     },

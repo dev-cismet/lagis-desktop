@@ -40,7 +40,6 @@ export function additionalRollExtractor(dataIn) {
     let additionalRoleColor = "";
     if (additionalRoll.length !== 0) {
       const rolleArr = additionalRoll.map((r) => {
-        console.log("adr id", r.verwaltende_dienststelle.ressort.id);
         return {
           id: r.verwaltende_dienststelle.ressort.id,
           agency: `${r.verwaltende_dienststelle.ressort.abkuerzung}.${r.verwaltende_dienststelle.abkuerzung_abteilung}`,
@@ -83,6 +82,9 @@ export function officesPageExtractor(dataIn) {
             const raw = getArea25832(square);
             area = Math.round(raw * 10) / 10;
           }
+          // if (item.geom === null) {
+          //   area = 0;
+          // }
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
             id,
