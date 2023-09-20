@@ -38,22 +38,22 @@ const columns = [
 const mockExtractor = () => {
   return [
     {
-      key: "1",
+      id: "1",
       agency: "12345678910",
       rolle: "02.05.2023",
     },
     {
-      key: "2",
+      id: "2",
       agency: "12345678910",
       rolle: "02.05.2023",
     },
     {
-      key: "3",
+      id: "3",
       agency: "12345678910",
       rolle: "02.05.2023",
     },
     {
-      key: "4",
+      id: "4",
       agency: "12345678910",
       rolle: "02.05.2023",
     },
@@ -71,12 +71,12 @@ const AdditionalRole = ({
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
-
+  console.log("adr", data);
   const [rolls, setRolls] = useState(data);
   const [activeRow, setActiveRow] = useState(data[0]);
   const addRoll = () => {
     const newRoll = {
-      key: nanoid(),
+      id: nanoid(),
       service: "",
       role: "",
     };
@@ -84,9 +84,9 @@ const AdditionalRole = ({
     setActiveRow(newRoll);
   };
   const deleteAgency = () => {
-    const updatedArray = rolls.filter((row) => row.key !== activeRow.key);
+    const updatedArray = rolls.filter((row) => row.id !== activeRow.id);
     setRolls(updatedArray);
-    if (activeRow.key === rolls[0].key) {
+    if (activeRow.id === rolls[0].id) {
       setActiveRow(rolls[1]);
     } else {
       setActiveRow(rolls[0]);
@@ -94,14 +94,14 @@ const AdditionalRole = ({
   };
   const editHandle = (updatedObject) => {
     updatedObject.role = updatedObject.role.format("DD.MM.YYYY");
-    const targetRow = rolls.find((c) => c.key === updatedObject.key);
+    const targetRow = rolls.find((c) => c.id === updatedObject.id);
     const copyRow = {
       ...targetRow,
       service: updatedObject.service,
       role: updatedObject.role,
     };
     setActiveRow(copyRow);
-    setRolls(rolls.map((obj) => (obj.key === copyRow.key ? copyRow : obj)));
+    setRolls(rolls.map((obj) => (obj.id === copyRow.id ? copyRow : obj)));
   };
   useEffect(() => {
     console.log("add", data);
@@ -130,13 +130,13 @@ const AdditionalRole = ({
             deleteActiveRow={deleteAgency}
           >
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               updateHandle={editHandle}
               customFields={[
                 {
                   title: "Dienst",
                   value: activeRow?.service,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "service",
                 },
                 {
@@ -145,7 +145,7 @@ const AdditionalRole = ({
                     activeRow?.rolle === ""
                       ? null
                       : dayjs(activeRow?.rolle, dateFormat),
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "role",
                   type: "date",
                 },
@@ -158,7 +158,7 @@ const AdditionalRole = ({
           <TableCustom
             columns={columns}
             data={data}
-            activeRow={data[0]}
+            activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
           />
