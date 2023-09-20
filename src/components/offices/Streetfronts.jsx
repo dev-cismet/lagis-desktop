@@ -26,22 +26,22 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       street: "12345678910",
       length: "02.05.2023",
     },
     {
-      key: "2",
+      id: "2",
       street: "12345678910",
       length: "02.05.2023",
     },
     {
-      key: "3",
+      id: "3",
       street: "12345678910",
       length: "02.05.2023",
     },
     {
-      key: "4",
+      id: "4",
       street: "12345678910",
       length: "02.05.2023",
     },
@@ -62,7 +62,7 @@ const Streetfronts = ({
   const [activeRow, setActiveRow] = useState(streetfronts[0]);
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       street: "",
       length: "",
     };
@@ -70,11 +70,9 @@ const Streetfronts = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    const updatedArray = streetfronts.filter(
-      (row) => row.key !== activeRow?.key
-    );
+    const updatedArray = streetfronts.filter((row) => row.id !== activeRow?.id);
     setStreetfronts(updatedArray);
-    if (activeRow?.key === streetfronts[0].key) {
+    if (activeRow?.id === streetfronts[0].id) {
       setActiveRow(streetfronts[1]);
     } else {
       setActiveRow(streetfronts[0]);
@@ -82,7 +80,7 @@ const Streetfronts = ({
   };
   const editHandle = (updatedObject) => {
     updatedObject.length = updatedObject.length.format("DD.MM.YYYY");
-    const targetRow = streetfronts.find((c) => c.key === updatedObject.key);
+    const targetRow = streetfronts.find((c) => c.id === updatedObject.id);
     const copyRow = {
       ...targetRow,
       street: updatedObject.street,
@@ -91,7 +89,7 @@ const Streetfronts = ({
 
     setActiveRow(copyRow);
     setStreetfronts(
-      streetfronts?.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+      streetfronts?.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
   // useEffect(() => {
@@ -121,13 +119,13 @@ const Streetfronts = ({
             deleteActiveRow={deleteRow}
           >
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               updateHandle={editHandle}
               customFields={[
                 {
                   title: "Straßen",
                   value: activeRow?.street,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "street",
                 },
                 {
@@ -136,7 +134,7 @@ const Streetfronts = ({
                     activeRow?.length === ""
                       ? null
                       : dayjs(activeRow?.length, dateFormat),
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "length",
                   type: "date",
                 },

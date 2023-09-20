@@ -22,7 +22,7 @@ export function streetfrontsExtractor(dataIn) {
     const streetfronts = lagisLandparcel?.strassenfrontArrayRelationShip || [];
     if (streetfronts.length !== 0) {
       return streetfronts.map((s) => ({
-        key: s.id,
+        id: s.id,
         street: s.strassenname,
         length: s.laenge,
       }));
