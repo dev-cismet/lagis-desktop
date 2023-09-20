@@ -72,8 +72,8 @@ const AdditionalRole = ({
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
   console.log("adr", data);
-  const [rolls, setRolls] = useState(data);
-  const [activeRow, setActiveRow] = useState(data[0]);
+  const [rolls, setRolls] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRoll = () => {
     const newRoll = {
       id: nanoid(),
@@ -104,8 +104,10 @@ const AdditionalRole = ({
     setRolls(rolls.map((obj) => (obj.id === copyRow.id ? copyRow : obj)));
   };
   useEffect(() => {
-    console.log("add", data);
-  }, [data]);
+    const data = extractor(dataIn);
+    setRolls(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -135,19 +137,15 @@ const AdditionalRole = ({
               customFields={[
                 {
                   title: "Dienst",
-                  value: activeRow?.service,
+                  value: activeRow?.agency,
                   id: nanoid(),
                   name: "service",
                 },
                 {
                   title: "Role",
-                  value:
-                    activeRow?.rolle === ""
-                      ? null
-                      : dayjs(activeRow?.rolle, dateFormat),
+                  value: activeRow?.rolle,
                   id: nanoid(),
                   name: "role",
-                  type: "date",
                 },
               ]}
             />
@@ -157,7 +155,7 @@ const AdditionalRole = ({
         <div style={{ position: "relative" }}>
           <TableCustom
             columns={columns}
-            data={data}
+            data={rolls}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}

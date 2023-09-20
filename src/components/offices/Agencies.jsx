@@ -62,8 +62,8 @@ const Agencies = ({
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const data = extractor(dataIn);
-  const [agency, setAgency] = useState(data);
+  // const data = extractor(dataIn);
+  const [agency, setAgency] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const addAgency = () => {
     const newAgency = {
@@ -95,9 +95,11 @@ const Agencies = ({
     setActiveRow(copyRow);
     setAgency(agency.map((obj) => (obj.id === copyRow.id ? copyRow : obj)));
   };
-  // useEffect(() => {
-  //   console.log("agencies page active row", data);
-  // }, [data]);
+  useEffect(() => {
+    const data = extractor(dataIn);
+    setAgency(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -145,7 +147,7 @@ const Agencies = ({
         <div className="relative">
           <TableCustom
             columns={columns}
-            data={data}
+            data={agency}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}

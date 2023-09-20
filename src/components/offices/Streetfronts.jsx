@@ -58,8 +58,8 @@ const Streetfronts = ({
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
   const data = extractor(dataIn);
-  const [streetfronts, setStreetfronts] = useState(data);
-  const [activeRow, setActiveRow] = useState(streetfronts[0]);
+  const [streetfronts, setStreetfronts] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
       id: nanoid(),
@@ -92,9 +92,11 @@ const Streetfronts = ({
       streetfronts?.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
-  // useEffect(() => {
-  //   setStreetfronts(data);
-  // }, [data]);
+  useEffect(() => {
+    const data = extractor(dataIn);
+    setStreetfronts(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       className="shadow-md"
@@ -130,13 +132,9 @@ const Streetfronts = ({
                 },
                 {
                   title: "Length",
-                  value:
-                    activeRow?.length === ""
-                      ? null
-                      : dayjs(activeRow?.length, dateFormat),
+                  value: activeRow?.length,
                   id: nanoid(),
                   name: "length",
-                  type: "date",
                 },
               ]}
             />
@@ -146,7 +144,7 @@ const Streetfronts = ({
         <div className="relative">
           <TableCustom
             columns={columns}
-            data={data}
+            data={streetfronts}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
