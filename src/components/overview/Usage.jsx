@@ -3,12 +3,14 @@ import { PieChartOutlined } from "@ant-design/icons";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfUsages: "1", color: "#F31630" };
 };
 const DashboardUsage = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -16,7 +18,7 @@ const DashboardUsage = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to="/nutzung">
+      <Link to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Nutzung"
           subtitle="& Anlagenbuchhaltung"

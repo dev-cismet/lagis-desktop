@@ -133,7 +133,11 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               extractor={rebeExtractor}
               parametersForLink={parametersForLink}
             />
-            <Usage dataIn={landparcel} extractor={usageExtractor} />
+            <Usage
+              dataIn={landparcel}
+              extractor={usageExtractor}
+              parametersForLink={parametersForLink}
+            />
             <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />
             <Transaction dataIn={landparcel} extractor={transactionExtractor} />

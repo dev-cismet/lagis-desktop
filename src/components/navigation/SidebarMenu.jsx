@@ -69,7 +69,9 @@ const SidebarMenu = ({ parametersForLink }) => {
       <SettingOutlined />
     ),
     getItem(
-      <NavLink to="/nutzung">Nutzung</NavLink>,
+      <NavLink to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
+        Nutzung
+      </NavLink>,
       "/nutzung",
       <PieChartOutlined />
     ),
