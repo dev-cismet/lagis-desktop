@@ -5,6 +5,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { nanoid } from "@reduxjs/toolkit";
+import { useState, useEffect } from "react";
 const columns = [
   {
     title: "Vertragsart",
@@ -23,52 +24,35 @@ const columns = [
     dataIndex: "kaufpreis",
   },
 ];
-
-const Contracts = ({
-  width = 231,
-  height = 188,
-  style,
-  activeRow,
-  setActiveRow,
-  dataContract,
-  setDataContract,
-}) => {
+const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
+  // const data = extractor(dataIn);
+  const [contracts, setContracts] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const handleAddRow = () => {
     const newData = {
-      key: nanoid(),
+      id: nanoid(),
       vertragsart: "",
       nummer: "",
       quadratmeterpreis: "",
       kaufpreis: "",
-      note: "",
-      kosten: [{ key: nanoid(), kostenart: "", betrag: "", anweisung: "" }],
-      resolution: [
-        {
-          key: 1,
-          beschlussart: "",
-          datum: "",
-        },
-      ],
     };
-    setDataContract((prev) => [...prev, newData]);
+    setContracts((prev) => [...prev, newData]);
     setActiveRow(newData);
   };
   const handleActiveRow = (rowObject) => {
     setActiveRow(rowObject);
   };
   const deleteActiveRow = () => {
-    const updatedArray = dataContract.filter(
-      (row) => row.key !== activeRow.key
-    );
-    setDataContract(updatedArray);
-    if (activeRow.key === dataContract[0].key) {
-      setActiveRow(dataContract[1]);
+    const updatedArray = contracts.filter((row) => row.id !== activeRow.id);
+    setContracts(updatedArray);
+    if (activeRow.id === contracts[0].id) {
+      setActiveRow(contracts[1]);
     } else {
-      setActiveRow(dataContract[0]);
+      setActiveRow(contracts[0]);
     }
   };
   const handleEditActiveContract = (updatedObject) => {
-    const targetRow = dataContract.find((c) => c.key === updatedObject.key);
+    const targetRow = contracts.find((c) => c.id === updatedObject.id);
     const copyRow = {
       ...targetRow,
       vertragsart: updatedObject.vertragsart,
@@ -77,12 +61,20 @@ const Contracts = ({
       kaufpreis: updatedObject.kaufpreis,
     };
     setActiveRow(copyRow);
-    setDataContract(
-      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    setContracts(
+      contracts.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
   const isStory = false;
   const storyStyle = { width, height, ...style };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    console.log("ccc data", data);
+    if (data?.length > 0) {
+      setContracts(data);
+      setActiveRow(data[0]);
+    }
+  }, [dataIn]);
   return (
     <div
       style={
@@ -113,7 +105,7 @@ const Contracts = ({
                 {
                   title: "Vertragsart",
                   value: activeRow?.vertragsart,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "vertragsart",
                   type: "select",
                   options: [
@@ -131,11 +123,11 @@ const Contracts = ({
                   title: "Nummer",
                   value: activeRow?.nummer,
                   name: "nummer",
-                  key: nanoid(),
+                  id: nanoid(),
                 },
                 {
                   title: "Quadratmeterpreis",
-                  key: nanoid(),
+                  id: nanoid(),
                   value: activeRow?.quadratmeterpreis,
                   name: "quadratmeterpreis",
                 },
@@ -143,10 +135,10 @@ const Contracts = ({
                   title: "Kaufpreis (i. NK)",
                   value: activeRow?.kaufpreis,
                   name: "kaufpreis",
-                  key: nanoid(),
+                  id: nanoid(),
                 },
               ]}
-              formName={activeRow.key}
+              formName={activeRow?.id}
             />
           </ToggleModal>
         }
@@ -154,8 +146,8 @@ const Contracts = ({
         <div className="relative">
           <TableCustom
             columns={columns}
-            data={dataContract}
-            setActiveRow={handleActiveRow}
+            data={contracts}
+            setActiveRow={setActiveRow}
             activeRow={activeRow}
             fixHeight={true}
           />
