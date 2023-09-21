@@ -76,6 +76,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     if (!landmarks && jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
+      console.log("get gemarkungen", result);
       if (result.status === 401) {
         navigate("/login");
       }

@@ -48,6 +48,10 @@ const UserBar = () => {
       },
       jwt
     );
+    console.log("xxx 2", result);
+    if (result.status === 401) {
+      return navigate("/login");
+    }
     const f = result?.data.flurstueck[0];
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
