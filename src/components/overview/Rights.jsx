@@ -3,12 +3,14 @@ import { SettingOutlined } from "@ant-design/icons";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfRights: "3", color: "#EF5DA8" };
 };
 const DashboardRights = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -17,7 +19,7 @@ const DashboardRights = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to="/rechte">
+      <Link to={`/rechte?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Rechte & Belastungen"
           subtitle="& Dienstbarkeiten, Baulasten"

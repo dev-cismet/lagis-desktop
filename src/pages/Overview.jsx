@@ -128,7 +128,11 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               extractor={mipaExtractor}
               parametersForLink={parametersForLink}
             />
-            <Rights dataIn={rebe} extractor={rebeExtractor} />
+            <Rights
+              dataIn={rebe}
+              extractor={rebeExtractor}
+              parametersForLink={parametersForLink}
+            />
             <Usage dataIn={landparcel} extractor={usageExtractor} />
             <Operations dataIn={landparcel} extractor={operationExtractor} />
             <History dataIn={landparcel} />

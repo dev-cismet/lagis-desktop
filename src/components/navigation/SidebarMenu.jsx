@@ -62,7 +62,9 @@ const SidebarMenu = ({ parametersForLink }) => {
       <DollarOutlined />
     ),
     getItem(
-      <NavLink to="/rechte">Rechte und Belastungen</NavLink>,
+      <NavLink to={`/rechte?${buildUrlParams(parametersForLink)}`}>
+        Rechte und Belastungen
+      </NavLink>,
       "/rechte",
       <SettingOutlined />
     ),
