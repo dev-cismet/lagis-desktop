@@ -1,10 +1,10 @@
 import React from "react";
-import { Col, Row } from "antd";
 import Contracts from "../components/operations/Contracts";
 import ContractData from "../components/operations/ContractData";
 import CrossReferences from "../components/operations/CrossReferences";
-import NoteOperations from "../components/operations/NoteOperations";
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getLandparcel } from "../store/slices/lagis";
+import { useState, useEffect } from "react";
 const mockExtractor = (input) => {
   return [
     {
@@ -173,6 +173,7 @@ const OperationsPage = ({
   inStory = false,
 }) => {
   const data = extractor(dataIn);
+  const landparcel = useSelector(getLandparcel);
   const [activeRow, setActiveRow] = useState(data[0]);
   const [dataContract, setDataContract] = useState(data);
   let storyStyle = {};

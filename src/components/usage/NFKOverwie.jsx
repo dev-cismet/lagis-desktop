@@ -7,7 +7,10 @@ import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
-
+{
+  /* <CloseCircleOutlined />
+<IssuesCloseOutlined /> */
+}
 const columns = [
   {
     title: "Anlageklasse",

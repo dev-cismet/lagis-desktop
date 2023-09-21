@@ -76,7 +76,9 @@ const SidebarMenu = ({ parametersForLink }) => {
       <PieChartOutlined />
     ),
     getItem(
-      <NavLink to="/vorgange">Vorgänge</NavLink>,
+      <NavLink to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
+        Vorgänge
+      </NavLink>,
       "/vorgange",
       <FileSearchOutlined />
     ),

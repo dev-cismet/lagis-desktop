@@ -138,7 +138,11 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               extractor={usageExtractor}
               parametersForLink={parametersForLink}
             />
-            <Operations dataIn={landparcel} extractor={operationExtractor} />
+            <Operations
+              dataIn={landparcel}
+              extractor={operationExtractor}
+              parametersForLink={parametersForLink}
+            />
             <History dataIn={landparcel} />
             <Transaction dataIn={landparcel} extractor={transactionExtractor} />
             <DMS dataIn={landparcel} extractor={dmsExtractor} />

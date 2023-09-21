@@ -25,7 +25,7 @@ export function usageBlockExtractor(dataIn) {
           preis: u.quadratmeterpreis,
           gesamtpreis: u.quadratmeterpreis * u.flaeche,
           stille: "xxx",
-          buchwert: u.ist_buchwert ? "xxx true" : "xxx false",
+          buchwert: u.ist_buchwert,
           bemerkung: u.bemerkung ? u.bemerkung : "",
         };
       });

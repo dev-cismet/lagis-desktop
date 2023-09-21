@@ -3,6 +3,7 @@ import { SwapRightOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 
 const mockExtractor = (input) => {
   return { numberOfOperations: "4", color: "#FF7A00" };
@@ -10,6 +11,7 @@ const mockExtractor = (input) => {
 const DashboarOperations = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -17,7 +19,7 @@ const DashboarOperations = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to="/vorgange">
+      <Link to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Vorgänge"
           icon={<SwapRightOutlined style={{ color: data.color }} />}
