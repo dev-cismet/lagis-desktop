@@ -4,7 +4,7 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 const columns = [
   {
@@ -55,7 +55,7 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       nutzung: "237284656",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
@@ -69,7 +69,7 @@ const mockExtractor = (input) => {
       bemerkung: "Bemerkung 1",
     },
     {
-      key: "2",
+      id: "2",
       nutzung: "746",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
@@ -83,7 +83,7 @@ const mockExtractor = (input) => {
       bemerkung: "",
     },
     {
-      key: "3",
+      id: "3",
       nutzung: "2372846",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
@@ -97,7 +97,7 @@ const mockExtractor = (input) => {
       bemerkung: "",
     },
     {
-      key: "4",
+      id: "4",
       nutzung: "2372846",
       buchungs: "1",
       anlageklasse: "Infrastrukturvermögen Grundstücke",
@@ -120,14 +120,14 @@ const UsageBlock = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
+  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const [usage, setUsage] = useState(data);
-  const [activeRow, setActiveRow] = useState(usage[0]);
+  const [usage, setUsage] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       nutzung: "",
       buchungs: "",
       anlageklasse: "",
@@ -145,14 +145,19 @@ const UsageBlock = ({
   };
   const deleteRow = () => {
     console.log("11111111");
-    const updatedArray = usage.filter((row) => row.key !== activeRow?.key);
+    const updatedArray = usage.filter((row) => row.id !== activeRow?.id);
     setUsage(updatedArray);
-    if (activeRow?.key === usage[0].key) {
+    if (activeRow?.id === usage[0].id) {
       setActiveRow(usage[1]);
     } else {
       setActiveRow(usage[0]);
     }
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    setUsage(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -177,72 +182,72 @@ const UsageBlock = ({
             modalWidth={900}
           >
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               customFields={[
                 {
                   title: "Nutzung Nr",
                   value: activeRow?.nutzung,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "nutzung",
                 },
                 {
                   title: "Buchungs-Nr",
                   value: activeRow?.buchungs,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "buchungs",
                 },
                 {
                   title: "Anlageklasse",
                   value: activeRow?.anlageklasse,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "anlageklasse",
                 },
                 // {
                 //   title: "Nutzungsart",
                 //   value: activeRow?.nutzungsart,
-                //   key: nanoid(),
+                //   id: nanoid(),
                 //   name: "nutzungsart",
                 // },
                 {
                   title: "Nutzungsarten-bezeichnung",
                   value: activeRow?.bezeichnung,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "bezeichnung",
                 },
                 {
                   title: "Fläche/m2",
                   value: activeRow?.fläche,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "fläche",
                 },
                 {
                   title: "m2 Preis",
                   value: activeRow?.preis,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "preis",
                 },
                 {
                   title: "Gesamtpreis",
                   value: activeRow?.gesamtpreis,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "gesamtpreis",
                 },
                 {
                   title: "Buchwert",
                   value: activeRow?.buchwert,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "buchwert",
                 },
                 {
                   title: "Stille Reserve",
                   value: activeRow?.stille,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "stille",
                 },
                 {
                   title: "Bemerkung",
                   value: activeRow?.bemerkung,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "bemerkung",
                   type: "note",
                 },
