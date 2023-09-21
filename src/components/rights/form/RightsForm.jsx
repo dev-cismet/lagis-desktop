@@ -68,7 +68,9 @@ const RightsForm = ({ fields }) => {
         </Form.Item>
         <Form.Item label="Löschung" required>
           <DatePicker
-            defaultValue={dayjs(fields.loschung, dateFormat)}
+            defaultValue={
+              fields.loschung ? dayjs(fields.loschung, dateFormat) : null
+            }
             format={dateFormat}
             style={{
               width: "100%",

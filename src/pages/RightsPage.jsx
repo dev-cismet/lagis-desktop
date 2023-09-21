@@ -3,8 +3,10 @@ import Map from "../components/commons/Map";
 import { useSelector } from "react-redux";
 import RightsAndEncumbrances from "../components/rights/RightsAndEncumbrances";
 import { getAlkisLandparcel, getRebe } from "../store/slices/lagis";
+import { rebePageExtractor } from "../core/extractors/rebePageExtractor";
 const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
+  const rebe = useSelector(getRebe);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -62,7 +64,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
         />
       </div>
       <div className="h-[calc(50%-2rem)]">
-        <RightsAndEncumbrances />
+        <RightsAndEncumbrances dataIn={rebe} extractor={rebePageExtractor} />
       </div>
     </div>
   );

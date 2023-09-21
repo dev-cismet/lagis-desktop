@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import TableCustom from "../ui/tables/TableCustom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RightsForm from "./form/RightsForm";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import { nanoid } from "@reduxjs/toolkit";
@@ -45,7 +45,7 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       recht: "",
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
@@ -55,7 +55,7 @@ const mockExtractor = (input) => {
       bemerkung: "21.07.2016",
     },
     {
-      key: "2",
+      id: "2",
       recht: "",
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
@@ -65,7 +65,7 @@ const mockExtractor = (input) => {
       bemerkung: "1111111",
     },
     {
-      key: "3",
+      id: "3",
       recht: "",
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
@@ -75,7 +75,7 @@ const mockExtractor = (input) => {
       bemerkung: "22222",
     },
     {
-      key: "4",
+      id: "4",
       recht: "",
       art: "Dienstbarkeit",
       artrecht: "Geh- und Fahrrecht",
@@ -94,15 +94,15 @@ const RightsAndEncumbrances = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
+  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const dateFormat = "DD.MM.YYYY";
-  const [rights, setRghts] = useState(data);
-  const [activeRow, setActiveRow] = useState(rights[0]);
+  // const dateFormat = "DD.MM.YYYY";
+  const [rights, setRghts] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       recht: "",
       art: "",
       artrecht: "",
@@ -115,14 +115,19 @@ const RightsAndEncumbrances = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    const updatedArray = rights.filter((row) => row.key !== activeRow?.key);
+    const updatedArray = rights.filter((row) => row.id !== activeRow?.id);
     setRghts(updatedArray);
-    if (activeRow?.key === rights[0].key) {
+    if (activeRow?.id === rights[0].id) {
       setActiveRow(rights[1]);
     } else {
       setActiveRow(rights[0]);
     }
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    setRghts(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={isStory ? storyStyle : { height: "100%" }}

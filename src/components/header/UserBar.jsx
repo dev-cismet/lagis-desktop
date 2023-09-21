@@ -48,7 +48,6 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("xxx 2", result);
     if (result.status === 401) {
       return navigate("/login");
     }
@@ -68,7 +67,6 @@ const UserBar = () => {
       },
       jwt
     );
-    console.log("fff getRebe", result);
     dispatch(storeRebe(result.data.rebe));
   };
   const getMipa = async (geo) => {
