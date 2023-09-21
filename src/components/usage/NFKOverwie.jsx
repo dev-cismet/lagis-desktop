@@ -5,7 +5,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 const columns = [
@@ -21,22 +21,22 @@ const columns = [
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       anlageklasse: "12345678910",
       summe: "2609.10 €",
     },
     {
-      key: "2",
+      id: "2",
       anlageklasse: "12345678910",
       summe: "2609.10 €",
     },
     {
-      key: "3",
+      id: "3",
       anlageklasse: "12345678910",
       summe: "2609.10 €",
     },
     {
-      key: "4",
+      id: "4",
       anlageklasse: "12345678910",
       summe: "2609.10 €",
     },
@@ -49,14 +49,14 @@ const NFKOverwie = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
+  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const [dataTable, setDataTable] = useState(data);
-  const [activeRow, setActiveRow] = useState(dataTable[0]);
+  const [dataTable, setDataTable] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       anlageklasse: "",
       summe: "",
     };
@@ -64,14 +64,19 @@ const NFKOverwie = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    const updatedArray = dataTable.filter((row) => row.key !== activeRow?.key);
+    const updatedArray = dataTable.filter((row) => row.id !== activeRow?.id);
     setDataTable(updatedArray);
-    if (activeRow?.key === dataTable[0].key) {
+    if (activeRow?.id === dataTable[0].id) {
       setActiveRow(dataTable[1]);
     } else {
       setActiveRow(dataTable[0]);
     }
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    setDataTable(data);
+    setActiveRow(data[0]);
+  }, [dataIn]);
   return (
     <div
       style={
@@ -115,18 +120,18 @@ const NFKOverwie = ({
             }
           >
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               customFields={[
                 {
                   title: "Anlageklasse",
                   value: activeRow?.anlageklasse,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "anlageklasse",
                 },
                 {
                   title: "Summe",
                   value: activeRow?.summe,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "summe",
                 },
               ]}

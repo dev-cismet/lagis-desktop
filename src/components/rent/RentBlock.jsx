@@ -154,9 +154,8 @@ const RentBlock = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    console.log("mipa page", data);
     setRents(data);
-    // setActiveRow(data[0]);
+    setActiveRow(data[0]);
   }, [dataIn]);
   return (
     <div

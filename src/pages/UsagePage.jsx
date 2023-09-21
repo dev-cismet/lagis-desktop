@@ -3,7 +3,10 @@ import UsageBlock from "../components/usage/UsageBlock";
 import NFKOverwie from "../components/usage/NFKOverwie";
 import { useSelector } from "react-redux";
 import { getLandparcel } from "../store/slices/lagis";
-import { usageBlockExtractor } from "../core/extractors/usagePageExtractors";
+import {
+  NFKOverwieExtractor,
+  usageBlockExtractor,
+} from "../core/extractors/usagePageExtractors";
 
 const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
@@ -21,7 +24,7 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
         <UsageBlock dataIn={landparcel} extractor={usageBlockExtractor} />
       </div>
       <div className="h-[calc(50%-2rem)]">
-        <NFKOverwie />
+        <NFKOverwie dataIn={landparcel} extractor={NFKOverwieExtractor} />
       </div>
     </div>
   );

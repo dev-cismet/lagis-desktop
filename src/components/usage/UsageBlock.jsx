@@ -144,7 +144,6 @@ const UsageBlock = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    console.log("11111111");
     const updatedArray = usage.filter((row) => row.id !== activeRow?.id);
     setUsage(updatedArray);
     if (activeRow?.id === usage[0].id) {
