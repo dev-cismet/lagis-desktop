@@ -5,7 +5,10 @@ import CrossReferences from "../components/operations/CrossReferences";
 import { useSelector } from "react-redux";
 import { getLandparcel } from "../store/slices/lagis";
 import { useState, useEffect } from "react";
-import { contractsBlockExtractor } from "../core/extractors/operationPageExtractors";
+import {
+  contractsBlockExtractor,
+  contractDataBlockExtractor,
+} from "../core/extractors/operationPageExtractors";
 const mockExtractor = (input) => {
   return [
     {
@@ -197,22 +200,20 @@ const OperationsPage = ({
       <div className="h-[40%] mb-4">
         <Contracts dataIn={landparcel} extractor={contractsBlockExtractor} />
       </div>
-      {/* <div className="h-[calc(60%-2rem)] flex gap-4">
+      <div className="h-[calc(60%-2rem)] flex gap-4">
         <ContractData
-          dataContract={dataContract}
-          activeRow={activeRow}
-          setDataContract={setDataContract}
-          setActiveRow={setActiveRow}
+          dataIn={landparcel}
+          extractor={contractDataBlockExtractor}
         />
-        <div className="w-full">
+        {/* <div className="w-full">
           <CrossReferences
             activeRow={activeRow}
             dataContract={dataContract}
             setActiveRow={setActiveRow}
             setDataContract={setDataContract}
           />
-        </div>
-      </div> */}
+        </div> */}
+      </div>
     </div>
   );
 };

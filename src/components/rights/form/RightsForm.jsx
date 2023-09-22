@@ -25,9 +25,6 @@ const RightsForm = ({ fields }) => {
       }
     );
   }, [values]);
-  useEffect(() => {
-    console.log("rightform", fields);
-  }, [fields]);
   return (
     <>
       <Form

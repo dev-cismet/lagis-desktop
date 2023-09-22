@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import ContractForm from "../ui/forms/ContractForm";
 import { nanoid } from "@reduxjs/toolkit";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import ModalForm from "../ui/forms/ModalForm";
-const ContractData = ({
-  dataContract,
-  activeRow,
-  setDataContract,
-  setActiveRow,
-}) => {
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+const ContractData = ({ dataIn, extractor }) => {
+  const [contracts, setContracts] = useState([]);
+  const [activeRow, setActiveRow] = useState();
+  const dateFormat = "DD.MM.YYYY";
   const handleEdit = (updatedObject) => {
-    const targetRow = dataContract.find((c) => c.key === updatedObject.key);
+    const targetRow = contracts.find((c) => c.id === updatedObject.id);
     const copyRow = {
       ...targetRow,
       voreigentümer: updatedObject.voreigentümer,
@@ -20,10 +22,17 @@ const ContractData = ({
       bemerkung: updatedObject.bemerkung,
     };
     setActiveRow(copyRow);
-    setDataContract(
-      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+    setContracts(
+      contracts.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    if (data?.length > 0) {
+      setContracts(data);
+      setActiveRow(data[0]);
+    }
+  }, [dataIn]);
   return (
     <div className="contract-data h-full w-full overflow-auto shadow-md">
       <InfoBlock
@@ -31,31 +40,39 @@ const ContractData = ({
         controlBar={
           <ToggleModal onlyEdit={true}>
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               customFields={[
                 {
                   title: "Voreigentümer",
-                  value: activeRow.voreigentümer,
-                  key: nanoid(),
+                  value: activeRow?.voreigentümer,
+                  id: nanoid(),
                   name: "voreigentümer",
                 },
                 {
                   title: "Auflassung",
-                  value: activeRow?.auflassung,
+                  value:
+                    activeRow?.auflassung === ""
+                      ? null
+                      : dayjs(activeRow?.auflassung, dateFormat),
                   name: "auflassung",
-                  key: nanoid(),
+                  id: nanoid(),
+                  type: "date",
                 },
                 {
                   title: "Eintragung",
-                  key: nanoid(),
-                  value: activeRow?.eintragung,
+                  id: nanoid(),
+                  value:
+                    activeRow?.eintragung === ""
+                      ? null
+                      : dayjs(activeRow?.eintragung, dateFormat),
                   name: "eintragung",
+                  type: "date",
                 },
                 {
                   title: "Bemerkung",
                   value: activeRow?.bemerkung,
                   name: "bemerkung",
-                  key: nanoid(),
+                  id: nanoid(),
                   type: "note",
                 },
               ]}
