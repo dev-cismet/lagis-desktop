@@ -231,7 +231,8 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
       zugeordnet_von
     }
     nutzungArrayRelationShip {
-      nutzung_buchungArrayRelationShip {
+      id
+      nutzung_buchungArrayRelationShip(order_by: {gueltig_von: asc}) {
         quadratmeterpreis
         ist_buchwert
         gueltig_von
