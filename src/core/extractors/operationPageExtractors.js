@@ -64,3 +64,42 @@ export function contractDataBlockExtractor(dataIn) {
     return [];
   }
 }
+
+export function crossReferencesExtractor(dataIn) {
+  if (dataIn === undefined) {
+    return [];
+  } else {
+    const landparcel = dataIn;
+    const contract = landparcel.ar_vertraegeArray;
+    const kosten = [];
+    if (contract.length > 0) {
+      contract.forEach((c) => {
+        const fields = {};
+        c.vertrag.kostenArrayRelationShip.forEach((k) => {
+          let formattedAnweisung = null;
+          if (k.datum) {
+            const dateAnweisung = dayjs(k.datum.toDate());
+            formattedAnweisung = dayjs(dateAnweisung).format("DD.MM.YYYY");
+          } else {
+            formattedAnweisung = "";
+          }
+          fields.kostenart = k.kostenart.bezeichnung;
+          fields.betrag = k.betrag;
+          fields.anweisung = formattedAnweisung;
+        });
+        kosten.push(fields);
+      });
+      console.log("cross extractor", kosten);
+
+      return kosten;
+    }
+    return [];
+  }
+}
+
+// return {
+//   id: nanoid(),
+//   kostenart: bezeichnung,
+//   betrag: "03.05.2023",
+//   anweisung: "03.06.2023",
+// };

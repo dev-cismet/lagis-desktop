@@ -42,26 +42,20 @@ const columnsCosts = [
     dataIndex: "anweisung",
   },
 ];
-const CrossReferences = ({
-  activeRow,
-  dataContract,
-  setDataContract,
-  setActiveRow,
-}) => {
-  const contract = dataContract.find((c) => c.key === activeRow?.key);
-  const [kosten, setKosten] = useState(activeRow.kosten);
-  const [resolution, setResolution] = useState(activeRow.resolution);
-  const [activecCosts, setActiveCosts] = useState(activeRow.kosten[0]);
-  const [activeResolution, setActiveResolution] = useState(
-    activeRow.resolution[0]
-  );
+const CrossReferences = ({ activeRow, dataIn, extractor, setActiveRow }) => {
+  const [kosten, setKosten] = useState([]);
+  // const [resolution, setResolution] = useState(activeRow.resolution);
+  const [activecCosts, setActiveCosts] = useState();
+  // const [activeResolution, setActiveResolution] = useState(
+  //   activeRow.resolution[0]
+  // );
   const [activeTabe, setActiveTab] = useState("1");
   const dateFormat = "DD.MM.YYYY";
   const costFields = [
     {
       title: "Kostenart",
       value: activecCosts?.kostenart,
-      key: nanoid(),
+      id: nanoid(),
       name: "kostenart",
       type: "select",
       options: [
@@ -77,60 +71,56 @@ const CrossReferences = ({
     },
     {
       title: "Betrag",
-      value:
-        activecCosts?.betrag === ""
-          ? null
-          : dayjs(activecCosts?.betrag, dateFormat),
+      value: activecCosts?.betrag,
       name: "betrag",
-      key: nanoid(),
-      type: "date",
+      id: nanoid(),
     },
     {
       title: "Anweisung",
-      key: nanoid(),
+      id: nanoid(),
       name: "anweisung",
       type: "date",
       value:
-        activecCosts?.betrag === ""
+        activecCosts?.anweisung === ""
           ? null
           : dayjs(activecCosts?.anweisung, dateFormat),
     },
   ];
-  const resolutionsFields = [
-    {
-      title: "Beschlussart",
-      value: activeResolution?.beschlussart,
-      name: "beschlussart",
-      key: nanoid(),
-      type: "select",
-      options: [
-        {
-          value: "Vermietung",
-          lable: "Vermietung",
-        },
-        {
-          value: "Leasing",
-          lable: "Leasing",
-        },
-      ],
-    },
-    {
-      title: "Datum",
-      value: activeResolution?.datum,
-      value:
-        activeResolution?.datum === ""
-          ? null
-          : dayjs(activeResolution?.datum, dateFormat),
-      name: "datum",
-      type: "date",
-      key: nanoid(),
-    },
-  ];
+  // const resolutionsFields = [
+  //   {
+  //     title: "Beschlussart",
+  //     value: activeResolution?.beschlussart,
+  //     name: "beschlussart",
+  //     id: nanoid(),
+  //     type: "select",
+  //     options: [
+  //       {
+  //         value: "Vermietung",
+  //         lable: "Vermietung",
+  //       },
+  //       {
+  //         value: "Leasing",
+  //         lable: "Leasing",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     title: "Datum",
+  //     value: activeResolution?.datum,
+  //     value:
+  //       activeResolution?.datum === ""
+  //         ? null
+  //         : dayjs(activeResolution?.datum, dateFormat),
+  //     name: "datum",
+  //     type: "date",
+  //     id: nanoid(),
+  //   },
+  // ];
   const querverweiseField = [
     {
       title: "Querverweise",
       value: activeRow.querverweise,
-      key: nanoid(),
+      id: nanoid(),
       name: "querverweise",
       type: "note",
     },
@@ -141,7 +131,7 @@ const CrossReferences = ({
   const handleAddRow = () => {
     if (activeTabe === "2") {
       const newData = {
-        key: nanoid(),
+        id: nanoid(),
         kostenart: "",
         betrag: "",
         anweisung: "",
@@ -152,60 +142,67 @@ const CrossReferences = ({
 
     if (activeTabe === "3") {
       const newData = {
-        key: nanoid(),
+        id: nanoid(),
         beschlussart: "",
         datum: "",
       };
-      setResolution((prev) => [...prev, newData]);
-      setActiveResolution(newData);
+      // setResolution((prev) => [...prev, newData]);
+      // setActiveResolution(newData);
     }
   };
   const handleEditActiveKosten = (updatedObject) => {
     updatedObject.betrag = updatedObject.betrag.format("DD.MM.YYYY");
     updatedObject.anweisung = updatedObject.anweisung.format("DD.MM.YYYY");
     setKosten(
-      kosten.map((k) => (k.key === updatedObject.key ? updatedObject : k))
+      kosten.map((k) => (k.id === updatedObject.id ? updatedObject : k))
     );
   };
   const handleEditActiveResolution = (updatedObject) => {
-    updatedObject.datum = updatedObject.datum.format("DD.MM.YYYY");
-    setResolution(
-      resolution.map((r) => (r.key === updatedObject.key ? updatedObject : r))
-    );
+    // updatedObject.datum = updatedObject.datum.format("DD.MM.YYYY");
+    // setResolution(
+    //   resolution.map((r) => (r.id === updatedObject.id ? updatedObject : r))
+    // );
   };
   const deleteActiveRow = () => {
     if (activeTabe === "2" && activecCosts) {
-      const updatedArray = kosten.filter((k) => k.key !== activecCosts.key);
+      const updatedArray = kosten.filter((k) => k.id !== activecCosts.id);
       setKosten(updatedArray);
-      activecCosts.key !== kosten[0].key
+      activecCosts.id !== kosten[0].id
         ? setActiveCosts(kosten[0])
         : setActiveCosts(kosten[1]);
     }
-    if (activeTabe === "3" && activeResolution) {
-      const updatedArray = resolution.filter(
-        (r) => r.key !== activeResolution.key
-      );
-      setResolution(updatedArray);
-      activeResolution.key !== kosten[0].key
-        ? setActiveResolution(resolution[0])
-        : setActiveResolution(resolution[1]);
-    }
+    // if (activeTabe === "3" && activeResolution) {
+    //   const updatedArray = resolution.filter(
+    //     (r) => r.id !== activeResolution.id
+    //   );
+    //   setResolution(updatedArray);
+    //   activeResolution.id !== kosten[0].id
+    //     ? setActiveResolution(resolution[0])
+    //     : setActiveResolution(resolution[1]);
+    // }
   };
   const handleEditNotes = (updatedObject) => {
-    const targetRow = dataContract.find((c) => c.key === activeRow.key);
+    const targetRow = dataContract.find((c) => c.id === activeRow.id);
     const copyRow = {
       ...targetRow,
       querverweise: updatedObject.querverweise,
     };
     setActiveRow(copyRow);
     setDataContract(
-      dataContract.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
+      dataContract.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
+  // useEffect(() => {
+  //   setKosten(contract.kosten);
+  //   setResolution(contract.resolution);
+  // }, [activeRow]);
   useEffect(() => {
-    setKosten(contract.kosten);
-    setResolution(contract.resolution);
-  }, [activeRow]);
+    const data = extractor(dataIn);
+    if (data.length > 0) {
+      setKosten(data);
+      setActiveCosts(data[0]);
+    }
+  }, [dataIn]);
   return (
     <div
       className="cross-data h-full shadow-md"
@@ -230,20 +227,20 @@ const CrossReferences = ({
             deleteActiveRow={deleteActiveRow}
           >
             <ModalForm
-              updateHandle={
-                activeTabe === "1"
-                  ? handleEditNotes
-                  : activeTabe === "2"
-                  ? handleEditActiveKosten
-                  : handleEditActiveResolution
-              }
-              formName={
-                activeTabe === "1"
-                  ? activeRow.key
-                  : activeTabe === "2"
-                  ? activecCosts?.key
-                  : activeResolution?.key
-              }
+              // updateHandle={
+              //   activeTabe === "1"
+              //     ? handleEditNotes
+              //     : activeTabe === "2"
+              //     ? handleEditActiveKosten
+              //     : handleEditActiveResolution
+              // }
+              // formName={
+              //   activeTabe === "1"
+              //     ? activeRow.id
+              //     : activeTabe === "2"
+              //     ? activecCosts?.id
+              //     : activeResolution?.id
+              // }
               customFields={
                 activeTabe === "1"
                   ? querverweiseField
@@ -276,12 +273,12 @@ const CrossReferences = ({
             />
           </TabPane>
           <TabPane tab="Beschlüsse" key="3">
-            <TableCustom
+            {/* <TableCustom
               columns={columns}
               data={resolution}
               setActiveRow={setActiveResolution}
               activeRow={activeResolution}
-            />
+            /> */}
           </TabPane>
         </Tabs>
       </InfoBlock>
