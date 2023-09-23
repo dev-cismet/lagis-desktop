@@ -9,51 +9,80 @@ export function usageBlockExtractor(dataIn) {
     console.log("usage extractor", landparcel);
 
     const currentUsage = [];
-    let usageId;
-    let buchungArray;
-    let buchungs;
-    let currentIdxInBuchungArray;
     usage.forEach((element) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
+        let usageId;
+        let buchungArray;
+        let buchungs;
+        let currentIdxInBuchungArray;
+        let data = {};
         if (item.gueltig_bis === null) {
-          currentUsage.push(item);
           usageId = element.id;
           buchungArray = element.nutzung_buchungArrayRelationShip;
           buchungs = element.nutzung_buchungArrayRelationShip.length;
           currentIdxInBuchungArray = idx;
+          console.log("usage extractor element", element);
+          element.nutzung_buchungArrayRelationShip.forEach((u) => {
+            return {
+              id: usageId,
+              nutzung: usageId,
+              buchungs,
+              anlageklasse: u.anlageklasse.bezeichnung,
+              nutzungsart: u.nutzungsart.bezeichnung,
+              bezeichnung: u.nutzungsart.schluessel,
+              fläche: u.flaeche,
+              preis: u.quadratmeterpreis,
+              gesamtpreis:
+                u.quadratmeterpreis * u.flaeche -
+                calculateStilleReserve(
+                  buchungArray,
+                  currentIdxInBuchungArray,
+                  u.quadratmeterpreis * u.flaeche
+                ),
+              stille: calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
+              ),
+              buchwert: u.ist_buchwert,
+              bemerkung: u.bemerkung ? u.bemerkung : "",
+            };
+          });
         }
+        console.log("usage extractor currentUsage", currentUsage);
+        return currentUsage;
       });
     });
-    if (currentUsage.length > 0) {
-      const data = currentUsage.map((u) => {
-        return {
-          id: usageId,
-          nutzung: usageId,
-          buchungs,
-          anlageklasse: u.anlageklasse.bezeichnung,
-          nutzungsart: u.nutzungsart.bezeichnung,
-          bezeichnung: u.nutzungsart.schluessel,
-          fläche: u.flaeche,
-          preis: u.quadratmeterpreis,
-          gesamtpreis:
-            u.quadratmeterpreis * u.flaeche -
-            calculateStilleReserve(
-              buchungArray,
-              currentIdxInBuchungArray,
-              u.quadratmeterpreis * u.flaeche
-            ),
-          stille: calculateStilleReserve(
-            buchungArray,
-            currentIdxInBuchungArray,
-            u.quadratmeterpreis * u.flaeche
-          ),
-          buchwert: u.ist_buchwert,
-          bemerkung: u.bemerkung ? u.bemerkung : "",
-        };
-      });
+    // if (currentUsage.length > 0) {
+    //   const data = currentUsage.map((u) => {
+    //     return {
+    //       id: usageId,
+    //       nutzung: usageId,
+    //       buchungs,
+    //       anlageklasse: u.anlageklasse.bezeichnung,
+    //       nutzungsart: u.nutzungsart.bezeichnung,
+    //       bezeichnung: u.nutzungsart.schluessel,
+    //       fläche: u.flaeche,
+    //       preis: u.quadratmeterpreis,
+    //       gesamtpreis:
+    //         u.quadratmeterpreis * u.flaeche -
+    //         calculateStilleReserve(
+    //           buchungArray,
+    //           currentIdxInBuchungArray,
+    //           u.quadratmeterpreis * u.flaeche
+    //         ),
+    //       stille: calculateStilleReserve(
+    //         buchungArray,
+    //         currentIdxInBuchungArray,
+    //         u.quadratmeterpreis * u.flaeche
+    //       ),
+    //       buchwert: u.ist_buchwert,
+    //       bemerkung: u.bemerkung ? u.bemerkung : "",
+    //     };
+    //   });
 
-      return data.reverse();
-    }
+    //   return data.reverse();
+    // }
 
     return [];
   }

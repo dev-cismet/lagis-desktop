@@ -127,7 +127,7 @@ const CrossReferences = ({
   const querverweiseField = [
     {
       title: "Querverweise",
-      value: activeRow.querverweise,
+      value: querverweise.join("\n"),
       id: nanoid(),
       name: "querverweise",
       type: "note",
@@ -203,7 +203,6 @@ const CrossReferences = ({
 
   const crossData = async () => {
     const crossData = await crossExtractor(dataIn, jwt);
-    console.log("crossData", crossData);
     setQuerverweise(crossData);
   };
   useEffect(() => {
