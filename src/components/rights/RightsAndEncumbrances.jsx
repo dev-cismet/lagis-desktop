@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import RightsForm from "./form/RightsForm";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import { nanoid } from "@reduxjs/toolkit";
+import { Switch } from "antd";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -16,6 +17,7 @@ const columns = [
   {
     title: "ist Recht",
     dataIndex: "recht",
+    render: (record) => <Switch size="small" checked={record} />,
   },
   {
     title: "Art",

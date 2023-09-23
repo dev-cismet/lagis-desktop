@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-// import { Row, Col, Tag } from "antd";
+import { Row, Col, Tag } from "antd";
 import CustomNotes from "../ui/notes/CustomNotes";
 // import CustomH3 from "../ui/titles/CustomH3";
 import { useEffect, useState } from "react";
@@ -120,7 +120,6 @@ const RentBlock = ({
   height = 188,
   style,
 }) => {
-  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
@@ -157,6 +156,9 @@ const RentBlock = ({
     setRents(data);
     setActiveRow(data[0]);
   }, [dataIn]);
+  useEffect(() => {
+    console.log("rents", rents);
+  }, [rents]);
   return (
     <div
       style={
@@ -338,14 +340,3 @@ RentBlock.propTypes = {
 
   height: PropTypes.number,
 };
-
-{
-  /* <CustomH3 title="Bemerkung" styles={{ marginLeft: "10px" }} />
-<CustomNotes styles={"p-2"} /> */
-}
-{
-  /* <div className="">
-<CustomH3 title="Querverweise" styles={{ marginLeft: "10px" }} />
-<CustomNotes styles="p-2" />
-</div> */
-}

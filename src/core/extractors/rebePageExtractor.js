@@ -27,7 +27,7 @@ export function rebePageExtractor(dataIn) {
           id: nanoid(),
           recht: r.ist_recht,
           art: r.rebe_art.bezeichnung,
-          artrecht: "xxx",
+          artrecht: r.beschreibung,
           nummer: r.nummer,
           eintragung: formattedEintragung,
           loschung: formattedLoschung,
