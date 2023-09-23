@@ -42,10 +42,18 @@ const columnsCosts = [
     dataIndex: "anweisung",
   },
 ];
-const CrossReferences = ({ activeRow, dataIn, extractor, setActiveRow }) => {
+const CrossReferences = ({
+  activeRow,
+  dataIn,
+  extractor,
+  crossExtractor,
+  jwt,
+  setActiveRow,
+}) => {
   const [kosten, setKosten] = useState([]);
   // const [resolution, setResolution] = useState(activeRow.resolution);
   const [activecCosts, setActiveCosts] = useState();
+  const [querverweise, setQuerverweise] = useState();
   // const [activeResolution, setActiveResolution] = useState(
   //   activeRow.resolution[0]
   // );
@@ -192,12 +200,15 @@ const CrossReferences = ({ activeRow, dataIn, extractor, setActiveRow }) => {
       dataContract.map((obj) => (obj.id === copyRow.id ? copyRow : obj))
     );
   };
-  // useEffect(() => {
-  //   setKosten(contract.kosten);
-  //   setResolution(contract.resolution);
-  // }, [activeRow]);
+
+  const crossData = async () => {
+    const crossData = await crossExtractor(dataIn, jwt);
+    console.log("crossData", crossData);
+    setQuerverweise(crossData);
+  };
   useEffect(() => {
     const data = extractor(dataIn);
+    crossData();
     if (data.length > 0) {
       setKosten(data);
       setActiveCosts(data[0]);
@@ -262,7 +273,7 @@ const CrossReferences = ({ activeRow, dataIn, extractor, setActiveRow }) => {
           onChange={(activeKey) => setActiveTab(activeKey)}
         >
           <TabPane tab="Querverweise" key="1">
-            <CustomNotes currentText={activeRow.querverweise} />
+            <CustomNotes currentText={querverweise?.join("\n")} />
           </TabPane>
           <TabPane tab="Kosten" key="2">
             <TableCustom

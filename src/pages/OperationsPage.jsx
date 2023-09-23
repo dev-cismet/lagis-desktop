@@ -9,7 +9,9 @@ import {
   contractsBlockExtractor,
   contractDataBlockExtractor,
   crossReferencesExtractor,
+  querverweiseContractExtractor,
 } from "../core/extractors/operationPageExtractors";
+import { getJWT } from "../store/slices/auth";
 const mockExtractor = (input) => {
   return [
     {
@@ -179,6 +181,7 @@ const OperationsPage = ({
 }) => {
   const data = extractor(dataIn);
   const landparcel = useSelector(getLandparcel);
+  const jwt = useSelector(getJWT);
   const [activeRow, setActiveRow] = useState(data[0]);
   const [dataContract, setDataContract] = useState(data);
   let storyStyle = {};
@@ -211,9 +214,9 @@ const OperationsPage = ({
             activeRow={activeRow}
             dataIn={landparcel}
             extractor={crossReferencesExtractor}
-            // dataContract={dataContract}
+            crossExtractor={querverweiseContractExtractor}
             setActiveRow={setActiveRow}
-            // setDataContract={setDataContract}
+            jwt={jwt}
           />
         </div>
       </div>

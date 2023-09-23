@@ -1,4 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
+import queries from "../queries/online";
+import { fetchGraphQL } from "../graphql";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -6,6 +8,50 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
+
+const getQuerverweise = async (vertag_id, jwt) => {
+  const result = await fetchGraphQL(
+    queries.getQuerverweiseByVertragId,
+    {
+      vertag_id,
+    },
+    jwt
+  );
+  if (result.data?.flurstueck) {
+    const data = result.data?.flurstueck.map((f) => {
+      const flur = f.flurstueck_schluessel.flur;
+      const zaehler = f.flurstueck_schluessel.flurstueck_zaehler;
+      const nenner = f.flurstueck_schluessel.flurstueck_nenner;
+      const gemarkung = f.flurstueck_schluessel.gemarkung.bezeichnung;
+      return `${gemarkung} ${flur} ${zaehler}/${nenner}`;
+    });
+    return data;
+  } else {
+    [];
+  }
+};
+
+export const querverweiseContractExtractor = async (dataIn, jwt) => {
+  if (dataIn === undefined) {
+    return [];
+  } else {
+    const landparcel = dataIn;
+    const contracts = landparcel.ar_vertraegeArray;
+    let vertragId;
+    if (contracts.length > 0) {
+      contracts.forEach((c) => {
+        console.log("getQuerverweise grab ID", c.vertrag.id);
+        vertragId = c.vertrag.id;
+      });
+    } else {
+      return [];
+    }
+
+    const res = await getQuerverweise(vertragId, jwt);
+    return res;
+  }
+};
+
 export function contractsBlockExtractor(dataIn) {
   if (dataIn === undefined) {
     return [];
@@ -14,7 +60,7 @@ export function contractsBlockExtractor(dataIn) {
     const contracts = landparcel.ar_vertraegeArray;
     if (contracts.length > 0) {
       const data = contracts.map((c) => ({
-        id: nanoid(),
+        id: c.id,
         vertragsart: c.vertrag.vertragsart.bezeichnung,
         nummer: c.vertrag.aktenzeichen,
         quadratmeterpreis: c.vertrag.quadratmeterpreis,
@@ -96,10 +142,3 @@ export function crossReferencesExtractor(dataIn) {
     return [];
   }
 }
-
-// return {
-//   id: nanoid(),
-//   kostenart: bezeichnung,
-//   betrag: "03.05.2023",
-//   anweisung: "03.06.2023",
-// };

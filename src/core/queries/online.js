@@ -384,6 +384,19 @@ queries.getRebeByGeo = `query MyQuery($geo: geometry) {
   }
 }`;
 
+queries.getQuerverweiseByVertragId = `query MyQuery ($vertag_id: Int) {
+  flurstueck(where: {ar_vertraegeArray: {fk_vertrag: {_eq: $vertag_id}}}) {
+    flurstueck_schluessel {
+      gemarkung {
+        bezeichnung
+      }
+      flur
+      flurstueck_zaehler
+      flurstueck_nenner
+    }
+  }
+}`;
+
 queries.getMipaByGeo = `query MyQuery($geo: geometry) {
   mipa(where: {geom: {geo_field: {_st_intersects: $geo}}}) {
     aktenzeichen
