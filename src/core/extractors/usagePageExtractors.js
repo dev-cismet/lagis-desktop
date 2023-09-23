@@ -51,38 +51,6 @@ export function usageBlockExtractor(dataIn) {
     });
 
     return currentUsage;
-    // if (currentUsage.length > 0) {
-    //   const data = currentUsage.map((u) => {
-    //     return {
-    //       id: usageId,
-    //       nutzung: usageId,
-    //       buchungs,
-    //       anlageklasse: u.anlageklasse.bezeichnung,
-    //       nutzungsart: u.nutzungsart.bezeichnung,
-    //       bezeichnung: u.nutzungsart.schluessel,
-    //       fläche: u.flaeche,
-    //       preis: u.quadratmeterpreis,
-    //       gesamtpreis:
-    //         u.quadratmeterpreis * u.flaeche -
-    //         calculateStilleReserve(
-    //           buchungArray,
-    //           currentIdxInBuchungArray,
-    //           u.quadratmeterpreis * u.flaeche
-    //         ),
-    //       stille: calculateStilleReserve(
-    //         buchungArray,
-    //         currentIdxInBuchungArray,
-    //         u.quadratmeterpreis * u.flaeche
-    //       ),
-    //       buchwert: u.ist_buchwert,
-    //       bemerkung: u.bemerkung ? u.bemerkung : "",
-    //     };
-    //   });
-
-    //   return data.reverse();
-    // }
-
-    return [];
   }
 }
 
@@ -110,24 +78,58 @@ export function NFKOverwieExtractor(dataIn) {
   } else {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
+    console.log("usage extractor", landparcel);
+
     const currentUsage = [];
     usage.forEach((element) => {
-      element.nutzung_buchungArrayRelationShip.forEach((item) => {
-        item.gueltig_bis === null && currentUsage.push(item);
+      element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
+        let usageId;
+        let buchungArray;
+        let buchungs;
+        let currentIdxInBuchungArray;
+        let data = {};
+        if (item.gueltig_bis === null) {
+          usageId = element.id;
+          buchungArray = element.nutzung_buchungArrayRelationShip;
+          buchungs = element.nutzung_buchungArrayRelationShip.length;
+          currentIdxInBuchungArray = idx;
+          element.nutzung_buchungArrayRelationShip.forEach((u) => {
+            data.id = usageId;
+            // data.nutzung = usageId;
+            // data.buchungs = buchungs;
+            data.anlageklasse = u.anlageklasse.schluessel;
+            // data.nutzungsart = u.nutzungsart.bezeichnung;
+            // data.bezeichnung = u.nutzungsart.schluessel;
+            // data.fläche = u.flaeche;
+            // data.preis = u.quadratmeterpreis;
+            (data.summe =
+              u.quadratmeterpreis * u.flaeche -
+              calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
+              )),
+              (data.stille = calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
+              ));
+            // data.buchwert = u.ist_buchwert;
+            // data.bemerkung = u.bemerkung ? u.bemerkung : "";
+          });
+          currentUsage.push(data);
+        }
       });
     });
-    if (currentUsage.length > 0) {
-      const data = currentUsage.map((u) => {
-        return {
-          id: nanoid(),
-          anlageklasse: u.anlageklasse.schluessel,
-          summe: u.quadratmeterpreis * u.flaeche,
-        };
-      });
 
-      return data.reverse();
-    }
-
-    return [];
+    return currentUsage;
   }
 }
+
+// const data = currentUsage.map((u) => {
+//   return {
+//     id: nanoid(),
+//     anlageklasse: u.anlageklasse.schluessel,
+//     summe: u.quadratmeterpreis * u.flaeche,
+//   };
+// });

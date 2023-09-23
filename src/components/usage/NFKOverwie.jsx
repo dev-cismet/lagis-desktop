@@ -77,6 +77,9 @@ const NFKOverwie = ({
     setDataTable(data);
     setActiveRow(data[0]);
   }, [dataIn]);
+  useEffect(() => {
+    console.log("active row", activeRow);
+  }, [activeRow]);
   return (
     <div
       style={
@@ -98,7 +101,7 @@ const NFKOverwie = ({
             color="blue"
             style={{ padding: "0.1rem 0.8rem" }}
           >
-            Stille Reserve: 40.000 €
+            Stille Reserve: {activeRow?.stille} €
           </Tag>
         }
         controlBar={
