@@ -7,7 +7,6 @@ import {
   NFKOverwieExtractor,
   usageBlockExtractor,
 } from "../core/extractors/usagePageExtractors";
-
 const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
   let storyStyle = {};

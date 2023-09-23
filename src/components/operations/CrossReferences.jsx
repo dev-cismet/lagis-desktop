@@ -127,7 +127,7 @@ const CrossReferences = ({
   const querverweiseField = [
     {
       title: "Querverweise",
-      value: querverweise.join("\n"),
+      value: querverweise?.join("\n") || "",
       id: nanoid(),
       name: "querverweise",
       type: "note",

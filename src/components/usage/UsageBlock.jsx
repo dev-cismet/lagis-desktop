@@ -6,6 +6,8 @@ import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { CloseCircleOutlined, IssuesCloseOutlined } from "@ant-design/icons";
+
 const columns = [
   {
     title: "Nutzung Nr",
@@ -46,6 +48,15 @@ const columns = [
   {
     title: "Buchwert",
     dataIndex: "buchwert",
+    render: (record) => (
+      <div className="flex items-center justify-center">
+        {record ? (
+          <IssuesCloseOutlined style={{ color: "green" }} />
+        ) : (
+          <CloseCircleOutlined style={{ color: "red" }} />
+        )}
+      </div>
+    ),
   },
   {
     title: "Bemerkung",

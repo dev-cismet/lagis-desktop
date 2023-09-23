@@ -21,38 +21,36 @@ export function usageBlockExtractor(dataIn) {
           buchungArray = element.nutzung_buchungArrayRelationShip;
           buchungs = element.nutzung_buchungArrayRelationShip.length;
           currentIdxInBuchungArray = idx;
-          console.log("usage extractor element", element);
           element.nutzung_buchungArrayRelationShip.forEach((u) => {
-            return {
-              id: usageId,
-              nutzung: usageId,
-              buchungs,
-              anlageklasse: u.anlageklasse.bezeichnung,
-              nutzungsart: u.nutzungsart.bezeichnung,
-              bezeichnung: u.nutzungsart.schluessel,
-              fläche: u.flaeche,
-              preis: u.quadratmeterpreis,
-              gesamtpreis:
-                u.quadratmeterpreis * u.flaeche -
-                calculateStilleReserve(
-                  buchungArray,
-                  currentIdxInBuchungArray,
-                  u.quadratmeterpreis * u.flaeche
-                ),
-              stille: calculateStilleReserve(
+            data.id = usageId;
+            data.nutzung = usageId;
+            data.buchungs = buchungs;
+            data.anlageklasse = u.anlageklasse.bezeichnung;
+            data.nutzungsart = u.nutzungsart.bezeichnung;
+            data.bezeichnung = u.nutzungsart.schluessel;
+            data.fläche = u.flaeche;
+            data.preis = u.quadratmeterpreis;
+            (data.gesamtpreis =
+              u.quadratmeterpreis * u.flaeche -
+              calculateStilleReserve(
                 buchungArray,
                 currentIdxInBuchungArray,
                 u.quadratmeterpreis * u.flaeche
-              ),
-              buchwert: u.ist_buchwert,
-              bemerkung: u.bemerkung ? u.bemerkung : "",
-            };
+              )),
+              (data.stille = calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
+              ));
+            data.buchwert = u.ist_buchwert;
+            data.bemerkung = u.bemerkung ? u.bemerkung : "";
           });
+          currentUsage.push(data);
         }
-        console.log("usage extractor currentUsage", currentUsage);
-        return currentUsage;
       });
     });
+
+    return currentUsage;
     // if (currentUsage.length > 0) {
     //   const data = currentUsage.map((u) => {
     //     return {
