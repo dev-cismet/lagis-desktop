@@ -3,12 +3,15 @@ import { PayCircleOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
+
 const mockExtractor = (input) => {
   return { numberOfDocuments: "1", color: "#389EFD" };
 };
 const DashboardTransaction = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -17,7 +20,7 @@ const DashboardTransaction = ({
 
   return (
     <div className="dashboard-tile">
-      <Link to="/kassenzeichen">
+      <Link to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Kassenzeichen"
           icon={<PayCircleOutlined style={{ color: data.color }} />}

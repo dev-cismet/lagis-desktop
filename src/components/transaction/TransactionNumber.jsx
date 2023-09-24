@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -53,12 +53,12 @@ const TransactionNumber = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
+  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
-  const [transaction, setTransaction] = useState(data);
-  const [activeRow, setActiveRow] = useState(transaction[0]);
+  const [transaction, setTransaction] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
       key: nanoid(),
@@ -93,6 +93,14 @@ const TransactionNumber = ({
       transaction.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    if (data.length > 0) {
+      const data = extractor(dataIn);
+      setTransaction(data);
+      setActiveRow(data[0]);
+    }
+  }, [dataIn]);
   return (
     <div
       className="shadow-md bg-white overflow-auto"

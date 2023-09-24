@@ -3,21 +3,23 @@ import { FilePdfOutlined } from "@ant-design/icons";
 import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
+
 const mockExtractor = (input) => {
   return { numberOfDocuments: "3", color: "#180E53" };
 };
 const DashboardDMS = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
 }) => {
   const data = extractor(dataIn);
-
   return (
     <div className="dashboard-tile">
-      <Link to="/dms">
+      <Link to={`/dms?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           style={{ height }}
           title="DMS"

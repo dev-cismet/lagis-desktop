@@ -88,11 +88,17 @@ const SidebarMenu = ({ parametersForLink }) => {
       <HistoryOutlined />
     ),
     getItem(
-      <NavLink to="/kassenzeichen">Kassenzeichen</NavLink>,
+      <NavLink to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
+        Kassenzeichen
+      </NavLink>,
       "/kassenzeichen",
       <TransactionOutlined />
     ),
-    getItem(<NavLink to="/dms">DMS</NavLink>, "/dms", <FilePdfOutlined />),
+    getItem(
+      <NavLink to={`/dms?${buildUrlParams(parametersForLink)}`}>DMS</NavLink>,
+      "/dms",
+      <FilePdfOutlined />
+    ),
   ];
   useEffect(() => {
     const handleResize = () => {
