@@ -4,58 +4,70 @@ import ToggleModal from "../ui/control-board/ToggleModal";
 import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import mockFoto from "../../assets/docksMock.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { FileWordOutlined } from "@ant-design/icons";
+
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
-    key: "name",
+    id: "name",
   },
   {
     title: "Dateiname",
     dataIndex: "file",
-    key: "file",
+    id: "file",
   },
   {
     title: "Beschreibung",
     dataIndex: "beschreibung",
-    key: "beschreibung",
+    id: "beschreibung",
   },
   {
     title: "Vorschau",
     dataIndex: "vorschau",
-    key: "vorschau",
-    render: (image) => (
-      <img src={image} alt="User" style={{ width: 80, height: 70 }} />
+    id: "vorschau",
+    render: (render) => (
+      <div className="flex items-center justify-center">
+        <FileWordOutlined style={{ fontSize: "20px" }} />
+      </div>
     ),
   },
 ];
+// {
+//   title: "Vorschau",
+//   dataIndex: "vorschau",
+//   id: "vorschau",
+//   render: (render) => (
+//     <img src={render.vorschau} style={{ width: 80, height: 70 }} />
+//   ),
+// },
 const mockExtractor = (input) => {
   return [
     {
-      key: "1",
+      id: "1",
       name: "1237563255",
       file: "Interdum.avi",
       beschreibung: "Lorem ipsum dolor sit amet",
       vorschau: mockFoto,
     },
     {
-      key: "2",
+      id: "2",
       name: "1237563255",
       file: "Interdum.avi",
       beschreibung: "Lorem ipsum dolor sit amet",
       vorschau: mockFoto,
     },
     {
-      key: "3",
+      id: "3",
       name: "1237563255",
       file: "Interdum.avi",
       beschreibung: "Lorem ipsum dolor sit amet",
       vorschau: mockFoto,
     },
     {
-      key: "4",
+      id: "4",
       name: "1237563255",
       file: "Interdum.avi",
       beschreibung: "Lorem ipsum dolor sit amet",
@@ -70,14 +82,13 @@ const DmsBlock = ({
   height = 188,
   style,
 }) => {
-  const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  const [dms, setDms] = useState(data);
-  const [activeRow, setActiveRow] = useState(dms[0]);
+  const [dms, setDms] = useState([]);
+  const [activeRow, setActiveRow] = useState();
   const addRow = () => {
     const newRow = {
-      key: nanoid(),
+      id: nanoid(),
       name: "",
       file: "",
       beschreibung: "",
@@ -87,14 +98,21 @@ const DmsBlock = ({
     setActiveRow(newRow);
   };
   const deleteRow = () => {
-    const updatedArray = dms.filter((row) => row.key !== activeRow?.key);
+    const updatedArray = dms.filter((row) => row.id !== activeRow?.id);
     setDms(updatedArray);
-    if (activeRow?.key === dms[0].key) {
+    if (activeRow?.id === dms[0].id) {
       setActiveRow(dms[1]);
     } else {
       setActiveRow(dms[0]);
     }
   };
+  useEffect(() => {
+    const data = extractor(dataIn);
+    if (data.length > 0) {
+      setDms(data);
+      setActiveRow(data[0]);
+    }
+  }, [dataIn]);
   return (
     <div
       className="shadow-md h-full overflow-auto"
@@ -113,24 +131,24 @@ const DmsBlock = ({
             deleteActiveRow={deleteRow}
           >
             <ModalForm
-              formName={activeRow?.key}
+              formName={activeRow?.id}
               customFields={[
                 {
                   title: "Name",
                   value: activeRow?.name,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "name",
                 },
                 {
                   title: "Dateiname",
                   value: activeRow?.file,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "file",
                 },
                 {
                   title: "Beschreibung",
                   value: activeRow?.beschreibung,
-                  key: nanoid(),
+                  id: nanoid(),
                   name: "beschreibung",
                 },
               ]}

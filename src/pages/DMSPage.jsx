@@ -1,5 +1,9 @@
 import DmsBlock from "../components/dms/DmsBlock";
+import { dmsPageExtractor } from "../core/extractors/dmsPageExtractor";
+import { getLandparcel } from "../store/slices/lagis";
+import { useSelector } from "react-redux";
 const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
+  const landparcel = useSelector(getLandparcel);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -18,7 +22,7 @@ const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
       className="h-full"
     >
       <div className="h-full">
-        <DmsBlock />
+        <DmsBlock dataIn={landparcel} extractor={dmsPageExtractor} />
       </div>
     </div>
   );
