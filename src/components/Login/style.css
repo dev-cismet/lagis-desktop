@@ -18,3 +18,7 @@
   margin: auto;
   padding-top: 60px;
 }
+
+.bg-rain {
+  background-image: url(../../assets/simon-wierzba-4N0uFUstIJk-unsplash.jpg);
+}

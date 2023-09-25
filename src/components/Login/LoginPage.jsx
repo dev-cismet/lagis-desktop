@@ -107,135 +107,79 @@ const LoginPage = () => {
   return (
     <>
       <div className="login-page">
-        <Row>
-          <Col span={12}>
-            <div
-              style={{
-                backgroundColor: "rgba(205, 224, 242, 0.48)",
-                padding: "50px",
-                height: "100vh",
-              }}
-            >
-              <div className="logo-div">
-                <img src={`${logo}`} alt="" />
-                <Typography
-                  style={{
-                    fontWeight: "600",
-                    marginTop: "2px",
-                    marginLeft: "10px",
-                    fontSize: "20px",
-                  }}
-                >
-                  LagIS-online
-                </Typography>
-              </div>
-              <div className="left-section-content">
-                <Typography
-                  style={{
-                    color: "rgba(38, 38, 38, 0.85)",
-                    textAlign: "center",
-                    fontSize: "25px",
-                    marginTop: "20px",
-                  }}
-                >
-                  Nice to see you again.
-                </Typography>
-                <Typography
-                  style={{
-                    color: "#1890FF",
-                    textAlign: "center",
-                    fontSize: "50px",
-                    marginTop: "10px",
-                  }}
-                >
-                  Welcome Back!
-                </Typography>
-                <div className="title-border"></div>
-                <img
-                  src={`${loginLeft}`}
-                  alt=""
-                  style={{ marginTop: "100px" }}
-                />
-              </div>
-            </div>
-          </Col>
-          <Col span={12}>
-            <div>
-              <div
-                style={{
-                  backgroundColor: "#F2F2F2",
-                  padding: "50px",
-                  height: "100vh",
-                }}
+        <div className="h-screen">
+          <div className="w-full flex h-full items-center justify-center bg-rain relative bg-cover">
+            <div className="h-screen absolute w-full backdrop-blur" />
+            <div className="flex flex-col gap-8 items-center bg-white/30 z-20 p-10 h-fit lg:w-1/3 w-2/3 rounded-3xl">
+              <h1 class="text-white/80 font-semibold text-6xl">
+                Lagis Desktop
+              </h1>
+              <Input
+                placeholder="Email ID"
+                type="email"
+                onChange={loginHandle}
+              />
+              <Input.Password
+                initialValue="xx"
+                placeholder="input password"
+                onChange={passwordnHandle}
+              />
+              <Button
+                type="primary"
+                style={{ width: "100%" }}
+                onClick={clickHandle}
               >
-                <div className="right-section-content">
-                  <Typography
-                    style={{
-                      color: "#1890FF",
-                      textAlign: "center",
-                      fontSize: "36px",
-                      marginTop: "100px",
-                    }}
-                  >
-                    Login to your account
-                  </Typography>
-                  <Typography
-                    style={{
-                      color: "rgba(38, 38, 38, 0.85)",
-                      textAlign: "center",
-                      fontSize: "20px",
-                    }}
-                  >
-                    And start tracking
-                  </Typography>
-                  <div className="form">
-                    <Input
-                      placeholder="Email ID"
-                      type="email"
-                      onChange={loginHandle}
-                    />
-                    <Input.Password
-                      initialValue="xx"
-                      placeholder="input password"
-                      onChange={passwordnHandle}
-                      style={{ marginTop: "30px" }}
-                    />
-                    <div
-                      className="keep-signin"
-                      style={{ marginTop: "10px", marginBottom: "30px" }}
-                    >
-                      <Row>
-                        <Col span={12}>
-                          <Checkbox onChange={keepStatusHandle}>
-                            Keep me signed in
-                          </Checkbox>
-                        </Col>
-                        <Col span={12}>
-                          <Typography
-                            style={{
-                              color: "#1890FF",
-                              textAlign: "right",
-                              fontSize: "15px",
-                            }}
-                          >
-                            Already a member?
-                          </Typography>
-                        </Col>
-                      </Row>
-                    </div>
-                    <Button
-                      type="primary"
-                      style={{ width: "100%" }}
-                      onClick={clickHandle}
-                    >
-                      Log in
-                    </Button>
-                  </div>
-                </div>
-              </div>
+                Anmeldung
+              </Button>
             </div>
-          </Col>
-        </Row>
+            <div className="absolute top-6 left-6 w-20">
+              <img src={logo} alt="logo" />
+              {/* <span className="text-base font-semibold ml-auto">
+                LagIS-online
+              </span> */}
+            </div>
+
+            <div className="absolute top-6 right-6 text-white/80 font-semibold flex flex-col gap-2 items-end text-right sm:max-w-none max-w-[200px]">
+              <span>Stadt Wuppertal</span>
+              <span>Vermessung, Katasteramt und Geodaten</span>
+              <span>102.23 Kommunalservice Liegenschaftskataster</span>
+            </div>
+            <div className="absolute bottom-6 right-6 text-white/80 font-semibold flex flex-col gap-2 items-end">
+              <span>
+                {/* VerDIS Desktop v:{packageJson.version}{" "} */}
+                <a
+                  href="https://cismet.de"
+                  className="text-white/50 no-underline"
+                >
+                  cismet GmbH
+                </a>{" "}
+                auf Basis von
+              </span>
+              <span>
+                <a
+                  href="https://leafletjs.com/"
+                  className="text-white/50 no-underline"
+                >
+                  Leaflet
+                </a>{" "}
+                und{" "}
+                <a
+                  href="https://cismet.de/#refs"
+                  className="text-white/50 no-underline"
+                >
+                  cids | react cismap v
+                  {/* {packageJson.dependencies["react-cismap"].slice(1)} | */}
+                </a>
+              </span>
+              <a
+                href="https://cismet.de/datenschutzerklaerung.html"
+                className="text-white/50 no-underline"
+              >
+                Datenschutzerklärung (Privacy Policy)
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
