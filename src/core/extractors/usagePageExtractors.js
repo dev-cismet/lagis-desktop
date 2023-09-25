@@ -55,12 +55,17 @@ export function usageBlockExtractor(dataIn) {
 }
 
 function calculateStilleReserve(buchungArray, positionInArray, gesamtpreis) {
+  const copyArr = [...buchungArray].slice(0, positionInArray);
+  let ifBuchwerFound = false;
   let lastIstBuchwer;
-  buchungArray.forEach((item, idx) => {
-    if (item.ist_buchwert && idx < positionInArray) {
+  for (let i = copyArr.length - 1; i >= 0; i--) {
+    const item = copyArr[i];
+    if (item.ist_buchwert && !ifBuchwerFound) {
+      ifBuchwerFound = true;
       lastIstBuchwer = item;
     }
-  });
+  }
+  console.log("nnn 4 lastIstBuchwer", lastIstBuchwer);
   let res = 0;
   if (lastIstBuchwer?.quadratmeterpreis && lastIstBuchwer?.flaeche) {
     res =
@@ -68,8 +73,8 @@ function calculateStilleReserve(buchungArray, positionInArray, gesamtpreis) {
   } else {
     res = 0;
   }
-  console.log("usage extractor", res);
-  return res;
+  console.log("nnn 4 res", res);
+  return res < 0 ? 0 : res;
 }
 
 export function NFKOverwieExtractor(dataIn) {
