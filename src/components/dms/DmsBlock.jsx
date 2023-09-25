@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { FileWordOutlined } from "@ant-design/icons";
 import { compare } from "../../core/tools/helper";
+import { Link } from "react-router-dom";
+
 const columns = [
   {
     title: "Name",
@@ -31,9 +33,11 @@ const columns = [
     title: "Vorschau",
     dataIndex: "vorschau",
     id: "vorschau",
-    render: (render) => (
+    render: (record) => (
       <div className="flex items-center justify-center">
-        <FileWordOutlined style={{ fontSize: "20px" }} />
+        <a href={record} target="_blank">
+          <FileWordOutlined style={{ fontSize: "20px" }} />
+        </a>
       </div>
     ),
     sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
@@ -112,6 +116,7 @@ const DmsBlock = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
+    console.log("dms link", data);
     if (data.length > 0) {
       setDms(data);
       setActiveRow(data[0]);
