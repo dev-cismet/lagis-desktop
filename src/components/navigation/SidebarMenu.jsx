@@ -128,19 +128,19 @@ const SidebarMenu = ({ parametersForLink }) => {
       }}
     >
       <div
-        className="my-4 mb-5 flex flex-wrap items-center gap-2"
+        className="my-4 mb-5 flex flex-wrap items-start gap-2"
         style={{
-          justifyContent: !collapsed ? "start" : "center",
-          marginLeft: !collapsed ? "20px" : "0px",
+          justifyContent: !collapsed ? "start" : "start",
+          marginLeft: !collapsed ? "20px" : "26px",
         }}
       >
         <span onClick={toggleCollapsed} className="cursor-pointer">
-          <MenuOutlined />
+          <MenuOutlined style={{ textAlign: "left" }} />
         </span>
         <Logo showText={collapsed} />
       </div>
 
-      <div className="side-menu w-20 lg:ml-[-5px] lg:w-60">
+      <div className="side-menu lg:ml-[-5px]">
         <Menu
           style={{ border: 0 }}
           defaultSelectedKeys={activeKey}
@@ -154,3 +154,5 @@ const SidebarMenu = ({ parametersForLink }) => {
   );
 };
 export default SidebarMenu;
+
+// className="my-4 mb-5 flex flex-wrap items-start gap-2"
