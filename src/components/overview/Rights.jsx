@@ -1,52 +1,54 @@
-import { Card, Row, Col } from "antd";
-import Typography from "antd/es/typography/Typography";
 import PropTypes from "prop-types";
-import { FilePdfOutlined } from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
+import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
+import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "2", color: "#262626" };
+  return { numberOfRights: "3", color: "#EF5DA8" };
 };
-const DashboardDMS = ({
+const DashboardRights = ({
   dataIn,
   extractor = mockExtractor,
-  width = 300,
-  height,
+  parametersForLink,
+  width = 231,
+  height = 188,
+  style,
+  variant,
 }) => {
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-        }}
-      >
-        <div className="title-row" style={{ marginBottom: "10px" }}>
-          <Row>
-            <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "350" }}>
-                Right & Encumbarances
-              </Typography>
-            </Col>
-            <Col span={12}>
-              <div className="dashboard-icon">
-                <FilePdfOutlined
-                  style={{ fontSize: "25px", color: "#262626" }}
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <span style={{ color: data.color, fontSize: "100px" }}>
-          <strong>{data.numberOfDocuments.toString().padStart(2, "0")}</strong>
-        </span>
-      </Card>
+      <Link to={`/rechte?${buildUrlParams(parametersForLink)}`}>
+        <OverviewCard
+          title="Rechte & Belastungen"
+          subtitle="& Dienstbarkeiten, Baulasten"
+          icon={
+            <SettingOutlined
+              className="text-3xl"
+              style={{ color: data.color }}
+            />
+          }
+        >
+          <div
+            style={{
+              color: data.color,
+              fontSize: "5.5rem",
+              textAlign: "left",
+              width: "100%",
+              lineHeight: "1.2",
+            }}
+          >
+            <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
+          </div>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };
-export default DashboardDMS;
+export default DashboardRights;
 
-DashboardDMS.propTypes = {
+DashboardRights.propTypes = {
   /**
    * The current main data object that is being used
    */
