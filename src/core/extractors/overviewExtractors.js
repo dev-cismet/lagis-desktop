@@ -45,7 +45,7 @@ export function officesExtractor(dataIn) {
           const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
           nameGeomColorData.push({
             title,
-            size: area,
+            size: Math.round(area),
             color: getColorFromCode(color),
           });
           checkTitleArray.push(currentTitle);

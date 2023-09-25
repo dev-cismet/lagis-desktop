@@ -89,7 +89,7 @@ export function officesPageExtractor(dataIn) {
           nameGeomColorData.push({
             id,
             agency: title,
-            area,
+            area: Math.round(area),
             color: getColorFromCode(color),
           });
           checkTitleArray.push(currentTitle);
