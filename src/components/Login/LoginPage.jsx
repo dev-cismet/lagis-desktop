@@ -67,7 +67,7 @@ const LoginPage = () => {
     fetch(REST_SERVICE + "/users", {
       method: "GET",
       headers: {
-        Authorization: "Basic " + btoa(devSecretUser + "@" + DOMAIN + ":" + p),
+        Authorization: "Basic " + btoa(u + "@" + DOMAIN + ":" + p),
         "Content-Type": "application/json",
       },
     })
