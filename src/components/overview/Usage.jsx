@@ -4,6 +4,7 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
+
 const mockExtractor = (input) => {
   return { numberOfUsages: "1", color: "#F31630" };
 };

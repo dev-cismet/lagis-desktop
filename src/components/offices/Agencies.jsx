@@ -17,7 +17,7 @@ const columns = [
             width: "9px",
             height: "11px",
             marginRight: "6px",
-            backgroundColor: record.color,
+            backgroundColor: record?.color || "transporent",
           }}
         ></span>
         <span>{title}</span>
@@ -97,8 +97,11 @@ const Agencies = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    setAgency(data);
-    setActiveRow(data[0]);
+
+    if (data.length > 0) {
+      setAgency(data);
+      setActiveRow(data[0]);
+    }
   }, [dataIn]);
   return (
     <div

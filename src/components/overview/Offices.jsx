@@ -18,7 +18,7 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let square = "14px";
+  let square = "20px";
   const data = extractor(dataIn);
 
   return (
@@ -33,19 +33,25 @@ const DashboardOffices = ({
             {data?.map((item) => (
               <div className="flex justify-between items-center mt-1 mb-1">
                 <div className="flex justify-between items-center">
+                  {item?.title && (
+                    <span
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        marginRight: "6px",
+                        backgroundColor: item?.color || "#0097FA",
+                      }}
+                    ></span>
+                  )}
                   <span
                     style={{
-                      width: "8px",
-                      height: "8px",
-                      marginRight: "6px",
-                      backgroundColor: item.color,
+                      color: item?.color || "#585453",
+                      fontSize: item?.title ? square : "88px",
+                      marginBottom: item?.title ? "0px" : "-10px",
                     }}
-                  ></span>
-                  <span
-                    style={{ color: item.color }}
                     className="font-bold text-medium"
                   >
-                    {item.title}
+                    {item?.title || "00"}
                   </span>
                 </div>
                 <span
@@ -53,9 +59,9 @@ const DashboardOffices = ({
                     color: "#6C6A6A",
                     fontSize: square,
                   }}
-                  className="font-base"
+                  // className="font-lg"
                 >
-                  {item.size} m²
+                  {item?.size ? `${item?.size} m²` : ""}
                 </span>
               </div>
             ))}
