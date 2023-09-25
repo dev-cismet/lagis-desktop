@@ -30,11 +30,17 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: "F1F1F1";
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+h2,
+h3 {
+  color: "#474747";
 }
 
 button {

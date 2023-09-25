@@ -1,12 +1,9 @@
-import Typography from "antd/es/typography/Typography";
 import { FolderOpenOutlined } from "@ant-design/icons";
-
-import { Card, Row, Col } from "antd";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import { faFolderOpen } from "@fortawesome/free-regular-svg-icons";
-
+import OverviewCard from "../ui/OverviewCard";
+import "./style.css";
+import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
@@ -16,48 +13,55 @@ const mockExtractor = (input) => {
 const DashboardOffices = ({
   dataIn,
   extractor = mockExtractor,
-  width = 300,
-  height,
+  parametersForLink,
+  width = 231,
+  height = 188,
+  style,
 }) => {
+  let square = "14px";
   const data = extractor(dataIn);
+
   return (
     <div className="dashboard-tile">
-      <Card
-        style={{
-          width,
-          height,
-        }}
-      >
-        <div className="title-row" style={{ marginBottom: "10px" }}>
-          <Row>
-            <Col span={12}>
-              <Typography style={{ fontSize: "18px", fontWeight: "350" }}>
-                Offices & Roles
-              </Typography>
-            </Col>
-            <Col span={12}>
-              <div className="dashboard-icon">
-                <FolderOpenOutlined
-                  style={{ fontSize: "25px", color: "#0092FA" }}
-                />
-                {/* an alternative icon */}
-                {/* <FontAwesomeIcon
-                style={{ fontSize: "25px", color: "#0092FA" }}
-                icon={faFolderOpen}
-              /> */}
+      <Link to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
+        <OverviewCard
+          title="Verwaltungsbereiche"
+          subtitle="& Rollen"
+          icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+        >
+          <div className="flex flex-col mt-auto">
+            {data?.map((item) => (
+              <div className="flex justify-between items-center mt-1 mb-1">
+                <div className="flex justify-between items-center">
+                  <span
+                    style={{
+                      width: "8px",
+                      height: "8px",
+                      marginRight: "6px",
+                      backgroundColor: item.color,
+                    }}
+                  ></span>
+                  <span
+                    style={{ color: item.color }}
+                    className="font-bold text-medium"
+                  >
+                    {item.title}
+                  </span>
+                </div>
+                <span
+                  style={{
+                    color: "#6C6A6A",
+                    fontSize: square,
+                  }}
+                  className="font-base"
+                >
+                  {item.size} m²
+                </span>
               </div>
-            </Col>
-          </Row>
-        </div>
-
-        {data.map((item) => (
-          <div>
-            <span style={{ color: item.color }}>{item.title}</span>
-            {"  "}
-            <span>{item.size} m²</span>
+            ))}
           </div>
-        ))}
-      </Card>
+        </OverviewCard>
+      </Link>
     </div>
   );
 };

@@ -1,12 +1,8 @@
 import React from "react";
-import { Row, Col } from "antd";
-import MockSpace from "../components/mock/MockSpace";
-
-const menuWidth = 260;
-const footerHeight = 42;
-const toolbarHeight = 70;
-const gutter = 12;
-
+import SidebarMenu from "../components/navigation/SidebarMenu";
+import UserBar from "../components/header/UserBar";
+import Overview from "./Overview";
+import FooterSection from "../components/navigation/FooterSection";
 const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -14,56 +10,32 @@ const MainLayout = ({ width = "100%", height = "100%", inStory = false }) => {
       borderStyle: "dotted",
       borderWidth: "1px",
       borderColor: "#ddd",
-      padding: "10px",
     };
   }
-
-  const adjustedMenuWidth = menuWidth - gutter;
-  const adjustedToolbarHeight = toolbarHeight - gutter;
-  const adjustedFooterHeight = footerHeight - gutter;
-
   return (
     <div
       style={{
         ...storyStyle,
-        width,
-        height,
-        display: "flex",
-        flexDirection: "column",
-        padding: gutter,
+        background: "#F1F1F1",
       }}
+      className="pr-4 w-full"
     >
-      <Row
-        style={{
-          height: `${adjustedToolbarHeight}px`,
-          marginBottom: `${gutter}px`,
-        }}
-      >
-        <Col span={24}>
-          <MockSpace title="Toolbar" />
-        </Col>
-      </Row>
-      <Row
-        style={{ flexGrow: 1, display: "flex", marginBottom: `${gutter}px` }}
-      >
-        <Col
-          style={{
-            width: `${adjustedMenuWidth}px`,
-            height: "100%",
-            marginRight: `${gutter}px`,
-          }}
-        >
-          <MockSpace title="Menu" />
-        </Col>
-        <Col style={{ flexGrow: 1 }}>
-          <MockSpace title="Page Content" />
-        </Col>
-      </Row>
-      <Row style={{ height: `${adjustedFooterHeight}px` }}>
-        <Col span={24}>
-          <MockSpace title="Status Bar" />
-        </Col>
-      </Row>
+      <div className="flex gap-4">
+        <div>
+          <SidebarMenu />
+        </div>
+        <div className="flex flex-col w-full">
+          <div className="pb-1">
+            <UserBar />
+          </div>
+          <div style={{ marginBottom: "10px" }}>
+            <Overview />
+          </div>
+          <div style={{ marginTop: "auto" }}>
+            <FooterSection />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
