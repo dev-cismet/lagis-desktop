@@ -6,6 +6,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import { compare } from "../../core/tools/helper";
 const columns = [
   {
     title: "Dienststelle",
@@ -23,10 +24,12 @@ const columns = [
         <span>{title}</span>
       </div>
     ),
+    sorter: (a, b) => compare(a.type, b.type),
   },
   {
     title: "Fläche in m²",
     dataIndex: "area",
+    sorter: (a, b) => compare(a.agency, b.agency),
   },
 ];
 const mockExtractor = (input) => {

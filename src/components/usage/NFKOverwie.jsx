@@ -7,15 +7,17 @@ import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
-
+import { compare } from "../../core/tools/helper";
 const columns = [
   {
     title: "Anlageklasse",
     dataIndex: "anlageklasse",
+    sorter: (a, b) => compare(a.anlageklasse, b.anlageklasse),
   },
   {
     title: "Summe",
     dataIndex: "summe",
+    sorter: (a, b) => compare(a.summe, b.summe),
   },
 ];
 const mockExtractor = (input) => {

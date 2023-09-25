@@ -5,6 +5,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { compare } from "../../core/tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -29,10 +30,12 @@ const columns = [
         <span>{title}</span>
       </div>
     ),
+    sorter: (a, b) => compare(a.agency, b.agency),
   },
   {
     title: "Rolle",
     dataIndex: "rolle",
+    sorter: (a, b) => compare(a.agency, b.agency),
   },
 ];
 const mockExtractor = () => {

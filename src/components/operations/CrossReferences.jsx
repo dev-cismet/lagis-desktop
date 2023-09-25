@@ -8,6 +8,7 @@ import ModalForm from "../ui/forms/ModalForm";
 import { useEffect, useState } from "react";
 import "./operations.css";
 import { nanoid } from "@reduxjs/toolkit";
+import { compare } from "../../core/tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -17,7 +18,6 @@ dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 
 const { TabPane } = Tabs;
-
 const columns = [
   {
     title: "Beschlussart",
@@ -32,14 +32,17 @@ const columnsCosts = [
   {
     title: "Kostenart",
     dataIndex: "kostenart",
+    sorter: (a, b) => compare(a.kostenart, b.kostenart),
   },
   {
     title: "Betrag",
     dataIndex: "betrag",
+    sorter: (a, b) => compare(a.betrag, b.betrag),
   },
   {
     title: "Anweisung",
     dataIndex: "anweisung",
+    sorter: (a, b) => compare(a.anweisung, b.anweisung),
   },
 ];
 const CrossReferences = ({
@@ -282,14 +285,14 @@ const CrossReferences = ({
               setActiveRow={handleActiveCosts}
             />
           </TabPane>
-          <TabPane tab="Beschlüsse" key="3">
-            {/* <TableCustom
+          {/* <TabPane tab="Beschlüsse" key="3">
+            <TableCustom
               columns={columns}
               data={resolution}
               setActiveRow={setActiveResolution}
               activeRow={activeResolution}
-            /> */}
-          </TabPane>
+            />
+          </TabPane> */}
         </Tabs>
       </InfoBlock>
     </div>

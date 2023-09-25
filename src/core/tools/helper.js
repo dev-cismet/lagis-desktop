@@ -40,3 +40,19 @@ export function buildUrlParams(paramsUrl) {
   }
   return params.join("");
 }
+
+export const compare = (a, b) => {
+  if (a === undefined || a === null) {
+    a = "";
+  }
+  if (b === undefined || a === null) {
+    b = "";
+  }
+
+  return (
+    isFinite(b) - isFinite(a) ||
+    a - b ||
+    (a?.length === b?.length && a.toString().localeCompare(b)) ||
+    a?.length - b?.length
+  );
+};

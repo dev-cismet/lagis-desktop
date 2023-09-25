@@ -6,22 +6,28 @@ import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { nanoid } from "@reduxjs/toolkit";
 import { useState, useEffect } from "react";
+import { compare } from "../../core/tools/helper";
+
 const columns = [
   {
     title: "Vertragsart",
     dataIndex: "vertragsart",
+    sorter: (a, b) => compare(a.vertragsart, b.vertragsart),
   },
   {
     title: "Nummer",
     dataIndex: "nummer",
+    sorter: (a, b) => compare(a.nummer, b.nummer),
   },
   {
     title: "Quadratmeterpreis",
     dataIndex: "quadratmeterpreis",
+    sorter: (a, b) => compare(a.quadratmeterpreis, b.quadratmeterpreis),
   },
   {
     title: "Kaufpreis (i. NK)",
     dataIndex: "kaufpreis",
+    sorter: (a, b) => compare(a.kaufpreis, b.kaufpreis),
   },
 ];
 const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
