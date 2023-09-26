@@ -1,4 +1,3 @@
-import HeaderSelectors from "../ui/filters/HeaderSelectors";
 import UserBarActions from "../ui/control-board/UserBarActions";
 import UserName from "./UserName";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -98,9 +97,9 @@ const UserBar = () => {
         // flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
         // fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
       />
-      <div className="mx-2 md:ml-4">
+      {/* <div className="mx-2 md:ml-4">
         <UserBarActions />
-      </div>
+      </div> */}
       <div className="ml-auto flex gap-2 items-center">
         <UserName name={userLogin} />
         <div className="logout ml-auto pl-1 flex items-center">

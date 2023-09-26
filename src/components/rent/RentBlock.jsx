@@ -239,7 +239,7 @@ const RentBlock = ({
                 ]}
                 size={8}
                 buttonPosition={{ justifyContent: "end" }}
-                tagsBar={[1]}
+                // tagsBar={[1]}
               />
             </ToggleModal>
           }
