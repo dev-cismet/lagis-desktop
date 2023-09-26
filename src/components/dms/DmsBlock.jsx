@@ -116,7 +116,6 @@ const DmsBlock = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    console.log("dms link", data);
     if (data.length > 0) {
       setDms(data);
       setActiveRow(data[0]);
