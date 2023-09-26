@@ -50,6 +50,7 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
+  console.log("data", dataIn);
 
   return (
     <Card
