@@ -6,6 +6,7 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect } from "react";
+import { compare } from "../../core/tools/helper";
 const columns = [
   {
     title: "Dienststelle",
@@ -17,16 +18,18 @@ const columns = [
             width: "9px",
             height: "11px",
             marginRight: "6px",
-            backgroundColor: record.color,
+            backgroundColor: record?.color || "transporent",
           }}
         ></span>
         <span>{title}</span>
       </div>
     ),
+    sorter: (a, b) => compare(a.type, b.type),
   },
   {
     title: "Fläche in m²",
     dataIndex: "area",
+    sorter: (a, b) => compare(a.agency, b.agency),
   },
 ];
 const mockExtractor = (input) => {
@@ -97,8 +100,11 @@ const Agencies = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    setAgency(data);
-    setActiveRow(data[0]);
+
+    if (data.length > 0) {
+      setAgency(data);
+      setActiveRow(data[0]);
+    }
   }, [dataIn]);
   return (
     <div

@@ -7,22 +7,25 @@ import mockFoto from "../../assets/docksMock.png";
 import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { FileWordOutlined } from "@ant-design/icons";
-
+import { compare } from "../../core/tools/helper";
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
     id: "name",
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
   {
     title: "Dateiname",
     dataIndex: "file",
     id: "file",
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
   {
     title: "Beschreibung",
     dataIndex: "beschreibung",
     id: "beschreibung",
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
   {
     title: "Vorschau",
@@ -33,6 +36,7 @@ const columns = [
         <FileWordOutlined style={{ fontSize: "20px" }} />
       </div>
     ),
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
 ];
 // {

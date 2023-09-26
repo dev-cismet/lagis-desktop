@@ -4,6 +4,7 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
+import { useEffect } from "react";
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
@@ -18,12 +19,60 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let square = "14px";
+  let square = "20px";
   const data = extractor(dataIn);
-
+  useEffect(() => {
+    console.log("ssss", data);
+  }, []);
   return (
     <div className="dashboard-tile">
-      <Link to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
+      {data.length > 0 && data[0] ? (
+        <Link to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Verwaltungsbereiche"
+            subtitle="& Rollen"
+            icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+          >
+            <div className="flex flex-col mt-auto">
+              {data?.map((item) => (
+                <div className="flex justify-between items-center mt-1 mb-1">
+                  <div className="flex justify-between items-center">
+                    {item?.title && (
+                      <span
+                        style={{
+                          width: "8px",
+                          height: "8px",
+                          marginRight: "6px",
+                          backgroundColor: item?.color || "#0097FA",
+                        }}
+                      ></span>
+                    )}
+                    <span
+                      style={{
+                        color: item?.color || "#585453",
+                        fontSize: item?.title ? square : "88px",
+                        marginBottom: item?.title ? "0px" : "-10px",
+                      }}
+                      className="font-bold text-medium"
+                    >
+                      {item?.title || "00"}
+                    </span>
+                  </div>
+                  <span
+                    style={{
+                      color: "#6C6A6A",
+                      fontSize: square,
+                    }}
+                    // className="font-lg"
+                  >
+                    {item?.size ? `${item?.size} m²` : ""}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </OverviewCard>
+        </Link>
+      ) : (
         <OverviewCard
           title="Verwaltungsbereiche"
           subtitle="& Rollen"
@@ -33,19 +82,25 @@ const DashboardOffices = ({
             {data?.map((item) => (
               <div className="flex justify-between items-center mt-1 mb-1">
                 <div className="flex justify-between items-center">
+                  {item?.title && (
+                    <span
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        marginRight: "6px",
+                        backgroundColor: item?.color || "#0097FA",
+                      }}
+                    ></span>
+                  )}
                   <span
                     style={{
-                      width: "8px",
-                      height: "8px",
-                      marginRight: "6px",
-                      backgroundColor: item.color,
+                      color: item?.color || "#585453",
+                      fontSize: item?.title ? square : "88px",
+                      marginBottom: item?.title ? "0px" : "-10px",
                     }}
-                  ></span>
-                  <span
-                    style={{ color: item.color }}
                     className="font-bold text-medium"
                   >
-                    {item.title}
+                    {item?.title || "00"}
                   </span>
                 </div>
                 <span
@@ -53,15 +108,15 @@ const DashboardOffices = ({
                     color: "#6C6A6A",
                     fontSize: square,
                   }}
-                  className="font-base"
+                  // className="font-lg"
                 >
-                  {item.size} m²
+                  {item?.size ? `${item?.size} m²` : ""}
                 </span>
               </div>
             ))}
           </div>
         </OverviewCard>
-      </Link>
+      )}
     </div>
   );
 };

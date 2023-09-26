@@ -53,6 +53,40 @@ export const getRebe = (state) => {
   return state.lagis.rebe;
 };
 
+export const getOffices = (state) => {
+  const offices =
+    state.lagis.lagisLandparcel?.verwaltungsbereiche_eintragArrayRelationShip ||
+    [];
+  if (
+    offices.length > 0 &&
+    offices[0]?.verwaltungsbereichArrayRelationShip.length === 0
+  ) {
+    return [];
+  }
+  return offices;
+};
+export const getAdditionalRollen = (state) => {
+  return state.lagis?.lagisLandparcel?.zusatz_rolleArrayRelationShip || [];
+};
+export const getStreetFronts = (state) => {
+  return state.lagis?.lagisLandparcel?.strassenfrontArrayRelationShip || [];
+};
+
+export const getUsage = (state) => {
+  return state.lagis.lagisLandparcel?.nutzungArrayRelationShip || undefined;
+};
+export const getContract = (state) => {
+  return state.lagis.lagisLandparcel?.ar_vertraegeArray || undefined;
+};
+export const getTransaction = (state) => {
+  return (
+    state.lagis.lagisLandparcel?.kassenzeichenArrayRelationShip || undefined
+  );
+};
+export const getDms = (state) => {
+  return state.lagis.lagisLandparcel?.dms_urlArrayRelationShip || undefined;
+};
+
 export const getAdditionalRoll = (state) => {
   if (
     state.lagis &&

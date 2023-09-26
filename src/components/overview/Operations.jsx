@@ -19,7 +19,7 @@ const DashboarOperations = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
+      {data.color === "#585453" ? (
         <OverviewCard
           title="Vorgänge"
           icon={<SwapRightOutlined style={{ color: data.color }} />}
@@ -38,7 +38,28 @@ const DashboarOperations = ({
             </strong>
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Vorgänge"
+            icon={<SwapRightOutlined style={{ color: data.color }} />}
+          >
+            <div
+              style={{
+                color: data.color,
+                fontSize: "5.5rem",
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              <strong>
+                {data.numberOfOperations.toString().padStart(2, "0")}
+              </strong>
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };

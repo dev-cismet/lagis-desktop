@@ -6,6 +6,7 @@ import ModalForm from "../ui/forms/ModalForm";
 import DocsIcons from "../ui/Blocks/DocsIcons";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { compare } from "../../core/tools/helper";
 import {
   CloseCircleOutlined,
   IssuesCloseOutlined,
@@ -15,14 +16,17 @@ const columns = [
   {
     title: "Nutzung Nr",
     dataIndex: "nutzung",
+    sorter: (a, b) => compare(a.nutzung, b.nutzung),
   },
   {
     title: "Buchungs-Nr",
     dataIndex: "buchungs",
+    sorter: (a, b) => compare(a.buchungs, b.buchungs),
   },
   {
     title: "Anlageklasse",
     dataIndex: "anlageklasse",
+    sorter: (a, b) => compare(a.anlageklasse, b.anlageklasse),
   },
   // {
   //   title: "Nutzungsart",
@@ -31,22 +35,27 @@ const columns = [
   {
     title: "Nutzungsarten-bezeichnung",
     dataIndex: "bezeichnung",
+    sorter: (a, b) => compare(a.bezeichnung, b.bezeichnung),
   },
   {
     title: "Fläche/m2",
     dataIndex: "fläche",
+    sorter: (a, b) => compare(a.fläche, b.fläche),
   },
   {
     title: "m2 Preis",
     dataIndex: "preis",
+    sorter: (a, b) => compare(a.preis, b.preis),
   },
   {
     title: "Gesamtpreis",
     dataIndex: "gesamtpreis",
+    sorter: (a, b) => compare(a.gesamtpreis, b.gesamtpreis),
   },
   {
     title: "Stille Reserve",
     dataIndex: "stille",
+    sorter: (a, b) => compare(a.stille, b.stille),
   },
   {
     title: "Buchwert",
@@ -60,10 +69,12 @@ const columns = [
         )}
       </div>
     ),
+    sorter: (a, b) => compare(a.buchwert, b.buchwert),
   },
   {
     title: "Bemerkung",
     dataIndex: "bemerkung",
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
 ];
 const mockExtractor = (input) => {

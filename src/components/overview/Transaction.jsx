@@ -20,7 +20,7 @@ const DashboardTransaction = ({
 
   return (
     <div className="dashboard-tile">
-      <Link to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
+      {data.color === "#585453" ? (
         <OverviewCard
           title="Kassenzeichen"
           icon={<PayCircleOutlined style={{ color: data.color }} />}
@@ -39,7 +39,28 @@ const DashboardTransaction = ({
             </strong>
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Kassenzeichen"
+            icon={<PayCircleOutlined style={{ color: data.color }} />}
+          >
+            <div
+              style={{
+                color: data.color,
+                fontSize: "5.5rem",
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              <strong>
+                {data.numberOfDocuments.toString().padStart(2, "0")}
+              </strong>
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };

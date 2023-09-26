@@ -8,6 +8,7 @@ import CustomNotes from "../ui/notes/CustomNotes";
 // import CustomH3 from "../ui/titles/CustomH3";
 import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { compare } from "../../core/tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -19,26 +20,32 @@ const columns = [
   {
     title: "Lage",
     dataIndex: "lage",
+    sorter: (a, b) => compare(a.lage, b.lage),
   },
   {
     title: "Aktenzeichen",
     dataIndex: "aktenzeichen",
+    sorter: (a, b) => compare(a.aktenzeichen, b.aktenzeichen),
   },
   {
     title: "Flaeche m2",
     dataIndex: "flaeche",
+    sorter: (a, b) => compare(a.flaeche, b.flaeche),
   },
   {
     title: "Nutzung",
     dataIndex: "nutzung",
+    sorter: (a, b) => compare(a.nutzung, b.nutzung),
   },
   {
     title: "Vertragsbegin",
     dataIndex: "vertragsbegin",
+    sorter: (a, b) => compare(a.vertragsbegin, b.vertragsbegin),
   },
   {
     title: "Vertragsende",
     dataIndex: "vertragsende",
+    sorter: (a, b) => compare(a.vertragsende, b.vertragsende),
   },
   {
     title: "Merkmale",
@@ -53,6 +60,7 @@ const columns = [
         ))}
       </>
     ),
+    sorter: (a, b) => compare(a.merkmale, b.merkmale),
   },
 ];
 const mockExtractor = (input) => {

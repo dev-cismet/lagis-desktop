@@ -5,15 +5,15 @@ import { getArea25832 } from "../tools/mappingTools";
 export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
-      numberOfRents: "  ",
-      color: "#BBBBBB",
+      numberOfRents: " ",
+      color: "#585453",
     };
   } else {
     const mipa = dataIn;
     const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
-      color: numberOfRents > 0 ? "#5D5FEF" : "#999999",
+      color: numberOfRents > 0 ? "#5D5FEF" : "#585453",
     };
   }
 }
@@ -60,7 +60,7 @@ export function transactionExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfDocuments: "  ",
-      color: "#BBBBBB",
+      color: "#585453",
     };
   } else {
     const landparcel = dataIn;
@@ -68,7 +68,7 @@ export function transactionExtractor(dataIn) {
       landparcel?.kassenzeichenArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#5D5FEF" : "#999999",
+      color: numberOfDocuments > 0 ? "#5D5FEF" : "#585453",
     };
   }
 }
@@ -83,7 +83,7 @@ export function operationExtractor(dataIn) {
     const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfOperations,
-      color: numberOfOperations > 0 ? "#389EFD" : "#999999",
+      color: numberOfOperations > 0 ? "#389EFD" : "#585453",
     };
   }
 }
@@ -92,7 +92,7 @@ export function usageExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfUsages: "  ",
-      color: "#389EFD",
+      color: "#585453",
     };
   } else {
     const landparcel = dataIn;
@@ -109,7 +109,7 @@ export function usageExtractor(dataIn) {
     }
     return {
       numberOfUsages: counter,
-      color: numberOfUsages > 0 ? "#F31630" : "#999999",
+      color: numberOfUsages > 0 ? "#F31630" : "#585453",
     };
   }
 }
@@ -125,7 +125,7 @@ export function dmsExtractor(dataIn) {
     const numberOfDocuments = landparcel?.dms_urlArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#180E53" : "#999999",
+      color: numberOfDocuments > 0 ? "#180E53" : "#585453",
     };
   }
 }
@@ -141,7 +141,7 @@ export function rebeExtractor(dataIn) {
     const numberOfRights = rebe.length || 0;
     return {
       numberOfRights,
-      color: numberOfRights > 0 ? "#180E53" : "#999999",
+      color: numberOfRights > 0 ? "#180E53" : "#585453",
     };
   }
 }

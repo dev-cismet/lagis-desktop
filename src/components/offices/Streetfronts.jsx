@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { compare } from "../../core/tools/helper";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
@@ -17,10 +18,13 @@ const columns = [
   {
     title: "Straße",
     dataIndex: "street",
+    sorter: (a, b) => compare(a.street, b.street),
   },
+
   {
     title: "Länge (in m)",
     dataIndex: "length",
+    sorter: (a, b) => compare(a.length, b.length),
   },
 ];
 const mockExtractor = (input) => {

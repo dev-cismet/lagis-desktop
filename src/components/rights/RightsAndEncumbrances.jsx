@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import RightsForm from "./form/RightsForm";
 import ToggleModal from "../ui/control-board/ToggleModal";
 import { nanoid } from "@reduxjs/toolkit";
+import { compare } from "../../core/tools/helper";
 import { Switch } from "antd";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
@@ -18,30 +19,37 @@ const columns = [
     title: "ist Recht",
     dataIndex: "recht",
     render: (record) => <Switch size="small" checked={record} />,
+    sorter: (a, b) => compare(a.recht, b.recht),
   },
   {
     title: "Art",
     dataIndex: "art",
+    sorter: (a, b) => compare(a.art, b.art),
   },
   {
     title: "Art des Rechts",
     dataIndex: "artrecht",
+    sorter: (a, b) => compare(a.artrecht, b.artrecht),
   },
   {
     title: "Nummer",
     dataIndex: "nummer",
+    sorter: (a, b) => compare(a.nummer, b.nummer),
   },
   {
     title: "Eintragung",
     dataIndex: "eintragung",
+    sorter: (a, b) => compare(a.eintragung, b.eintragung),
   },
   {
     title: "Löschung",
     dataIndex: "loschung",
+    sorter: (a, b) => compare(a.loschung, b.loschung),
   },
   {
     title: "Bemerkung",
     dataIndex: "bemerkung",
+    sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
 ];
 const mockExtractor = (input) => {

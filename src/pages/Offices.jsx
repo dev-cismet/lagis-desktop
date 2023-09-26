@@ -42,7 +42,6 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
             extractor={(dataIn) => {
               if (dataIn) {
                 const alkisLandparcel = dataIn;
-
                 const feature = {
                   type: "Feature",
                   featureType: "landparcel",

@@ -19,7 +19,7 @@ const DashboardRights = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to={`/rechte?${buildUrlParams(parametersForLink)}`}>
+      {data.color === "#585453" ? (
         <OverviewCard
           title="Rechte & Belastungen"
           subtitle="& Dienstbarkeiten, Baulasten"
@@ -42,7 +42,32 @@ const DashboardRights = ({
             <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/rechte?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Rechte & Belastungen"
+            subtitle="& Dienstbarkeiten, Baulasten"
+            icon={
+              <SettingOutlined
+                className="text-3xl"
+                style={{ color: data.color }}
+              />
+            }
+          >
+            <div
+              style={{
+                color: data.color,
+                fontSize: "5.5rem",
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              <strong>{data.numberOfRights.toString().padStart(2, "0")}</strong>
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };
