@@ -19,7 +19,7 @@ const DashboardUsage = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      {data.color === "#585453" ? (
+      {data.color === "#E0E0E0" ? (
         <OverviewCard
           title="Nutzung"
           subtitle="& Anlagenbuchhaltung"

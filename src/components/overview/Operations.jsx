@@ -19,7 +19,7 @@ const DashboarOperations = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      {data.color === "#585453" ? (
+      {data.color === "#E0E0E0" ? (
         <OverviewCard
           title="Vorgänge"
           icon={<SwapRightOutlined style={{ color: data.color }} />}
