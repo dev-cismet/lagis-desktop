@@ -4,7 +4,7 @@ import HistoryInfo from "../components/history/HistoryInfo";
 import View from "../components/history/View";
 import OptionHistory from "../components/history/OptionHistory";
 import { useSelector } from "react-redux";
-import { getHistory } from "../store/slices/lagis";
+import { getHistory, getLandparcel } from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
 const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
