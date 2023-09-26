@@ -149,11 +149,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               extractor={operationExtractor}
               parametersForLink={parametersForLink}
             />
-            <History
-              dataIn={history}
-              extractor={historyExtractor}
-              parametersForLink={parametersForLink}
-            />
+            <History dataIn={landparcel} />
             <Transaction
               dataIn={landparcel}
               extractor={transactionExtractor}
