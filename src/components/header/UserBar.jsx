@@ -1,5 +1,5 @@
-import UserBarActions from "../ui/control-board/UserBarActions";
 import UserName from "./UserName";
+import { Tooltip } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 import {
   getJWT,
@@ -28,6 +28,7 @@ import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
+
 const UserBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -100,10 +101,26 @@ const UserBar = () => {
       {/* <div className="mx-2 md:ml-4">
         <UserBarActions />
       </div> */}
-      <div className="ml-auto flex gap-2 items-center">
+      <div className="ml-auto flex gap-1 items-center">
         <UserName name={userLogin} />
         <div className="logout ml-auto pl-1 flex items-center">
-          <LogoutOutlined style={{ fontSize: "12px" }} />
+          <Tooltip title="Ausloggen" placement="right">
+            <LogoutOutlined
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                dispatch(storeAlkisLandparcel(undefined));
+                dispatch(storeLagisLandparcel(undefined));
+                dispatch(storeRebe(undefined));
+                dispatch(storeMipa(undefined));
+                dispatch(storeJWT(undefined));
+                dispatch(storeLogin(undefined));
+                dispatch(storeLandParcels(undefined));
+                dispatch(storeLandmarks(undefined));
+                navigate("/login");
+              }}
+            />
+          </Tooltip>
+          {/* <LogoutOutlined style={{ fontSize: "12px" }} />
           <span
             style={{ lineHeight: "22px", fontSize: "13px" }}
             className="ml-1 hidden md:block"
@@ -120,7 +137,7 @@ const UserBar = () => {
             }}
           >
             Logout
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

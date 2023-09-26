@@ -21,9 +21,6 @@ const DashboardOffices = ({
 }) => {
   let square = "20px";
   const data = extractor(dataIn);
-  useEffect(() => {
-    console.log("ssss", data);
-  }, []);
   return (
     <div className="dashboard-tile">
       {data.length > 0 && data[0] ? (
@@ -49,7 +46,7 @@ const DashboardOffices = ({
                     )}
                     <span
                       style={{
-                        color: item?.color || "#585453",
+                        color: item?.color || "#E0E0E0",
                         fontSize: item?.title ? square : "88px",
                         marginBottom: item?.title ? "0px" : "-10px",
                       }}
@@ -94,7 +91,7 @@ const DashboardOffices = ({
                   )}
                   <span
                     style={{
-                      color: item?.color || "#585453",
+                      color: item?.color || "#E0E0E0",
                       fontSize: item?.title ? square : "88px",
                       marginBottom: item?.title ? "0px" : "-10px",
                     }}
