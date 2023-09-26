@@ -19,6 +19,7 @@ import {
   getUrlLandparcelParams,
   storeRebe,
   storeMipa,
+  storeHistory,
 } from "../../store/slices/lagis";
 // import { addLeadingZeros } from "../../core/tools/helper";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,6 +29,7 @@ import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
 import { useEffect, useState } from "react";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
+import { generateGraphString } from "../../core/tools/history";
 const UserBar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -54,9 +56,15 @@ const UserBar = () => {
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
-    const geo = result?.data.flurstueck[0].alkisLandparcel.geometrie;
-    const resultRebe = await getRebe(getBuffer25832(geo, -1));
-    const resultMipa = await getMipa(getBuffer25832(geo, -1));
+    const geo = result?.data.flurstueck[0].alkisLandparcel?.geometrie;
+    if (geo) {
+      await getRebe(getBuffer25832(geo, -1));
+      await getMipa(getBuffer25832(geo, -1));
+    } else {
+      dispatch(storeRebe());
+      dispatch(storeMipa());
+    }
+    await getHistory(result?.data.flurstueck[0].id);
   };
   const getRebe = async (geo) => {
     const result = await fetchGraphQL(
@@ -78,6 +86,26 @@ const UserBar = () => {
     );
     dispatch(storeMipa(result.data.mipa));
   };
+
+  const getHistory = async (sid) => {
+    console.log("xxx queries.getHistory", sid);
+
+    try {
+      const result = await fetchGraphQL(
+        queries.history,
+        {
+          schluessel_id: sid,
+        },
+        jwt
+      );
+      // console.log(
+      //   generateGraphString(result?.data?.cs_calc_history, "default")
+      // );
+      dispatch(storeHistory(result?.data?.cs_calc_history));
+    } catch (e) {
+      console.log("xxx error in getHistory", e);
+    }
+  };
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
@@ -89,6 +117,8 @@ const UserBar = () => {
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
+          console.log("flurstueckChoosen", fstck);
+
           if (fstck.lfk) {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
           }

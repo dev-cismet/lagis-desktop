@@ -119,13 +119,26 @@ queries.nenner = `query q($gemarkung_id: Int, $zaehler: Int) {
 }
 `;
 
-queries.flurstuecke = `query MyQuery {
+queries.flurstueckeOld = `query MyQuery {
   alkis_flurstueck {
     alkis_id
     fk_schluessel
     flurstueck_schluessel {
       fk_flurstueck_art
     }
+  }
+  gemarkung {
+    bezeichnung
+    schluessel
+  }
+}`;
+
+queries.flurstuecke = `query MyQuery {
+  view_flurstueck_schluessel {
+    alkis_id
+    schluessel_id
+    flurstueckart
+    historisch
   }
   gemarkung {
     bezeichnung
@@ -421,5 +434,19 @@ queries.getMipaByGeo = `query MyQuery($geo: geometry) {
         bezeichnung
       }
     }
+  }
+}`;
+
+queries.history = `query MyQuery($schluessel_id: Int) {
+  cs_calc_history(args: {schluesselid: $schluessel_id}) {
+    alkis_id
+    level
+    nachfolger_alkis_id
+    nachfolger_name
+    nachfolger_schluessel_id
+    schluessel_id
+    vorgaenger_alkis_id
+    vorgaenger_name
+    vorgaenger_schluessel_id
   }
 }`;
