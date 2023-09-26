@@ -18,7 +18,7 @@ const DashboardRent = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to={`/miet?${buildUrlParams(parametersForLink)}`}>
+      {data.color === "#585453" ? (
         <OverviewCard
           title="Miet und Pachtverträge"
           icon={<DollarOutlined style={{ color: data.color }} />}
@@ -32,10 +32,39 @@ const DashboardRent = ({
               lineHeight: "1.2",
             }}
           >
-            <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>
+            {data.numberOfRents === " " ? (
+              <span></span>
+            ) : (
+              <strong>{data.numberOfRents.toString().padStart(2, "0")}</strong>
+            )}
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/miet?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Miet und Pachtverträge"
+            icon={<DollarOutlined style={{ color: data.color }} />}
+          >
+            <div
+              className="text-8xl"
+              style={{
+                color: data.color,
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              {data.numberOfRents === " " ? (
+                <span></span>
+              ) : (
+                <strong>
+                  {data.numberOfRents.toString().padStart(2, "0")}
+                </strong>
+              )}
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };

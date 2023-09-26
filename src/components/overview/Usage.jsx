@@ -19,7 +19,7 @@ const DashboardUsage = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
+      {data.color === "#585453" ? (
         <OverviewCard
           title="Nutzung"
           subtitle="& Anlagenbuchhaltung"
@@ -37,7 +37,27 @@ const DashboardUsage = ({
             <strong>{data.numberOfUsages.toString().padStart(2, "0")}</strong>
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Nutzung"
+            subtitle="& Anlagenbuchhaltung"
+            icon={<PieChartOutlined style={{ color: data.color }} />}
+          >
+            <div
+              style={{
+                color: data.color,
+                fontSize: "5.5rem",
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              <strong>{data.numberOfUsages.toString().padStart(2, "0")}</strong>
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };
