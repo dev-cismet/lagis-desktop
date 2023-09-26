@@ -6,8 +6,6 @@ export function usageBlockExtractor(dataIn) {
   } else {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
-    console.log("usage extractor", landparcel);
-
     const currentUsage = [];
     usage.forEach((element) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
@@ -65,7 +63,6 @@ function calculateStilleReserve(buchungArray, positionInArray, gesamtpreis) {
       lastIstBuchwer = item;
     }
   }
-  console.log("nnn 4 lastIstBuchwer", lastIstBuchwer);
   let res = 0;
   if (lastIstBuchwer?.quadratmeterpreis && lastIstBuchwer?.flaeche) {
     res =
@@ -73,7 +70,6 @@ function calculateStilleReserve(buchungArray, positionInArray, gesamtpreis) {
   } else {
     res = 0;
   }
-  console.log("nnn 4 res", res);
   return res < 0 ? 0 : res;
 }
 
@@ -83,8 +79,6 @@ export function NFKOverwieExtractor(dataIn) {
   } else {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
-    console.log("usage extractor", landparcel);
-
     const currentUsage = [];
     usage.forEach((element) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {

@@ -16,6 +16,18 @@ import "./menu.css";
 import Logo from "../ui/logo/Logo";
 import { useEffect } from "react";
 import { buildUrlParams } from "../../core/tools/helper";
+import { useSelector } from "react-redux";
+import {
+  getMipa,
+  getOffices,
+  getRebe,
+  getUsage,
+  getContract,
+  getTransaction,
+  getDms,
+  getAdditionalRollen,
+  getStreetFronts,
+} from "../../store/slices/lagis";
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -27,6 +39,15 @@ function getItem(label, key, icon, children) {
 import { useLocation, NavLink } from "react-router-dom";
 
 const SidebarMenu = ({ parametersForLink }) => {
+  const mipa = useSelector(getMipa);
+  const offices = useSelector(getOffices);
+  const rebe = useSelector(getRebe);
+  const usage = useSelector(getUsage);
+  const contracts = useSelector(getContract);
+  const transaction = useSelector(getTransaction);
+  const dms = useSelector(getDms);
+  const additionalRoll = useSelector(getAdditionalRollen);
+  const streetFronts = useSelector(getStreetFronts);
   const location = useLocation();
   const [activeKey, setActiveKey] = useState("/");
   const [collapsed, setCollapsed] = useState(false);
@@ -48,37 +69,61 @@ const SidebarMenu = ({ parametersForLink }) => {
       <DashboardOutlined />
     ),
     getItem(
-      <NavLink to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
-        Verwaltungsbereiche
-      </NavLink>,
+      offices.length > 0 ||
+        additionalRoll.length > 0 ||
+        streetFronts.length > 0 ? (
+        <NavLink
+          to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}
+        >
+          Verwaltungsbereiche
+        </NavLink>
+      ) : (
+        "Verwaltungsbereiche"
+      ),
       "/verwaltungsbereiche",
       <FolderOpenOutlined />
     ),
     getItem(
-      <NavLink to={`/miet?${buildUrlParams(parametersForLink)}`}>
-        Miet- und Pachtverträge
-      </NavLink>,
+      mipa && mipa.length > 0 ? (
+        <NavLink to={`/miet?${buildUrlParams(parametersForLink)}`}>
+          Miet- und Pachtverträge
+        </NavLink>
+      ) : (
+        "Miet- und Pachtverträge"
+      ),
       "/miet",
       <DollarOutlined />
     ),
     getItem(
-      <NavLink to={`/rechte?${buildUrlParams(parametersForLink)}`}>
-        Rechte und Belastungen
-      </NavLink>,
+      rebe && rebe.length > 0 ? (
+        <NavLink to={`/rechte?${buildUrlParams(parametersForLink)}`}>
+          Rechte und Belastungen
+        </NavLink>
+      ) : (
+        "Rechte und Belastungen"
+      ),
       "/rechte",
       <SettingOutlined />
     ),
     getItem(
-      <NavLink to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
-        Nutzung
-      </NavLink>,
+      usage && usage.length > 0 ? (
+        <NavLink to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
+          Nutzung
+        </NavLink>
+      ) : (
+        "Nutzung"
+      ),
       "/nutzung",
       <PieChartOutlined />
     ),
     getItem(
-      <NavLink to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
-        Vorgänge
-      </NavLink>,
+      contracts && contracts.length > 0 ? (
+        <NavLink to={`/vorgange?${buildUrlParams(parametersForLink)}`}>
+          Vorgänge
+        </NavLink>
+      ) : (
+        "Vorgänge"
+      ),
       "/vorgange",
       <FileSearchOutlined />
     ),
@@ -88,14 +133,22 @@ const SidebarMenu = ({ parametersForLink }) => {
       <HistoryOutlined />
     ),
     getItem(
-      <NavLink to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
-        Kassenzeichen
-      </NavLink>,
+      transaction && transaction.length > 0 ? (
+        <NavLink to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
+          Kassenzeichen
+        </NavLink>
+      ) : (
+        "Kassenzeichen"
+      ),
       "/kassenzeichen",
       <TransactionOutlined />
     ),
     getItem(
-      <NavLink to={`/dms?${buildUrlParams(parametersForLink)}`}>DMS</NavLink>,
+      dms && dms.length > 0 ? (
+        <NavLink to={`/dms?${buildUrlParams(parametersForLink)}`}>DMS</NavLink>
+      ) : (
+        "DMS"
+      ),
       "/dms",
       <FilePdfOutlined />
     ),
