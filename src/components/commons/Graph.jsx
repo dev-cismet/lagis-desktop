@@ -49,6 +49,8 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
+  console.log("data", dataIn);
+
   return (
     <Card
       size="small"
@@ -74,7 +76,7 @@ const Graph = ({
           width: width - 2 * padding,
           height: height - 2 * padding - headHeight,
         }}
-        dot={data.dot}
+        dot={data || "digraph _Graph_ {}"}
       />
     </Card>
   );

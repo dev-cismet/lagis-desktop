@@ -6,6 +6,7 @@ const initialState = {
   history: undefined,
   rebe: undefined,
   mipa: undefined,
+  history: undefined,
 };
 
 const slice = createSlice({
@@ -28,6 +29,10 @@ const slice = createSlice({
       state.mipa = action.payload;
       return state;
     },
+    storeHistory(state, action) {
+      state.history = action.payload;
+      return state;
+    },
   },
 });
 
@@ -38,6 +43,7 @@ export const {
   storeAlkisLandparcel,
   storeRebe,
   storeMipa,
+  storeHistory,
 } = slice.actions;
 
 export const getLandparcel = (state) => {
@@ -51,6 +57,9 @@ export const getMipa = (state) => {
 };
 export const getRebe = (state) => {
   return state.lagis.rebe;
+};
+export const getHistory = (state) => {
+  return state.lagis.history;
 };
 
 export const getOffices = (state) => {

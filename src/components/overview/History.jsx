@@ -3,12 +3,15 @@ import { FieldTimeOutlined } from "@ant-design/icons";
 import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
+import { buildUrlParams } from "../../core/tools/helper";
+
 const mockExtractor = (input) => {
   return { numberOfDocuments: "4", color: "#FFD029" };
 };
 const DashboardHistory = ({
   dataIn,
   extractor = mockExtractor,
+  parametersForLink,
   width = 231,
   height = 188,
   style,
@@ -16,7 +19,7 @@ const DashboardHistory = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      <Link to="/historie">
+      <Link to={`/historie?${buildUrlParams(parametersForLink)}`}>
         <OverviewCard
           title="Historie"
           icon={<FieldTimeOutlined style={{ color: data.color }} />}

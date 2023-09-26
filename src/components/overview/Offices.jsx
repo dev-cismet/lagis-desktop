@@ -22,8 +22,9 @@ const DashboardOffices = ({
   let square = "20px";
   const data = extractor(dataIn);
   useEffect(() => {
-    console.log("ssss", data);
+    console.log("xxx data", data);
   }, []);
+
   return (
     <div className="dashboard-tile">
       {data.length > 0 && data[0] ? (
