@@ -4,9 +4,10 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
+import { DashOutlined } from "@ant-design/icons";
 
 const mockExtractor = (input) => {
-  return { numberOfDocuments: "4", color: "#FFD029" };
+  return { number: "4", color: "#FFD029" };
 };
 const DashboardHistory = ({
   dataIn,
@@ -34,7 +35,11 @@ const DashboardHistory = ({
             }}
           >
             <strong>
-              {data.numberOfDocuments.toString().padStart(2, "0")}
+              {typeof data.number === "number" ? (
+                (data.number + 1).toString().padStart(2, "0")
+              ) : (
+                <DashOutlined />
+              )}
             </strong>
           </div>
         </OverviewCard>

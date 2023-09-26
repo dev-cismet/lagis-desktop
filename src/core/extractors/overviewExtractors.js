@@ -2,6 +2,7 @@ import { getColorFromCode } from "../tools/helper";
 import area from "@turf/area";
 import proj4 from "proj4";
 import { getArea25832 } from "../tools/mappingTools";
+
 export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
@@ -17,6 +18,14 @@ export function mipaExtractor(dataIn) {
     };
   }
 }
+export function historyExtractor(dataIn) {
+  if (dataIn === undefined || dataIn.length === 0) {
+    return { color: "lightgray" };
+  } else {
+    return { color: "#FFD029", number: dataIn.length };
+  }
+}
+
 export function officesExtractor(dataIn) {
   if (dataIn === undefined) {
     return [];
