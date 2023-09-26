@@ -46,10 +46,10 @@ const Graph = ({
   fit = true,
   zoom = true,
 }) => {
+  console.log("History \n\n" + JSON.stringify(dataIn, null, 2));
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
-  console.log("data", dataIn);
 
   return (
     <Card
@@ -70,6 +70,7 @@ const Graph = ({
       type="inner"
     >
       <Graphviz
+        key={"graphviz" + data}
         options={{
           fit,
           zoom,
