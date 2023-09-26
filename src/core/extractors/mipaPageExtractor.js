@@ -28,6 +28,7 @@ export function mipaPageExtractor(dataIn) {
         } else {
           formattedVertragsende = null;
         }
+        console.log("merkmale", m.ar_mipa_merkmaleArray);
         return {
           id: nanoid(),
           lage: m.lage,

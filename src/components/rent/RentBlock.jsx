@@ -54,8 +54,8 @@ const columns = [
     render: (merkmale) => (
       <>
         {merkmale.map((m, i) => (
-          <Tag key={i} color={m.color}>
-            {m.text}
+          <Tag key={i} color={i % 2 === 0 ? "green" : "red"}>
+            {m.mipa_merkmal.bezeichnung}
           </Tag>
         ))}
       </>

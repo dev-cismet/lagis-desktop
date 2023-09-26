@@ -7,14 +7,14 @@ export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfRents: " ",
-      color: "#585453",
+      color: "#E0E0E0",
     };
   } else {
     const mipa = dataIn;
     const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
-      color: numberOfRents > 0 ? "#5D5FEF" : "#585453",
+      color: numberOfRents > 0 ? "#5D5FEF" : "#E0E0E0",
     };
   }
 }
@@ -69,7 +69,7 @@ export function transactionExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfDocuments: "  ",
-      color: "#585453",
+      color: "#E0E0E0",
     };
   } else {
     const landparcel = dataIn;
@@ -77,7 +77,7 @@ export function transactionExtractor(dataIn) {
       landparcel?.kassenzeichenArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#5D5FEF" : "#585453",
+      color: numberOfDocuments > 0 ? "#5D5FEF" : "#E0E0E0",
     };
   }
 }
@@ -92,7 +92,7 @@ export function operationExtractor(dataIn) {
     const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfOperations,
-      color: numberOfOperations > 0 ? "#389EFD" : "#585453",
+      color: numberOfOperations > 0 ? "#389EFD" : "#E0E0E0",
     };
   }
 }
@@ -101,7 +101,7 @@ export function usageExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfUsages: "  ",
-      color: "#585453",
+      color: "#E0E0E0",
     };
   } else {
     const landparcel = dataIn;
@@ -118,7 +118,7 @@ export function usageExtractor(dataIn) {
     }
     return {
       numberOfUsages: counter,
-      color: numberOfUsages > 0 ? "#F31630" : "#585453",
+      color: numberOfUsages > 0 ? "#F31630" : "#E0E0E0",
     };
   }
 }
@@ -134,7 +134,7 @@ export function dmsExtractor(dataIn) {
     const numberOfDocuments = landparcel?.dms_urlArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#180E53" : "#585453",
+      color: numberOfDocuments > 0 ? "#180E53" : "#E0E0E0",
     };
   }
 }
@@ -150,7 +150,7 @@ export function rebeExtractor(dataIn) {
     const numberOfRights = rebe.length || 0;
     return {
       numberOfRights,
-      color: numberOfRights > 0 ? "#180E53" : "#585453",
+      color: numberOfRights > 0 ? "#180E53" : "#E0E0E0",
     };
   }
 }
