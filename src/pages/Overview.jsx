@@ -26,12 +26,14 @@ import { useEffect } from "react";
 import queries from "../core/queries/online";
 import {
   getAlkisLandparcel,
+  getHistory,
   getLandparcel,
   getMipa,
   getRebe,
 } from "../store/slices/lagis";
 import {
   dmsExtractor,
+  historyExtractor,
   mipaExtractor,
   operationExtractor,
   rebeExtractor,
@@ -109,6 +111,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
 
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
+  const history = useSelector(getHistory);
+  console.log("histroy", history);
+
   return (
     <div
       style={{
@@ -145,7 +150,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               parametersForLink={parametersForLink}
             />
             <History
-              dataIn={landparcel}
+              dataIn={history}
+              extractor={historyExtractor}
               parametersForLink={parametersForLink}
             />
             <Transaction
