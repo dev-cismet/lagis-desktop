@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
+import {
+  LockOutlined,
+  UnlockOutlined,
+  BankOutlined,
+  BlockOutlined,
+} from "@ant-design/icons";
+
 import { Button, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -50,9 +56,10 @@ const LandParcelChooser = ({
         if (result[gemarkung].flure[flur]) {
           result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
             label: flurstueck,
-            lfk: f.fk_schluessel,
-            art: f.flurstueck_schluessel?.fk_flurstueck_art || -1,
+            lfk: f.schluessel_id,
+            art: f.flurstueckart || -1,
             alkis_id: f.alkis_id,
+            hist: f.historisch,
           };
         } else {
           result[gemarkung].flure[flur] = {
@@ -61,9 +68,10 @@ const LandParcelChooser = ({
           };
           result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
             label: flurstueck,
-            lfk: f.fk_schluessel,
-            art: f.flurstueck_schluessel?.fk_flurstueck_art || -1,
+            lfk: f.schluessel_id,
+            art: f.flurstueckart || -1,
             alkis_id: f.alkis_id,
+            hist: f.historisch,
           };
         }
       } else {
@@ -77,9 +85,10 @@ const LandParcelChooser = ({
         };
         result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
           label: flurstueck,
-          lfk: f.fk_schluessel,
-          art: f.flurstueck_schluessel?.fk_flurstueck_art || -1,
+          lfk: f.schluessel_id,
+          art: f.flurstueckart || -1,
           alkis_id: f.alkis_id,
+          hist: f.historisch,
         };
       }
     }
@@ -347,19 +356,19 @@ const LandParcelChooser = ({
         options={Object.keys(selectedFlur?.flurstuecke || []).map((key) => {
           const el = selectedFlur?.flurstuecke[key];
           let color = "lightgrey";
-          if (el.art === 1) {
+          if (el.hist === false && el.art === "städtisch") {
             color = "black";
-          } else if (el.art === 2) {
+          } else if (el.hist === false && el.art === "Abteilung IX") {
             color = "purple";
           }
           return {
             label: (
               <span style={{ color }}>
                 <span className="mr-1 text-sm">
-                  {color === "black" || color === "purple" ? (
-                    <UnlockOutlined />
+                  {el.art === "städtisch" ? (
+                    <BankOutlined />
                   ) : (
-                    <LockOutlined />
+                    <BlockOutlined />
                   )}
                 </span>
                 {removeLeadingZeros(el.label)}
