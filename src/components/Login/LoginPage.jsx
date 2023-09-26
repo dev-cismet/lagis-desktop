@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Col, Row, Typography, Input, Checkbox, Button } from "antd";
-import logo from "../../assets/logo.png";
-import loginLeft from "../../assets/loginLeft.png";
+import React from "react";
+import { Input, Button } from "antd";
+import wupperwurm from "../../assets/wupperwurm.svg";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,6 +24,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
 import useDevSecrets from "../../core/hooks/useDevSecrets";
+import packageJson from "../../../package.json";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 const LoginPage = () => {
   const { user: devSecretUser, pw: devSecretPassword } = useDevSecrets();
@@ -112,33 +113,45 @@ const LoginPage = () => {
             <div className="h-screen absolute w-full backdrop-blur" />
             <div className="flex flex-col gap-8 items-center bg-white/30 z-20 p-10 h-fit lg:w-1/3 w-2/3 rounded-3xl">
               <h1 class="text-white/80 font-semibold text-6xl">
-                Lagis Desktop
+                LagIS Desktop
               </h1>
-              <Input
-                placeholder="Email ID"
-                type="email"
-                onChange={loginHandle}
-              />
-              <Input.Password
-                initialValue="xx"
-                placeholder="input password"
-                onChange={passwordnHandle}
-              />
-              <Button
-                type="primary"
-                style={{ width: "100%" }}
-                onClick={clickHandle}
-              >
-                Anmeldung
-              </Button>
+              <div className="flex flex-col gap-6 w-full">
+                <h3
+                  className="border-b-2 border-0 w-fit border-solid mb-2"
+                  style={{ color: "#1677ff" }}
+                >
+                  Anmeldung
+                </h3>
+                <Input
+                  placeholder="Nutzername"
+                  type="email"
+                  onChange={loginHandle}
+                  prefix={<UserOutlined />}
+                  className="mb-5"
+                />
+                <Input.Password
+                  initialValue="xx"
+                  placeholder="Passwort"
+                  onChange={passwordnHandle}
+                  prefix={<LockOutlined />}
+                  className="mb-5"
+                />
+                <Button
+                  type="primary"
+                  size="large"
+                  loading={loading}
+                  className="w-fit text-left"
+                  onClick={clickHandle}
+                >
+                  Anmeldung
+                </Button>
+              </div>
             </div>
-            <div className="absolute top-6 left-6 w-20">
-              <img src={logo} alt="logo" />
-              {/* <span className="text-base font-semibold ml-auto">
-                LagIS-online
-              </span> */}
-            </div>
-
+            <img
+              src={wupperwurm}
+              alt="Wupperwurm"
+              className="absolute top-6 left-6 w-40"
+            />
             <div className="absolute top-6 right-6 text-white/80 font-semibold flex flex-col gap-2 items-end text-right sm:max-w-none max-w-[200px]">
               <span>Stadt Wuppertal</span>
               <span>Vermessung, Katasteramt und Geodaten</span>
@@ -146,7 +159,7 @@ const LoginPage = () => {
             </div>
             <div className="absolute bottom-6 right-6 text-white/80 font-semibold flex flex-col gap-2 items-end">
               <span>
-                {/* VerDIS Desktop v:{packageJson.version}{" "} */}
+                VerDIS Desktop v:{packageJson.version}{" "}
                 <a
                   href="https://cismet.de"
                   className="text-white/50 no-underline"
@@ -168,7 +181,7 @@ const LoginPage = () => {
                   className="text-white/50 no-underline"
                 >
                   cids | react cismap v
-                  {/* {packageJson.dependencies["react-cismap"].slice(1)} | */}
+                  {packageJson.dependencies["react-cismap"].slice(1)} |
                 </a>
               </span>
               <a
