@@ -63,11 +63,16 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const getflurstuecke = async () => {
     if (!landParcels && jwt) {
       dispatch(fetchLandParcelsStart());
-      const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-      if (result.data?.alkis_flurstueck) {
-        dispatch(storeLandParcels(result.data.alkis_flurstueck));
-      } else {
-        dispatch(fetchLandParcelsFailure(result.status));
+      try {
+        const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
+        console.log("sss result.data.alkis_flurstueck", result);
+        if (result.data?.view_flurstueck_schluessel) {
+          dispatch(storeLandParcels(result.data.view_flurstueck_schluessel));
+        } else {
+          dispatch(fetchLandParcelsFailure(result.status));
+        }
+      } catch (e) {
+        console.log("xxx error in fetchGraphQL(queries.flurstuecke", e);
       }
     }
   };
@@ -139,7 +144,10 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               extractor={operationExtractor}
               parametersForLink={parametersForLink}
             />
-            <History dataIn={landparcel} />
+            <History
+              dataIn={landparcel}
+              parametersForLink={parametersForLink}
+            />
             <Transaction
               dataIn={landparcel}
               extractor={transactionExtractor}

@@ -128,7 +128,9 @@ const SidebarMenu = ({ parametersForLink }) => {
       <FileSearchOutlined />
     ),
     getItem(
-      <NavLink to="/historie">Historie</NavLink>,
+      <NavLink to={`/historie?${buildUrlParams(parametersForLink)}`}>
+        Historie
+      </NavLink>,
       "/historie",
       <HistoryOutlined />
     ),

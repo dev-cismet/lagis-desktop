@@ -3,6 +3,9 @@ import Graph from "../components/commons/Graph";
 import HistoryInfo from "../components/history/HistoryInfo";
 import View from "../components/history/View";
 import OptionHistory from "../components/history/OptionHistory";
+import { useSelector } from "react-redux";
+import { getHistory } from "../store/slices/lagis";
+import { generateGraphString } from "../core/tools/history";
 const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -16,6 +19,9 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const firstRow = { height: height * 0.5 - 16 };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "16px" };
+  const history = useSelector(getHistory);
+  const fstck = useSelector(getLandparcel);
+
   return (
     <div
       style={{
@@ -30,7 +36,18 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
         style={{ height: firstRow.height, ...marginBottomStyle }}
       >
         <Col span={24}>
-          <Graph width={width} height={firstRow.height} />
+          <Graph
+            width={width}
+            height={firstRow.height}
+            dataIn={history}
+            extractor={(histObj) => {
+              if (histObj) {
+                return generateGraphString(histObj, "default");
+              } else {
+                return undefined;
+              }
+            }}
+          />
         </Col>
       </Row>
       <Row gutter={gutterStyle}>
