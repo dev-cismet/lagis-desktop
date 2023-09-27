@@ -130,7 +130,6 @@ const UserBar = () => {
         <UserBarActions />
       </div> */}
       <div className="ml-auto flex gap-1 items-center">
-        <UserName name={userLogin} />
         <div className="logout ml-auto pl-1 flex items-center">
           <Tooltip title="Ausloggen" placement="right">
             <LogoutOutlined
@@ -144,6 +143,7 @@ const UserBar = () => {
                 dispatch(storeLogin(undefined));
                 dispatch(storeLandParcels(undefined));
                 dispatch(storeLandmarks(undefined));
+                dispatch(storeHistory(undefined));
                 navigate("/login");
               }}
             />
@@ -167,6 +167,7 @@ const UserBar = () => {
             Logout
           </span> */}
         </div>
+        <UserName name={userLogin} />
       </div>
     </div>
   );
