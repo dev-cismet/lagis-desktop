@@ -1,6 +1,6 @@
 import UserName from "./UserName";
 import { Tooltip } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined, FileSyncOutlined } from "@ant-design/icons";
 import {
   getJWT,
   getLogin,
@@ -131,9 +131,21 @@ const UserBar = () => {
       </div> */}
       <div className="ml-auto flex gap-1 items-center">
         <div className="logout ml-auto pl-1 flex items-center">
+          <Tooltip title="LagIS Java sync" placement="right">
+            <FileSyncOutlined
+              className="text-sm cursor-pointer pr-4 "
+              onClick={() => {
+                fetch(
+                  "http://localhost:19000/loadFlurstueck?gemarkung=Barmen&flur=200&zaehler=51&nenner=0"
+                ).catch((error) => {
+                  //  i expect an error here
+                });
+              }}
+            />
+          </Tooltip>
           <Tooltip title="Ausloggen" placement="right">
             <LogoutOutlined
-              className="text-sm cursor-pointer"
+              className="text-sm cursor-pointer pr-4"
               onClick={() => {
                 dispatch(storeAlkisLandparcel(undefined));
                 dispatch(storeLagisLandparcel(undefined));
