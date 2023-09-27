@@ -37,7 +37,9 @@ const UserName = ({ name = "User" }) => {
               className="flex items-center justify-between hover:bg-zinc-100 p-1 cursor-pointer"
               // onClick={() => dispatch(setSyncKassenzeichen(!syncKassenzeichen))}
             >
-              <span>Kassenzeichen mit Java Anwendung synchronisieren</span>
+              <span>
+                Selektiertes Flurstück mit Java Anwendung synchronisieren
+              </span>
               <Switch className="w-fit" />
             </div>
           </div>
