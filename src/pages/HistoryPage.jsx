@@ -26,6 +26,7 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
   if (fstck) {
     fstckString = `${fstck.flurstueck_schluessel.gemarkung.bezeichnung} ${fstck.flurstueck_schluessel.flur} ${fstck.flurstueck_schluessel.flurstueck_zaehler}/${fstck.flurstueck_schluessel.flurstueck_nenner}`;
   }
+
   return (
     <div
       style={{
@@ -45,7 +46,7 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
             height={firstRow.height}
             dataIn={history}
             extractor={(histObj) => {
-              if (histObj) {
+              if (histObj && fstckString) {
                 return generateGraphString(histObj, fstckString);
               } else {
                 return undefined;
