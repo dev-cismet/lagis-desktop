@@ -6,7 +6,7 @@ import OptionHistory from "../components/history/OptionHistory";
 import { useSelector } from "react-redux";
 import { getHistory, getLandparcel } from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
-const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
+const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -16,7 +16,10 @@ const HistoryPage = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
-  const firstRow = { height: height * 0.5 - 16 };
+
+  const firstRow = {
+    height: window.innerHeight - 188 - 52 - 16 - 16 - 16 - 16 - 54,
+  };
   const gutterStyle = [16, 16];
   const marginBottomStyle = { marginBottom: "16px" };
   const history = useSelector(getHistory);
