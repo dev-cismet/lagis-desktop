@@ -123,17 +123,22 @@ export const get25832GeoJSON = (geoJSON) => {
 };
 
 export const getBuffer25832 = (geoJSON, bufferInMeter) => {
-  const wGS84GeoJSON = getWGS84GeoJSON(geoJSON);
+  try {
+    const wGS84GeoJSON = getWGS84GeoJSON(geoJSON);
 
-  if (wGS84GeoJSON !== undefined) {
-    const bufGeoJSON = getBuffer(wGS84GeoJSON, bufferInMeter / 1000.0, {
-      unit: "kilometers",
-    });
+    if (wGS84GeoJSON !== undefined) {
+      const bufGeoJSON = getBuffer(wGS84GeoJSON, bufferInMeter / 1000.0, {
+        unit: "kilometers",
+      });
 
-    let reprojectedGeoJSON = get25832GeoJSON(bufGeoJSON).geometry;
-    reprojectedGeoJSON.crs = geoJSON.crs;
-    return reprojectedGeoJSON;
+      let reprojectedGeoJSON = get25832GeoJSON(bufGeoJSON).geometry;
+      reprojectedGeoJSON.crs = geoJSON.crs;
+      return reprojectedGeoJSON;
+    }
+
+    return geoJSON;
+  } catch (e) {
+    console.log("exception reproject", e);
+    return undefined;
   }
-
-  return geoJSON;
 };
