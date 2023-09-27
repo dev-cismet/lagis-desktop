@@ -63,7 +63,8 @@ const UserBar = () => {
       dispatch(storeRebe());
       dispatch(storeMipa());
     }
-    await getHistory(result?.data.flurstueck[0].id);
+
+    await getHistory(schluessel_id);
   };
   const getRebe = async (geo) => {
     const result = await fetchGraphQL(
@@ -73,7 +74,7 @@ const UserBar = () => {
       },
       jwt
     );
-    dispatch(storeRebe(result.data.rebe));
+    dispatch(storeRebe(result?.data?.rebe));
   };
   const getMipa = async (geo) => {
     const result = await fetchGraphQL(
@@ -83,7 +84,7 @@ const UserBar = () => {
       },
       jwt
     );
-    dispatch(storeMipa(result.data.mipa));
+    dispatch(storeMipa(result?.data?.mipa));
   };
 
   const getHistory = async (sid) => {
