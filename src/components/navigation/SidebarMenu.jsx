@@ -27,6 +27,7 @@ import {
   getDms,
   getAdditionalRollen,
   getStreetFronts,
+  getHistory,
 } from "../../store/slices/lagis";
 function getItem(label, key, icon, children) {
   return {
@@ -37,7 +38,7 @@ function getItem(label, key, icon, children) {
   };
 }
 import { useLocation, NavLink } from "react-router-dom";
-
+import { defaultLinksColor } from "../../core/tools/helper";
 const SidebarMenu = ({ parametersForLink }) => {
   const mipa = useSelector(getMipa);
   const offices = useSelector(getOffices);
@@ -48,6 +49,7 @@ const SidebarMenu = ({ parametersForLink }) => {
   const dms = useSelector(getDms);
   const additionalRoll = useSelector(getAdditionalRollen);
   const streetFronts = useSelector(getStreetFronts);
+  const history = useSelector(getHistory);
   const location = useLocation();
   const [activeKey, setActiveKey] = useState("/");
   const [collapsed, setCollapsed] = useState(false);
@@ -78,10 +80,19 @@ const SidebarMenu = ({ parametersForLink }) => {
           Verwaltungsbereiche
         </NavLink>
       ) : (
-        "Verwaltungsbereiche"
+        <span style={{ color: defaultLinksColor }}>"Verwaltungsbereiche"</span>
       ),
       "/verwaltungsbereiche",
-      <FolderOpenOutlined />
+      <FolderOpenOutlined
+        style={{
+          color:
+            offices.length > 0 ||
+            additionalRoll.length > 0 ||
+            streetFronts.length > 0
+              ? null
+              : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       mipa && mipa.length > 0 ? (
@@ -89,10 +100,16 @@ const SidebarMenu = ({ parametersForLink }) => {
           Miet- und Pachtverträge
         </NavLink>
       ) : (
-        "Miet- und Pachtverträge"
+        <span style={{ color: defaultLinksColor }}>
+          Miet- und Pachtverträge
+        </span>
       ),
       "/miet",
-      <DollarOutlined />
+      <DollarOutlined
+        style={{
+          color: mipa && mipa.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       rebe && rebe.length > 0 ? (
@@ -100,10 +117,14 @@ const SidebarMenu = ({ parametersForLink }) => {
           Rechte und Belastungen
         </NavLink>
       ) : (
-        "Rechte und Belastungen"
+        <span style={{ color: defaultLinksColor }}>Rechte und Belastungen</span>
       ),
       "/rechte",
-      <SettingOutlined />
+      <SettingOutlined
+        style={{
+          color: rebe && rebe.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       usage && usage.length > 0 ? (
@@ -111,10 +132,14 @@ const SidebarMenu = ({ parametersForLink }) => {
           Nutzung
         </NavLink>
       ) : (
-        "Nutzung"
+        <span style={{ color: defaultLinksColor }}>Nutzung</span>
       ),
       "/nutzung",
-      <PieChartOutlined />
+      <PieChartOutlined
+        style={{
+          color: usage && usage.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       contracts && contracts.length > 0 ? (
@@ -122,17 +147,29 @@ const SidebarMenu = ({ parametersForLink }) => {
           Vorgänge
         </NavLink>
       ) : (
-        "Vorgänge"
+        <span style={{ color: defaultLinksColor }}>Vorgänge </span>
       ),
       "/vorgange",
-      <FileSearchOutlined />
+      <FileSearchOutlined
+        style={{
+          color: contracts && contracts.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
-      <NavLink to={`/historie?${buildUrlParams(parametersForLink)}`}>
-        Historie
-      </NavLink>,
+      history && history.length > 0 ? (
+        <NavLink to={`/historie?${buildUrlParams(parametersForLink)}`}>
+          Historie
+        </NavLink>
+      ) : (
+        <span style={{ color: defaultLinksColor }}>Historie</span>
+      ),
       "/historie",
-      <HistoryOutlined />
+      <HistoryOutlined
+        style={{
+          color: history && history.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       transaction && transaction.length > 0 ? (
@@ -140,19 +177,28 @@ const SidebarMenu = ({ parametersForLink }) => {
           Kassenzeichen
         </NavLink>
       ) : (
-        "Kassenzeichen"
+        <span style={{ color: defaultLinksColor }}>Kassenzeichen</span>
       ),
       "/kassenzeichen",
-      <TransactionOutlined />
+      <TransactionOutlined
+        style={{
+          color:
+            transaction && transaction.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
     getItem(
       dms && dms.length > 0 ? (
         <NavLink to={`/dms?${buildUrlParams(parametersForLink)}`}>DMS</NavLink>
       ) : (
-        "DMS"
+        <span style={{ color: defaultLinksColor }}>DMS</span>
       ),
       "/dms",
-      <FilePdfOutlined />
+      <FilePdfOutlined
+        style={{
+          color: dms && dms.length > 0 ? null : defaultLinksColor,
+        }}
+      />
     ),
   ];
   useEffect(() => {
