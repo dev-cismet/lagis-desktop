@@ -3,6 +3,7 @@ import authSlice from "./slices/auth";
 import lagisSlice from "./slices/lagis";
 import landParcels from "./slices/landParcels";
 import permissionsSlice from "./slices/permissions";
+import uiSlice from "./slices/ui";
 import {
   persistReducer,
   FLUSH,
@@ -99,6 +100,7 @@ export default configureStore({
     lagis: lagisSlice.reducer,
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
     permissions: permissionsSlice.reducer,
+    ui: uiSlice.reducer,
   },
   middleware,
 });

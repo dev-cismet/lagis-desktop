@@ -1,9 +1,12 @@
 import { Drawer, Tooltip, Avatar, Switch } from "antd";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getToggleDrawer, setToggleDrawer } from "../../store/slices/ui";
 const UserName = ({ name = "User" }) => {
+  const dispatch = useDispatch();
+  const toggleDrawer = useSelector(getToggleDrawer);
   const firstLetter = name.charAt(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   return (
     <div className="hidden md:block">
       {/* <span style={{ fontSize: "13px" }} className="mr-2">
@@ -35,12 +38,15 @@ const UserName = ({ name = "User" }) => {
             <h3>Allgemein</h3>
             <div
               className="flex items-center justify-between hover:bg-zinc-100 p-1 cursor-pointer"
-              // onClick={() => dispatch(setSyncKassenzeichen(!syncKassenzeichen))}
+              onClick={() => {
+                console.log("aaa");
+                dispatch(setToggleDrawer(!toggleDrawer));
+              }}
             >
               <span>
                 Selektiertes Flurstück mit Java Anwendung synchronisieren
               </span>
-              <Switch className="w-fit" />
+              <Switch className="w-fit" checked={toggleDrawer} />
             </div>
           </div>
           <h3>Karte</h3>

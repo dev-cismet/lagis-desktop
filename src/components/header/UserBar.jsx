@@ -16,12 +16,11 @@ import {
 import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
-  getUrlLandparcelParams,
   storeRebe,
   storeMipa,
   storeHistory,
 } from "../../store/slices/lagis";
-// import { addLeadingZeros } from "../../core/tools/helper";
+import { getToggleDrawer } from "../../store/slices/ui";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
@@ -31,14 +30,14 @@ import { useEffect, useState } from "react";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
-  const [gemParams, setGemParams] = useState();
+  const [urlParams, setUrlParams] = useSearchParams();
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
+  const toggleDrawer = useSelector(getToggleDrawer);
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
+  const [parametersForLink, setParametersForLink] = useState();
   const getFlurstueck = async (schluessel_id, alkis_id) => {
     const result = await fetchGraphQL(
       queries.getLagisLandparcelByFlurstueckSchluesselId,
@@ -109,7 +108,30 @@ const UserBar = () => {
   const setUrlHandle = (alkis_id) => {
     setUrlParams({ alkis_id });
   };
-  useEffect(() => {}, []);
+  const handleOpenLandparcelInJavaApp = () => {
+    if (toggleDrawer && parametersForLink) {
+      const fstckArr = parametersForLink.fstck.split("-");
+      const zaehler = fstckArr[0];
+      const nenner = fstckArr[1];
+      fetch(
+        `http://localhost:19000/loadFlurstueck?gemarkung=${parametersForLink.gem}&flur=${parametersForLink.flur}&zaehler=${zaehler}&nenner=${nenner}`
+      ).catch((error) => {
+        //  i expect an error here
+      });
+    }
+  };
+  useEffect(() => {
+    const fromUrl = {
+      gem: urlParams.get("gem") || undefined,
+      flur: urlParams.get("flur") || undefined,
+      fstck: urlParams.get("fstck") || undefined,
+    };
+    if (fromUrl.gem && fromUrl.flur && fromUrl.fstck) {
+      setParametersForLink(fromUrl);
+    } else {
+      setParametersForLink(undefined);
+    }
+  }, [urlParams]);
   return (
     <div className="flex items-center py-2">
       {/* <HeaderSelectors /> */}
@@ -135,13 +157,7 @@ const UserBar = () => {
           <Tooltip title="LagIS Java sync" placement="right">
             <FileSyncOutlined
               className="text-sm cursor-pointer pr-4 "
-              onClick={() => {
-                fetch(
-                  "http://localhost:19000/loadFlurstueck?gemarkung=Barmen&flur=200&zaehler=51&nenner=0"
-                ).catch((error) => {
-                  //  i expect an error here
-                });
-              }}
+              onClick={handleOpenLandparcelInJavaApp}
             />
           </Tooltip>
           <Tooltip title="Ausloggen" placement="right">
