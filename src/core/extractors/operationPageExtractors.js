@@ -63,8 +63,8 @@ export function contractsBlockExtractor(dataIn) {
         id: c.id,
         vertragsart: c.vertrag.vertragsart.bezeichnung,
         nummer: c.vertrag.aktenzeichen,
-        quadratmeterpreis: c.vertrag.quadratmeterpreis,
-        kaufpreis: c.vertrag.gesamtpreis,
+        quadratmeterpreis: formatPrice(c.vertrag.quadratmeterpreis),
+        kaufpreis: formatPrice(c.vertrag.gesamtpreis),
       }));
       return data;
     }
@@ -141,4 +141,20 @@ export function crossReferencesExtractor(dataIn) {
     }
     return [];
   }
+}
+
+function formatPrice(number) {
+  if (!number) {
+    return number;
+  }
+  const formatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  const formattedNumber = formatter.format(number);
+
+  return formattedNumber;
 }
