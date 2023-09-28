@@ -23,9 +23,9 @@ export function usageBlockExtractor(dataIn) {
             data.id = usageId;
             data.nutzung = usageId;
             data.buchungs = buchungs;
-            data.anlageklasse = u.anlageklasse.bezeichnung;
-            data.nutzungsart = u.nutzungsart.bezeichnung;
-            data.bezeichnung = u.nutzungsart.schluessel;
+            data.anlageklasse = u.anlageklasse?.bezeichnung || "";
+            data.nutzungsart = u.nutzungsart?.bezeichnung || "";
+            data.bezeichnung = u?.nutzungsart?.schluessel || "";
             data.fläche = u.flaeche;
             data.preis = u.quadratmeterpreis;
             (data.gesamtpreis = formatPrice(
@@ -99,7 +99,7 @@ export function NFKOverwieExtractor(dataIn) {
             data.id = usageId;
             // data.nutzung = usageId;
             // data.buchungs = buchungs;
-            data.anlageklasse = u.anlageklasse.schluessel;
+            data.anlageklasse = u.anlageklasse?.schluessel || "";
             // data.nutzungsart = u.nutzungsart.bezeichnung;
             // data.bezeichnung = u.nutzungsart.schluessel;
             // data.fläche = u.flaeche;

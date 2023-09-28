@@ -74,3 +74,29 @@ export function formatPrice(number) {
 }
 
 export const defaultLinksColor = "#E0E0E0";
+
+export const removeLeadingZeros = (numberStr, flur = false) => {
+  if (!numberStr) {
+    return undefined;
+  }
+  const parts = numberStr.split("/");
+
+  const trimmedParts = parts.map((part) => {
+    let startIndex = 0;
+
+    while (startIndex < part.length && part[startIndex] === "0") {
+      startIndex++;
+    }
+
+    return part.substring(startIndex);
+  });
+
+  const flurResalt = trimmedParts.join("/");
+
+  const result =
+    trimmedParts.length > 1
+      ? trimmedParts.join("/")
+      : trimmedParts.join("") + "/0";
+
+  return !flur ? result : flurResalt;
+};

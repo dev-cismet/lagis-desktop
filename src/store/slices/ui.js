@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  toggleDrawer: false,
+  syncLandparcel: false,
 };
 
 const slice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    setToggleDrawer(state, action) {
-      state.toggleDrawer = action.payload;
+    setSyncLandparcel(state, action) {
+      state.syncLandparcel = action.payload;
       return state;
     },
   },
@@ -17,8 +17,8 @@ const slice = createSlice({
 
 export default slice;
 
-export const { setToggleDrawer } = slice.actions;
+export const { setSyncLandparcel } = slice.actions;
 
-export const getToggleDrawer = (state) => {
-  return state.ui.toggleDrawer;
+export const getSyncLandparcel = (state) => {
+  return state.ui.syncLandparcel;
 };
