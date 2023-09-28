@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-
+import { formatPrice } from "../tools/helper";
 export function usageBlockExtractor(dataIn) {
   if (dataIn === undefined) {
     return [];
@@ -28,17 +28,20 @@ export function usageBlockExtractor(dataIn) {
             data.bezeichnung = u.nutzungsart.schluessel;
             data.fläche = u.flaeche;
             data.preis = u.quadratmeterpreis;
-            (data.gesamtpreis =
+            (data.gesamtpreis = formatPrice(
               u.quadratmeterpreis * u.flaeche -
-              calculateStilleReserve(
-                buchungArray,
-                currentIdxInBuchungArray,
-                u.quadratmeterpreis * u.flaeche
-              )),
-              (data.stille = calculateStilleReserve(
-                buchungArray,
-                currentIdxInBuchungArray,
-                u.quadratmeterpreis * u.flaeche
+                calculateStilleReserve(
+                  buchungArray,
+                  currentIdxInBuchungArray,
+                  u.quadratmeterpreis * u.flaeche
+                )
+            )),
+              (data.stille = formatPrice(
+                calculateStilleReserve(
+                  buchungArray,
+                  currentIdxInBuchungArray,
+                  u.quadratmeterpreis * u.flaeche
+                )
               ));
             data.buchwert = u.ist_buchwert;
             data.bemerkung = u.bemerkung ? u.bemerkung : "";
@@ -101,17 +104,20 @@ export function NFKOverwieExtractor(dataIn) {
             // data.bezeichnung = u.nutzungsart.schluessel;
             // data.fläche = u.flaeche;
             // data.preis = u.quadratmeterpreis;
-            (data.summe =
+            (data.summe = formatPrice(
               u.quadratmeterpreis * u.flaeche -
-              calculateStilleReserve(
-                buchungArray,
-                currentIdxInBuchungArray,
-                u.quadratmeterpreis * u.flaeche
-              )),
-              (data.stille = calculateStilleReserve(
-                buchungArray,
-                currentIdxInBuchungArray,
-                u.quadratmeterpreis * u.flaeche
+                calculateStilleReserve(
+                  buchungArray,
+                  currentIdxInBuchungArray,
+                  u.quadratmeterpreis * u.flaeche
+                )
+            )),
+              (data.stille = formatPrice(
+                calculateStilleReserve(
+                  buchungArray,
+                  currentIdxInBuchungArray,
+                  u.quadratmeterpreis * u.flaeche
+                )
               ));
             // data.buchwert = u.ist_buchwert;
             // data.bemerkung = u.bemerkung ? u.bemerkung : "";

@@ -1,6 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import queries from "../queries/online";
 import { fetchGraphQL } from "../graphql";
+import { formatPrice } from "../tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -40,7 +41,6 @@ export const querverweiseContractExtractor = async (dataIn, jwt) => {
     let vertragId;
     if (contracts.length > 0) {
       contracts.forEach((c) => {
-        console.log("getQuerverweise grab ID", c.vertrag.id);
         vertragId = c.vertrag.id;
       });
     } else {
@@ -135,26 +135,8 @@ export function crossReferencesExtractor(dataIn) {
         });
         kosten.push(fields);
       });
-      console.log("cross extractor", kosten);
-
       return kosten;
     }
     return [];
   }
-}
-
-function formatPrice(number) {
-  if (!number) {
-    return number;
-  }
-  const formatter = new Intl.NumberFormat("fr-FR", {
-    style: "currency",
-    currency: "EUR",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-
-  const formattedNumber = formatter.format(number);
-
-  return formattedNumber;
 }

@@ -103,7 +103,7 @@ const NFKOverwie = ({
             color="blue"
             style={{ padding: "0.1rem 0.8rem" }}
           >
-            Stille Reserve: {activeRow?.stille} €
+            Stille Reserve: {activeRow?.stille}
           </Tag>
         }
         controlBar={

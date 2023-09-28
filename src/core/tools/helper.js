@@ -56,3 +56,19 @@ export const compare = (a, b) => {
     a?.length - b?.length
   );
 };
+
+export function formatPrice(number) {
+  if (!number) {
+    return number;
+  }
+  const formatter = new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  const formattedNumber = formatter.format(number);
+
+  return formattedNumber;
+}
