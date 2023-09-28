@@ -5,6 +5,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
 import { useEffect } from "react";
+import { defaultLinksColor } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
@@ -50,7 +51,7 @@ const DashboardOffices = ({
                     )}
                     <span
                       style={{
-                        color: item?.color || "#E0E0E0",
+                        color: item?.color || defaultLinksColor,
                         fontSize: item?.title ? square : "88px",
                         marginBottom: item?.title ? "0px" : "-10px",
                       }}
@@ -95,7 +96,7 @@ const DashboardOffices = ({
                   )}
                   <span
                     style={{
-                      color: item?.color || "#E0E0E0",
+                      color: item?.color || defaultLinksColor,
                       fontSize: item?.title ? square : "88px",
                       marginBottom: item?.title ? "0px" : "-10px",
                     }}

@@ -209,5 +209,3 @@ const SidebarMenu = ({ parametersForLink }) => {
   );
 };
 export default SidebarMenu;
-
-// className="my-4 mb-5 flex flex-wrap items-start gap-2"

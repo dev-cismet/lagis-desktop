@@ -72,3 +72,5 @@ export function formatPrice(number) {
 
   return formattedNumber;
 }
+
+export const defaultLinksColor = "#E0E0E0";
