@@ -18,6 +18,7 @@ const DashboardRights = ({
   variant,
 }) => {
   const data = extractor(dataIn);
+  console.log("Rechte & Belastungen", data);
   return (
     <div className="dashboard-tile">
       {data.color === defaultLinksColor ? (
@@ -27,13 +28,13 @@ const DashboardRights = ({
           icon={
             <SettingOutlined
               className="text-3xl"
-              style={{ color: data.color }}
+              style={{ color: defaultLinksColor }}
             />
           }
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -48,6 +49,7 @@ const DashboardRights = ({
           <OverviewCard
             title="Rechte & Belastungen"
             subtitle="& Dienstbarkeiten, Baulasten"
+            ifDefaultColor={false}
             icon={
               <SettingOutlined
                 className="text-3xl"

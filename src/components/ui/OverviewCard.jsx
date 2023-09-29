@@ -3,14 +3,16 @@ import { Card } from "antd";
 import { FieldTimeOutlined } from "@ant-design/icons";
 import "../overview/style.css";
 import "./card.css";
+import { defaultLinksColor } from "../../core/tools/helper";
 const OverviewCard = ({
   style,
   title,
   subtitle,
   icon = <FieldTimeOutlined />,
-  color,
+  ifDefaultColor = true,
   fullHeiht,
   children,
+
   ...props
 }) => {
   return (
@@ -22,9 +24,19 @@ const OverviewCard = ({
       title={
         <div className="flex gap-2 justify-between">
           <div className="flex flex-col">
-            <span className="text-lg leading-5">{title}</span>
+            <span
+              className="text-lg leading-5"
+              style={{ color: ifDefaultColor && defaultLinksColor }}
+            >
+              {title}
+            </span>
             {subtitle && (
-              <span className="text-sm" style={{ color: "#6C6A6A" }}>
+              <span
+                className="text-sm"
+                style={{
+                  color: !ifDefaultColor ? "#6C6A6A" : defaultLinksColor,
+                }}
+              >
                 {subtitle}
               </span>
             )}

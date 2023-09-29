@@ -22,7 +22,7 @@ const DashboardRent = ({
       {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Miet und Pachtverträge"
-          icon={<DollarOutlined style={{ color: data.color }} />}
+          icon={<DollarOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             className="text-8xl"
@@ -45,6 +45,7 @@ const DashboardRent = ({
           <OverviewCard
             title="Miet und Pachtverträge"
             icon={<DollarOutlined style={{ color: data.color }} />}
+            ifDefaultColor={false}
           >
             <div
               className="text-8xl"
