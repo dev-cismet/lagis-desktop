@@ -65,7 +65,6 @@ const Agencies = ({
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
-  // const data = extractor(dataIn);
   const [agency, setAgency] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const addAgency = () => {
@@ -100,11 +99,8 @@ const Agencies = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-
-    if (data.length > 0) {
-      setAgency(data);
-      setActiveRow(data[0]);
-    }
+    setAgency(data);
+    setActiveRow(data[0]);
   }, [dataIn]);
   return (
     <div
