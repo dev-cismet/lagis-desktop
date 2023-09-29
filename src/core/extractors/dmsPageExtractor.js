@@ -15,13 +15,6 @@ export function dmsPageExtractor(dataIn) {
           /\s/g,
           "%20"
         )}`;
-
-        console.log("dms link urlData", finalPath);
-
-        // const stringWithForwardSlashes = d.url.url_base.path
-        //   .replace(/\\/g, "/")
-        //   .replace(/\s/g, "%20");
-
         return {
           id: d.id,
           name: d.name,
