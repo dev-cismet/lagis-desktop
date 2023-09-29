@@ -1,11 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  LockOutlined,
-  UnlockOutlined,
-  BankOutlined,
-  BlockOutlined,
-} from "@ant-design/icons";
-
+import { BankOutlined, BlockOutlined } from "@ant-design/icons";
 import { Button, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -15,6 +9,7 @@ import {
   getAlkisLandparcel,
   storeMipa,
   storeRebe,
+  storeHistory,
 } from "../../store/slices/lagis";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -101,6 +96,13 @@ const LandParcelChooser = ({
   function replaceSlashWithDash(value) {
     return value ? value.replace("/", "-") : value;
   }
+  const removeLagisStore = () => {
+    dispatch(storeAlkisLandparcel(undefined));
+    dispatch(storeLagisLandparcel(undefined));
+    dispatch(storeRebe(undefined));
+    dispatch(storeMipa(undefined));
+    dispatch(storeHistory(undefined));
+  };
   useEffect(() => {
     const fromUrl = {
       gem: urlParams.get("gem") || undefined,
@@ -125,10 +127,7 @@ const LandParcelChooser = ({
 
   const handleGemarkungChange = (gemarkungValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
-      dispatch(storeAlkisLandparcel(undefined));
-      dispatch(storeLagisLandparcel(undefined));
-      dispatch(storeRebe(undefined));
-      dispatch(storeMipa(undefined));
+      removeLagisStore();
     }
     const fullGemarkung = data[gemarkungValue];
     setSelectedGemarkung(fullGemarkung);
@@ -147,19 +146,15 @@ const LandParcelChooser = ({
   };
   const handleFlurChange = (flurValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
-      dispatch(storeAlkisLandparcel(undefined));
-      dispatch(storeLagisLandparcel(undefined));
-      dispatch(storeRebe(undefined));
-      dispatch(storeMipa(undefined));
+      removeLagisStore();
     }
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setSelectedFlurstueckLabel(undefined);
-
+    removeLagisStore();
     const newParams = paramsToObject(urlParams);
     newParams.flur = removeLeadingZeros(flurValue, true);
     delete newParams.fstck;
     setUrlParams(newParams);
-
     setTimeout(() => {
       flurstueckRef.current.focus();
     }, 10);

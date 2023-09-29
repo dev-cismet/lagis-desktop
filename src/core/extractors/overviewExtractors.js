@@ -17,10 +17,14 @@ export function mipaExtractor(dataIn) {
   }
 }
 export function historyExtractor(dataIn) {
-  if (dataIn === undefined || dataIn.length === 0) {
-    return { color: "lightgray" };
+  console.log("vvv history extractor", dataIn);
+  if (dataIn === undefined) {
+    return { color: defaultLinksColor, number: 0, icon: false };
   } else {
-    return { color: "#FFD029", number: dataIn.length };
+    if (dataIn.length === 0) {
+      return { color: defaultLinksColor, number: 0, icon: true };
+    }
+    return { color: "#FFD029", number: dataIn.length, icon: true };
   }
 }
 
@@ -39,7 +43,8 @@ export function officesExtractor(dataIn) {
       const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
       if (!checkTitleArray.includes(currentTitle)) {
         const color =
-          item.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert;
+          item.verwaltende_dienststelle.farbeArrayRelationShip[0]
+            ?.rgb_farbwert || "";
         let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
         let area;
         if (square !== undefined) {
@@ -79,7 +84,7 @@ export function operationExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfOperations: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
@@ -121,7 +126,7 @@ export function dmsExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfDocuments: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
@@ -137,7 +142,7 @@ export function rebeExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfRights: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const rebe = dataIn;

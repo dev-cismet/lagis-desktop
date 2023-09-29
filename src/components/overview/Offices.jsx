@@ -34,6 +34,7 @@ const DashboardOffices = ({
             title="Verwaltungsbereiche"
             subtitle="& Rollen"
             icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+            ifDefaultColor={false}
           >
             <div className="flex flex-col mt-auto">
               {data?.map((item) => (
@@ -65,7 +66,6 @@ const DashboardOffices = ({
                       color: "#6C6A6A",
                       fontSize: square,
                     }}
-                    // className="font-lg"
                   >
                     {item?.size ? `${item?.size} m²` : ""}
                   </span>
@@ -78,7 +78,7 @@ const DashboardOffices = ({
         <OverviewCard
           title="Verwaltungsbereiche"
           subtitle="& Rollen"
-          icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+          icon={<FolderOpenOutlined style={{ color: defaultLinksColor }} />}
         >
           <div className="flex flex-col mt-auto">
             {data?.map((item) => (
@@ -90,13 +90,13 @@ const DashboardOffices = ({
                         width: "8px",
                         height: "8px",
                         marginRight: "6px",
-                        backgroundColor: item?.color || "#0097FA",
+                        backgroundColor: defaultLinksColor,
                       }}
                     ></span>
                   )}
                   <span
                     style={{
-                      color: item?.color || defaultLinksColor,
+                      color: defaultLinksColor,
                       fontSize: item?.title ? square : "88px",
                       marginBottom: item?.title ? "0px" : "-10px",
                     }}
@@ -110,7 +110,6 @@ const DashboardOffices = ({
                     color: "#6C6A6A",
                     fontSize: square,
                   }}
-                  // className="font-lg"
                 >
                   {item?.size ? `${item?.size} m²` : ""}
                 </span>

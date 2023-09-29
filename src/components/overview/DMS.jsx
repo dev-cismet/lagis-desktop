@@ -23,11 +23,11 @@ const DashboardDMS = ({
         <OverviewCard
           style={{ height }}
           title="DMS"
-          icon={<FilePdfOutlined style={{ color: data.color }} />}
+          icon={<FilePdfOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -45,6 +45,7 @@ const DashboardDMS = ({
             style={{ height }}
             title="DMS"
             icon={<FilePdfOutlined style={{ color: data.color }} />}
+            ifDefaultColor={false}
           >
             <div
               style={{

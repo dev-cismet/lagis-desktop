@@ -23,11 +23,11 @@ const DashboardUsage = ({
         <OverviewCard
           title="Nutzung"
           subtitle="& Anlagenbuchhaltung"
-          icon={<PieChartOutlined style={{ color: data.color }} />}
+          icon={<PieChartOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -42,6 +42,7 @@ const DashboardUsage = ({
           <OverviewCard
             title="Nutzung"
             subtitle="& Anlagenbuchhaltung"
+            ifDefaultColor={false}
             icon={<PieChartOutlined style={{ color: data.color }} />}
           >
             <div

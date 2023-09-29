@@ -23,11 +23,11 @@ const DashboardTransaction = ({
       {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Kassenzeichen"
-          icon={<PayCircleOutlined style={{ color: data.color }} />}
+          icon={<PayCircleOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -43,6 +43,7 @@ const DashboardTransaction = ({
         <Link to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
           <OverviewCard
             title="Kassenzeichen"
+            ifDefaultColor={false}
             icon={<PayCircleOutlined style={{ color: data.color }} />}
           >
             <div

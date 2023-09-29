@@ -6,7 +6,6 @@ const initialState = {
   history: undefined,
   rebe: undefined,
   mipa: undefined,
-  history: undefined,
 };
 
 const slice = createSlice({
