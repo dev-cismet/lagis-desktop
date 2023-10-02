@@ -83,7 +83,6 @@ export function NFKOverwieExtractor(dataIn) {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
     const currentUsage = [];
-    console.log("NFK Overview extractor", usage);
     usage.forEach((element) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
         let usageId;
@@ -91,51 +90,53 @@ export function NFKOverwieExtractor(dataIn) {
         let buchungs;
         let currentIdxInBuchungArray;
         let data = {};
-        if (item.gueltig_bis === null) {
+        if (
+          item.gueltig_bis === null &&
+          item.anlageklasse.bezeichnung !== "keine"
+        ) {
           usageId = element.id;
           buchungArray = element.nutzung_buchungArrayRelationShip;
           buchungs = element.nutzung_buchungArrayRelationShip.length;
           currentIdxInBuchungArray = idx;
           element.nutzung_buchungArrayRelationShip.forEach((u) => {
             data.id = usageId;
-            // data.nutzung = usageId;
-            // data.buchungs = buchungs;
             data.anlageklasse = u.anlageklasse?.schluessel || "";
-            // data.nutzungsart = u.nutzungsart.bezeichnung;
-            // data.bezeichnung = u.nutzungsart.schluessel;
-            // data.fläche = u.flaeche;
-            // data.preis = u.quadratmeterpreis;
-            (data.summe = formatPrice(
+            (data.summe =
               u.quadratmeterpreis * u.flaeche -
-                calculateStilleReserve(
-                  buchungArray,
-                  currentIdxInBuchungArray,
-                  u.quadratmeterpreis * u.flaeche
-                )
-            )),
-              (data.stille = formatPrice(
-                calculateStilleReserve(
-                  buchungArray,
-                  currentIdxInBuchungArray,
-                  u.quadratmeterpreis * u.flaeche
-                )
+              calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
+              )),
+              (data.stille = calculateStilleReserve(
+                buchungArray,
+                currentIdxInBuchungArray,
+                u.quadratmeterpreis * u.flaeche
               ));
-            // data.buchwert = u.ist_buchwert;
-            // data.bemerkung = u.bemerkung ? u.bemerkung : "";
           });
-          currentUsage.push(data);
+          ifAnlageklasseAdded(currentUsage, data);
         }
       });
     });
 
-    return currentUsage;
+    const formattedCurrentUsage = currentUsage.map((u) => ({
+      id: u.id,
+      anlageklasse: u.anlageklasse,
+      summe: formatPrice(u.summe),
+      stille: formatPrice(u.stille),
+    }));
+
+    return formattedCurrentUsage;
   }
 }
 
-// const data = currentUsage.map((u) => {
-//   return {
-//     id: nanoid(),
-//     anlageklasse: u.anlageklasse.schluessel,
-//     summe: u.quadratmeterpreis * u.flaeche,
-//   };
-// });
+function ifAnlageklasseAdded(currentUsage, currentData) {
+  const ifAnlageklasseAdded = currentUsage.find(
+    (a) => a.anlageklasse === currentData.anlageklasse
+  );
+  if (ifAnlageklasseAdded === undefined) {
+    return currentUsage.push(currentData);
+  } else {
+    ifAnlageklasseAdded.summe = ifAnlageklasseAdded.summe + currentData.summe;
+  }
+}

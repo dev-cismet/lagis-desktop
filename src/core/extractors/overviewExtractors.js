@@ -117,7 +117,7 @@ export function usageExtractor(dataIn) {
     }
     return {
       numberOfUsages: counter,
-      color: numberOfUsages > 0 ? "#F31630" : defaultLinksColor,
+      color: counter > 0 ? "#F31630" : defaultLinksColor,
     };
   }
 }
