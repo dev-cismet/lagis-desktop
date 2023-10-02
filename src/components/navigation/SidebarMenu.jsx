@@ -21,7 +21,7 @@ import {
   getMipa,
   getOffices,
   getRebe,
-  getUsage,
+  getCountOfUsage,
   getContract,
   getTransaction,
   getDms,
@@ -43,7 +43,7 @@ const SidebarMenu = ({ parametersForLink }) => {
   const mipa = useSelector(getMipa);
   const offices = useSelector(getOffices);
   const rebe = useSelector(getRebe);
-  const usage = useSelector(getUsage);
+  const usage = useSelector(getCountOfUsage);
   const contracts = useSelector(getContract);
   const transaction = useSelector(getTransaction);
   const dms = useSelector(getDms);
@@ -127,7 +127,7 @@ const SidebarMenu = ({ parametersForLink }) => {
       />
     ),
     getItem(
-      usage && usage.length > 0 ? (
+      usage && usage > 0 ? (
         <NavLink to={`/nutzung?${buildUrlParams(parametersForLink)}`}>
           Nutzung
         </NavLink>
@@ -137,7 +137,7 @@ const SidebarMenu = ({ parametersForLink }) => {
       "/nutzung",
       <PieChartOutlined
         style={{
-          color: usage && usage.length > 0 ? null : defaultLinksColor,
+          color: usage && usage > 0 ? null : defaultLinksColor,
         }}
       />
     ),
