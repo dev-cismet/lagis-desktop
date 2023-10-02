@@ -79,7 +79,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     }
   };
   const getGemarkungen = async () => {
-    if (!landmarks && jwt) {
+    if (jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
       console.log("get gemarkungen", result);

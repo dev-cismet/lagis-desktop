@@ -83,6 +83,7 @@ export function NFKOverwieExtractor(dataIn) {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
     const currentUsage = [];
+    console.log("NFK Overview extractor", usage);
     usage.forEach((element) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
         let usageId;

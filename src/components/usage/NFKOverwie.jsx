@@ -76,11 +76,12 @@ const NFKOverwie = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
+    console.log("active row", activeRow);
     setDataTable(data);
     setActiveRow(data[0]);
   }, [dataIn]);
   useEffect(() => {
-    console.log("active row", activeRow);
+    console.log("NFK Overview", activeRow);
   }, [activeRow]);
   return (
     <div

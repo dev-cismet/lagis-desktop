@@ -56,7 +56,6 @@ const TransactionNumber = ({
   height = 188,
   style,
 }) => {
-  // const data = extractor(dataIn);
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const dateFormat = "DD.MM.YYYY";
@@ -98,11 +97,8 @@ const TransactionNumber = ({
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    if (data.length > 0) {
-      const data = extractor(dataIn);
-      setTransaction(data);
-      setActiveRow(data[0]);
-    }
+    setTransaction(data);
+    setActiveRow(data[0]);
   }, [dataIn]);
   return (
     <div
