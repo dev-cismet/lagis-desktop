@@ -27,14 +27,15 @@ export function usageBlockExtractor(dataIn) {
             data.nutzungsart = u.nutzungsart?.bezeichnung || "";
             data.bezeichnung = u?.nutzungsart?.schluessel || "";
             data.fläche = u.flaeche;
-            data.preis = formatPrice(u.quadratmeterpreis);
+            data.preis = formatPrice(u.quadratmeterpreis, false);
             (data.gesamtpreis = formatPrice(
               u.quadratmeterpreis * u.flaeche -
                 calculateStilleReserve(
                   buchungArray,
                   currentIdxInBuchungArray,
                   u.quadratmeterpreis * u.flaeche
-                )
+                ),
+              false
             )),
               (data.stille = formatPrice(
                 calculateStilleReserve(
@@ -50,18 +51,18 @@ export function usageBlockExtractor(dataIn) {
         }
       });
     });
+    console.log("usageBlockExtractor", currentUsage);
+    // const cleanGesamptPreis = currentUsage.map((u) => {
+    //   if (u.gesamtpreis === 0) {
+    //     return {
+    //       ...u,
+    //       gesamtpreis: "",
+    //     };
+    //   }
 
-    const cleanGesamptPreis = currentUsage.map((u) => {
-      if (u.gesamtpreis === 0) {
-        return {
-          ...u,
-          gesamtpreis: "",
-        };
-      }
-
-      return u;
-    });
-    return cleanGesamptPreis;
+    //   return u;
+    // });
+    return currentUsage;
   }
 }
 

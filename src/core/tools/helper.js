@@ -57,9 +57,9 @@ export const compare = (a, b) => {
   );
 };
 
-export function formatPrice(number) {
-  if (!number) {
-    return number;
+export function formatPrice(number, show = true) {
+  if (!number || number === 0) {
+    return show ? "0,00 €" : "";
   }
   const formatter = new Intl.NumberFormat("fr-FR", {
     style: "currency",
