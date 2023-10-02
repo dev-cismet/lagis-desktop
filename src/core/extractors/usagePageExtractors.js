@@ -27,7 +27,7 @@ export function usageBlockExtractor(dataIn) {
             data.nutzungsart = u.nutzungsart?.bezeichnung || "";
             data.bezeichnung = u?.nutzungsart?.schluessel || "";
             data.fläche = u.flaeche;
-            data.preis = u.quadratmeterpreis;
+            data.preis = formatPrice(u.quadratmeterpreis);
             (data.gesamtpreis = formatPrice(
               u.quadratmeterpreis * u.flaeche -
                 calculateStilleReserve(
