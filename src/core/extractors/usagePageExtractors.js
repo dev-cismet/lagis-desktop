@@ -51,7 +51,17 @@ export function usageBlockExtractor(dataIn) {
       });
     });
 
-    return currentUsage;
+    const cleanGesamptPreis = currentUsage.map((u) => {
+      if (u.gesamtpreis === 0) {
+        return {
+          ...u,
+          gesamtpreis: "",
+        };
+      }
+
+      return u;
+    });
+    return cleanGesamptPreis;
   }
 }
 
