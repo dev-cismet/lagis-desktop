@@ -20,13 +20,14 @@ import {
   storeRebe,
   storeMipa,
   storeHistory,
+  storeGeometry,
 } from "../../store/slices/lagis";
 // import { addLeadingZeros } from "../../core/tools/helper";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
-import { fetchGraphQL } from "../../core/graphql";
+import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
 import { useEffect, useState } from "react";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
 const UserBar = () => {
@@ -55,7 +56,18 @@ const UserBar = () => {
     f.alkisLandparcel = result?.data.alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
-    const geo = result?.data.flurstueck[0].alkisLandparcel?.geometrie;
+
+    let geo =
+      result?.data.flurstueck[0].geom?.geo_field ||
+      result?.data.flurstueck[0].alkisLandparcel?.geometrie;
+
+    if (!geo) {
+      const result = await getGeomFromWuNDa(alkis_id);
+      geo = result.data.flurstueck[0].geom.geo_field;
+      console.log("xxx geo was not set. is now:", geo);
+    }
+    dispatch(storeGeometry(geo));
+
     if (geo) {
       await getRebe(getBuffer25832(geo, -1));
       await getMipa(getBuffer25832(geo, -1));
@@ -85,6 +97,17 @@ const UserBar = () => {
       jwt
     );
     dispatch(storeMipa(result?.data?.mipa));
+  };
+
+  const getGeomFromWuNDa = async (alkis_id) => {
+    const result = await fetchGraphQLFromWuNDa(
+      queries.getGeomFromWuNDA,
+      {
+        alkis_id,
+      },
+      jwt
+    );
+    return result;
   };
 
   const getHistory = async (sid) => {

@@ -5,13 +5,18 @@ import AdditionalRole from "../components/offices/AdditionalRole";
 import Streetfronts from "../components/offices/Streetfronts";
 import Notes from "../components/offices/Notes";
 import { useSelector } from "react-redux";
-import { getLandparcel, getAlkisLandparcel } from "../store/slices/lagis";
+import {
+  getLandparcel,
+  getAlkisLandparcel,
+  getGeometry,
+} from "../store/slices/lagis";
 import {
   noteExtractor,
   streetfrontsExtractor,
   additionalRollExtractor,
   officesPageExtractor,
 } from "../core/extractors/officesPageExtractor";
+import { mapExtractor } from "../core/extractors/commonExtractors";
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -24,7 +29,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
-
+  const geometry = useSelector(getGeometry);
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -38,45 +43,8 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           <Map
             width={"100%"}
             height={"100%"}
-            dataIn={alkisLandparcel}
-            extractor={(dataIn) => {
-              if (dataIn) {
-                const alkisLandparcel = dataIn;
-                const feature = {
-                  type: "Feature",
-                  featureType: "landparcel",
-                  id: "landparcel." + alkisLandparcel.alkis_id,
-                  geometry: alkisLandparcel.geometrie,
-                  crs: alkisLandparcel.geometrie.crs,
-                  properties: {
-                    id: alkisLandparcel.alkis_id,
-                  },
-                };
-
-                return {
-                  homeCenter: [51.272570027476256, 7.19963690266013],
-                  homeZoom: 16,
-                  featureCollection: [feature],
-                  styler: (feature) => {
-                    const style = {
-                      color: "#005F6B",
-                      weight: 1,
-                      opacity: 0.6,
-                      fillColor: "#26ADE4",
-                      fillOpacity: 0.6,
-                      className: "landparcek-" + feature.properties.id,
-                    };
-                    return style;
-                  },
-                };
-              } else {
-                return {
-                  homeCenter: [51.272570027476256, 7.19963690266013],
-                  homeZoom: 13,
-                  featureCollection: [],
-                };
-              }
-            }}
+            dataIn={{ landparcel, geometry }}
+            extractor={mapExtractor}
           />
         </div>
       </div>

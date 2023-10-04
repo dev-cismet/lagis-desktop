@@ -450,3 +450,13 @@ queries.history = `query MyQuery($schluessel_id: Int) {
     vorgaenger_schluessel_id
   }
 }`;
+
+queries.getGeomFromWuNDA = `query q($alkis_id: String) {
+  flurstueck(where: {alkis_id: {_eq: $alkis_id}}) {
+    alkis_id
+    geom {
+      geo_field
+    }
+  }
+}
+`;
