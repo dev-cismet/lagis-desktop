@@ -19,7 +19,7 @@ import {
   storeRebe,
   storeMipa,
 } from "../../store/slices/lagis";
-import { DOMAIN, REST_SERVICE } from "../../constants/lagis";
+import { LAGIS_DOMAIN, REST_SERVICE_LAGIS } from "../../constants/lagis";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spin } from "antd";
@@ -65,10 +65,10 @@ const LoginPage = () => {
       p = pw;
     }
 
-    fetch(REST_SERVICE + "/users", {
+    fetch(REST_SERVICE_LAGIS + "/users", {
       method: "GET",
       headers: {
-        Authorization: "Basic " + btoa(u + "@" + DOMAIN + ":" + p),
+        Authorization: "Basic " + btoa(u + "@" + LAGIS_DOMAIN + ":" + p),
         "Content-Type": "application/json",
       },
     })
