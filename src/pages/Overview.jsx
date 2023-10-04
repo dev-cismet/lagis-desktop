@@ -26,6 +26,7 @@ import { useEffect } from "react";
 import queries from "../core/queries/online";
 import {
   getAlkisLandparcel,
+  getGeometry,
   getHistory,
   getLandparcel,
   getMipa,
@@ -40,6 +41,7 @@ import {
   transactionExtractor,
   usageExtractor,
 } from "../core/extractors/overviewExtractors";
+import { mapExtractor } from "../core/extractors/commonExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
 import { useNavigate, useSearchParams } from "react-router-dom";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
@@ -112,7 +114,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const history = useSelector(getHistory);
-  console.log("histroy", history);
+  const geometry = useSelector(getGeometry);
 
   return (
     <div
@@ -170,45 +172,8 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Map
             width={"100%"}
             height={height}
-            dataIn={alkisLandparcel}
-            extractor={(dataIn) => {
-              if (dataIn) {
-                const alkisLandparcel = dataIn;
-                const feature = {
-                  type: "Feature",
-                  featureType: "landparcel",
-                  id: "landparcel." + alkisLandparcel.alkis_id,
-                  geometry: alkisLandparcel.geometrie,
-                  crs: alkisLandparcel.geometrie.crs,
-                  properties: {
-                    id: alkisLandparcel.alkis_id,
-                  },
-                };
-
-                return {
-                  homeCenter: [51.272570027476256, 7.19963690266013],
-                  homeZoom: 16,
-                  featureCollection: [feature],
-                  styler: (feature) => {
-                    const style = {
-                      color: "#005F6B",
-                      weight: 1,
-                      opacity: 0.6,
-                      fillColor: "#26ADE4",
-                      fillOpacity: 0.6,
-                      className: "landparcek-" + feature.properties.id,
-                    };
-                    return style;
-                  },
-                };
-              } else {
-                return {
-                  homeCenter: [51.272570027476256, 7.19963690266013],
-                  homeZoom: 13,
-                  featureCollection: [],
-                };
-              }
-            }}
+            dataIn={{ landparcel, geometry }}
+            extractor={mapExtractor}
           />
         </div>
       </div>
