@@ -7,6 +7,7 @@ const initialState = {
   rebe: undefined,
   mipa: undefined,
   history: undefined,
+  geometry: undefined,
 };
 
 const slice = createSlice({
@@ -33,6 +34,10 @@ const slice = createSlice({
       state.history = action.payload;
       return state;
     },
+    storeGeometry(state, action) {
+      state.geometry = action.payload;
+      return state;
+    },
   },
 });
 
@@ -44,6 +49,7 @@ export const {
   storeRebe,
   storeMipa,
   storeHistory,
+  storeGeometry,
 } = slice.actions;
 
 export const getLandparcel = (state) => {
@@ -60,6 +66,9 @@ export const getRebe = (state) => {
 };
 export const getHistory = (state) => {
   return state.lagis.history;
+};
+export const getGeometry = (state) => {
+  return state.lagis.geometry;
 };
 
 export const getOffices = (state) => {
