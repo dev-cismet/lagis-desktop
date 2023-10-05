@@ -1,12 +1,47 @@
-import { DOMAIN, REST_SERVICE } from "../constants/lagis";
+import { REST_SERVICES } from "../constants/lagis";
 import { getNonce } from "./tools/helper";
 
-export async function fetchGraphQL(
+export async function fetchGraphQLFromWuNDa(
   query,
   variables,
   jwt,
   forceSkipLogging = false,
   apiPrefix = ""
+) {
+  return await fetchGraphQLFromService(
+    query,
+    variables,
+    jwt,
+    forceSkipLogging,
+    apiPrefix,
+    "WUNDA_BLAU"
+  );
+}
+
+export async function fetchGraphQLFromLagIS(
+  query,
+  variables,
+  jwt,
+  forceSkipLogging = false,
+  apiPrefix = ""
+) {
+  return await fetchGraphQLFromService(
+    query,
+    variables,
+    jwt,
+    forceSkipLogging,
+    apiPrefix,
+    "LAGIS"
+  );
+}
+
+export async function fetchGraphQLFromService(
+  query,
+  variables,
+  jwt,
+  forceSkipLogging = false,
+  apiPrefix = "",
+  domain
 ) {
   //check if there is a query param with the name logGQL
 
@@ -14,10 +49,9 @@ export async function fetchGraphQL(
     "logGQL"
   );
   const logGQLEnabled =
-    logGQLFromSearch !== null && logGQLFromSearch !== "false";
+    true || (logGQLFromSearch !== null && logGQLFromSearch !== "false");
   const nonce = getNonce();
 
-  //	const result = await fetch('http:// localhost:8890/actions/WUNDA_BLAU.graphQl/tasks?resultingInstanceType=result', {
   let myHeaders = new Headers();
 
   myHeaders.append("Authorization", "Bearer " + (jwt || "unset.jwt.token"));
@@ -33,7 +67,7 @@ export async function fetchGraphQL(
   }
   try {
     const response = await fetch(
-      REST_SERVICE + `/${apiPrefix}graphql/` + DOMAIN + "/execute",
+      REST_SERVICES[domain] + `/${apiPrefix}graphql/` + domain + "/execute",
       {
         method: "POST",
         headers: myHeaders,
@@ -65,4 +99,22 @@ export async function fetchGraphQL(
     }
     throw new Error(e);
   }
+}
+
+//backwards compatibility: do lagis query
+export async function fetchGraphQL(
+  query,
+  variables,
+  jwt,
+  forceSkipLogging = false,
+  apiPrefix = ""
+) {
+  return await fetchGraphQLFromLagIS(
+    query,
+    variables,
+    jwt,
+    forceSkipLogging,
+    apiPrefix,
+    "LAGIS"
+  );
 }
