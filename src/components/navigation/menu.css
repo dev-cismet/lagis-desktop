@@ -6,7 +6,9 @@
   color: red;
   transition: all 0.3s;
 }
-
+/* .ant-menu-title-content {
+  color: #e0e0e0;
+} */
 .ant-menu-item {
   margin-bottom: 100px; /* Adjust this value as needed */
   padding-left: 15px;

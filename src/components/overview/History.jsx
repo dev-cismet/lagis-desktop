@@ -5,7 +5,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
 import { DashOutlined } from "@ant-design/icons";
-
+import { defaultLinksColor } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { number: "4", color: "#FFD029" };
 };
@@ -18,16 +18,17 @@ const DashboardHistory = ({
   style,
 }) => {
   const data = extractor(dataIn);
+  console.log("vvv history", data);
   return (
     <div className="dashboard-tile">
-      <Link to={`/historie?${buildUrlParams(parametersForLink)}`}>
+      {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Historie"
-          icon={<FieldTimeOutlined style={{ color: data.color }} />}
+          icon={<FieldTimeOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             style={{
-              color: data.color,
+              color: data?.color || defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -35,15 +36,41 @@ const DashboardHistory = ({
             }}
           >
             <strong>
-              {typeof data.number === "number" ? (
-                (data.number + 1).toString().padStart(2, "0")
+              {data.icon === false && data.number === 0 ? (
+                ""
               ) : (
-                <DashOutlined />
+                <DashOutlined style={{ color: defaultLinksColor }} />
               )}
             </strong>
           </div>
         </OverviewCard>
-      </Link>
+      ) : (
+        <Link to={`/historie?${buildUrlParams(parametersForLink)}`}>
+          <OverviewCard
+            title="Historie"
+            icon={<FieldTimeOutlined style={{ color: data?.color }} />}
+            ifDefaultColor={false}
+          >
+            <div
+              style={{
+                color: data?.color || defaultLinksColor,
+                fontSize: "5.5rem",
+                textAlign: "left",
+                width: "100%",
+                lineHeight: "1.2",
+              }}
+            >
+              <strong>
+                {data.number > 0 ? (
+                  (data.number + 1).toString().padStart(2, "0")
+                ) : (
+                  <DashOutlined style={{ color: defaultLinksColor }} />
+                )}
+              </strong>
+            </div>
+          </OverviewCard>
+        </Link>
+      )}
     </div>
   );
 };

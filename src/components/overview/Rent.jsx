@@ -4,6 +4,7 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
+import { defaultLinksColor } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfRents: "7", color: "#5D5FEF" };
 };
@@ -18,10 +19,10 @@ const DashboardRent = ({
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
-      {data.color === "#E0E0E0" ? (
+      {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Miet und Pachtverträge"
-          icon={<DollarOutlined style={{ color: data.color }} />}
+          icon={<DollarOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             className="text-8xl"
@@ -44,6 +45,7 @@ const DashboardRent = ({
           <OverviewCard
             title="Miet und Pachtverträge"
             icon={<DollarOutlined style={{ color: data.color }} />}
+            ifDefaultColor={false}
           >
             <div
               className="text-8xl"

@@ -7,7 +7,7 @@ import { EuroCircleOutlined } from "@ant-design/icons";
 import { Button, Tag } from "antd";
 import { useState, useEffect } from "react";
 import { nanoid } from "@reduxjs/toolkit";
-import { compare } from "../../core/tools/helper";
+import { compare, formatPrice } from "../../core/tools/helper";
 const columns = [
   {
     title: "Anlageklasse",
@@ -79,9 +79,6 @@ const NFKOverwie = ({
     setDataTable(data);
     setActiveRow(data[0]);
   }, [dataIn]);
-  useEffect(() => {
-    console.log("active row", activeRow);
-  }, [activeRow]);
   return (
     <div
       style={
@@ -103,7 +100,7 @@ const NFKOverwie = ({
             color="blue"
             style={{ padding: "0.1rem 0.8rem" }}
           >
-            Stille Reserve: {activeRow?.stille}
+            Stille Reserve: {activeRow?.stille ? activeRow?.stille : `0,00 €`}
           </Tag>
         }
         controlBar={

@@ -28,10 +28,8 @@ const ContractData = ({ dataIn, extractor }) => {
   };
   useEffect(() => {
     const data = extractor(dataIn);
-    if (data?.length > 0) {
-      setContracts(data);
-      setActiveRow(data[0]);
-    }
+    setContracts(data);
+    setActiveRow(data[0]);
   }, [dataIn]);
   return (
     <div className="contract-data h-full w-full overflow-auto shadow-md">

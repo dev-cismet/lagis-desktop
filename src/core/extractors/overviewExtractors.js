@@ -1,71 +1,57 @@
-import { getColorFromCode } from "../tools/helper";
-import area from "@turf/area";
-import proj4 from "proj4";
-import { getArea25832 } from "../tools/mappingTools";
-
+import { defaultLinksColor } from "../tools/helper";
+import {
+  getOfficesWithColorAndSquare,
+  geHistoricalArraytOfficesWithColorAndSquare,
+} from "../tools/helper";
 export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfRents: " ",
-      color: "#E0E0E0",
+      color: defaultLinksColor,
     };
   } else {
     const mipa = dataIn;
     const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
-      color: numberOfRents > 0 ? "#5D5FEF" : "#E0E0E0",
+      color: numberOfRents > 0 ? "#5D5FEF" : defaultLinksColor,
     };
   }
 }
 export function historyExtractor(dataIn) {
-  if (dataIn === undefined || dataIn.length === 0) {
-    return { color: "lightgray" };
+  if (dataIn === undefined) {
+    return { color: defaultLinksColor, number: 0, icon: false };
   } else {
-    return { color: "#FFD029", number: dataIn.length };
+    if (dataIn.length === 0) {
+      return { color: defaultLinksColor, number: 0, icon: true };
+    }
+    return { color: "#FFD029", number: dataIn.length, icon: true };
   }
 }
 
 export function officesExtractor(dataIn) {
   if (dataIn === undefined) {
-    return [];
+    return { currentOffices: [], history: 0 };
   } else {
     const landparcel = dataIn;
     const officesData =
       landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
     const lastOffice = officesData[officesData.length - 1];
-    const nameGeomColorData = [];
-    const checkTitleArray = [];
+    const history = officesData.slice(0, officesData.length - 1);
+    const historyData = geHistoricalArraytOfficesWithColorAndSquare(
+      history,
+      dataIn
+    );
+    const nameGeomColorData = getOfficesWithColorAndSquare(lastOffice, dataIn);
 
-    lastOffice?.verwaltungsbereichArrayRelationShip.forEach((item) => {
-      const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
-      if (!checkTitleArray.includes(currentTitle)) {
-        const color =
-          item.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert;
-        let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
-        let area;
-        if (square !== undefined) {
-          const raw = getArea25832(square);
-          area = Math.round(raw * 10) / 10;
-        }
-        const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
-        nameGeomColorData.push({
-          title,
-          size: Math.round(area),
-          color: getColorFromCode(color),
-        });
-        checkTitleArray.push(currentTitle);
-      }
-    });
-
-    return nameGeomColorData;
+    return { currentOffices: nameGeomColorData, history: historyData.length };
   }
 }
 export function transactionExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfDocuments: "  ",
-      color: "#E0E0E0",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
@@ -73,7 +59,7 @@ export function transactionExtractor(dataIn) {
       landparcel?.kassenzeichenArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#5D5FEF" : "#E0E0E0",
+      color: numberOfDocuments > 0 ? "#5D5FEF" : defaultLinksColor,
     };
   }
 }
@@ -81,14 +67,14 @@ export function operationExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfOperations: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
     const numberOfOperations = landparcel?.ar_vertraegeArray?.length || 0;
     return {
       numberOfOperations,
-      color: numberOfOperations > 0 ? "#389EFD" : "#E0E0E0",
+      color: numberOfOperations > 0 ? "#389EFD" : defaultLinksColor,
     };
   }
 }
@@ -97,7 +83,7 @@ export function usageExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfUsages: "  ",
-      color: "#E0E0E0",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
@@ -114,7 +100,7 @@ export function usageExtractor(dataIn) {
     }
     return {
       numberOfUsages: counter,
-      color: numberOfUsages > 0 ? "#F31630" : "#E0E0E0",
+      color: counter > 0 ? "#F31630" : defaultLinksColor,
     };
   }
 }
@@ -123,14 +109,14 @@ export function dmsExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfDocuments: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const landparcel = dataIn;
     const numberOfDocuments = landparcel?.dms_urlArrayRelationShip?.length || 0;
     return {
       numberOfDocuments,
-      color: numberOfDocuments > 0 ? "#180E53" : "#E0E0E0",
+      color: numberOfDocuments > 0 ? "#180E53" : defaultLinksColor,
     };
   }
 }
@@ -139,14 +125,14 @@ export function rebeExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
       numberOfRights: "  ",
-      color: "#389EFD",
+      color: defaultLinksColor,
     };
   } else {
     const rebe = dataIn;
     const numberOfRights = rebe.length || 0;
     return {
       numberOfRights,
-      color: numberOfRights > 0 ? "#180E53" : "#E0E0E0",
+      color: numberOfRights > 0 ? "#180E53" : defaultLinksColor,
     };
   }
 }

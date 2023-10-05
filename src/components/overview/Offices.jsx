@@ -5,6 +5,9 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
 import { useEffect } from "react";
+import { defaultLinksColor } from "../../core/tools/helper";
+import { HistoryOutlined } from "@ant-design/icons";
+
 const mockExtractor = (input) => {
   return [
     { title: "104.2", color: "#0097FA", size: 250 },
@@ -19,24 +22,43 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let square = "20px";
+  let square = "18px";
   const data = extractor(dataIn);
-  useEffect(() => {
-    console.log("xxx data", data);
-  }, []);
-
   return (
     <div className="dashboard-tile">
-      {data.length > 0 && data[0] ? (
+      {data.currentOffices.length > 0 ? (
         <Link to={`/verwaltungsbereiche?${buildUrlParams(parametersForLink)}`}>
           <OverviewCard
             title="Verwaltungsbereiche"
             subtitle="& Rollen"
-            icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+            icon={
+              <div className="flex items-center">
+                {data.history > 0 ? (
+                  <HistoryOutlined
+                    style={{
+                      marginRight: "10px",
+                      fontSize: "20px",
+                      marginTop: "1px",
+                    }}
+                  />
+                ) : (
+                  <HistoryOutlined
+                    style={{
+                      color: defaultLinksColor,
+                      marginRight: "10px",
+                      fontSize: "20px",
+                      marginTop: "1px",
+                    }}
+                  />
+                )}
+                <FolderOpenOutlined style={{ color: "#0097FA" }} />
+              </div>
+            }
+            ifDefaultColor={false}
           >
             <div className="flex flex-col mt-auto">
-              {data?.map((item) => (
-                <div className="flex justify-between items-center mt-1 mb-1">
+              {data.currentOffices?.map((item) => (
+                <div className="flex justify-between items-center">
                   <div className="flex justify-between items-center">
                     {item?.title && (
                       <span
@@ -50,11 +72,11 @@ const DashboardOffices = ({
                     )}
                     <span
                       style={{
-                        color: item?.color || "#E0E0E0",
+                        color: item?.color || defaultLinksColor,
                         fontSize: item?.title ? square : "88px",
-                        marginBottom: item?.title ? "0px" : "-10px",
+                        marginBottom: item?.title ? "0px" : "-5px",
                       }}
-                      className="font-bold text-medium"
+                      className="font-bold"
                     >
                       {item?.title || "00"}
                     </span>
@@ -64,7 +86,6 @@ const DashboardOffices = ({
                       color: "#6C6A6A",
                       fontSize: square,
                     }}
-                    // className="font-lg"
                   >
                     {item?.size ? `${item?.size} m²` : ""}
                   </span>
@@ -77,10 +98,10 @@ const DashboardOffices = ({
         <OverviewCard
           title="Verwaltungsbereiche"
           subtitle="& Rollen"
-          icon={<FolderOpenOutlined style={{ color: "#0097FA" }} />}
+          icon={<FolderOpenOutlined style={{ color: defaultLinksColor }} />}
         >
           <div className="flex flex-col mt-auto">
-            {data?.map((item) => (
+            {data.currentOffices?.map((item) => (
               <div className="flex justify-between items-center mt-1 mb-1">
                 <div className="flex justify-between items-center">
                   {item?.title && (
@@ -89,17 +110,17 @@ const DashboardOffices = ({
                         width: "8px",
                         height: "8px",
                         marginRight: "6px",
-                        backgroundColor: item?.color || "#0097FA",
+                        backgroundColor: defaultLinksColor,
                       }}
                     ></span>
                   )}
                   <span
                     style={{
-                      color: item?.color || "#E0E0E0",
+                      color: defaultLinksColor,
                       fontSize: item?.title ? square : "88px",
                       marginBottom: item?.title ? "0px" : "-10px",
                     }}
-                    className="font-bold text-medium"
+                    className="font-bold"
                   >
                     {item?.title || "00"}
                   </span>
@@ -109,7 +130,6 @@ const DashboardOffices = ({
                     color: "#6C6A6A",
                     fontSize: square,
                   }}
-                  // className="font-lg"
                 >
                   {item?.size ? `${item?.size} m²` : ""}
                 </span>

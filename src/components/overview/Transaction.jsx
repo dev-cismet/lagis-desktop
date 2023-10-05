@@ -4,7 +4,7 @@ import "./style.css";
 import OverviewCard from "../ui/OverviewCard";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
-
+import { defaultLinksColor } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfDocuments: "1", color: "#389EFD" };
 };
@@ -20,14 +20,14 @@ const DashboardTransaction = ({
 
   return (
     <div className="dashboard-tile">
-      {data.color === "#E0E0E0" ? (
+      {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Kassenzeichen"
-          icon={<PayCircleOutlined style={{ color: data.color }} />}
+          icon={<PayCircleOutlined style={{ color: defaultLinksColor }} />}
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -43,6 +43,7 @@ const DashboardTransaction = ({
         <Link to={`/kassenzeichen?${buildUrlParams(parametersForLink)}`}>
           <OverviewCard
             title="Kassenzeichen"
+            ifDefaultColor={false}
             icon={<PayCircleOutlined style={{ color: data.color }} />}
           >
             <div

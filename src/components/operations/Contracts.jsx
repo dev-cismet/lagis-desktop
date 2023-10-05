@@ -31,7 +31,6 @@ const columns = [
   },
 ];
 const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
-  // const data = extractor(dataIn);
   const [contracts, setContracts] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const handleAddRow = () => {
@@ -75,11 +74,8 @@ const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
   const storyStyle = { width, height, ...style };
   useEffect(() => {
     const data = extractor(dataIn);
-    console.log("ccc data", data);
-    if (data?.length > 0) {
-      setContracts(data);
-      setActiveRow(data[0]);
-    }
+    setContracts(data);
+    setActiveRow(data[0]);
   }, [dataIn]);
   return (
     <div

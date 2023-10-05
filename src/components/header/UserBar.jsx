@@ -16,27 +16,24 @@ import {
 import {
   storeLagisLandparcel,
   storeAlkisLandparcel,
-  getUrlLandparcelParams,
   storeRebe,
   storeMipa,
   storeHistory,
   storeGeometry,
 } from "../../store/slices/lagis";
-// import { addLeadingZeros } from "../../core/tools/helper";
+import { getSyncLandparcel } from "../../store/slices/ui";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LandParcelChooser from "../chooser/LandParcelChooser";
 import queries from "../../core/queries/online";
 import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
-import { useEffect, useState } from "react";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
+import { removeLeadingZeros } from "../../core/tools/helper";
 const UserBar = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const urlLandparcelAlkisIdParams = useSelector(getUrlLandparcelParams);
-  const [gemParams, setGemParams] = useState();
   const jwt = useSelector(getJWT);
   const userLogin = useSelector(getLogin);
+  const syncLandparcel = useSelector(getSyncLandparcel);
   const navigate = useNavigate();
   const { landParcels } = useSelector(getLandParcels);
   const { landmarks } = useSelector(getLandmarks);
@@ -112,7 +109,6 @@ const UserBar = () => {
 
   const getHistory = async (sid) => {
     console.log("xxx queries.getHistory", sid);
-
     try {
       const result = await fetchGraphQL(
         queries.history,
@@ -121,52 +117,40 @@ const UserBar = () => {
         },
         jwt
       );
-      // console.log(
-      //   generateGraphString(result?.data?.cs_calc_history, "default")
-      // );
       dispatch(storeHistory(result?.data?.cs_calc_history));
     } catch (e) {
       console.log("xxx error in getHistory", e);
     }
   };
-  const setUrlHandle = (alkis_id) => {
-    setUrlParams({ alkis_id });
+  const handleOpenLandparcelInJavaApp = (fstck) => {
+    if (syncLandparcel) {
+      const gemarkung = fstck.gemarkung;
+      const flur = removeLeadingZeros(fstck.flur, true);
+      const fstckArr = removeLeadingZeros(fstck.label).split("/");
+      const zaehler = fstckArr[0];
+      const nenner = fstckArr[1];
+      fetch(
+        `http://localhost:19000/loadFlurstueck?gemarkung=${gemarkung}&flur=${flur}&zaehler=${zaehler}&nenner=${nenner}`
+      ).catch((error) => {
+        //  i expect an error here
+      });
+    }
   };
-  useEffect(() => {}, []);
   return (
     <div className="flex items-center py-2">
-      {/* <HeaderSelectors /> */}
       <LandParcelChooser
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           console.log("flurstueckChoosen", fstck);
-
           if (fstck.lfk) {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
+            handleOpenLandparcelInJavaApp(fstck);
           }
         }}
-        // gemParams={urlParams.get("gem")}
-        // flurParams={flurParam ? addLeadingZeros(flurParam) : undefined}
-        // fstckParams={fstckParam ? replaceWithSlash(fstckParam) : undefined}
       />
-      {/* <div className="mx-2 md:ml-4">
-        <UserBarActions />
-      </div> */}
       <div className="ml-auto flex gap-1 items-center">
         <div className="logout ml-auto pl-1 flex items-center">
-          <Tooltip title="LagIS Java sync" placement="right">
-            <FileSyncOutlined
-              className="text-sm cursor-pointer pr-4 "
-              onClick={() => {
-                fetch(
-                  "http://localhost:19000/loadFlurstueck?gemarkung=Barmen&flur=200&zaehler=51&nenner=0"
-                ).catch((error) => {
-                  //  i expect an error here
-                });
-              }}
-            />
-          </Tooltip>
           <Tooltip title="Ausloggen" placement="right">
             <LogoutOutlined
               className="text-sm cursor-pointer pr-4"
@@ -184,24 +168,6 @@ const UserBar = () => {
               }}
             />
           </Tooltip>
-          {/* <LogoutOutlined style={{ fontSize: "12px" }} />
-          <span
-            style={{ lineHeight: "22px", fontSize: "13px" }}
-            className="ml-1 hidden md:block"
-            onClick={() => {
-              dispatch(storeAlkisLandparcel(undefined));
-              dispatch(storeLagisLandparcel(undefined));
-              dispatch(storeRebe(undefined));
-              dispatch(storeMipa(undefined));
-              dispatch(storeJWT(undefined));
-              dispatch(storeLogin(undefined));
-              dispatch(storeLandParcels(undefined));
-              dispatch(storeLandmarks(undefined));
-              navigate("/login");
-            }}
-          >
-            Logout
-          </span> */}
         </div>
         <UserName name={userLogin} />
       </div>
@@ -209,15 +175,3 @@ const UserBar = () => {
   );
 };
 export default UserBar;
-
-function replaceWithSlash(inputString) {
-  if (!inputString) {
-    return undefined;
-  }
-  const convertInput = inputString.toString();
-  if (!convertInput.includes("-")) {
-    return `${inputString}/0`;
-  } else {
-    return inputString.replace(/[\-\/]/g, "/");
-  }
-}

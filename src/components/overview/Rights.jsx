@@ -4,6 +4,7 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
+import { defaultLinksColor } from "../../core/tools/helper";
 const mockExtractor = (input) => {
   return { numberOfRights: "3", color: "#EF5DA8" };
 };
@@ -17,22 +18,23 @@ const DashboardRights = ({
   variant,
 }) => {
   const data = extractor(dataIn);
+  console.log("Rechte & Belastungen", data);
   return (
     <div className="dashboard-tile">
-      {data.color === "#E0E0E0" ? (
+      {data.color === defaultLinksColor ? (
         <OverviewCard
           title="Rechte & Belastungen"
           subtitle="& Dienstbarkeiten, Baulasten"
           icon={
             <SettingOutlined
               className="text-3xl"
-              style={{ color: data.color }}
+              style={{ color: defaultLinksColor }}
             />
           }
         >
           <div
             style={{
-              color: data.color,
+              color: defaultLinksColor,
               fontSize: "5.5rem",
               textAlign: "left",
               width: "100%",
@@ -47,6 +49,7 @@ const DashboardRights = ({
           <OverviewCard
             title="Rechte & Belastungen"
             subtitle="& Dienstbarkeiten, Baulasten"
+            ifDefaultColor={false}
             icon={
               <SettingOutlined
                 className="text-3xl"

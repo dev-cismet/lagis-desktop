@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
-  history: undefined,
   rebe: undefined,
   mipa: undefined,
   history: undefined,
@@ -92,6 +91,27 @@ export const getStreetFronts = (state) => {
 
 export const getUsage = (state) => {
   return state.lagis.lagisLandparcel?.nutzungArrayRelationShip || undefined;
+};
+export const getCountOfUsage = (state) => {
+  const allUsages =
+    state.lagis.lagisLandparcel?.nutzungArrayRelationShip || undefined;
+  if (allUsages) {
+    const numberOfUsages = allUsages.length || 0;
+    let counter = 0;
+    if (numberOfUsages !== 0) {
+      allUsages?.forEach((u, idx) => {
+        u.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
+          if (item.gueltig_bis === null) {
+            counter++;
+          }
+        });
+      });
+
+      return counter;
+    }
+  } else {
+    return undefined;
+  }
 };
 export const getContract = (state) => {
   return state.lagis.lagisLandparcel?.ar_vertraegeArray || undefined;

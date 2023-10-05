@@ -1,14 +1,14 @@
 import { Drawer, Tooltip, Avatar, Switch } from "antd";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getSyncLandparcel, setSyncLandparcel } from "../../store/slices/ui";
 const UserName = ({ name = "User" }) => {
+  const dispatch = useDispatch();
+  const syncLandparcel = useSelector(getSyncLandparcel);
   const firstLetter = name.charAt(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
-
   return (
     <div className="hidden md:block">
-      {/* <span style={{ fontSize: "13px" }} className="mr-2">
-        {name}
-      </span> */}
       <Tooltip title="Einstellungen" placement="bottom">
         <Avatar
           size="small"
@@ -35,12 +35,14 @@ const UserName = ({ name = "User" }) => {
             <h3>Allgemein</h3>
             <div
               className="flex items-center justify-between hover:bg-zinc-100 p-1 cursor-pointer"
-              // onClick={() => dispatch(setSyncKassenzeichen(!syncKassenzeichen))}
+              onClick={() => {
+                dispatch(setSyncLandparcel(!syncLandparcel));
+              }}
             >
               <span>
                 Selektiertes Flurstück mit Java Anwendung synchronisieren
               </span>
-              <Switch className="w-fit" />
+              <Switch className="w-fit" checked={syncLandparcel} />
             </div>
           </div>
           <h3>Karte</h3>

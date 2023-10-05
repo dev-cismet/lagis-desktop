@@ -1,3 +1,13 @@
+import { nanoid } from "@reduxjs/toolkit";
+import { getArea25832 } from "./mappingTools";
+import dayjs from "dayjs";
+import weekday from "dayjs/plugin/weekday";
+import localeData from "dayjs/plugin/localeData";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(weekday);
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
+const dateFormat = "DD.MM.YYYY";
 export const getNonce = () => {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
@@ -57,10 +67,11 @@ export const compare = (a, b) => {
   );
 };
 
-export function formatPrice(number) {
-  if (!number) {
-    return number;
+export function formatPrice(number, show = true) {
+  if (!number || number === 0) {
+    return show ? "0,00 €" : "";
   }
+
   const formatter = new Intl.NumberFormat("fr-FR", {
     style: "currency",
     currency: "EUR",
@@ -71,4 +82,78 @@ export function formatPrice(number) {
   const formattedNumber = formatter.format(number);
 
   return formattedNumber;
+}
+
+export const defaultLinksColor = "#E0E0E0";
+
+export const removeLeadingZeros = (numberStr, flur = false) => {
+  if (!numberStr) {
+    return undefined;
+  }
+  const parts = numberStr.split("/");
+
+  const trimmedParts = parts.map((part) => {
+    let startIndex = 0;
+
+    while (startIndex < part.length && part[startIndex] === "0") {
+      startIndex++;
+    }
+
+    return part.substring(startIndex);
+  });
+
+  const flurResalt = trimmedParts.join("/");
+
+  const result =
+    trimmedParts.length > 1
+      ? trimmedParts.join("/")
+      : trimmedParts.join("") + "/0";
+
+  return !flur ? result : flurResalt;
+};
+
+export function getOfficesWithColorAndSquare(officesArray, dataIn) {
+  const nameGeomColorData = [];
+  officesArray?.verwaltungsbereichArrayRelationShip.forEach((item) => {
+    const color =
+      item.verwaltende_dienststelle.farbeArrayRelationShip[0]?.rgb_farbwert ||
+      "";
+    let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
+    let area;
+    if (square !== undefined) {
+      const raw = getArea25832(square);
+      area = Math.round(raw * 10) / 10;
+    }
+    const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
+    nameGeomColorData.push({
+      id: nanoid(),
+      title,
+      size: Math.round(area),
+      color: getColorFromCode(color),
+    });
+  });
+
+  return nameGeomColorData;
+}
+export function geHistoricalArraytOfficesWithColorAndSquare(
+  historicalArray,
+  dataIn
+) {
+  const result = [];
+  historicalArray.forEach((h) => {
+    const res = getOfficesWithColorAndSquare(h, dataIn);
+    const dateChangedDate = dayjs(h.geaendert_am).toDate();
+    const formattedChangedDate = dayjs(dateChangedDate).format("DD.MM.YYYY");
+
+    const changedByName = h.geaendert_von;
+    // const changedDate = h.geaendert_am;
+    const historyData = {
+      id: nanoid(),
+      editorName: changedByName,
+      changedDate: formattedChangedDate,
+      agencyData: res,
+    };
+    result.push(historyData);
+  });
+  return result;
 }
