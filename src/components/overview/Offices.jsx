@@ -4,7 +4,6 @@ import OverviewCard from "../ui/OverviewCard";
 import "./style.css";
 import { Link } from "react-router-dom";
 import { buildUrlParams } from "../../core/tools/helper";
-import { useEffect } from "react";
 import { defaultLinksColor } from "../../core/tools/helper";
 import { HistoryOutlined } from "@ant-design/icons";
 
@@ -39,6 +38,7 @@ const DashboardOffices = ({
                       marginRight: "10px",
                       fontSize: "20px",
                       marginTop: "1px",
+                      color: "#0097FA",
                     }}
                   />
                 ) : (

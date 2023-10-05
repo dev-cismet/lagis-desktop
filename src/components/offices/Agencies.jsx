@@ -52,13 +52,11 @@ const historyColumns = [
         <span className="text-xs">{title}</span>
       </div>
     ),
-    sorter: (a, b) => compare(a.title, b.title),
   },
   {
     title: "Fläche in m²",
     dataIndex: "size",
     render: (size) => <span className="text-xs">{size}</span>,
-    sorter: (a, b) => compare(a.size, b.size),
   },
 ];
 const mockExtractor = (input) => {
@@ -210,7 +208,7 @@ const Agencies = ({
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        wrapClassName="custom-modal-wrapper"
+        wrapClassName="history-modal-wrapper"
         okButtonProps={{ style: { display: "none" } }}
         bodyStyle={{ backgroundColor: "#f1f1f1" }}
         cancelText="Schließen"
