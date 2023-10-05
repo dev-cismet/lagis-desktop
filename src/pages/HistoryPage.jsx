@@ -1,4 +1,3 @@
-import { Col, Row } from "antd";
 import Graph from "../components/commons/Graph";
 import HistoryInfo from "../components/history/HistoryInfo";
 import View from "../components/history/View";
@@ -20,8 +19,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const firstRow = {
     height: window.innerHeight - 188 - 52 - 16 - 16 - 16 - 16 - 54,
   };
-  const gutterStyle = [16, 16];
-  const marginBottomStyle = { marginBottom: "16px" };
+  // const gutterStyle = [16, 16];
+  // const marginBottomStyle = { marginBottom: "16px" };
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
 
@@ -34,14 +33,10 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     <div
       style={{
         ...storyStyle,
-        // width,
-        // height: "100%",
-        // backgroundColor: "#F1F1F1",
-        border: "4px solid red",
       }}
       className="h-full overflow-clip max-h[calc(100%-30px)]"
     >
-      <div className="h-[70%] mb-4">
+      <div className="h-[70%] mb-4 overflow-auto">
         <Graph
           width={"100%"}
           height={"100%"}
@@ -56,7 +51,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         />
       </div>
 
-      <div className="flex gap-4 h-[calc(30%-1rem)] mb-4">
+      <div className="flex gap-4 h-[calc(30%-2rem)] mb-4">
         <HistoryInfo />
         <View />
         <OptionHistory />
