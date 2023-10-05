@@ -1,5 +1,10 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { getColorFromCode } from "../tools/helper";
-import { getArea25832 } from "../tools/mappingTools";
+import {
+  getOfficesWithColorAndSquare,
+  geHistoricalArraytOfficesWithColorAndSquare,
+} from "../tools/helper";
+
 export function noteExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
@@ -57,37 +62,26 @@ export function additionalRollExtractor(dataIn) {
 }
 export function officesPageExtractor(dataIn) {
   if (dataIn === undefined) {
-    return [];
+    return { currentOffices: [], history: 0 };
   } else {
     const landparcel = dataIn;
-
     const officesData =
       landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
     const lastOffice = officesData[officesData.length - 1];
-    const nameGeomColorData = [];
-    const checkTitleArray = [];
+    const history = officesData.slice(0, officesData.length - 1);
+    const historyData = geHistoricalArraytOfficesWithColorAndSquare(
+      history,
+      dataIn
+    );
+    const nameGeomColorData = getOfficesWithColorAndSquare(lastOffice, dataIn);
 
-    lastOffice?.verwaltungsbereichArrayRelationShip.forEach((item) => {
-      const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
-      if (!checkTitleArray.includes(currentTitle)) {
-        const color =
-          item.verwaltende_dienststelle.farbeArrayRelationShip[0].rgb_farbwert;
-        let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
-        let area;
-        if (square !== undefined) {
-          const raw = getArea25832(square);
-          area = Math.round(raw * 10) / 10;
-        }
-        const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
-        nameGeomColorData.push({
-          id: lastOffice.id,
-          agency: title,
-          area: Math.round(area),
-          color: getColorFromCode(color),
-        });
-        checkTitleArray.push(currentTitle);
-      }
-    });
-    return nameGeomColorData.length > 0 ? nameGeomColorData : [];
+    const agencyTableFields = nameGeomColorData.map((a) => ({
+      id: nanoid(),
+      agency: a.title,
+      area: a.size,
+      color: a.color,
+    }));
+
+    return { currentOffices: agencyTableFields, history: historyData };
   }
 }

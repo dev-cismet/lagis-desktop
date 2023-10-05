@@ -1,7 +1,22 @@
 .custom-modal-wrapper .ant-modal-content {
   background-color: #f1f1f1;
+  padding: 0px;
 }
 
 .custom-modal-wrapper .ant-modal-header {
   background-color: transparent;
+  padding: 14px 10px;
 }
+.custom-modal-wrapper .ant-modal-body {
+  padding: 4px 10px;
+}
+.custom-modal-wrapper .ant-modal-header {
+  background-color: white;
+}
+.custom-modal-wrapper .ant-modal-footer {
+  padding: 6px 10px;
+  margin-top: 0;
+}
+/* .custom-modal-wrapper .ant-modal-close {
+  top: 11;
+} */

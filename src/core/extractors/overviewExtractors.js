@@ -1,6 +1,8 @@
-import { defaultLinksColor, getColorFromCode } from "../tools/helper";
-import { getArea25832 } from "../tools/mappingTools";
-
+import { defaultLinksColor } from "../tools/helper";
+import {
+  getOfficesWithColorAndSquare,
+  geHistoricalArraytOfficesWithColorAndSquare,
+} from "../tools/helper";
 export function mipaExtractor(dataIn) {
   if (dataIn === undefined) {
     return {
@@ -17,7 +19,6 @@ export function mipaExtractor(dataIn) {
   }
 }
 export function historyExtractor(dataIn) {
-  console.log("vvv history extractor", dataIn);
   if (dataIn === undefined) {
     return { color: defaultLinksColor, number: 0, icon: false };
   } else {
@@ -30,38 +31,20 @@ export function historyExtractor(dataIn) {
 
 export function officesExtractor(dataIn) {
   if (dataIn === undefined) {
-    return [];
+    return { currentOffices: [], history: 0 };
   } else {
     const landparcel = dataIn;
     const officesData =
       landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
     const lastOffice = officesData[officesData.length - 1];
-    const nameGeomColorData = [];
-    const checkTitleArray = [];
+    const history = officesData.slice(0, officesData.length - 1);
+    const historyData = geHistoricalArraytOfficesWithColorAndSquare(
+      history,
+      dataIn
+    );
+    const nameGeomColorData = getOfficesWithColorAndSquare(lastOffice, dataIn);
 
-    lastOffice?.verwaltungsbereichArrayRelationShip.forEach((item) => {
-      const currentTitle = item.verwaltende_dienststelle.ressort.abkuerzung;
-      if (!checkTitleArray.includes(currentTitle)) {
-        const color =
-          item.verwaltende_dienststelle.farbeArrayRelationShip[0]
-            ?.rgb_farbwert || "";
-        let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
-        let area;
-        if (square !== undefined) {
-          const raw = getArea25832(square);
-          area = Math.round(raw * 10) / 10;
-        }
-        const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
-        nameGeomColorData.push({
-          title,
-          size: Math.round(area),
-          color: getColorFromCode(color),
-        });
-        checkTitleArray.push(currentTitle);
-      }
-    });
-
-    return nameGeomColorData;
+    return { currentOffices: nameGeomColorData, history: historyData.length };
   }
 }
 export function transactionExtractor(dataIn) {

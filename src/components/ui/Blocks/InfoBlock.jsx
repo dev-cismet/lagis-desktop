@@ -1,7 +1,13 @@
 import HeadBlock from "../heads/HeadBlock";
 import { useSelector } from "react-redux";
 import { getPermissionsEdit } from "../../../store/slices/permissions";
-const InfoBlock = ({ title, children, controlBar, titleAction }) => {
+const InfoBlock = ({
+  title,
+  children,
+  controlBar,
+  titleAction,
+  extraActions,
+}) => {
   const isEdit = useSelector(getPermissionsEdit);
   return (
     <div
@@ -15,6 +21,7 @@ const InfoBlock = ({ title, children, controlBar, titleAction }) => {
     >
       <HeadBlock title={title} titleAction={titleAction}>
         {isEdit && { controlBar }}
+        {extraActions}
       </HeadBlock>
       {children}
     </div>

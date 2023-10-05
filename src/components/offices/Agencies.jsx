@@ -6,7 +6,10 @@ import TableCustom from "../ui/tables/TableCustom";
 import ModalForm from "../ui/forms/ModalForm";
 import { nanoid } from "@reduxjs/toolkit";
 import { useEffect } from "react";
-import { compare } from "../../core/tools/helper";
+import { compare, defaultLinksColor } from "../../core/tools/helper";
+import { HistoryOutlined } from "@ant-design/icons";
+import { Modal, Table } from "antd";
+import "../../components/ui/control-board/toggle.css";
 const columns = [
   {
     title: "Dienststelle",
@@ -30,6 +33,32 @@ const columns = [
     title: "Fläche in m²",
     dataIndex: "area",
     sorter: (a, b) => compare(a.agency, b.agency),
+  },
+];
+const historyColumns = [
+  {
+    title: "Dienststelle",
+    dataIndex: "title",
+    render: (title, record, rowIndex) => (
+      <div className="flex items-center">
+        <span
+          style={{
+            width: "9px",
+            height: "11px",
+            marginRight: "6px",
+            backgroundColor: record?.color || "transporent",
+          }}
+        ></span>
+        <span className="text-xs">{title}</span>
+      </div>
+    ),
+    sorter: (a, b) => compare(a.title, b.title),
+  },
+  {
+    title: "Fläche in m²",
+    dataIndex: "size",
+    render: (size) => <span className="text-xs">{size}</span>,
+    sorter: (a, b) => compare(a.size, b.size),
   },
 ];
 const mockExtractor = (input) => {
@@ -67,6 +96,8 @@ const Agencies = ({
   const storyStyle = { width, height, ...style };
   const [agency, setAgency] = useState([]);
   const [activeRow, setActiveRow] = useState();
+  const [history, setHistory] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const addAgency = () => {
     const newAgency = {
       id: nanoid(),
@@ -97,11 +128,22 @@ const Agencies = ({
     setActiveRow(copyRow);
     setAgency(agency.map((obj) => (obj.id === copyRow.id ? copyRow : obj)));
   };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   useEffect(() => {
     const data = extractor(dataIn);
-    setAgency(data);
-    setActiveRow(data[0]);
+    setAgency(data?.currentOffices);
+    setActiveRow(data?.currentOffices[0]);
+    setHistory(data?.history);
   }, [dataIn]);
+
   return (
     <div
       style={
@@ -118,6 +160,13 @@ const Agencies = ({
     >
       <InfoBlock
         title="Dienststellen"
+        extraActions={
+          history.length > 0 ? (
+            <HistoryOutlined onClick={() => setIsModalOpen(!isModalOpen)} />
+          ) : (
+            <HistoryOutlined style={{ color: defaultLinksColor }} />
+          )
+        }
         controlBar={
           <ToggleModal
             section="Verwaltungsbereiche"
@@ -156,6 +205,44 @@ const Agencies = ({
           />
         </div>
       </InfoBlock>
+      <Modal
+        title="Historie der Verwaltungsbereiche"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        wrapClassName="custom-modal-wrapper"
+        okButtonProps={{ style: { display: "none" } }}
+        bodyStyle={{ backgroundColor: "#f1f1f1" }}
+        cancelText="Schließen"
+        centered
+      >
+        <div style={{ border: "1px solid #CFD8DC" }}>
+          {history &&
+            history.map((h, idx) => {
+              return (
+                <div key={h.id}>
+                  <div
+                    className="flex gap-8 p-2"
+                    style={{
+                      borderBottom:
+                        idx !== history.length - 1 ? "1px solid #CFD8DC" : "0",
+                    }}
+                  >
+                    <div className="max-w-[190px] mt-2">
+                      Änderung am {h.changedDate} von {h.editorName}
+                    </div>
+                    <Table
+                      columns={historyColumns}
+                      dataSource={h.agencyData}
+                      pagination={false}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </Modal>
     </div>
   );
 };
