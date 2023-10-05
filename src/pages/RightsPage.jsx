@@ -9,6 +9,7 @@ import {
   getRebe,
 } from "../store/slices/lagis";
 import { rebePageExtractor } from "../core/extractors/rebePageExtractor";
+import { mapExtractor } from "../core/extractors/commonExtractors";
 const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const landParcel = useSelector(getLandparcel);
