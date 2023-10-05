@@ -15,7 +15,6 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
   const rebe = useSelector(getRebe);
-  console.log("geometry", geometry);
 
   let storyStyle = {};
   if (inStory) {
