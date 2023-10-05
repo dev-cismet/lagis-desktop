@@ -12,9 +12,11 @@ import { rebePageExtractor } from "../core/extractors/rebePageExtractor";
 import { mapExtractor } from "../core/extractors/commonExtractors";
 const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
-  const landParcel = useSelector(getLandparcel);
+  const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
   const rebe = useSelector(getRebe);
+  console.log("geometry", geometry);
+
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -30,7 +32,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
         <Map
           width={"100%"}
           height={height}
-          dataIn={{ landParcel, geometry }}
+          dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}
         />
       </div>
