@@ -22,7 +22,7 @@ const DashboardOffices = ({
   height = 188,
   style,
 }) => {
-  let square = "20px";
+  let square = "18px";
   const data = extractor(dataIn);
   return (
     <div className="dashboard-tile">
@@ -74,9 +74,9 @@ const DashboardOffices = ({
                       style={{
                         color: item?.color || defaultLinksColor,
                         fontSize: item?.title ? square : "88px",
-                        marginBottom: item?.title ? "0px" : "-10px",
+                        marginBottom: item?.title ? "0px" : "-5px",
                       }}
-                      className="font-bold text-lg"
+                      className="font-bold"
                     >
                       {item?.title || "00"}
                     </span>
@@ -120,7 +120,7 @@ const DashboardOffices = ({
                       fontSize: item?.title ? square : "88px",
                       marginBottom: item?.title ? "0px" : "-10px",
                     }}
-                    className="font-bold text-medium"
+                    className="font-bold"
                   >
                     {item?.title || "00"}
                   </span>
