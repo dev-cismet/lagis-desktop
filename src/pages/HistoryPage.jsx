@@ -34,41 +34,33 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     <div
       style={{
         ...storyStyle,
-        width,
-        height: "100%",
-        backgroundColor: "#F1F1F1",
+        // width,
+        // height: "100%",
+        // backgroundColor: "#F1F1F1",
+        border: "4px solid red",
       }}
+      className="h-full overflow-clip max-h[calc(100%-30px)]"
     >
-      <Row
-        gutter={gutterStyle}
-        style={{ height: firstRow.height, ...marginBottomStyle }}
-      >
-        <Col span={24}>
-          <Graph
-            width={width}
-            height={firstRow.height}
-            dataIn={history}
-            extractor={(histObj) => {
-              if (histObj && fstckString) {
-                return generateGraphString(histObj, fstckString);
-              } else {
-                return undefined;
-              }
-            }}
-          />
-        </Col>
-      </Row>
-      <Row gutter={gutterStyle}>
-        <Col span={8}>
-          <HistoryInfo />
-        </Col>
-        <Col span={8}>
-          <View />
-        </Col>
-        <Col span={8}>
-          <OptionHistory />
-        </Col>
-      </Row>
+      <div className="h-[70%] mb-4">
+        <Graph
+          width={"100%"}
+          height={"100%"}
+          dataIn={history}
+          extractor={(histObj) => {
+            if (histObj && fstckString) {
+              return generateGraphString(histObj, fstckString);
+            } else {
+              return undefined;
+            }
+          }}
+        />
+      </div>
+
+      <div className="flex gap-4 h-[calc(30%-1rem)] mb-4">
+        <HistoryInfo />
+        <View />
+        <OptionHistory />
+      </div>
     </div>
   );
 };

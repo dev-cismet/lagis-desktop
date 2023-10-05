@@ -30,15 +30,15 @@ const View = ({
   const storyStyle = { width, height, ...style };
   return (
     <div
-      className="shadow-md"
+      className="shadow-md w-full h-full overflow-auto"
       style={
         isStory
           ? storyStyle
           : {
-              height: `${height}px`,
+              // height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
-              height: "100%",
+              // height: "100%",
             }
       }
     >
