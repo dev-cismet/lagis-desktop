@@ -13,7 +13,7 @@ import { mapExtractor } from "../core/extractors/commonExtractors";
 const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   const mipa = useSelector(getMipa);
 
-  const landParcel = useSelector(getLandparcel);
+  const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
   let storyStyle = {};
   if (inStory) {
@@ -35,7 +35,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         <Map
           width={"100%"}
           height={height}
-          dataIn={{ landParcel, geometry }}
+          dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}
         />
       </div>
