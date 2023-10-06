@@ -30,33 +30,33 @@ const HistoryInfo = ({
         isStory
           ? storyStyle
           : {
-              // height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
-              // height: "100%",
             }
       }
     >
       <InfoBlock title="Informationen">
-        {content.map((name) => (
-          <div
-            key={name}
-            style={{
-              borderBottom: "1px solid #F0F0F0",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <Row>
-              <Col span={12}>
-                <div>{data[name].title}</div>
-              </Col>
-              <Col span={12}>
-                <div>{data[name].data}</div>
-              </Col>
-            </Row>
-          </div>
-        ))}
+        {content.map((name, idx) => {
+          return (
+            <div
+              key={name}
+              style={{
+                borderBottom: "1px solid #F0F0F0",
+                margin: idx === 0 ? "6px" : "3px",
+                padding: "4px",
+              }}
+            >
+              <Row>
+                <Col span={12}>
+                  <div>{data[name].title}</div>
+                </Col>
+                <Col span={12}>
+                  <div>{data[name].data}</div>
+                </Col>
+              </Row>
+            </div>
+          );
+        })}
       </InfoBlock>
     </div>
   );
