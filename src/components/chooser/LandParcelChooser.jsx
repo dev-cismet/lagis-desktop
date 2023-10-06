@@ -249,9 +249,6 @@ const LandParcelChooser = ({
   };
 
   const handleRefreshData = () => {
-    console.log("handleRefreshData gem", selectedGemarkung);
-    console.log("handleRefreshData flur", selectedFlur);
-    console.log("handleRefreshData label", selectedFlurstueckLabel);
     if (selectedGemarkung && selectedFlur && selectedFlurstueckLabel) {
       flurstueckChoosen({
         gemarkung: selectedGemarkung.gemarkung,
