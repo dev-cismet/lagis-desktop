@@ -29,10 +29,16 @@
   top: 12px;
 }
 
-/* .history-modal-wrapper .ant-table-tbody {
-  padding: 0;
-  color: red;
+.history-modal-wrapper .ant-table-tbody {
+  padding: 2px 16px;
+  height: 35px;
 }
+
 .history-modal-wrapper .ant-table-tbody > tr > td {
-  padding: 0;
-} */
+  padding: 2px 16px;
+  height: 35px;
+}
+.history-modal-wrapper .ant-table-thead > tr > th {
+  padding: 2px 16px;
+  height: 40px;
+}
