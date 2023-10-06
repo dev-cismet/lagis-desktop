@@ -12,6 +12,9 @@ import {
   storeHistory,
 } from "../../store/slices/lagis";
 import { useDispatch, useSelector } from "react-redux";
+import { Tooltip } from "antd";
+import { SyncOutlined } from "@ant-design/icons";
+import { defaultLinksColor } from "../../core/tools/helper";
 
 function paramsToObject(entries) {
   const result = {};
@@ -245,6 +248,18 @@ const LandParcelChooser = ({
     }
   };
 
+  const handleRefreshData = () => {
+    console.log("handleRefreshData gem", selectedGemarkung);
+    console.log("handleRefreshData flur", selectedFlur);
+    console.log("handleRefreshData label", selectedFlurstueckLabel);
+    if (selectedGemarkung && selectedFlur && selectedFlurstueckLabel) {
+      flurstueckChoosen({
+        gemarkung: selectedGemarkung.gemarkung,
+        flur: selectedFlur.flur,
+        ...selectedFlur.flurstuecke[selectedFlurstueckLabel],
+      });
+    }
+  };
   return (
     <>
       {/* <Button
@@ -373,6 +388,18 @@ const LandParcelChooser = ({
           };
         })}
       />
+      <Tooltip title="Neustart">
+        <SyncOutlined
+          className="ml-6 cursor-pointer"
+          onClick={handleRefreshData}
+          style={{
+            color:
+              !selectedGemarkung || !selectedFlur || !selectedFlurstueckLabel
+                ? defaultLinksColor
+                : null,
+          }}
+        />
+      </Tooltip>
     </>
   );
 };
