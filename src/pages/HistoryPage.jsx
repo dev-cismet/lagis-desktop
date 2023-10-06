@@ -5,7 +5,10 @@ import OptionHistory from "../components/history/OptionHistory";
 import { useSelector } from "react-redux";
 import { getHistory, getLandparcel } from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
+import { useState, useRef, useEffect } from "react";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
+  const [divHeight, setDivHeight] = useState(0);
+  const divRef = useRef(null);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -28,7 +31,19 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   if (fstck) {
     fstckString = `${fstck.flurstueck_schluessel.gemarkung.bezeichnung} ${fstck.flurstueck_schluessel.flur} ${fstck.flurstueck_schluessel.flurstueck_zaehler}/${fstck.flurstueck_schluessel.flurstueck_nenner}`;
   }
-
+  useEffect(() => {
+    const measureHeight = () => {
+      if (divRef.current) {
+        const height = divRef.current.clientHeight;
+        setDivHeight(height);
+      }
+    };
+    measureHeight();
+    window.addEventListener("resize", measureHeight);
+    return () => {
+      window.removeEventListener("resize", measureHeight);
+    };
+  }, []);
   return (
     <div
       style={{
@@ -36,10 +51,10 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       }}
       className="h-full overflow-clip max-h[calc(100%-30px)]"
     >
-      <div className="h-[70%] mb-4 overflow-auto">
+      <div className="h-[70%] mb-4" ref={divRef}>
         <Graph
           width={"100%"}
-          height={"100%"}
+          height={divHeight}
           dataIn={history}
           extractor={(histObj) => {
             if (histObj && fstckString) {
