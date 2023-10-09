@@ -118,7 +118,8 @@ export function getOfficesWithColorAndSquare(officesArray, dataIn) {
     const color =
       item.verwaltende_dienststelle.farbeArrayRelationShip[0]?.rgb_farbwert ||
       "";
-    let square = item.geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
+    let square =
+      item.extended_geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
     let area;
     if (square !== undefined) {
       const raw = getArea25832(square);
