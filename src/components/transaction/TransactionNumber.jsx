@@ -6,6 +6,7 @@ import ModalForm from "../ui/forms/ModalForm";
 import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import { compare } from "../../core/tools/helper";
+import { LinkOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -17,6 +18,14 @@ const columns = [
   {
     title: "Kassenzeichen",
     dataIndex: "kassenzeichen",
+    render: (record, fields) => (
+      <div>
+        <span className="mr-4">{record}</span>
+        <a href={fields.linkToVerdis + record} target="blank">
+          <LinkOutlined className="hover:mix-blend-color-burn" />
+        </a>
+      </div>
+    ),
     sorter: (a, b) => compare(a.kassenzeichen, b.kassenzeichen),
   },
   {
@@ -95,13 +104,6 @@ const TransactionNumber = ({
       transaction.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
-  const transactionDoubleClickHandler = (record) => {
-    const kassenzeichen = record?.kassenzeichen || undefined;
-    if (kassenzeichen) {
-      const linkWithKassenzeichen = record.linkToVerdis + kassenzeichen;
-      window.open(linkWithKassenzeichen, "_blank");
-    }
-  };
   useEffect(() => {
     const data = extractor(dataIn);
     setTransaction(data);
@@ -152,7 +154,6 @@ const TransactionNumber = ({
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
-            doubleClickHandler={transactionDoubleClickHandler}
           />
         </div>
       </InfoBlock>

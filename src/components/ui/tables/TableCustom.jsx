@@ -10,7 +10,6 @@ const TableCustom = ({
   setActiveRow,
   activeRow,
   fixHeight = false,
-  doubleClickHandler,
 }) => {
   const [selectedRow, setSelectedRow] = useState(activeRow);
   const handleRowClick = (record) => {
@@ -42,7 +41,6 @@ const TableCustom = ({
     >
       <Table
         onRow={(record) => ({
-          onDoubleClick: () => doubleClickHandler(record),
           onClick: () => handleRowClick(record),
           className:
             record?.id === activeRow?.id ? "ant-table-row-selected" : "",
