@@ -50,17 +50,17 @@ const UserBar = () => {
       return navigate("/login");
     }
     const f = result?.data.flurstueck[0];
-    f.alkisLandparcel = result?.data.alkis_flurstueck[0];
+    f.alkisLandparcel = result?.data.extended_alkis_flurstueck[0];
     dispatch(storeLagisLandparcel(f));
     dispatch(storeAlkisLandparcel(f.alkisLandparcel));
 
     let geo =
-      result?.data.flurstueck[0].geom?.geo_field ||
+      result?.data.flurstueck[0].extended_geom?.geo_field ||
       result?.data.flurstueck[0].alkisLandparcel?.geometrie;
 
     if (!geo) {
       const result = await getGeomFromWuNDa(alkis_id);
-      geo = result.data.flurstueck[0].geom.geo_field;
+      geo = result.data.flurstueck[0].extended_geom.geo_field;
       console.log("xxx geo was not set. is now:", geo);
     }
     dispatch(storeGeometry(geo));
