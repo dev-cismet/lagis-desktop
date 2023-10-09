@@ -13,6 +13,10 @@ export function transactionPageExtractor(dataIn) {
     const transaction = dataIn?.kassenzeichenArrayRelationShip || [];
     if (transaction.length > 0) {
       let formattedZugeordnet;
+      const server = "https://dev-cismet.github.io";
+      const urlBase = "/verdis-desktop/#/";
+      const kassenzeichen = "?kassenzeichen=";
+      const finalPath = `${server}/${urlBase}${kassenzeichen}`;
       const data = transaction.map((t) => {
         if (t.zugeordnet_am) {
           const dateZugeordnet = dayjs(t.zugeordnet_am).toDate();
@@ -24,6 +28,7 @@ export function transactionPageExtractor(dataIn) {
           id: t.id,
           kassenzeichen: t.kassenzeichennummer,
           zugeordnet: formattedZugeordnet,
+          linkToVerdis: finalPath,
         };
       });
 

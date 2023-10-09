@@ -95,6 +95,13 @@ const TransactionNumber = ({
       transaction.map((obj) => (obj.key === copyRow.key ? copyRow : obj))
     );
   };
+  const transactionDoubleClickHandler = (record) => {
+    const kassenzeichen = record?.kassenzeichen || undefined;
+    if (kassenzeichen) {
+      const linkWithKassenzeichen = record.linkToVerdis + kassenzeichen;
+      window.open(linkWithKassenzeichen, "_blank");
+    }
+  };
   useEffect(() => {
     const data = extractor(dataIn);
     setTransaction(data);
@@ -145,6 +152,7 @@ const TransactionNumber = ({
             activeRow={activeRow}
             setActiveRow={setActiveRow}
             fixHeight={true}
+            doubleClickHandler={transactionDoubleClickHandler}
           />
         </div>
       </InfoBlock>
