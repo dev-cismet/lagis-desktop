@@ -385,7 +385,7 @@ const LandParcelChooser = ({
           };
         })}
       />
-      <Tooltip title="Neustart">
+      <Tooltip title="Flurstück neu laden">
         <SyncOutlined
           className="ml-6 cursor-pointer"
           onClick={handleRefreshData}
