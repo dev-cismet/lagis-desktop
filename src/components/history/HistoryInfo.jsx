@@ -3,7 +3,7 @@ import InfoBlock from "../ui/Blocks/InfoBlock";
 import { Row, Col } from "antd";
 const mockExtractor = (input) => {
   return {
-    origin: { title: "Origin", data: "02.05.2023" },
+    origin: { title: "Entstehung", data: "02.05.2023" },
     historicalSince: {
       title: "Historisch seit",
       data: "Keine Informationen verfügbar",
