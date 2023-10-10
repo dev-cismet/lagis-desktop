@@ -119,20 +119,6 @@ queries.nenner = `query q($gemarkung_id: Int, $zaehler: Int) {
 }
 `;
 
-queries.flurstueckeOld = `query MyQuery {
-  alkis_flurstueck {
-    alkis_id
-    fk_schluessel
-    flurstueck_schluessel {
-      fk_flurstueck_art
-    }
-  }
-  gemarkung {
-    bezeichnung
-    schluessel
-  }
-}`;
-
 queries.flurstuecke = `query MyQuery {
   view_flurstueck_schluessel {
     alkis_id
@@ -147,9 +133,10 @@ queries.flurstuecke = `query MyQuery {
 }`;
 
 queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_id: Int, $alkis_id: String) {
-  alkis_flurstueck(where: {alkis_id: {_eq: $alkis_id}}) {
+  extended_alkis_flurstueck(where: {alkis_id: {_eq: $alkis_id}}) {
     alkis_id
     geometrie
+    area
   }
   flurstueck(where: {flurstueck_schluessel: {_and: {id: {_eq: $schluessel_id}}}}) {
     id
@@ -196,7 +183,8 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
         flaeche
         lage
         id
-        geom {
+        extended_geom {
+          area
           geo_field
         }
       }
@@ -299,7 +287,8 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
       geaendert_von
       geaendert_am
       verwaltungsbereichArrayRelationShip {
-        geom {
+        extended_geom {
+          area
           geo_field
         }
         verwaltende_dienststelle {
@@ -332,10 +321,12 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
             }
           }
         }
+        flaeche
       }
     }
     zusatz_rolleArrayRelationShip {
-      geom {
+      extended_geom {
+        area
         geo_field
       }
       verwaltende_dienststelle {
@@ -391,7 +382,8 @@ queries.getRebeByGeo = `query MyQuery($geo: geometry) {
     rebe_art {
       bezeichnung
     }
-    geom {
+    extended_geom {
+      area
       geo_field
     }
   }
@@ -415,7 +407,8 @@ queries.getMipaByGeo = `query MyQuery($geo: geometry) {
     aktenzeichen
     bemerkung
     flaeche
-    geom {
+    extended_geom {
+      area
       geo_field
     }
     lage
@@ -454,7 +447,8 @@ queries.history = `query MyQuery($schluessel_id: Int) {
 queries.getGeomFromWuNDA = `query q($alkis_id: String) {
   flurstueck(where: {alkis_id: {_eq: $alkis_id}}) {
     alkis_id
-    geom {
+    extended_geom {
+      area
       geo_field
     }
   }
