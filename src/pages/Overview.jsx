@@ -69,7 +69,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       dispatch(fetchLandParcelsStart());
       try {
         const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-        console.log("sss result.data.alkis_flurstueck", result);
+        if (result.status === 401) {
+          navigate("/login");
+        }
         if (result.data?.view_flurstueck_schluessel) {
           dispatch(storeLandParcels(result.data.view_flurstueck_schluessel));
         } else {
@@ -84,7 +86,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     if (jwt) {
       dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      console.log("get gemarkungen", result);
       if (result.status === 401) {
         navigate("/login");
       }

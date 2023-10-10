@@ -83,6 +83,9 @@ const UserBar = () => {
       },
       jwt
     );
+    if (result.status === 401) {
+      return navigate("/login");
+    }
     dispatch(storeRebe(result?.data?.rebe));
   };
   const getMipa = async (geo) => {
@@ -93,6 +96,9 @@ const UserBar = () => {
       },
       jwt
     );
+    if (result.status === 401) {
+      return navigate("/login");
+    }
     dispatch(storeMipa(result?.data?.mipa));
   };
 
@@ -104,6 +110,9 @@ const UserBar = () => {
       },
       jwt
     );
+    if (result.status === 401) {
+      return navigate("/login");
+    }
     return result;
   };
 
@@ -117,6 +126,9 @@ const UserBar = () => {
         },
         jwt
       );
+      if (result.status === 401) {
+        return navigate("/login");
+      }
       dispatch(storeHistory(result?.data?.cs_calc_history));
     } catch (e) {
       console.log("xxx error in getHistory", e);
