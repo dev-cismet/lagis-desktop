@@ -20,14 +20,15 @@ export function mipaExtractor(dataIn) {
 }
 export function historyExtractor(dataIn) {
   if (dataIn === undefined) {
-    return { color: defaultLinksColor, number: 0, icon: false };
+    return undefined;
   } else {
     if (dataIn.length === 0) {
-      return { color: defaultLinksColor, number: 0, icon: true };
+      return 0;
     }
-    return { color: "#FFD029", number: dataIn.length, icon: true };
+    return dataIn.length;
   }
 }
+//return { color: "#FFD029", number: dataIn.length, icon: true };
 
 export function officesExtractor(dataIn) {
   if (dataIn === undefined) {

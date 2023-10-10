@@ -157,7 +157,7 @@ const SidebarMenu = ({ parametersForLink }) => {
       />
     ),
     getItem(
-      history && history.length > 0 ? (
+      history !== undefined ? (
         <NavLink to={`/historie?${buildUrlParams(parametersForLink)}`}>
           Historie
         </NavLink>
@@ -167,7 +167,7 @@ const SidebarMenu = ({ parametersForLink }) => {
       "/historie",
       <HistoryOutlined
         style={{
-          color: history && history.length > 0 ? null : defaultLinksColor,
+          color: history === undefined && defaultLinksColor,
         }}
       />
     ),
