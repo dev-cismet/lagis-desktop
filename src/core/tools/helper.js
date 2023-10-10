@@ -114,16 +114,21 @@ export const removeLeadingZeros = (numberStr, flur = false) => {
 
 export function getOfficesWithColorAndSquare(officesArray, dataIn) {
   const nameGeomColorData = [];
+  const alkisArea = dataIn.alkisLandparcel?.area;
+  let area;
   officesArray?.verwaltungsbereichArrayRelationShip.forEach((item) => {
     const color =
       item.verwaltende_dienststelle.farbeArrayRelationShip[0]?.rgb_farbwert ||
       "";
-    let square =
-      item.extended_geom?.geo_field || dataIn.alkisLandparcel?.geometrie;
-    let area;
-    if (square !== undefined) {
-      const raw = getArea25832(square);
-      area = Math.round(raw * 10) / 10;
+    console.log("alkisArea", item);
+    if (item.extended_geom === null) {
+      if (item.flaeche === null || item.flaeche === 0) {
+        area = alkisArea;
+      } else {
+        area = item.flaeche;
+      }
+    } else {
+      area = item.flaeche;
     }
     const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
     nameGeomColorData.push({
@@ -145,9 +150,7 @@ export function geHistoricalArraytOfficesWithColorAndSquare(
     const res = getOfficesWithColorAndSquare(h, dataIn);
     const dateChangedDate = dayjs(h.geaendert_am).toDate();
     const formattedChangedDate = dayjs(dateChangedDate).format("DD.MM.YYYY");
-
     const changedByName = h.geaendert_von;
-    // const changedDate = h.geaendert_am;
     const historyData = {
       id: nanoid(),
       editorName: changedByName,
