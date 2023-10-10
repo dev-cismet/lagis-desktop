@@ -21,7 +21,7 @@ const DashboardHistory = ({
   console.log("vvv history", data);
   return (
     <div className="dashboard-tile">
-      {data.color === defaultLinksColor ? (
+      {data === undefined ? (
         <OverviewCard
           title="Historie"
           icon={<FieldTimeOutlined style={{ color: defaultLinksColor }} />}
@@ -35,25 +35,29 @@ const DashboardHistory = ({
               lineHeight: "1.2",
             }}
           >
-            <strong>
+            {/* <strong>
               {data.icon === false && data.number === 0 ? (
                 ""
               ) : (
                 <DashOutlined style={{ color: defaultLinksColor }} />
               )}
-            </strong>
+            </strong> */}
           </div>
         </OverviewCard>
       ) : (
         <Link to={`/historie?${buildUrlParams(parametersForLink)}`}>
           <OverviewCard
             title="Historie"
-            icon={<FieldTimeOutlined style={{ color: data?.color }} />}
+            icon={
+              <FieldTimeOutlined
+                style={{ color: data > 0 ? "#FFD029" : "black" }}
+              />
+            }
             ifDefaultColor={false}
           >
             <div
               style={{
-                color: data?.color || defaultLinksColor,
+                color: data > 0 ? "#FFD029" : "black",
                 fontSize: "5.5rem",
                 textAlign: "left",
                 width: "100%",
@@ -61,10 +65,10 @@ const DashboardHistory = ({
               }}
             >
               <strong>
-                {data.number > 0 ? (
-                  (data.number + 1).toString().padStart(2, "0")
+                {data > 0 ? (
+                  (data + 1).toString().padStart(2, "0")
                 ) : (
-                  <DashOutlined style={{ color: defaultLinksColor }} />
+                  <DashOutlined style={{ color: "#black" }} />
                 )}
               </strong>
             </div>
