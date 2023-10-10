@@ -321,6 +321,7 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
             }
           }
         }
+        flaeche
       }
     }
     zusatz_rolleArrayRelationShip {
