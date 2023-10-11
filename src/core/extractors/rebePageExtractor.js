@@ -14,8 +14,13 @@ export function rebePageExtractor(dataIn) {
     const rebe = dataIn;
     if (rebe.length > 0) {
       const data = rebe.map((r) => {
-        const dateEintragung = dayjs(r.datum_eintragung).toDate();
-        const formattedEintragung = dayjs(dateEintragung).format("DD.MM.YYYY");
+        let formattedEintragung;
+        if (r.datum_eintragung) {
+          const dateEintragung = dayjs(r.datum_eintragung).toDate();
+          formattedEintragung = dayjs(dateEintragung).format("DD.MM.YYYY");
+        } else {
+          formattedEintragung = null;
+        }
         let formattedLoschung;
         if (r.datum_loeschung) {
           const dateLoschung = dayjs(r.datum_loeschung).toDate();
