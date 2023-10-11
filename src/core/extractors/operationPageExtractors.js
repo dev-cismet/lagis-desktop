@@ -120,8 +120,8 @@ export function crossReferencesExtractor(dataIn) {
     const kosten = [];
     if (contract.length > 0) {
       contract.forEach((c) => {
-        const fields = {};
         c.vertrag.kostenArrayRelationShip.forEach((k) => {
+          const fields = {};
           let formattedAnweisung = null;
           if (k.datum) {
             const dateAnweisung = dayjs(k.datum.toDate());
@@ -132,9 +132,10 @@ export function crossReferencesExtractor(dataIn) {
           fields.kostenart = k.kostenart.bezeichnung;
           fields.betrag = k.betrag;
           fields.anweisung = formattedAnweisung;
+          kosten.push(fields);
         });
-        kosten.push(fields);
       });
+
       return kosten;
     }
     return [];
