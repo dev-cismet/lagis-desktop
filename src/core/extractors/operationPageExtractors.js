@@ -130,7 +130,7 @@ export function crossReferencesExtractor(dataIn) {
             formattedAnweisung = "";
           }
           fields.kostenart = k.kostenart.bezeichnung;
-          fields.betrag = k.betrag;
+          fields.betrag = formatPrice(k.betrag);
           fields.anweisung = formattedAnweisung;
           kosten.push(fields);
         });
