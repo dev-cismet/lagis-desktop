@@ -208,10 +208,8 @@ const CrossReferences = ({
   useEffect(() => {
     const data = extractor(dataIn);
     crossData();
-    if (data.length > 0) {
-      setKosten(data);
-      setActiveCosts(data[0]);
-    }
+    setKosten(data);
+    setActiveCosts(data[0]);
   }, [dataIn]);
   return (
     <div
