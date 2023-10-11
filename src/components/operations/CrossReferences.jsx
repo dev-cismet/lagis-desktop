@@ -32,17 +32,14 @@ const columnsCosts = [
   {
     title: "Kostenart",
     dataIndex: "kostenart",
-    sorter: (a, b) => compare(a.kostenart, b.kostenart),
   },
   {
     title: "Betrag",
     dataIndex: "betrag",
-    sorter: (a, b) => compare(a.betrag, b.betrag),
   },
   {
     title: "Anweisung",
     dataIndex: "anweisung",
-    sorter: (a, b) => compare(a.anweisung, b.anweisung),
   },
 ];
 const CrossReferences = ({
@@ -273,17 +270,26 @@ const CrossReferences = ({
           size="small"
           style={{ padding: "0 18px" }}
           onChange={(activeKey) => setActiveTab(activeKey)}
+          className="overflow-clip"
         >
           <TabPane tab="Querverweise" key="1">
             <CustomNotes currentText={querverweise?.join("\n")} />
           </TabPane>
           <TabPane tab="Kosten" key="2">
-            <TableCustom
-              columns={columnsCosts}
-              data={kosten}
-              activeRow={activecCosts}
-              setActiveRow={handleActiveCosts}
-            />
+            <div
+              style={{
+                minHeight: "80px",
+                maxHeight: "380px",
+                overflow: "auto",
+              }}
+            >
+              <TableCustom
+                columns={columnsCosts}
+                data={kosten}
+                activeRow={activecCosts}
+                setActiveRow={handleActiveCosts}
+              />
+            </div>
           </TabPane>
           {/* <TabPane tab="Beschlüsse" key="3">
             <TableCustom

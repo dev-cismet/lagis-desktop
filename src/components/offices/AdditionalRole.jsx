@@ -154,7 +154,9 @@ const AdditionalRole = ({
           </ToggleModal>
         }
       >
-        <div style={{ position: "relative" }}>
+        <div
+          style={{ position: "relative", height: "200px", overflow: "auto" }}
+        >
           <TableCustom
             columns={columns}
             data={rolls}
