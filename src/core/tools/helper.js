@@ -112,7 +112,11 @@ export const removeLeadingZeros = (numberStr, flur = false) => {
   return !flur ? result : flurResalt;
 };
 
-export function getOfficesWithColorAndSquare(officesArray, dataIn) {
+export function getOfficesWithColorAndSquare(
+  officesArray,
+  dataIn,
+  ifHistory = false
+) {
   const nameGeomColorData = [];
   const alkisArea = dataIn.alkisLandparcel?.area;
   let area;
@@ -120,15 +124,17 @@ export function getOfficesWithColorAndSquare(officesArray, dataIn) {
     const color =
       item.verwaltende_dienststelle.farbeArrayRelationShip[0]?.rgb_farbwert ||
       "";
-    console.log("alkisArea", item);
-    if (item.extended_geom === null) {
-      if (item.flaeche === null || item.flaeche === 0) {
-        area = alkisArea;
-      } else {
-        area = item.flaeche;
-      }
+    if (
+      officesArray.verwaltungsbereichArrayRelationShip.length === 1 &&
+      !ifHistory
+    ) {
+      area = alkisArea;
     } else {
-      area = item.flaeche;
+      if (item.flaeche !== null) {
+        area = item.flaeche;
+      } else {
+        area = 0;
+      }
     }
     const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
     nameGeomColorData.push({
@@ -147,7 +153,7 @@ export function geHistoricalArraytOfficesWithColorAndSquare(
 ) {
   const result = [];
   historicalArray.forEach((h) => {
-    const res = getOfficesWithColorAndSquare(h, dataIn);
+    const res = getOfficesWithColorAndSquare(h, dataIn, true);
     const dateChangedDate = dayjs(h.geaendert_am).toDate();
     const formattedChangedDate = dayjs(dateChangedDate).format("DD.MM.YYYY");
     const changedByName = h.geaendert_von;
