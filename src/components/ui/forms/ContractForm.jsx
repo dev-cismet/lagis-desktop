@@ -19,7 +19,7 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
     });
   }, [activeRow, form]);
   return (
-    <div>
+    <div className="overflow-auto">
       <Form
         form={form}
         layout="vertical"
@@ -32,7 +32,11 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
           <Col span={12}>
             <Form.Item
               name="voreigentümer"
-              label={<span style={{ fontSize: "14px" }}>Voreigentümer</span>}
+              label={
+                <span style={{ fontSize: "14px", marginBottom: "8px" }}>
+                  Voreigentümer
+                </span>
+              }
               className={inputStile}
             >
               <Input />
@@ -41,7 +45,11 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
           <Col span={12}>
             <Form.Item
               name="auflassung"
-              label={<span style={{ fontSize: "14px" }}>Auflassung</span>}
+              label={
+                <span style={{ fontSize: "14px", marginBottom: "8px" }}>
+                  Auflassung
+                </span>
+              }
               className={inputStile}
             >
               <Input />
@@ -53,7 +61,11 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
           <Col span={24}>
             <Form.Item
               name="eintragung"
-              label={<span style={{ fontSize: "12px" }}>Eintragung</span>}
+              label={
+                <span style={{ fontSize: "14px", marginBottom: "8px" }}>
+                  Eintragung
+                </span>
+              }
               className={inputStile}
             >
               <Input />
@@ -67,7 +79,11 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
           <Col span={24}>
             <Form.Item
               name="bemerkung"
-              label={<span style={{ fontSize: "12px" }}>Bemerkung</span>}
+              label={
+                <span style={{ fontSize: "14px", marginBottom: "8px" }}>
+                  Bemerkung
+                </span>
+              }
               className={inputStile}
             >
               <TextArea rows={4} />

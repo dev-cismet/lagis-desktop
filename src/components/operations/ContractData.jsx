@@ -32,7 +32,7 @@ const ContractData = ({ dataIn, extractor }) => {
     setActiveRow(data[0]);
   }, [dataIn]);
   return (
-    <div className="contract-data h-full w-full overflow-auto shadow-md">
+    <div className="contract-data h-full w-full shadow-md">
       <InfoBlock
         title="Vertragsdaten"
         controlBar={
