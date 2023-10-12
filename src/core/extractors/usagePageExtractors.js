@@ -27,7 +27,10 @@ export function usageBlockExtractor(dataIn) {
             data.nutzungsart = u.nutzungsart?.bezeichnung || "";
             data.bezeichnung = u?.nutzungsart?.schluessel || "";
             data.fläche = u.flaeche;
-            data.preis = formatPrice(u.quadratmeterpreis, false);
+            data.preis = formatPrice(
+              u.quadratmeterpreis,
+              data.anlageklasse === "keine" ? false : true
+            );
             (data.gesamtpreis = formatPrice(
               u.quadratmeterpreis * u.flaeche -
                 calculateStilleReserve(
@@ -35,7 +38,7 @@ export function usageBlockExtractor(dataIn) {
                   currentIdxInBuchungArray,
                   u.quadratmeterpreis * u.flaeche
                 ),
-              false
+              data.anlageklasse === "keine" ? false : true
             )),
               (data.stille = formatPrice(
                 calculateStilleReserve(
@@ -51,17 +54,6 @@ export function usageBlockExtractor(dataIn) {
         }
       });
     });
-    console.log("usageBlockExtractor", currentUsage);
-    // const cleanGesamptPreis = currentUsage.map((u) => {
-    //   if (u.gesamtpreis === 0) {
-    //     return {
-    //       ...u,
-    //       gesamtpreis: "",
-    //     };
-    //   }
-
-    //   return u;
-    // });
     return currentUsage;
   }
 }
