@@ -12,6 +12,7 @@ import {
   querverweiseContractExtractor,
 } from "../core/extractors/operationPageExtractors";
 import { getJWT } from "../store/slices/auth";
+import { useEffect } from "react";
 const mockExtractor = (input) => {
   return [
     {
@@ -183,7 +184,7 @@ const OperationsPage = ({
   const landparcel = useSelector(getLandparcel);
   const jwt = useSelector(getJWT);
   const [activeRow, setActiveRow] = useState(data[0]);
-  const [dataContract, setDataContract] = useState(data);
+  const [activeDataId, setActiveDataId] = useState();
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -193,6 +194,9 @@ const OperationsPage = ({
       padding: "4px",
     };
   }
+  useEffect(() => {
+    console.log("activeDataId", activeDataId);
+  }, [activeDataId]);
   return (
     <div
       style={{
@@ -202,12 +206,17 @@ const OperationsPage = ({
       className="h-full"
     >
       <div className="h-[40%] mb-4">
-        <Contracts dataIn={landparcel} extractor={contractsBlockExtractor} />
+        <Contracts
+          dataIn={landparcel}
+          extractor={contractsBlockExtractor}
+          setActiveDataId={setActiveDataId}
+        />
       </div>
       <div className="h-[calc(60%-2rem)] flex gap-4">
         <ContractData
           dataIn={landparcel}
           extractor={contractDataBlockExtractor}
+          activeDataId={activeDataId}
         />
         <div className="w-full">
           <CrossReferences

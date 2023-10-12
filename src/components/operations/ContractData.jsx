@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-const ContractData = ({ dataIn, extractor }) => {
+const ContractData = ({ dataIn, extractor, activeDataId }) => {
   const [contracts, setContracts] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const dateFormat = "DD.MM.YYYY";
@@ -31,6 +31,13 @@ const ContractData = ({ dataIn, extractor }) => {
     setContracts(data);
     setActiveRow(data[0]);
   }, [dataIn]);
+  useEffect(() => {
+    if (activeDataId) {
+      const activeRowData = contracts.filter((c) => c.id === activeDataId);
+      setActiveRow(activeRowData[0]);
+    }
+  }, [activeDataId]);
+
   return (
     <div className="contract-data h-full w-full shadow-md">
       <InfoBlock

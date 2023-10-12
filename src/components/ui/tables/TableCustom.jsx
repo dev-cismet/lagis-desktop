@@ -10,11 +10,15 @@ const TableCustom = ({
   setActiveRow,
   activeRow,
   fixHeight = false,
+  setActiveDataId,
 }) => {
   const [selectedRow, setSelectedRow] = useState(activeRow);
   const handleRowClick = (record) => {
     setActiveRow(record);
     setSelectedRow(record?.id);
+    if (setActiveDataId) {
+      setActiveDataId(record?.id);
+    }
   };
   const fixStyles = {
     position: "absolute",

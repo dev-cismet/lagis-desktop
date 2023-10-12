@@ -30,7 +30,14 @@ const columns = [
     sorter: (a, b) => compare(a.kaufpreis, b.kaufpreis),
   },
 ];
-const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
+const Contracts = ({
+  width = 231,
+  height = 188,
+  style,
+  dataIn,
+  extractor,
+  setActiveDataId,
+}) => {
   const [contracts, setContracts] = useState([]);
   const [activeRow, setActiveRow] = useState();
   const handleAddRow = () => {
@@ -77,6 +84,9 @@ const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
     setContracts(data);
     setActiveRow(data[0]);
   }, [dataIn]);
+  useEffect(() => {
+    console.log("active contract row", activeRow);
+  }, [activeRow]);
   return (
     <div
       style={
@@ -152,6 +162,7 @@ const Contracts = ({ width = 231, height = 188, style, dataIn, extractor }) => {
             setActiveRow={setActiveRow}
             activeRow={activeRow}
             fixHeight={true}
+            setActiveDataId={setActiveDataId}
           />
         </div>
       </InfoBlock>

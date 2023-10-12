@@ -70,7 +70,7 @@ export function contractsBlockExtractor(dataIn) {
     const contracts = landparcel.ar_vertraegeArray;
     if (contracts.length > 0) {
       const data = contracts.map((c) => ({
-        id: c.id,
+        id: c.vertrag.id,
         vertragsart: c.vertrag.vertragsart.bezeichnung,
         nummer: c.vertrag.aktenzeichen,
         quadratmeterpreis: formatPrice(c.vertrag.quadratmeterpreis),
@@ -108,7 +108,7 @@ export function contractDataBlockExtractor(dataIn) {
         }
 
         return {
-          id: nanoid(),
+          id: c.vertrag.id,
           voreigentümer: c.vertrag.vertragspartner,
           auflassung: formattedAuflassung,
           eintragung: formattedEintragung,
