@@ -31,7 +31,7 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
       }}
       className="h-full"
     >
-      <div className="h-1/2 w-full mb-4 bg-[#ffffff]">
+      <div className="h-1/2 w-full mb-3 bg-[#ffffff]">
         <Map
           width={"100%"}
           height={height}
@@ -39,7 +39,7 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
           extractor={mapExtractor}
         />
       </div>
-      <div className="h-[calc(50%-2rem)]">
+      <div className="h-[calc(50%-10px)]">
         <TransactionNumber
           dataIn={landparcel}
           extractor={transactionPageExtractor}

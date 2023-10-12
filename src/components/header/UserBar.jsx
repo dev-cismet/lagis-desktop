@@ -149,7 +149,7 @@ const UserBar = () => {
     }
   };
   return (
-    <div className="flex items-center py-2">
+    <div className="flex items-center">
       <LandParcelChooser
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}

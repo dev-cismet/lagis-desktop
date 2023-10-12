@@ -212,7 +212,7 @@ const OperationsPage = ({
           setActiveDataId={setActiveDataId}
         />
       </div>
-      <div className="h-[calc(60%-2rem)] flex gap-4">
+      <div className="h-[calc(60%-2rem)]">
         <ContractData
           dataIn={landparcel}
           extractor={contractDataBlockExtractor}
