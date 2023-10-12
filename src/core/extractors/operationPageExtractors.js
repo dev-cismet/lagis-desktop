@@ -1,7 +1,10 @@
 import { nanoid } from "@reduxjs/toolkit";
 import queries from "../queries/online";
 import { fetchGraphQL } from "../graphql";
-import { formatPrice } from "../tools/helper";
+import {
+  formatPrice,
+  getLandparcelStringFromAlkisLandparcel,
+} from "../tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -10,7 +13,7 @@ dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 
-const getQuerverweise = async (vertag_id, jwt) => {
+const getQuerverweise = async (vertag_id, jwt, landparcel) => {
   const result = await fetchGraphQL(
     queries.getQuerverweiseByVertragId,
     {
@@ -19,14 +22,21 @@ const getQuerverweise = async (vertag_id, jwt) => {
     jwt
   );
   if (result.data?.flurstueck) {
-    const data = result.data?.flurstueck.map((f) => {
+    const currentLandparcel =
+      getLandparcelStringFromAlkisLandparcel(landparcel);
+    const landparcelsArr = [];
+    const data = result.data?.flurstueck.forEach((f) => {
       const flur = f.flurstueck_schluessel.flur;
       const zaehler = f.flurstueck_schluessel.flurstueck_zaehler;
       const nenner = f.flurstueck_schluessel.flurstueck_nenner;
       const gemarkung = f.flurstueck_schluessel.gemarkung.bezeichnung;
-      return `${gemarkung} ${flur} ${zaehler}/${nenner}`;
+      const crossReference = `${gemarkung} ${flur} ${zaehler}/${nenner}`;
+      if (crossReference !== currentLandparcel) {
+        landparcelsArr.push(crossReference);
+      }
     });
-    return data;
+
+    return landparcelsArr;
   } else {
     [];
   }
@@ -47,7 +57,7 @@ export const querverweiseContractExtractor = async (dataIn, jwt) => {
       return [];
     }
 
-    const res = await getQuerverweise(vertragId, jwt);
+    const res = await getQuerverweise(vertragId, jwt, landparcel);
     return res;
   }
 };

@@ -167,3 +167,15 @@ export function geHistoricalArraytOfficesWithColorAndSquare(
   });
   return result;
 }
+
+export function getLandparcelStringFromAlkisLandparcel(landparcel) {
+  const getCurrentLandparcelGemerkung =
+    landparcel.flurstueck_schluessel.gemarkung.bezeichnung;
+  const getCurrentLandparcelFlur = landparcel.flurstueck_schluessel.flur;
+  const getCurrentLandparcelZaehler =
+    landparcel.flurstueck_schluessel.flurstueck_zaehler;
+  const getCurrentLandparcelZaehlerNenner =
+    landparcel.flurstueck_schluessel.flurstueck_nenner;
+  const currentLandparcel = `${getCurrentLandparcelGemerkung} ${getCurrentLandparcelFlur} ${getCurrentLandparcelZaehler}/${getCurrentLandparcelZaehlerNenner}`;
+  return currentLandparcel;
+}
