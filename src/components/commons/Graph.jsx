@@ -3,6 +3,7 @@ import TopicMapComponent from "react-cismap/topicmaps/TopicMapComponent.js";
 import "react-cismap/topicMaps.css";
 import "leaflet/dist/leaflet.css";
 import { Card } from "antd";
+import { useEffect, useState } from "react";
 
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -50,7 +51,24 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
+  const [currentObject, setCurrentObject] = useState();
+  useEffect(() => {
+    const graphElement = document.querySelector("div.historyflow");
 
+    const handleGraphClick = (event) => {
+      console.log("history click:", event.target.textContent);
+      setCurrentObject(event.target.textContent);
+    };
+
+    graphElement.addEventListener("click", handleGraphClick);
+
+    return () => {
+      graphElement.removeEventListener("click", handleGraphClick);
+    };
+  }, [data]);
+  useEffect(() => {
+    console.log("history click currentObject:", currentObject);
+  }, [currentObject]);
   return (
     <Card
       size="small"
@@ -69,16 +87,18 @@ const Graph = ({
       headStyle={{ backgroundColor: "white" }}
       type="inner"
     >
-      <Graphviz
-        key={"graphviz" + data}
-        options={{
-          fit,
-          zoom,
-          width: width - 2 * padding,
-          height: height - 2 * padding - headHeight,
-        }}
-        dot={data || "digraph _Graph_ {}"}
-      />
+      <div className="historyflow">
+        <Graphviz
+          key={"graphviz" + data}
+          options={{
+            fit,
+            zoom,
+            width: width - 2 * padding,
+            height: height - 2 * padding - headHeight,
+          }}
+          dot={data || "digraph _Graph_ {}"}
+        />
+      </div>
     </Card>
   );
 };
