@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { Row, Col, Checkbox } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { storeHistorieHalten, getHistory } from "../../store/slices/lagis";
+import { Checkbox } from "antd";
 const mockExtractor = (input) => {
   return {
-    options: ["an Bildschirmgröße anpassen", "Historie halten"],
+    options: ["Historie halten"],
   };
 };
 
@@ -15,10 +17,19 @@ const OptionHistory = ({
   style,
 }) => {
   const data = extractor(dataIn);
+  const currentHistory = useSelector(getHistory);
+  const dispatch = useDispatch();
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const onChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+    const ifHistorieHalten = e.target.checked;
+    if (ifHistorieHalten) {
+      console.log("ifHistorieHalten", ifHistorieHalten);
+
+      dispatch(storeHistorieHalten(currentHistory));
+    } else {
+      dispatch(storeHistorieHalten(undefined));
+    }
   };
   return (
     <div
@@ -35,21 +46,8 @@ const OptionHistory = ({
       }
     >
       <InfoBlock title="Optionen">
-        <div className="mt-2">
-          {data.options.map((i, idx) => (
-            <div
-              key={idx}
-              style={{
-                padding: "10px",
-              }}
-            >
-              <Row>
-                <Col span={24}>
-                  <Checkbox onChange={onChange}>{i}</Checkbox>
-                </Col>
-              </Row>
-            </div>
-          ))}
+        <div className="mt-4 ml-[13px]">
+          <Checkbox onChange={onChange}>Historie halten</Checkbox>
         </div>
       </InfoBlock>
     </div>

@@ -39,6 +39,7 @@ const slice = createSlice({
       return state;
     },
     storeHistorieHalten(state, action) {
+      console.log("storeHistorieHalten", action.payload);
       state.historieHalten = action.payload;
       return state;
     },
