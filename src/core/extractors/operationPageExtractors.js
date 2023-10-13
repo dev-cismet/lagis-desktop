@@ -133,9 +133,9 @@ export function crossReferencesExtractor(dataIn) {
         c.vertrag.kostenArrayRelationShip.forEach((k) => {
           const fields = {};
           let formattedAnweisung = null;
-          if (k.datum) {
-            const dateAnweisung = dayjs(k.datum.toDate());
-            formattedAnweisung = dayjs(dateAnweisung).format("DD.MM.YYYY");
+          if (k?.datum) {
+            // const dateAnweisung = dayjs(k.datum.toDate());
+            formattedAnweisung = dayjs(k.datum).format("DD.MM.YYYY");
           } else {
             formattedAnweisung = "";
           }
