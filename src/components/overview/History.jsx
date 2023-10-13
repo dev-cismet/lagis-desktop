@@ -18,7 +18,6 @@ const DashboardHistory = ({
   style,
 }) => {
   const data = extractor(dataIn);
-  console.log("vvv history", data);
   return (
     <div className="dashboard-tile">
       {data === undefined ? (
@@ -48,29 +47,19 @@ const DashboardHistory = ({
         <Link to={`/historie?${buildUrlParams(parametersForLink)}`}>
           <OverviewCard
             title="Historie"
-            icon={
-              <FieldTimeOutlined
-                style={{ color: data > 0 ? "#FFD029" : "black" }}
-              />
-            }
+            icon={<FieldTimeOutlined style={{ color: "#FFD029" }} />}
             ifDefaultColor={false}
           >
             <div
               style={{
-                color: data > 0 ? "#FFD029" : "black",
+                color: "#FFD029",
                 fontSize: "5.5rem",
                 textAlign: "left",
                 width: "100%",
                 lineHeight: "1.2",
               }}
             >
-              <strong>
-                {data > 0 ? (
-                  (data + 1).toString().padStart(2, "0")
-                ) : (
-                  <DashOutlined style={{ color: "#black" }} />
-                )}
-              </strong>
+              <strong>{(data + 1).toString().padStart(2, "0")}</strong>
             </div>
           </OverviewCard>
         </Link>

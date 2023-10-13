@@ -107,6 +107,8 @@ const LandParcelChooser = ({
     dispatch(storeHistory(undefined));
   };
   useEffect(() => {
+    removeLagisStore();
+
     const fromUrl = {
       gem: urlParams.get("gem") || undefined,
       flur: urlParams.get("flur") || undefined,
@@ -130,7 +132,7 @@ const LandParcelChooser = ({
 
   const handleGemarkungChange = (gemarkungValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
-      removeLagisStore();
+      // removeLagisStore();
     }
     const fullGemarkung = data[gemarkungValue];
     setSelectedGemarkung(fullGemarkung);
@@ -149,11 +151,11 @@ const LandParcelChooser = ({
   };
   const handleFlurChange = (flurValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
-      removeLagisStore();
+      // removeLagisStore();
     }
     setSelectedFlur(selectedGemarkung.flure[flurValue]);
     setSelectedFlurstueckLabel(undefined);
-    removeLagisStore();
+    // removeLagisStore();
     const newParams = paramsToObject(urlParams);
     newParams.flur = removeLeadingZeros(flurValue, true);
     delete newParams.fstck;
