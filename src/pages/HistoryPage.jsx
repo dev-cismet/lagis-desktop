@@ -3,12 +3,17 @@ import HistoryInfo from "../components/history/HistoryInfo";
 import View from "../components/history/View";
 import OptionHistory from "../components/history/OptionHistory";
 import { useSelector } from "react-redux";
-import { getHistory, getLandparcel } from "../store/slices/lagis";
+import {
+  getHistory,
+  getLandparcel,
+  getHistorieHalten,
+} from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
   const divRef = useRef(null);
+  const [historieHaltenCheckbox, setHistorieHalten] = useState(true);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -19,13 +24,12 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     };
   }
 
-  const firstRow = {
-    height: window.innerHeight - 188 - 52 - 16 - 16 - 16 - 16 - 54,
-  };
-  // const gutterStyle = [16, 16];
-  // const marginBottomStyle = { marginBottom: "16px" };
+  // const firstRow = {
+  //   height: window.innerHeight - 188 - 52 - 16 - 16 - 16 - 16 - 54,
+  // };
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
+  const historyHalten = useSelector(getHistorieHalten);
 
   let fstckString;
   if (fstck) {
@@ -55,7 +59,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         <Graph
           width={"100%"}
           height={divHeight}
-          dataIn={history}
+          dataIn={historyHalten === undefined ? history : historyHalten}
+          historieHalten={historyHalten}
           extractor={(histObj) => {
             if (histObj && fstckString) {
               return generateGraphString(histObj, fstckString);
@@ -69,7 +74,10 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       <div className="flex gap-4 h-[calc(30%-2rem)] mb-4">
         <HistoryInfo />
         <View />
-        <OptionHistory />
+        <OptionHistory
+          setHistorieHalten={setHistorieHalten}
+          historieHalten={historieHaltenCheckbox}
+        />
       </div>
     </div>
   );

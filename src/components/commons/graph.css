@@ -1,3 +1,9 @@
 .history-wrapper text:last-child {
-  fill: red;
+  /* fill: white; */
+}
+.history-wrapper g {
+  cursor: pointer;
+}
+.history-wrapper g ellipse {
+  /* fill: #1677ff; */
 }

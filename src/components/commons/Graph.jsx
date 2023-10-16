@@ -66,7 +66,6 @@ const Graph = ({
     const graphElement = document.querySelector("div.historyflow");
 
     const handleGraphClick = (event) => {
-      console.log("history click:", event.target.textContent);
       setCurrentObject(event.target.textContent);
       handleUrlParams(event.target.textContent);
     };
@@ -77,7 +76,6 @@ const Graph = ({
       graphElement.removeEventListener("click", handleGraphClick);
     };
   }, [data]);
-
   return (
     <Card
       size="small"

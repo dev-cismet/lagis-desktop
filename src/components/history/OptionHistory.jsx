@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
 import { useDispatch, useSelector } from "react-redux";
-import { storeHistorieHalten, getHistory } from "../../store/slices/lagis";
+import {
+  storeHistorieHalten,
+  getHistory,
+  getHistorieHalten,
+} from "../../store/slices/lagis";
 import { Checkbox } from "antd";
+import { useEffect } from "react";
 const mockExtractor = (input) => {
   return {
     options: ["Historie halten"],
@@ -12,25 +17,33 @@ const mockExtractor = (input) => {
 const OptionHistory = ({
   dataIn,
   extractor = mockExtractor,
+  setHistorieHalten,
+  historieHalten,
   width = 231,
   height = 188,
   style,
 }) => {
   const data = extractor(dataIn);
   const currentHistory = useSelector(getHistory);
+  const historieHaltenData = useSelector(getHistorieHalten);
   const dispatch = useDispatch();
   const isStory = false;
   const storyStyle = { width, height, ...style };
   const onChange = (e) => {
     const ifHistorieHalten = e.target.checked;
+    setHistorieHalten(e.target.checked);
     if (ifHistorieHalten) {
-      console.log("ifHistorieHalten", ifHistorieHalten);
-
       dispatch(storeHistorieHalten(currentHistory));
     } else {
       dispatch(storeHistorieHalten(undefined));
     }
   };
+
+  useEffect(() => {
+    if (historieHalten && historieHaltenData === undefined) {
+      dispatch(storeHistorieHalten(currentHistory));
+    }
+  }, [currentHistory]);
   return (
     <div
       className="shadow-md w-full h-full overflow-auto"
@@ -45,7 +58,9 @@ const OptionHistory = ({
     >
       <InfoBlock title="Optionen">
         <div className="mt-4 ml-[13px]">
-          <Checkbox onChange={onChange}>Historie halten</Checkbox>
+          <Checkbox onChange={onChange} checked={historieHalten}>
+            Historie halten
+          </Checkbox>
         </div>
       </InfoBlock>
     </div>
