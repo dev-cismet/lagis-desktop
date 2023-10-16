@@ -10,10 +10,11 @@ import {
 } from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
+import { informationenBlockExtractor } from "../core/extractors/historyBlockExtractor";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
   const divRef = useRef(null);
-  const [historieHaltenCheckbox, setHistorieHalten] = useState(true);
+  const [historieHaltenCheckbox, setHistorieHalten] = useState(false);
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -72,7 +73,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       </div>
 
       <div className="flex gap-4 h-[calc(30%-2rem)] mb-4">
-        <HistoryInfo />
+        <HistoryInfo dataIn={fstck} extractor={informationenBlockExtractor} />
         <View />
         <OptionHistory
           setHistorieHalten={setHistorieHalten}
