@@ -147,6 +147,14 @@ queries.getLagisLandparcelByFlurstueckSchluesselId = `query MyQuery($schluessel_
       flur
       flurstueck_zaehler
       flurstueck_nenner
+      bemerkung_sperre
+      datum_entstehung
+      datum_letzter_stadtbesitz
+      war_staedtisch
+      letzter_bearbeiter
+      letzte_bearbeitung
+      gueltig_bis
+      ist_gesperrt
     }
     ar_baeumeArray {
       baum {
