@@ -4,7 +4,8 @@ import "react-cismap/topicMaps.css";
 import "leaflet/dist/leaflet.css";
 import { Card } from "antd";
 import { useEffect, useState } from "react";
-
+import { useSearchParams } from "react-router-dom";
+import "./graph.css";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -52,12 +53,22 @@ const Graph = ({
   const padding = 5;
   const headHeight = 37;
   const [currentObject, setCurrentObject] = useState();
+  const [urlParams, setUrlParams] = useSearchParams();
+  const handleUrlParams = (landParcelString) => {
+    const lansParcelParamsArray = landParcelString.split(" ");
+    const lansParcelParamsObj = {};
+    lansParcelParamsObj.gem = lansParcelParamsArray[0];
+    lansParcelParamsObj.flur = lansParcelParamsArray[1];
+    lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
+    setUrlParams(lansParcelParamsObj);
+  };
   useEffect(() => {
     const graphElement = document.querySelector("div.historyflow");
 
     const handleGraphClick = (event) => {
       console.log("history click:", event.target.textContent);
       setCurrentObject(event.target.textContent);
+      handleUrlParams(event.target.textContent);
     };
 
     graphElement.addEventListener("click", handleGraphClick);
@@ -66,9 +77,7 @@ const Graph = ({
       graphElement.removeEventListener("click", handleGraphClick);
     };
   }, [data]);
-  useEffect(() => {
-    console.log("history click currentObject:", currentObject);
-  }, [currentObject]);
+
   return (
     <Card
       size="small"
@@ -97,6 +106,7 @@ const Graph = ({
             height: height - 2 * padding - headHeight,
           }}
           dot={data || "digraph _Graph_ {}"}
+          className="history-wrapper"
         />
       </div>
     </Card>

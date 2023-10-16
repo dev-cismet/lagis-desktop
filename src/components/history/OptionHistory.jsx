@@ -38,10 +38,8 @@ const OptionHistory = ({
         isStory
           ? storyStyle
           : {
-              // height: `${height}px`,
               borderRadius: "6px",
               backgroundColor: "white",
-              // height: "100%",
             }
       }
     >
