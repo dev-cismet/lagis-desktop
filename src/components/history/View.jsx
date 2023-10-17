@@ -22,6 +22,7 @@ const View = ({
   setFirstDarstellung,
   setSecondDarstellung,
   setNumberBegrenzteTiefe,
+  firstDarstellung,
   width = 231,
   height = 188,
   style,
@@ -35,7 +36,6 @@ const View = ({
   };
 
   const onChangeNunber = (value) => {
-    console.log("onChangeNunber", value);
     setNumberBegrenzteTiefe(value);
   };
   const isStory = false;
@@ -59,18 +59,20 @@ const View = ({
           <div className="my-4 flex gap-2">
             <Select
               defaultValue="Vollständig"
-              style={{ width: "80%", height: "30px" }}
+              style={{ width: "100%" }}
               onChange={handleChangeFirst}
               options={data.successor}
             />
-            <InputNumber
-              size="small"
-              min={1}
-              max={100000}
-              defaultValue={1}
-              style={{ minWidth: "50px", height: "30px" }}
-              onChange={onChangeNunber}
-            />
+            <div className="begrenzte-wrapper">
+              <InputNumber
+                min={1}
+                max={100000}
+                defaultValue={1}
+                disabled={firstDarstellung !== "Begrenzte" ? true : false}
+                style={{ width: "50px" }}
+                onChange={onChangeNunber}
+              />
+            </div>
           </div>
           <Select
             defaultValue="Flurstücke"

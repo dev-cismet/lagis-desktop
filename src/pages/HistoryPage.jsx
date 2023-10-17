@@ -85,6 +85,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           setFirstDarstellung={setFirstDarstellung}
           setSecondDarstellung={setSecondDarstellung}
           setNumberBegrenzteTiefe={setNumberBegrenzteTiefe}
+          firstDarstellung={firstDarstellung}
         />
         <OptionHistory
           setHistorieHalten={setHistorieHalten}
