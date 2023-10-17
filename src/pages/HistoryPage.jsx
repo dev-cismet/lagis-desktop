@@ -15,6 +15,9 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
   const divRef = useRef(null);
   const [historieHaltenCheckbox, setHistorieHalten] = useState(false);
+  const [firstDarstellung, setFirstDarstellung] = useState("Vollständig");
+  const [secondDarstellung, setSecondDarstellung] = useState("Flurstücke");
+
   let storyStyle = {};
   if (inStory) {
     storyStyle = {
@@ -49,6 +52,11 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       window.removeEventListener("resize", measureHeight);
     };
   }, []);
+
+  useEffect(() => {
+    console.log("Darstellung first", firstDarstellung);
+    console.log("Darstellung second", secondDarstellung);
+  }, [firstDarstellung, secondDarstellung]);
   return (
     <div
       style={{
@@ -64,7 +72,12 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           historieHalten={historyHalten}
           extractor={(histObj) => {
             if (histObj && fstckString) {
-              return generateGraphString(histObj, fstckString);
+              return generateGraphString(
+                histObj,
+                fstckString,
+                firstDarstellung,
+                secondDarstellung
+              );
             } else {
               return undefined;
             }
@@ -74,7 +87,10 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
 
       <div className="flex gap-4 h-[calc(30%-2rem)] mb-4">
         <HistoryInfo dataIn={fstck} extractor={informationenBlockExtractor} />
-        <View />
+        <View
+          setFirstDarstellung={setFirstDarstellung}
+          setSecondDarstellung={setSecondDarstellung}
+        />
         <OptionHistory
           setHistorieHalten={setHistorieHalten}
           historieHalten={historieHaltenCheckbox}

@@ -5,9 +5,16 @@
  * @param {string} fallback - The fallback string to use if the data array is empty or undefined.
  * @returns {string} - The generated graph string in DOT format.
  */
-export function generateGraphString(data, fallback) {
+export function generateGraphString(
+  data,
+  fallback,
+  firstDarstellung,
+  secondDarstellung
+) {
   // Initialize an empty string to store the graph representation
   let graphString = "digraph _Graph_ {\n";
+  let nodeAdded = false;
+  // secondDarstellung = "Vorgänger";
 
   // If data is undefined or empty, add the fallback node and return
   if (!data || data.length === 0) {
@@ -24,32 +31,46 @@ export function generateGraphString(data, fallback) {
     if (name.startsWith("pseudo ")) {
       graphString += `    "${name}" [label="    "];\n`; // Empty label for "pseudo " nodes
     } else {
-      if (name === fallback) {
-        graphString += `    "${name}" [style="filled", fillcolor="#E1F1FF"];\n`;
-      } else {
-        graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
-      }
+      graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
     }
     addedNodes.add(name);
+    nodeAdded = true;
   }
 
   // Iterate over each item in the data array
   for (const item of data) {
     // Extract relevant properties from the current item
-    const { vorgaenger_name, nachfolger_name } = item;
+    const { vorgaenger_name, nachfolger_name, level } = item;
+    let itemAdded = false;
+
+    if (level < 1 && secondDarstellung === "Nachfolger") {
+      continue;
+    }
+
+    if (level > 0 && secondDarstellung === "Vorgänger") {
+      continue;
+    }
 
     // Add the predecessor node to the graph if it hasn't been added yet
     if (!addedNodes.has(vorgaenger_name)) {
       addNode(vorgaenger_name);
+      itemAdded = true;
     }
 
     // Add the successor node to the graph if it hasn't been added yet
     if (!addedNodes.has(nachfolger_name)) {
       addNode(nachfolger_name);
+      itemAdded = true;
     }
 
     // Add the relationship (edge) between the predecessor and successor nodes
     graphString += `    "${vorgaenger_name}"->"${nachfolger_name}" [lineInterpolate="linear"];\n`;
+  }
+
+  if (!nodeAdded) {
+    graphString += `    "${fallback}" [style="fill: #eee; font-weight: bold"];\n`;
+    graphString += "}";
+    return graphString;
   }
 
   // Close the graph representation

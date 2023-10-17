@@ -1,31 +1,41 @@
 import PropTypes from "prop-types";
 import InfoBlock from "../ui/Blocks/InfoBlock";
-import { Row, Col, Space, Select } from "antd";
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
+import { InputNumber, Select } from "antd";
+
 const mockExtractor = (input) => {
   return {
     successor: [
-      { value: "Direkte", label: "Direkte" },
-      { value: "Vorgänger", label: "Vorgänger" },
-      { value: "Nachfolger", label: "Nachfolger" },
+      { value: "Direkte", label: "Direkte Vorgänger/Nachfolger" },
+      { value: "Vollständig", label: "Vollständig" },
+      { value: "Begrenzte", label: "Begrenzte Tiefe" },
     ],
     parcels: [
-      { value: "Direkte", label: "Direkte" },
-      { value: "Vorgänger", label: "Vorgänger" },
-      { value: "Nachfolger", label: "Nachfolger" },
+      { value: "Flurstücke", label: "Alle flurstücke" },
+      { value: "Nachfolger", label: "Nur Nachfolger" },
+      { value: "Vorgänger", label: "Nur Vorgänger" },
     ],
   };
 };
 const View = ({
   dataIn,
   extractor = mockExtractor,
+  setFirstDarstellung,
+  setSecondDarstellung,
   width = 231,
   height = 188,
   style,
 }) => {
   const data = extractor(dataIn);
+  const handleChangeFirst = (value) => {
+    setFirstDarstellung(value);
+  };
+  const handleChangeSecond = (value) => {
+    setSecondDarstellung(value);
+  };
+
+  const onChangeNunber = (value) => {
+    console.log("onChangeNunber", value);
+  };
   const isStory = false;
   const storyStyle = { width, height, ...style };
   return (
@@ -44,18 +54,26 @@ const View = ({
     >
       <InfoBlock title="Darstellung">
         <div className="flex flex-col p-4 pt-1">
-          <div className="my-4">
+          <div className="my-4 flex gap-2">
             <Select
-              defaultValue="Nachfolger"
-              style={{ width: 120 }}
-              onChange={handleChange}
+              defaultValue="Vollständig"
+              style={{ width: "80%", height: "30px" }}
+              onChange={handleChangeFirst}
               options={data.successor}
+            />
+            <InputNumber
+              size="small"
+              min={1}
+              max={100000}
+              defaultValue={1}
+              style={{ minWidth: "50px", height: "30px" }}
+              onChange={onChangeNunber}
             />
           </div>
           <Select
-            defaultValue="Vorgänger"
-            style={{ width: 120 }}
-            onChange={handleChange}
+            defaultValue="Flurstücke"
+            style={{ width: "100%" }}
+            onChange={handleChangeSecond}
             options={data.parcels}
           />
         </div>
