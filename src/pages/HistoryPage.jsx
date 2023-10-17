@@ -16,6 +16,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const divRef = useRef(null);
   const [historieHaltenCheckbox, setHistorieHalten] = useState(false);
   const [firstDarstellung, setFirstDarstellung] = useState("Vollständig");
+  const [numberBegrenzteTiefe, setNumberBegrenzteTiefe] = useState(1);
   const [secondDarstellung, setSecondDarstellung] = useState("Flurstücke");
 
   let storyStyle = {};
@@ -27,10 +28,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       padding: "4px",
     };
   }
-
-  // const firstRow = {
-  //   height: window.innerHeight - 188 - 52 - 16 - 16 - 16 - 16 - 54,
-  // };
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
   const historyHalten = useSelector(getHistorieHalten);
@@ -53,10 +50,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("Darstellung first", firstDarstellung);
-    console.log("Darstellung second", secondDarstellung);
-  }, [firstDarstellung, secondDarstellung]);
   return (
     <div
       style={{
@@ -76,7 +69,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
                 histObj,
                 fstckString,
                 firstDarstellung,
-                secondDarstellung
+                secondDarstellung,
+                numberBegrenzteTiefe
               );
             } else {
               return undefined;
@@ -90,6 +84,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         <View
           setFirstDarstellung={setFirstDarstellung}
           setSecondDarstellung={setSecondDarstellung}
+          setNumberBegrenzteTiefe={setNumberBegrenzteTiefe}
         />
         <OptionHistory
           setHistorieHalten={setHistorieHalten}

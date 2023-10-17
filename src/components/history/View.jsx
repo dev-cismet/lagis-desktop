@@ -21,6 +21,7 @@ const View = ({
   extractor = mockExtractor,
   setFirstDarstellung,
   setSecondDarstellung,
+  setNumberBegrenzteTiefe,
   width = 231,
   height = 188,
   style,
@@ -35,6 +36,7 @@ const View = ({
 
   const onChangeNunber = (value) => {
     console.log("onChangeNunber", value);
+    setNumberBegrenzteTiefe(value);
   };
   const isStory = false;
   const storyStyle = { width, height, ...style };

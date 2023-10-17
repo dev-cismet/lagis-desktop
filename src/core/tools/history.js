@@ -9,7 +9,8 @@ export function generateGraphString(
   data,
   fallback,
   firstDarstellung,
-  secondDarstellung
+  secondDarstellung,
+  begrenzteTiefe
 ) {
   // Initialize an empty string to store the graph representation
   let graphString = "digraph _Graph_ {\n";
@@ -48,6 +49,17 @@ export function generateGraphString(
     }
 
     if (level > 0 && secondDarstellung === "Vorgänger") {
+      continue;
+    }
+
+    if (level != 0 && level != 1 && firstDarstellung === "Direkte") {
+      continue;
+    }
+
+    if (
+      (level > begrenzteTiefe || level <= -1 * begrenzteTiefe) &&
+      firstDarstellung === "Begrenzte"
+    ) {
       continue;
     }
 
