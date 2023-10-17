@@ -32,7 +32,11 @@ export function generateGraphString(
     if (name.startsWith("pseudo ")) {
       graphString += `    "${name}" [label="    "];\n`; // Empty label for "pseudo " nodes
     } else {
-      graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
+      if (name === fallback) {
+        graphString += `    "${name}" [style="filled", fillcolor="#E1F1FF"];\n`;
+      } else {
+        graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
+      }
     }
     addedNodes.add(name);
     nodeAdded = true;
