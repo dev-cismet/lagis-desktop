@@ -43,6 +43,7 @@ const mockExtractor = (input) => {
 const Graph = ({
   dataIn,
   extractor = mockExtractor,
+  rootObjectText,
   width = 1000,
   height = 500,
   fit = true,
@@ -52,8 +53,8 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
-  const dispatch = useDispatch();
-  const [currentObject, setCurrentObject] = useState();
+  // const dispatch = useDispatch();
+  // const [currentObject, setCurrentObject] = useState();
   const [urlParams, setUrlParams] = useSearchParams();
   const handleUrlParams = (landParcelString) => {
     const lansParcelParamsArray = landParcelString.split(" ");
@@ -66,7 +67,7 @@ const Graph = ({
   useEffect(() => {
     const graphElement = document.querySelector("div.historyflow");
     const handleGraphClick = (event) => {
-      setCurrentObject(event.target.textContent);
+      // setCurrentObject(event.target.textContent);
       handleUrlParams(event.target.textContent);
     };
 
@@ -82,7 +83,7 @@ const Graph = ({
       hoverable={false}
       title={
         <span>
-          <FontAwesomeIcon icon={faBars} /> Graph
+          <FontAwesomeIcon icon={faBars} /> Graph {rootObjectText}
         </span>
       }
       className="shadow-md"

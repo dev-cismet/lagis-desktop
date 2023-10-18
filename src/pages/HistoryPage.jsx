@@ -65,6 +65,9 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           height={divHeight}
           dataIn={historyHalten === undefined ? history : historyHalten}
           historieHalten={historyHalten}
+          rootObjectText={
+            historyHalten === undefined ? fstckString : historieHaltenRootText
+          }
           extractor={(histObj) => {
             if (histObj && fstckString) {
               return generateGraphString(
