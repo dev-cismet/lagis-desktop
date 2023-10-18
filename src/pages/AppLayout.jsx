@@ -27,20 +27,20 @@ const AppLayout = () => {
         background: "#F1F1F1",
       }}
     >
-      <div className="flex items-start gap-4 pr-4 h-screen overflow-clip">
-        <div className="h-full w-[10%]">
+      <div className="flex pr-4 h-screen">
+        <div className="h-full w-[calc(10%)]">
           <SidebarMenu parametersForLink={parametersForLink} />
         </div>
-        <div className="w-[90%] h-full">
-          <div className="h-[calc(4%-10px)] my-2">
+        <div className="w-[90%] h-[calc(100%-20px)] flex flex-col justify-between gap-2 pl-4">
+          <div className="h-[32px] mt-2">
             <UserBar />
           </div>
 
-          <div className="h-[calc(95%-60px)] my-4 w-full">
+          <div className="h-[calc(97%-50px)] w-full mb-1">
             <Outlet />
           </div>
 
-          <div className="h-[calc(1%)] mt-1">
+          <div className="h-[calc(1%-10px)]">
             <FooterSection />
           </div>
         </div>
