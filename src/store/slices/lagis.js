@@ -7,6 +7,7 @@ const initialState = {
   mipa: undefined,
   history: undefined,
   historieHalten: undefined,
+  historieHaltenRootText: undefined,
   geometry: undefined,
 };
 
@@ -42,6 +43,10 @@ const slice = createSlice({
       state.historieHalten = action.payload;
       return state;
     },
+    storeHistorieHaltenRootText(state, action) {
+      state.historieHaltenRootText = action.payload;
+      return state;
+    },
   },
 });
 
@@ -55,6 +60,7 @@ export const {
   storeHistory,
   storeGeometry,
   storeHistorieHalten,
+  storeHistorieHaltenRootText,
 } = slice.actions;
 
 export const getLandparcel = (state) => {
@@ -91,6 +97,10 @@ export const getOffices = (state) => {
 
 export const getHistorieHalten = (state) => {
   return state.lagis.historieHalten;
+};
+
+export const getHistorieHaltenRootText = (state) => {
+  return state.lagis.historieHaltenRootText;
 };
 
 export const getAdditionalRollen = (state) => {

@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Graphviz } from "graphviz-react";
-
+import { useDispatch } from "react-redux";
 const mockExtractor = (input) => {
   return {
     dot: `digraph _Graph_ {
@@ -52,6 +52,7 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
+  const dispatch = useDispatch();
   const [currentObject, setCurrentObject] = useState();
   const [urlParams, setUrlParams] = useSearchParams();
   const handleUrlParams = (landParcelString) => {
@@ -64,7 +65,6 @@ const Graph = ({
   };
   useEffect(() => {
     const graphElement = document.querySelector("div.historyflow");
-
     const handleGraphClick = (event) => {
       setCurrentObject(event.target.textContent);
       handleUrlParams(event.target.textContent);

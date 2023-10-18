@@ -5,6 +5,7 @@ import {
   storeHistorieHalten,
   getHistory,
   getHistorieHalten,
+  storeHistorieHaltenRootText,
 } from "../../store/slices/lagis";
 import { Checkbox } from "antd";
 import { useEffect } from "react";
@@ -19,6 +20,7 @@ const OptionHistory = ({
   extractor = mockExtractor,
   setHistorieHalten,
   historieHalten,
+  rootObjectText,
   width = 231,
   height = 188,
   style,
@@ -33,6 +35,7 @@ const OptionHistory = ({
     const ifHistorieHalten = e.target.checked;
     setHistorieHalten(e.target.checked);
     if (ifHistorieHalten) {
+      dispatch(storeHistorieHaltenRootText(rootObjectText));
       dispatch(storeHistorieHalten(currentHistory));
     } else {
       dispatch(storeHistorieHalten(undefined));
@@ -42,6 +45,7 @@ const OptionHistory = ({
   useEffect(() => {
     if (historieHalten && historieHaltenData === undefined) {
       dispatch(storeHistorieHalten(currentHistory));
+      dispatch(storeHistorieHaltenRootText(undefined));
     }
   }, [currentHistory]);
   return (

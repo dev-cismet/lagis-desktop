@@ -10,7 +10,9 @@ export function generateGraphString(
   fallback,
   firstDarstellung,
   secondDarstellung,
-  begrenzteTiefe
+  begrenzteTiefe,
+  historieHaltenRootText,
+  historieHalten = false
 ) {
   // Initialize an empty string to store the graph representation
   let graphString = "digraph _Graph_ {\n";
@@ -28,7 +30,7 @@ export function generateGraphString(
   const addedNodes = new Set();
 
   // Helper function to add nodes with appropriate styling
-  function addNode(name) {
+  function addNode(name, root = false) {
     if (name.startsWith("pseudo ")) {
       graphString += `    "${name}" [label="    "];\n`; // Empty label for "pseudo " nodes
     } else {
@@ -36,6 +38,9 @@ export function generateGraphString(
         graphString += `    "${name}" [style="filled", fillcolor="#E1F1FF"];\n`;
       } else {
         graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
+        if (name === historieHaltenRootText && historieHalten) {
+          graphString += `    "${name}" [style="filled", fillcolor="#D9D9D9"];\n`;
+        }
       }
     }
     addedNodes.add(name);
@@ -67,15 +72,17 @@ export function generateGraphString(
       continue;
     }
 
+    const rootObject = item?.rootObject || false;
+
     // Add the predecessor node to the graph if it hasn't been added yet
     if (!addedNodes.has(vorgaenger_name)) {
-      addNode(vorgaenger_name);
+      addNode(vorgaenger_name, rootObject);
       itemAdded = true;
     }
 
     // Add the successor node to the graph if it hasn't been added yet
     if (!addedNodes.has(nachfolger_name)) {
-      addNode(nachfolger_name);
+      addNode(nachfolger_name, rootObject);
       itemAdded = true;
     }
 

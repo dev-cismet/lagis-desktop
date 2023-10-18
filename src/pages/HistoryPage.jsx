@@ -7,6 +7,7 @@ import {
   getHistory,
   getLandparcel,
   getHistorieHalten,
+  getHistorieHaltenRootText,
 } from "../store/slices/lagis";
 import { generateGraphString } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
@@ -31,6 +32,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
   const historyHalten = useSelector(getHistorieHalten);
+  const historieHaltenRootText = useSelector(getHistorieHaltenRootText);
 
   let fstckString;
   if (fstck) {
@@ -70,7 +72,9 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
                 fstckString,
                 firstDarstellung,
                 secondDarstellung,
-                numberBegrenzteTiefe
+                numberBegrenzteTiefe,
+                historieHaltenRootText,
+                historyHalten === undefined ? false : true
               );
             } else {
               return undefined;
@@ -90,6 +94,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         <OptionHistory
           setHistorieHalten={setHistorieHalten}
           historieHalten={historieHaltenCheckbox}
+          rootObjectText={fstckString}
         />
       </div>
     </div>
