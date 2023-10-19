@@ -179,7 +179,7 @@ const RentBlock = ({
       }
       className="h-full"
     >
-      <div className="h-[60%] overflow-auto">
+      <div className="h-[70%] overflow-auto">
         <InfoBlock
           title="Miet und Pachtverträge"
           controlBar={
@@ -255,7 +255,7 @@ const RentBlock = ({
           </div>
         </InfoBlock>
       </div>
-      <div className="h-[40%] flex gap-4">
+      <div className="h-[30%] flex gap-4 overflow-auto">
         <div className="w-full">
           <InfoBlock
             title="Bemerkung"
