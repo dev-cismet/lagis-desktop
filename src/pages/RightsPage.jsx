@@ -26,16 +26,16 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   return (
-    <div style={{ ...storyStyle }} className="h-[100%]">
+    <div style={{ ...storyStyle }} className="h-full w-full overflow-clip">
       <div className="h-1/2 mb-4">
         <Map
-          width={"100%"}
+          width={width}
           height={height}
           dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}
         />
       </div>
-      <div className="h-[calc(50%-2rem)]">
+      <div className="h-[calc(50%)]">
         <RightsAndEncumbrances dataIn={rebe} extractor={rebePageExtractor} />
       </div>
     </div>

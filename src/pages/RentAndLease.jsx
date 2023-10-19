@@ -33,7 +33,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
     >
       <div className="w-full h-[40%] bg-white mb-2">
         <Map
-          width={"100%"}
+          width={width}
           height={height}
           dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}

@@ -128,6 +128,7 @@ const Map = ({
       bodyStyle={{ padding }}
       headStyle={{ backgroundColor: "white" }}
       type="inner"
+      className="overflow-hidden"
       ref={cardRef}
     >
       <RoutedMap
