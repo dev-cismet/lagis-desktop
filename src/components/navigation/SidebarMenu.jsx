@@ -223,7 +223,7 @@ const SidebarMenu = ({ parametersForLink }) => {
 
   return (
     <div
-      className="bg-white border-solid border-white"
+      className="bg-white border-solid border-white overflow-y-auto"
       style={{
         ...storyStyle,
       }}
@@ -231,8 +231,8 @@ const SidebarMenu = ({ parametersForLink }) => {
       <div
         className="my-4 mb-5 flex flex-wrap items-start gap-2"
         style={{
-          justifyContent: !collapsed ? "start" : "start",
-          marginLeft: !collapsed ? "20px" : "26px",
+          justifyContent: !collapsed ? "start" : "center",
+          marginLeft: !collapsed ? "20px" : "0px",
         }}
       >
         <span onClick={toggleCollapsed} className="cursor-pointer">

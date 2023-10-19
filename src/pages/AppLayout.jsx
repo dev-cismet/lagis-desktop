@@ -28,10 +28,10 @@ const AppLayout = () => {
       }}
     >
       <div className="flex pr-4 h-screen">
-        <div className="h-full w-[calc(10%)]">
+        <div className="h-full">
           <SidebarMenu parametersForLink={parametersForLink} />
         </div>
-        <div className="w-[90%] h-[calc(100%-20px)] flex flex-col justify-between gap-2 pl-4">
+        <div className="flex-1 w-[calc(100%-228px)] h-[calc(100%-20px)] flex flex-col justify-between gap-2 pl-4">
           <div className="h-[32px] mt-2">
             <UserBar />
           </div>
