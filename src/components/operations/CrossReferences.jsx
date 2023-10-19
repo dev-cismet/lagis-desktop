@@ -268,19 +268,13 @@ const CrossReferences = ({
           size="small"
           style={{ padding: "0 18px" }}
           onChange={(activeKey) => setActiveTab(activeKey)}
-          className="overflow-clip"
+          className="overflow-hidden"
         >
           <TabPane tab="Querverweise" key="1">
             <CustomNotes currentText={querverweise?.join("\n")} />
           </TabPane>
-          <TabPane tab="Kosten" key="2">
-            <div
-              style={{
-                minHeight: "80px",
-                maxHeight: "380px",
-                overflow: "auto",
-              }}
-            >
+          <TabPane tab="Kosten" key="2" className="overflow-y-auto">
+            <div className="flex">
               <TableCustom
                 columns={columnsCosts}
                 data={kosten}
