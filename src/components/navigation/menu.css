@@ -22,3 +22,7 @@
   color: red;
   background-color: blue;
 }
+
+.ant-menu {
+  transition: width 0.0001s cubic-bezier(0.2, 0, 0, 1) 0s;
+}
