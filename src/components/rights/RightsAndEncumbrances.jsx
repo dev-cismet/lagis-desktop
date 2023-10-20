@@ -141,7 +141,7 @@ const RightsAndEncumbrances = ({
   return (
     <div
       style={isStory ? storyStyle : { height: "100%" }}
-      className="shadow-md overflow-auto"
+      className="shadow-md w-full"
     >
       <InfoBlock
         title="Rechte und Belastungen"
@@ -156,13 +156,13 @@ const RightsAndEncumbrances = ({
           </ToggleModal>
         }
       >
-        <div className="relative">
+        <div className="overflow-auto">
           <TableCustom
             columns={columns}
             data={rights}
             activeRow={activeRow}
             setActiveRow={setActiveRow}
-            fixHeight={true}
+            // fixHeight={true}
           />
         </div>
       </InfoBlock>

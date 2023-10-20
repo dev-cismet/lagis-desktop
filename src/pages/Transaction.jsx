@@ -27,11 +27,11 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
     <div
       style={{
         ...storyStyle,
-        backgroundColor: "#F1F1F1",
+        // backgroundColor: "#F1F1F1",
       }}
       className="h-full"
     >
-      <div className="h-1/2 w-full mb-3 bg-[#ffffff]">
+      <div className="h-1/2 w-full mb-3 lg:mb-4">
         <Map
           width={width}
           height={height}

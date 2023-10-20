@@ -194,9 +194,9 @@ const OperationsPage = ({
       padding: "4px",
     };
   }
-  useEffect(() => {
-    console.log("activeDataId", activeDataId);
-  }, [activeDataId]);
+  // useEffect(() => {
+  //   console.log("activeDataId", activeDataId);
+  // }, [activeDataId]);
   return (
     <div
       style={{
@@ -212,7 +212,7 @@ const OperationsPage = ({
           setActiveDataId={setActiveDataId}
         />
       </div>
-      <div className="h-[calc(60%-2rem)] flex gap-4">
+      <div className="h-[calc(60%-1rem)] flex gap-4">
         <ContractData
           dataIn={landparcel}
           extractor={contractDataBlockExtractor}

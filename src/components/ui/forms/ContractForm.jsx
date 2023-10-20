@@ -86,7 +86,7 @@ const ContractForm = ({ activeRow, setShowButton, setModalOpen }) => {
               }
               className={inputStile}
             >
-              <TextArea rows={4} />
+              <TextArea rows={5} />
             </Form.Item>
           </Col>
           <Col span={24}>{/* <Divider style={dividerStyles} /> */}</Col>

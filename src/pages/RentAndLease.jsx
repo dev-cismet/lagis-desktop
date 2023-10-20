@@ -29,9 +29,9 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         ...storyStyle,
         backgroundColor: "#F1F1F1",
       }}
-      className="h-full w-full overflow-clip max-h[calc(100%-30px)]"
+      className="h-full w-full max-h[calc(100%-30px)]"
     >
-      <div className="w-full h-[40%] bg-white mb-2">
+      <div className="w-full h-[40%] mb-3 lg:mb-4">
         <Map
           width={width}
           height={height}
@@ -40,7 +40,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         />
       </div>
 
-      <div className="h-[calc(60%-15px)]">
+      <div className="h-[calc(60%-10px)]">
         <RentBlock dataIn={mipa} extractor={mipaPageExtractor} />
       </div>
     </div>

@@ -57,7 +57,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       style={{
         ...storyStyle,
       }}
-      className="h-full overflow-clip max-h[calc(100%-30px)]"
+      className="h-full max-h[calc(100%-30px)]"
     >
       <div className="h-[70%] mb-4" ref={divRef}>
         <Graph
@@ -86,7 +86,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         />
       </div>
 
-      <div className="flex gap-4 h-[calc(30%-2rem)] mb-4">
+      <div className="flex gap-4 h-[calc(30%-1.2rem)] mb-2">
         <HistoryInfo dataIn={fstck} extractor={informationenBlockExtractor} />
         <View
           setFirstDarstellung={setFirstDarstellung}
