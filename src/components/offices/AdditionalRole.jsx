@@ -122,7 +122,7 @@ const AdditionalRole = ({
               overflow: "auto",
             }
       }
-      className="shadow-md"
+      className="shadow-md overflow-auto"
     >
       <InfoBlock
         title="Zusätzliche Rollen"
@@ -154,9 +154,7 @@ const AdditionalRole = ({
           </ToggleModal>
         }
       >
-        <div
-          style={{ position: "relative", height: "200px", overflow: "auto" }}
-        >
+        <div style={{ position: "relative", height: "200px" }}>
           <TableCustom
             columns={columns}
             data={rolls}
