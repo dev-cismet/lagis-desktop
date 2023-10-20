@@ -41,8 +41,8 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
         </div>
         <div className="w-3/5">
           <Map
-            width={"100%"}
-            height={"100%"}
+            width={width}
+            height={height}
             dataIn={{ landparcel, geometry }}
             extractor={mapExtractor}
           />

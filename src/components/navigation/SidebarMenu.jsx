@@ -210,7 +210,7 @@ const SidebarMenu = ({ parametersForLink }) => {
       }
     };
 
-    handleResize();
+    // handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {

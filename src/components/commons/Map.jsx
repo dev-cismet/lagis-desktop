@@ -65,17 +65,27 @@ const Map = ({
   const _backgroundLayers = backgroundsFromMode || "rvrGrau@40";
 
   useEffect(() => {
-    setMapWidth(cardRef?.current?.offsetWidth);
-    setMapHeight(cardRef?.current?.offsetHeight);
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setMapWidth(cardRef?.current?.offsetWidth);
+        setMapHeight(cardRef?.current?.offsetHeight);
+      }
+    });
 
-    const setSize = () => {
-      setMapWidth(cardRef?.current?.offsetWidth);
-      setMapHeight(cardRef?.current?.offsetHeight);
+    resizeObserver.observe(cardRef.current);
+    // setMapWidth(cardRef?.current?.offsetWidth);
+    // setMapHeight(cardRef?.current?.offsetHeight);
+
+    // const setSize = () => {
+    //   setMapWidth(cardRef?.current?.offsetWidth);
+    //   setMapHeight(cardRef?.current?.offsetHeight);
+    // };
+    // window.addEventListener("resize", setSize);
+    return () => {
+      // // Отменяем наблюдение при размонтировании компонента
+      // window.removeEventListener("resize", setSize);
+      resizeObserver.disconnect();
     };
-
-    window.addEventListener("resize", setSize);
-
-    return () => window.removeEventListener("resize", setSize);
   }, []);
 
   useEffect(() => {

@@ -171,7 +171,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
         </div>
         <div className="w-1/2 h-[calc(100%-4px)]">
           <Map
-            width={"100%"}
+            width={width}
             height={height}
             dataIn={{ landparcel, geometry }}
             extractor={mapExtractor}

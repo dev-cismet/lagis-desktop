@@ -26,6 +26,7 @@ const AppLayout = () => {
       style={{
         background: "#F1F1F1",
       }}
+      className="w-full overflow-clip"
     >
       <div className="flex pr-4 h-screen">
         <div className="h-full">
