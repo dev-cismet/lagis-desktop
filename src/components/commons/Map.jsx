@@ -27,6 +27,8 @@ import {
 } from "../../store/slices/mapping";
 import { useDispatch, useSelector } from "react-redux";
 import { ScaleControl } from "react-leaflet";
+import { FileImageOutlined, FileImageFilled } from "@ant-design/icons";
+import getLayers from "react-cismap/tools/layerFactory";
 
 const mockExtractor = (input) => {
   return {
