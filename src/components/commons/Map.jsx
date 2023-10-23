@@ -8,7 +8,10 @@ import {
   MappingConstants,
   RoutedMap,
 } from "react-cismap";
-import { TopicMapStylingContext } from "react-cismap/contexts/TopicMapStylingContextProvider";
+import {
+  TopicMapStylingContext,
+  TopicMapStylingDispatchContext,
+} from "react-cismap/contexts/TopicMapStylingContextProvider";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import {
   getBoundsForFeatureArray,
@@ -44,6 +47,8 @@ const Map = ({
   extractor = mockExtractor,
   width = 400,
   height = 500,
+  children,
+  boundingBoxChangedHandler = () => {},
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -53,6 +58,7 @@ const Map = ({
     getShowCurrentFeatureCollection
   );
   const showBackground = useSelector(getShowBackground);
+
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
@@ -67,6 +73,13 @@ const Map = ({
     additionalLayerConfiguration,
     activeAdditionalLayerKeys,
   } = useContext(TopicMapStylingContext);
+
+  // const {
+  //   setSelectedBackground,
+  //   setNamedMapStyle,
+  //   setActiveAdditionalLayerKeys,
+  // } = useContext(TopicMapStylingDispatchContext);
+
   let backgroundsFromMode;
   const browserlocation = useLocation();
   function paramsToObject(entries) {
@@ -94,17 +107,7 @@ const Map = ({
     });
 
     resizeObserver.observe(cardRef.current);
-    // setMapWidth(cardRef?.current?.offsetWidth);
-    // setMapHeight(cardRef?.current?.offsetHeight);
-
-    // const setSize = () => {
-    //   setMapWidth(cardRef?.current?.offsetWidth);
-    //   setMapHeight(cardRef?.current?.offsetHeight);
-    // };
-    // window.addEventListener("resize", setSize);
     return () => {
-      // // Отменяем наблюдение при размонтировании компонента
-      // window.removeEventListener("resize", setSize);
       resizeObserver.disconnect();
     };
   }, []);
@@ -120,7 +123,6 @@ const Map = ({
     //   }
     // }
   }, [data?.featureCollection, urlParams]);
-
   let refRoutedMap = useRef(null);
 
   const mapStyle = {
@@ -138,7 +140,7 @@ const Map = ({
   ) {
     const map = refRoutedMap.current.leafletMap.leafletElement;
     const bb = getBoundsForFeatureArray(data?.featureCollection);
-
+    dispatch(setLeafletElement(map));
     const { center, zoom } = getCenterAndZoomForBounds(map, bb);
 
     fallback.position = {};
@@ -178,7 +180,6 @@ const Map = ({
           <div className="relative flex items-center">
             <Tooltip title="Hintergrund an/aus">
               <FileImageFilled
-                // icon={solidImage}
                 className="h-6 cursor-pointer"
                 onClick={() => dispatch(setShowBackground(!showBackground))}
               />
@@ -192,7 +193,6 @@ const Map = ({
           <div className="relative flex items-center">
             <Tooltip title="Vordergrund an/aus">
               <FileImageOutlined
-                // icon={regularImage}
                 className="h-6 cursor-pointer"
                 onClick={() =>
                   dispatch(
@@ -225,7 +225,7 @@ const Map = ({
         editable={false}
         style={mapStyle}
         key={"leafletRoutedMap"}
-        backgroundlayers={_backgroundLayers}
+        backgroundlayers={showBackground ? _backgroundLayers : null}
         urlSearchParams={urlSearchParams}
         layers=""
         referenceSystem={MappingConstants.crs3857}
@@ -254,7 +254,7 @@ const Map = ({
           // console.log("xxx boundingBox Changed", boundingBox);
         }}
       >
-        {data.featureCollection && data.featureCollection.length > 0 && (
+        {/* {data.featureCollection && data.featureCollection.length > 0 && (
           <FeatureCollectionDisplay
             featureCollection={data.featureCollection}
             style={data.styler}
@@ -267,7 +267,78 @@ const Map = ({
               })
             }
           />
-        )}
+        )} */}
+        {data.featureCollection &&
+          data.featureCollection.length > 0 &&
+          showCurrentFeatureCollection && (
+            <FeatureCollectionDisplay
+              featureCollection={data.featureCollection}
+              style={data.styler}
+              markerStyle={data.markerStyle}
+              showMarkerCollection={data.showMarkerCollection || false}
+              featureClickHandler={
+                data.featureClickHandler ||
+                ((e) => {
+                  const feature = e.target.feature;
+                  if (feature.selected) {
+                    const map = refRoutedMap.current.leafletMap.leafletElement;
+                    const bb = getBoundsForFeatureArray([feature]);
+                    const { center, zoom } = getCenterAndZoomForBounds(map, bb);
+                    setUrlParams((prev) => {
+                      prev.set("zoom", zoom);
+                      prev.set("lat", center.lat);
+                      prev.set("lng", center.lng);
+                      return prev;
+                    });
+                  } else {
+                    switch (feature.featureType) {
+                      case "flaeche": {
+                        dispatch(storeFlaechenId(feature.id));
+                        dispatch(setFlaechenSelected({ id: feature.id }));
+
+                        break;
+                      }
+                      case "front": {
+                        dispatch(storeFrontenId(feature.properties.id));
+                        dispatch(
+                          setFrontenSelected({ id: feature.properties.id })
+                        );
+                        break;
+                      }
+                      case "general": {
+                        dispatch(
+                          setGeneralGeometrySelected({
+                            id: feature.properties.id,
+                          })
+                        );
+                        break;
+                      }
+                      default: {
+                        console.log(
+                          "no featureClickHandler set",
+                          e.target.feature
+                        );
+                      }
+                    }
+                  }
+                })
+              }
+            />
+          )}
+        {/* {children} */}
+
+        {activeAdditionalLayerKeys !== undefined &&
+          additionalLayerConfiguration !== undefined &&
+          activeAdditionalLayerKeys?.length > 0 &&
+          activeAdditionalLayerKeys.map((activekey, index) => {
+            const layerConf = additionalLayerConfiguration[activekey];
+            if (layerConf?.layer) {
+              return layerConf.layer;
+            } else if (layerConf?.layerkey) {
+              const layers = getLayers(layerConf.layerkey);
+              return layers;
+            }
+          })}
       </RoutedMap>
     </Card>
   );
