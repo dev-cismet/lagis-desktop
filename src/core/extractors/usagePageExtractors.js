@@ -86,7 +86,8 @@ export function NFKOverwieExtractor(dataIn) {
     const landparcel = dataIn;
     const usage = landparcel.nutzungArrayRelationShip;
     const currentUsage = [];
-    usage.forEach((element) => {
+    const allStille = usageBlockExtractor(dataIn);
+    usage.forEach((element, usageIdx) => {
       element.nutzung_buchungArrayRelationShip.forEach((item, idx) => {
         let usageId;
         let buchungArray;
@@ -121,12 +122,17 @@ export function NFKOverwieExtractor(dataIn) {
         }
       });
     });
-
+    let stille = 0;
+    allStille.forEach((s) => {
+      const clean = s.stille.replace(/€/g, "").replace(/ /g, "");
+      const cleanComma = clean.replace(",", ".");
+      stille += parseFloat(cleanComma.replace(/[^\d.]/g, ""));
+    });
     const formattedCurrentUsage = currentUsage.map((u) => ({
       id: u.id,
       anlageklasse: u.anlageklasse,
       summe: formatPrice(u.summe),
-      stille: formatPrice(u.stille),
+      stille: formatPrice(stille),
     }));
 
     return formattedCurrentUsage;
