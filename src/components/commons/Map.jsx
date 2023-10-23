@@ -14,6 +14,19 @@ import {
   getBoundsForFeatureArray,
   getCenterAndZoomForBounds,
 } from "../../core/tools/mappingTools";
+import {
+  getShowBackground,
+  getShowCurrentFeatureCollection,
+  setFeatureCollection,
+  setFlaechenSelected,
+  setFrontenSelected,
+  setGeneralGeometrySelected,
+  setLeafletElement,
+  setShowBackground,
+  setShowCurrentFeatureCollection,
+} from "../../store/slices/mapping";
+import { useDispatch, useSelector } from "react-redux";
+import { ScaleControl } from "react-leaflet";
 
 const mockExtractor = (input) => {
   return {
