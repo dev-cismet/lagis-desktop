@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slices/auth";
 import lagisSlice from "./slices/lagis";
 import landParcels from "./slices/landParcels";
+import mappingSlice from "./slices/mapping";
 import permissionsSlice from "./slices/permissions";
 import uiSlice from "./slices/ui";
 import {
@@ -108,6 +109,7 @@ export default configureStore({
     lagis: lagisSlice.reducer,
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
     permissions: permissionsSlice.reducer,
+    mapping: mappingSlice.reducer,
     ui: persistReducer(persisUIConfig, uiSlice.reducer),
   },
   middleware,
