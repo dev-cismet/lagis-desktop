@@ -1,6 +1,6 @@
 import "react-cismap/topicMaps.css";
 import "leaflet/dist/leaflet.css";
-import { Card } from "antd";
+import { Card, Tooltip } from "antd";
 import PropTypes from "prop-types";
 import { useContext, useEffect, useRef, useState } from "react";
 import {
@@ -29,6 +29,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ScaleControl } from "react-leaflet";
 import { FileImageOutlined, FileImageFilled } from "@ant-design/icons";
 import getLayers from "react-cismap/tools/layerFactory";
+import { getArea25832 } from "../../core/tools/kassenzeichenMappingTools";
 
 const mockExtractor = (input) => {
   return {
@@ -45,8 +46,13 @@ const Map = ({
   height = 500,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [urlParams, setUrlParams] = useSearchParams();
-
+  // const [fallback, setFallback] = useState({});
+  const showCurrentFeatureCollection = useSelector(
+    getShowCurrentFeatureCollection
+  );
+  const showBackground = useSelector(getShowBackground);
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
@@ -141,11 +147,70 @@ const Map = ({
     fallback.zoom = zoom;
   }
 
+  // if (data?.featureCollection && refRoutedMap?.current) {
+  //   const map = refRoutedMap.current.leafletMap.leafletElement;
+  //   dispatch(setLeafletElement(map));
+
+  //   const bb = getBoundsForFeatureArray(data?.featureCollection);
+  //   const { center, zoom } = getCenterAndZoomForBounds(map, bb);
+  //   if (
+  //     fallback?.position?.lat !== center.lat ||
+  //     fallback?.position?.lng !== center.lng ||
+  //     fallback?.zoom !== zoom
+  //   ) {
+  //     setFallback({
+  //       position: {
+  //         lat: center.lat,
+  //         lng: center.lng,
+  //       },
+  //       zoom: zoom,
+  //     });
+  //   }
+  // }
+
   return (
     <Card
       size="small"
       hoverable={false}
       title={<span>Karte</span>}
+      extra={
+        <div className="flex items-center gap-4">
+          <div className="relative flex items-center">
+            <Tooltip title="Hintergrund an/aus">
+              <FileImageFilled
+                // icon={solidImage}
+                className="h-6 cursor-pointer"
+                onClick={() => dispatch(setShowBackground(!showBackground))}
+              />
+            </Tooltip>
+            <div
+              className={`w-3 h-3 rounded-full bg-green-500 ${
+                showBackground ? "absolute" : "hidden"
+              } bottom-0 -right-1`}
+            />
+          </div>
+          <div className="relative flex items-center">
+            <Tooltip title="Vordergrund an/aus">
+              <FileImageOutlined
+                // icon={regularImage}
+                className="h-6 cursor-pointer"
+                onClick={() =>
+                  dispatch(
+                    setShowCurrentFeatureCollection(
+                      !showCurrentFeatureCollection
+                    )
+                  )
+                }
+              />
+            </Tooltip>
+            <div
+              className={`w-3 h-3 rounded-full bg-green-500 ${
+                showCurrentFeatureCollection ? "absolute" : "hidden"
+              } bottom-0 -right-1`}
+            />
+          </div>
+        </div>
+      }
       style={{
         width: width,
         height: height,
