@@ -11,6 +11,7 @@ import {
   storeRebe,
   storeHistory,
 } from "../../store/slices/lagis";
+import { getSyncLandparcel } from "../../store/slices/ui";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
@@ -33,6 +34,7 @@ const LandParcelChooser = ({
   const dispatch = useDispatch();
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
+  const ifSyncLandparcel = useSelector(getSyncLandparcel);
   const [selectedGemarkung, setSelectedGemarkung] = useState();
   const [selectedFlur, setSelectedFlur] = useState();
   const [selectedFlurstueckLabel, setSelectedFlurstueckLabel] = useState();
@@ -251,7 +253,13 @@ const LandParcelChooser = ({
   };
 
   const handleRefreshData = () => {
-    if (selectedGemarkung && selectedFlur && selectedFlurstueckLabel) {
+    if (
+      selectedGemarkung &&
+      selectedFlur &&
+      selectedFlurstueckLabel &&
+      ifSyncLandparcel
+    ) {
+      removeLagisStore();
       flurstueckChoosen({
         gemarkung: selectedGemarkung.gemarkung,
         flur: selectedFlur.flur,
@@ -389,11 +397,14 @@ const LandParcelChooser = ({
       />
       <Tooltip title="Flurstück neu laden">
         <SyncOutlined
-          className="ml-6 cursor-pointer"
+          className="ml-6 cursor-pointer hover:text-slate-400"
           onClick={handleRefreshData}
           style={{
             color:
-              !selectedGemarkung || !selectedFlur || !selectedFlurstueckLabel
+              !selectedGemarkung ||
+              !selectedFlur ||
+              !selectedFlurstueckLabel ||
+              !ifSyncLandparcel
                 ? defaultLinksColor
                 : null,
           }}
