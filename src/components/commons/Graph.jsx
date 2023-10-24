@@ -53,8 +53,6 @@ const Graph = ({
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
-  // const dispatch = useDispatch();
-  // const [currentObject, setCurrentObject] = useState();
   const [urlParams, setUrlParams] = useSearchParams();
   const handleUrlParams = (landParcelString) => {
     const lansParcelParamsArray = landParcelString.split(" ");
@@ -67,8 +65,9 @@ const Graph = ({
   useEffect(() => {
     const graphElement = document.querySelector("div.historyflow");
     const handleGraphClick = (event) => {
-      // setCurrentObject(event.target.textContent);
-      handleUrlParams(event.target.textContent);
+      if (event.target.tagName === "text") {
+        handleUrlParams(event.target.textContent);
+      }
     };
 
     graphElement.addEventListener("click", handleGraphClick);
