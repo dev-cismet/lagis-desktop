@@ -132,6 +132,14 @@ const Map = ({
     clear: "both",
   };
 
+  const defaults = {
+    maxWidth: 200,
+    metric: true,
+    imperial: false,
+    updateWhenIdle: false,
+    position: "topright",
+  };
+
   let fallback = {};
   if (
     data?.featureCollection &&
@@ -268,6 +276,7 @@ const Map = ({
             }
           />
         )} */}
+        <ScaleControl {...defaults} position="topright" />
         {data.featureCollection &&
           data.featureCollection.length > 0 &&
           showCurrentFeatureCollection && (
