@@ -32,6 +32,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TopicMapContextProvider from "react-cismap/contexts/TopicMapContextProvider";
 import {
+  additionalLayerConfiguration,
   backgroundConfigurations,
   backgroundModes,
   extendBaseLayerConf,
@@ -112,6 +113,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             backgroundConfigurations={backgroundConfigurations}
             baseLayerConf={baseLayerConf}
             offlineCacheConfig={offlineConfig}
+            additionalLayerConfiguration={additionalLayerConfiguration}
           >
             <RouterProvider router={router} />
           </TopicMapContextProvider>
