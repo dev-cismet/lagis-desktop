@@ -26,7 +26,7 @@ export const getColorFromCode = (code = 12004320) => {
     let b = c & 0xff;
     return `rgb(${r}, ${g}, ${b})`;
   }
-  return null;
+  return "black";
 };
 
 export function addLeadingZeros(flur) {

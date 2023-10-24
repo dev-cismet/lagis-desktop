@@ -226,14 +226,16 @@ const Agencies = ({
                         idx !== history.length - 1 ? "1px solid #CFD8DC" : "0",
                     }}
                   >
-                    <div className="max-w-[190px] mt-2">
-                      Änderung am {h.changedDate} von {h.editorName}
+                    <div className="max-w-[190px] mt-2 grow">
+                      {h.changedDate && h.editorName
+                        ? `Änderung am ${h.changedDate} von ${h.editorName}`
+                        : "Benutzer und Datum der Änderung unbekannt"}
                     </div>
                     <Table
                       columns={historyColumns}
                       dataSource={h.agencyData}
                       pagination={false}
-                      className="w-full"
+                      className="w-full max-w-[262px]"
                     />
                   </div>
                 </div>
