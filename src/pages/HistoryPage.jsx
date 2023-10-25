@@ -15,7 +15,13 @@ import { informationenBlockExtractor } from "../core/extractors/historyBlockExtr
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
   const divRef = useRef(null);
-  const [historieHaltenCheckbox, setHistorieHalten] = useState(false);
+  const history = useSelector(getHistory);
+  const fstck = useSelector(getLandparcel);
+  const historyHalten = useSelector(getHistorieHalten);
+  const historieHaltenRootText = useSelector(getHistorieHaltenRootText);
+  const [historieHaltenCheckbox, setHistorieHalten] = useState(
+    historyHalten ? true : false
+  );
   const [firstDarstellung, setFirstDarstellung] = useState("Vollständig");
   const [numberBegrenzteTiefe, setNumberBegrenzteTiefe] = useState(1);
   const [secondDarstellung, setSecondDarstellung] = useState("Flurstücke");
@@ -29,10 +35,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       padding: "4px",
     };
   }
-  const history = useSelector(getHistory);
-  const fstck = useSelector(getLandparcel);
-  const historyHalten = useSelector(getHistorieHalten);
-  const historieHaltenRootText = useSelector(getHistorieHaltenRootText);
 
   let fstckString;
   if (fstck) {

@@ -48,6 +48,9 @@ const OptionHistory = ({
       dispatch(storeHistorieHaltenRootText(undefined));
     }
   }, [currentHistory]);
+  useEffect(() => {
+    console.log("historieHalten", historieHalten);
+  }, [historieHalten]);
   return (
     <div
       className="shadow-md w-full h-full overflow-auto"
