@@ -19,8 +19,8 @@
 }
 
 * {
-  scrollbar-width: thin; /* "auto" or "thin" for Firefox, "none" for others */
-  scrollbar-color: #babac0 #fff; /* thumb color and track color */
+  scrollbar-width: thin;
+  scrollbar-color: #babac0 #fff;
 }
 
 :root {

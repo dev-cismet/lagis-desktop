@@ -12,20 +12,24 @@ const OverviewCard = ({
   ifDefaultColor = true,
   fullHeiht,
   children,
-
   ...props
 }) => {
   return (
     <Card
-      style={{ width: "100%", height: "100%", minHeight: "180px" }}
-      headStyle={{ padding: "0px 10px" }}
+      style={{
+        width: "100%",
+        height: "100%",
+        minHeight: "180px",
+        minWidth: "180px",
+      }}
+      headStyle={{ padding: "10px 10px" }}
       bodyStyle={{ padding: "1px 10px", marginTop: "auto" }}
       className="custom-card shadow-md flex flex-col"
       title={
-        <div className="flex gap-2 justify-between">
+        <div className="flex gap-2 justify-between flex-wrap">
           <div className="flex flex-col">
             <span
-              className="text-lg leading-5"
+              className="text-sm min-[1257px]:text-base min-[1357px]:text-lg leading-5"
               style={{ color: ifDefaultColor && defaultLinksColor }}
             >
               {title}
@@ -41,7 +45,9 @@ const OverviewCard = ({
               </span>
             )}
           </div>
-          <div className="text-2xl">{icon}</div>
+          <div className="text-xl min-[985px]:text-base min-[1257px]:text-lg min-[1357px]:text-2xl">
+            {icon}
+          </div>
         </div>
       }
       {...props}
