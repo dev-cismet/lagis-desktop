@@ -27,7 +27,7 @@ const DashboardRights = ({
           subtitle="& Dienstbarkeiten, Baulasten"
           icon={
             <SettingOutlined
-              className="text-3xl"
+              className="text-2xl min-[985px]:text-base min-[1257px]:text-[19px] min-[1357px]:text-[26px]"
               style={{ color: defaultLinksColor }}
             />
           }
@@ -52,7 +52,7 @@ const DashboardRights = ({
             ifDefaultColor={false}
             icon={
               <SettingOutlined
-                className="text-3xl"
+                className="text-2xl min-[985px]:text-base min-[1257px]:text-[19px] min-[1357px]:text-[26px]"
                 style={{ color: data.color }}
               />
             }

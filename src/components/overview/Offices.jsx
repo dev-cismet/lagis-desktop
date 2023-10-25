@@ -35,22 +35,22 @@ const DashboardOffices = ({
                 {data.history > 0 ? (
                   <HistoryOutlined
                     style={{
-                      marginRight: "10px",
+                      // marginRight: "10px",
                       // fontSize: "20px",
                       marginTop: "1px",
                       color: "#0097FA",
                     }}
-                    className="text-[17px] min-[985px]:text-[15px] min-[1257px]:text-[17px] min-[1357px]:text-[20px]"
+                    className="text-[17px] min-[985px]:text-[15px] min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
                   />
                 ) : (
                   <HistoryOutlined
                     style={{
                       color: defaultLinksColor,
-                      marginRight: "10px",
+                      // marginRight: "10px",
                       // fontSize: "20px",
                       marginTop: "1px",
                     }}
-                    className="text-2xl min-[985px]:text-base min-[1257px]:text-[17px] min-[1357px]:text-[20px]"
+                    className="text-2xl min-[985px]:text-base min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
                   />
                 )}
                 <FolderOpenOutlined style={{ color: "#0097FA" }} />
