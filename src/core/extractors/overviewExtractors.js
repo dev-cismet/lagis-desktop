@@ -3,14 +3,15 @@ import {
   getOfficesWithColorAndSquare,
   geHistoricalArraytOfficesWithColorAndSquare,
 } from "../tools/helper";
-export function mipaExtractor(dataIn) {
-  if (dataIn === undefined) {
+export function mipaExtractor({ mipa, landparcel }) {
+  // console.log("mipa extractor", mipa, landparcel);
+  if (mipa === undefined && landparcel === undefined) {
     return {
       numberOfRents: " ",
       color: defaultLinksColor,
     };
   } else {
-    const mipa = dataIn;
+    // const mipa = mipa;
     const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
