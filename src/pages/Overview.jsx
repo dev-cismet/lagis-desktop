@@ -133,7 +133,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               parametersForLink={parametersForLink}
             />
             <Rent
-              dataIn={mipa}
+              dataIn={{ mipa, landparcel }}
               extractor={mipaExtractor}
               parametersForLink={parametersForLink}
             />
