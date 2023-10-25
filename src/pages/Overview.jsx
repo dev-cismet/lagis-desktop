@@ -138,7 +138,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
               parametersForLink={parametersForLink}
             />
             <Rights
-              dataIn={rebe}
+              dataIn={{ rebe, landparcel }}
               extractor={rebeExtractor}
               parametersForLink={parametersForLink}
             />
