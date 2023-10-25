@@ -4,14 +4,12 @@ import {
   geHistoricalArraytOfficesWithColorAndSquare,
 } from "../tools/helper";
 export function mipaExtractor({ mipa, landparcel }) {
-  // console.log("mipa extractor", mipa, landparcel);
   if (mipa === undefined && landparcel === undefined) {
     return {
       numberOfRents: " ",
       color: defaultLinksColor,
     };
   } else {
-    // const mipa = mipa;
     const numberOfRents = mipa?.length || 0;
     return {
       numberOfRents,
@@ -29,7 +27,6 @@ export function historyExtractor(dataIn) {
     return dataIn.length;
   }
 }
-//return { color: "#FFD029", number: dataIn.length, icon: true };
 
 export function officesExtractor(dataIn) {
   if (dataIn === undefined) {
@@ -123,15 +120,14 @@ export function dmsExtractor(dataIn) {
   }
 }
 
-export function rebeExtractor(dataIn) {
-  if (dataIn === undefined) {
+export function rebeExtractor({ rebe, landparcel }) {
+  if (rebe === undefined && landparcel === undefined) {
     return {
       numberOfRights: "  ",
       color: defaultLinksColor,
     };
   } else {
-    const rebe = dataIn;
-    const numberOfRights = rebe.length || 0;
+    const numberOfRights = rebe?.length || 0;
     return {
       numberOfRights,
       color: numberOfRights > 0 ? "#180E53" : defaultLinksColor,
