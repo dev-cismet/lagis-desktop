@@ -278,7 +278,7 @@ const Map = ({
             }
           />
         )} */}
-        <ScaleControl {...defaults} position="topright" />
+        <ScaleControl {...defaults} position="bottomright" />
         {data.featureCollection &&
           data.featureCollection.length > 0 &&
           showCurrentFeatureCollection && (
