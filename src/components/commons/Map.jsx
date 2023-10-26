@@ -74,11 +74,11 @@ const Map = ({
     activeAdditionalLayerKeys,
   } = useContext(TopicMapStylingContext);
 
-  // const {
-  //   setSelectedBackground,
-  //   setNamedMapStyle,
-  //   setActiveAdditionalLayerKeys,
-  // } = useContext(TopicMapStylingDispatchContext);
+  const {
+    setSelectedBackground,
+    setNamedMapStyle,
+    setActiveAdditionalLayerKeys,
+  } = useContext(TopicMapStylingDispatchContext);
 
   let backgroundsFromMode;
   const browserlocation = useLocation();
@@ -340,8 +340,9 @@ const Map = ({
           additionalLayerConfiguration !== undefined &&
           activeAdditionalLayerKeys?.length > 0 &&
           activeAdditionalLayerKeys.map((activekey, index) => {
+            console.log("activeAdditionalLayerKeys", activekey);
             const layerConf = additionalLayerConfiguration[activekey];
-            if (layerConf?.layer) {
+            if (layerConf?.layer && showBackground) {
               return layerConf.layer;
             } else if (layerConf?.layerkey) {
               const layers = getLayers(layerConf.layerkey);
