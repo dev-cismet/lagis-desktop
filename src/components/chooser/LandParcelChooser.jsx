@@ -253,12 +253,7 @@ const LandParcelChooser = ({
   };
 
   const handleRefreshData = () => {
-    if (
-      selectedGemarkung &&
-      selectedFlur &&
-      selectedFlurstueckLabel &&
-      ifSyncLandparcel
-    ) {
+    if (selectedGemarkung && selectedFlur && selectedFlurstueckLabel) {
       removeLagisStore();
       flurstueckChoosen({
         gemarkung: selectedGemarkung.gemarkung,
@@ -401,10 +396,7 @@ const LandParcelChooser = ({
           onClick={handleRefreshData}
           style={{
             color:
-              !selectedGemarkung ||
-              !selectedFlur ||
-              !selectedFlurstueckLabel ||
-              !ifSyncLandparcel
+              !selectedGemarkung || !selectedFlur || !selectedFlurstueckLabel
                 ? defaultLinksColor
                 : null,
           }}
