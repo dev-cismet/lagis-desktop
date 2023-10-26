@@ -58,7 +58,6 @@ const Map = ({
     getShowCurrentFeatureCollection
   );
   const showBackground = useSelector(getShowBackground);
-
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
@@ -97,6 +96,13 @@ const Map = ({
   } catch (e) {}
 
   const _backgroundLayers = backgroundsFromMode || "rvrGrau@40";
+
+  const handleSetShowBackground = () => {
+    dispatch(setShowBackground(!showBackground));
+  };
+  const handleShowCurrentFeatureCollection = () => {
+    dispatch(setShowCurrentFeatureCollection(!showCurrentFeatureCollection));
+  };
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -184,37 +190,33 @@ const Map = ({
       hoverable={false}
       title={<span>Karte</span>}
       extra={
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="relative flex items-center">
             <Tooltip title="Hintergrund an/aus">
               <FileImageFilled
-                className="h-6 cursor-pointer"
-                onClick={() => dispatch(setShowBackground(!showBackground))}
+                className="text-lg h-6 cursor-pointer"
+                onClick={handleSetShowBackground}
               />
             </Tooltip>
             <div
-              className={`w-3 h-3 rounded-full bg-green-500 ${
+              className={`w-3 h-3 rounded-full bg-[#4ABC96] ${
                 showBackground ? "absolute" : "hidden"
-              } bottom-0 -right-1`}
+              } bottom-0 -right-1 cursor-pointer`}
+              onClick={handleSetShowBackground}
             />
           </div>
           <div className="relative flex items-center">
             <Tooltip title="Vordergrund an/aus">
               <FileImageOutlined
-                className="h-6 cursor-pointer"
-                onClick={() =>
-                  dispatch(
-                    setShowCurrentFeatureCollection(
-                      !showCurrentFeatureCollection
-                    )
-                  )
-                }
+                className="text-lg h-6 cursor-pointer"
+                onClick={handleShowCurrentFeatureCollection}
               />
             </Tooltip>
             <div
-              className={`w-3 h-3 rounded-full bg-green-500 ${
+              className={`w-3 h-3 rounded-full bg-[#4ABC96] ${
                 showCurrentFeatureCollection ? "absolute" : "hidden"
-              } bottom-0 -right-1`}
+              } bottom-0 -right-1 cursor-pointer`}
+              onClick={handleShowCurrentFeatureCollection}
             />
           </div>
         </div>
