@@ -18,6 +18,7 @@ import {
   getCenterAndZoomForBounds,
 } from "../../core/tools/mappingTools";
 import {
+  getAdditionalLayerOpacities,
   getShowBackground,
   getShowCurrentFeatureCollection,
   setFeatureCollection,
@@ -33,6 +34,7 @@ import { ScaleControl } from "react-leaflet";
 import { FileImageOutlined, FileImageFilled } from "@ant-design/icons";
 import getLayers from "react-cismap/tools/layerFactory";
 import { getArea25832 } from "../../core/tools/kassenzeichenMappingTools";
+import StyledWMSTileLayer from "react-cismap/StyledWMSTileLayer";
 
 const mockExtractor = (input) => {
   return {
@@ -96,7 +98,7 @@ const Map = ({
   } catch (e) {}
 
   const _backgroundLayers = backgroundsFromMode || "rvrGrau@40";
-
+  const opacities = useSelector(getAdditionalLayerOpacities);
   const handleSetShowBackground = () => {
     dispatch(setShowBackground(!showBackground));
   };
@@ -342,10 +344,14 @@ const Map = ({
           additionalLayerConfiguration !== undefined &&
           activeAdditionalLayerKeys?.length > 0 &&
           activeAdditionalLayerKeys.map((activekey, index) => {
-            console.log("activeAdditionalLayerKeys", activekey);
             const layerConf = additionalLayerConfiguration[activekey];
             if (layerConf?.layer && showBackground) {
-              return layerConf.layer;
+              return (
+                <StyledWMSTileLayer
+                  {...layerConf.layer.props}
+                  opacity={opacities[activekey].toFixed(2) || 0.7}
+                />
+              );
             } else if (layerConf?.layerkey) {
               const layers = getLayers(layerConf.layerkey);
               return layers;
