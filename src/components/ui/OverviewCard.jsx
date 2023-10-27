@@ -36,7 +36,7 @@ const OverviewCard = ({
             </span>
             {subtitle && (
               <span
-                className="text-sm"
+                className="text-[12px] min-[1257px]:text-sm"
                 style={{
                   color: !ifDefaultColor ? "#6C6A6A" : defaultLinksColor,
                 }}
@@ -45,7 +45,7 @@ const OverviewCard = ({
               </span>
             )}
           </div>
-          <div className="text-xl min-[985px]:text-base min-[1257px]:text-lg min-[1357px]:text-2xl">
+          <div className="min-[985px]:text-base min-[1257px]:text-lg min-[1357px]:text-2xl">
             {icon}
           </div>
         </div>

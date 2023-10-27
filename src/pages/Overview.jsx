@@ -127,7 +127,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       <div className="flex gap-2 w-full h-[calc(100%-4px)]">
         <div className="min-w[620px] w-1/2 overflow-auto">
           <div
-            className="grid grid-cols-2 gap-2 min-w-[420px] h-[calc(100%-4px)]"
+            className="grid grid-cols-2 gap-2 min-w-[430px] h-[calc(100%-4px)]"
             // style={{ minWidth: "440px" }}
           >
             <Offices

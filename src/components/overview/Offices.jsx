@@ -40,7 +40,7 @@ const DashboardOffices = ({
                       marginTop: "1px",
                       color: "#0097FA",
                     }}
-                    className="text-[17px] min-[985px]:text-[15px] min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
+                    className="min-[985px]:text-[15px] min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
                   />
                 ) : (
                   <HistoryOutlined
@@ -50,7 +50,7 @@ const DashboardOffices = ({
                       // fontSize: "20px",
                       marginTop: "1px",
                     }}
-                    className="text-2xl min-[985px]:text-base min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
+                    className="min-[985px]:text-[15px] min-[1257px]:text-[17px] min-[1357px]:text-[20px] mr-2"
                   />
                 )}
                 <FolderOpenOutlined style={{ color: "#0097FA" }} />
