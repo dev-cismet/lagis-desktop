@@ -243,7 +243,7 @@ const SidebarMenu = ({ parametersForLink }) => {
 
       <div className="side-menu lg:ml-[-5px]">
         <Menu
-          style={{ border: 0 }}
+          style={{ border: 0, wdth: !collapsed ? "226px" : "81" }}
           defaultSelectedKeys={activeKey}
           selectedKeys={[activeKey]}
           items={items}
