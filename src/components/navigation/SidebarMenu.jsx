@@ -80,7 +80,7 @@ const SidebarMenu = ({ parametersForLink }) => {
           Verwaltungsbereiche
         </NavLink>
       ) : (
-        <span style={{ color: defaultLinksColor }}>"Verwaltungsbereiche"</span>
+        <span style={{ color: defaultLinksColor }}>Verwaltungsbereiche</span>
       ),
       "/verwaltungsbereiche",
       <FolderOpenOutlined
@@ -243,7 +243,7 @@ const SidebarMenu = ({ parametersForLink }) => {
 
       <div className="side-menu lg:ml-[-5px]">
         <Menu
-          style={{ border: 0, wdth: !collapsed ? "226px" : "81" }}
+          style={{ border: 0, width: !collapsed ? "230px" : "81px" }}
           defaultSelectedKeys={activeKey}
           selectedKeys={[activeKey]}
           items={items}
