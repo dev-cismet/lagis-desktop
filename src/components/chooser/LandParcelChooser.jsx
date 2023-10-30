@@ -302,7 +302,7 @@ const LandParcelChooser = ({
           width: 160,
         }}
         filterOption={(input, option) =>
-          (option?.label ?? "").toLowerCase().startsWith(input)
+          (option?.label ?? "").toLowerCase().startsWith(input.toLowerCase())
         }
         optionFilterProp="children"
         filterSort={(optionA, optionB) =>
