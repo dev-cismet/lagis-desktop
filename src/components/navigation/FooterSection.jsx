@@ -7,7 +7,7 @@ const FooterSection = () => {
     >
       <div className="">
         <span style={{ textDecoration: "#underline" }}>LagIS-online</span> ©
-        2020. dev-hot-reload
+        2023.
       </div>
       <div className="ml-auto">Powered by cids</div>
     </div>
