@@ -37,13 +37,13 @@ const AppLayout = () => {
             <UserBar />
           </div>
 
-          <div className="h-[calc(97%-50px)] w-full mb-1">
+          <div className="h-[calc(100%-50px)] w-full mb-1">
             <Outlet />
           </div>
 
-          <div className="h-[calc(1%-10px)]">
+          {/* <div className="h-[calc(1%-10px)]">
             <FooterSection />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

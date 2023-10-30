@@ -1,4 +1,5 @@
 import React from "react";
+import packageJson from "../../../package.json";
 const FooterSection = () => {
   return (
     <div
@@ -6,8 +7,9 @@ const FooterSection = () => {
       style={{ color: "#8F8F8F", lineHeight: 1 }}
     >
       <div className="">
-        <span style={{ textDecoration: "#underline" }}>LagIS-online</span> ©
-        2023.
+        <span style={{ textDecoration: "#underline" }}>
+          LagIS-Desktop v:{packageJson.version}
+        </span>
       </div>
       <div className="ml-auto">Powered by cids</div>
     </div>
