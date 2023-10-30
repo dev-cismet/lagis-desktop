@@ -10,7 +10,7 @@ const mockExtractor = (input) => {
       { value: "Begrenzte", label: "Begrenzte Tiefe" },
     ],
     parcels: [
-      { value: "Flurstücke", label: "Alle flurstücke" },
+      { value: "Flurstücke", label: "Alle Flurstücke" },
       { value: "Nachfolger", label: "Nur Nachfolger" },
       { value: "Vorgänger", label: "Nur Vorgänger" },
     ],

@@ -32,14 +32,14 @@ export function generateGraphString(
   // Helper function to add nodes with appropriate styling
   function addNode(name, root = false) {
     if (name.startsWith("pseudo ")) {
-      graphString += `    "${name}" [label="    "];\n`; // Empty label for "pseudo " nodes
+      graphString += `    "${name}" [label="    " shape="box"];\n`; // Empty label for "pseudo " nodes
     } else {
       if (name === fallback) {
-        graphString += `    "${name}" [style="filled", fillcolor="#E1F1FF"];\n`;
+        graphString += `    "${name}" [style="filled", fillcolor="#E1F1FF" shape="box"];\n`;
       } else {
-        graphString += `    "${name}" [style="fill: #eee; font-weight: bold"];\n`;
+        graphString += `    "${name}" [style="fill: #eee; font-weight: bold"  shape="box"];\n`;
         if (name === historieHaltenRootText && historieHalten) {
-          graphString += `    "${name}" [style="filled", fillcolor="#D9D9D9"];\n`;
+          graphString += `    "${name}" [style="filled", fillcolor="#D9D9D9"  shape="box"];\n`;
         }
       }
     }
@@ -91,7 +91,7 @@ export function generateGraphString(
   }
 
   if (!nodeAdded) {
-    graphString += `    "${fallback}" [style="fill: #eee; font-weight: bold"];\n`;
+    graphString += `    "${fallback}" [style="fill: #eee; font-weight: bold"  shape="box"];\n`;
     graphString += "}";
     return graphString;
   }
