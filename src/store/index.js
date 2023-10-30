@@ -3,6 +3,7 @@ import authSlice from "./slices/auth";
 import lagisSlice from "./slices/lagis";
 import landParcels from "./slices/landParcels";
 import mappingSlice from "./slices/mapping";
+import gazDataSlice from "./slices/gazData";
 import permissionsSlice from "./slices/permissions";
 import uiSlice from "./slices/ui";
 import {
@@ -111,6 +112,7 @@ export default configureStore({
     permissions: permissionsSlice.reducer,
     mapping: mappingSlice.reducer,
     ui: persistReducer(persisUIConfig, uiSlice.reducer),
+    gazetteerData: gazDataSlice.reducer,
   },
   middleware,
 });
