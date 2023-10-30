@@ -12,6 +12,8 @@ import {
   TopicMapStylingContext,
   TopicMapStylingDispatchContext,
 } from "react-cismap/contexts/TopicMapStylingContextProvider";
+import GazetteerSearchControl from "react-cismap/GazetteerSearchControl";
+import GazetteerHitDisplay from "react-cismap/GazetteerHitDisplay";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import {
   getBoundsForFeatureArray,
