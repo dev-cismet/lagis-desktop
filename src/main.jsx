@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "antd/dist/reset.css";
-import { Provider } from "react-redux";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-bootstrap-typeahead/css/Typeahead.css";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./store";
 import { ConfigProvider } from "antd";
 import { RouterProvider, createHashRouter } from "react-router-dom";
@@ -20,7 +22,7 @@ import Transaction from "./pages/Transaction";
 import DMSPage from "./pages/DMSPage";
 import LoginPage from "./components/Login/LoginPage";
 import { Navigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+// import { useSelector, useDis } from "react-redux/es/hooks/useSelector";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import {
@@ -39,14 +41,19 @@ import {
   offlineConfig,
 } from "./constants/backgrounds";
 import { defaultLayerConf } from "react-cismap/tools/layerFactory";
+import { loadGazeteerEntries } from "./store/slices/gazData";
 const baseLayerConf = extendBaseLayerConf({ ...defaultLayerConf });
 
 const NavBarWrapper = () => {
+  const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
   if (!jwt) {
     return <Navigate to="/login" />;
   }
 
+  useEffect(() => {
+    dispatch(loadGazeteerEntries());
+  }, []);
   return <AppLayout />;
 };
 const productionMode = process.env.NODE_ENV === "production";
