@@ -8,3 +8,6 @@ export const REST_SERVICES = {
   LAGIS: REST_SERVICE_LAGIS,
   WUNDA_BLAU: REST_SERVICE_WUNDA,
 };
+
+export const APP_KEY = "lagis-desktop";
+export const STORAGE_PREFIX = "1";

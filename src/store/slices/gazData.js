@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { md5FetchText } from "react-cismap/tools/fetching";
 import { getGazDataForTopicIds } from "react-cismap/tools/gazetteerHelper";
 
-import { APP_KEY, STORAGE_PREFIX } from "../../constants/verdis";
+import { APP_KEY, STORAGE_PREFIX } from "../../constants/lagis";
 
 export const gazetteerHost = "https://wupp-topicmaps-data.cismet.de/";
 const topics = ["pois", "adressen"];
