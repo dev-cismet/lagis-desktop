@@ -37,6 +37,7 @@ import { FileImageOutlined, FileImageFilled } from "@ant-design/icons";
 import getLayers from "react-cismap/tools/layerFactory";
 import { getArea25832 } from "../../core/tools/kassenzeichenMappingTools";
 import StyledWMSTileLayer from "react-cismap/StyledWMSTileLayer";
+import { getGazData } from "../../store/slices/gazData";
 
 const mockExtractor = (input) => {
   return {
@@ -61,7 +62,16 @@ const Map = ({
   const showCurrentFeatureCollection = useSelector(
     getShowCurrentFeatureCollection
   );
+  const gazData = useSelector(getGazData);
   const showBackground = useSelector(getShowBackground);
+  const [overlayFeature, setOverlayFeature] = useState(null);
+  const [gazetteerHit, setGazetteerHit] = useState(null);
+  const gazetteerHitTrigger = () => {
+    console.log("gazetteerHitTrigger");
+  };
+  const searchControlWidth = 500;
+  const gazetteerSearchPlaceholder = undefined;
+
   const data = extractor(dataIn);
   const padding = 5;
   const headHeight = 37;
@@ -283,6 +293,31 @@ const Map = ({
           />
         )} */}
         <ScaleControl {...defaults} position="bottomright" />
+        {overlayFeature && (
+          <ProjSingleGeoJson
+            key={JSON.stringify(overlayFeature)}
+            geoJson={overlayFeature}
+            masked={true}
+            maskingPolygon={maskingPolygon}
+            mapRef={leafletRoutedMapRef}
+          />
+        )}
+        <GazetteerHitDisplay
+          key={"gazHit" + JSON.stringify(gazetteerHit)}
+          gazetteerHit={gazetteerHit}
+        />
+        <GazetteerSearchControl
+          mapRef={refRoutedMap}
+          gazetteerHit={gazetteerHit}
+          setGazetteerHit={setGazetteerHit}
+          gazeteerHitTrigger={gazetteerHitTrigger}
+          overlayFeature={overlayFeature}
+          setOverlayFeature={setOverlayFeature}
+          gazData={gazData}
+          enabled={gazData.length > 0}
+          pixelwidth={500}
+          placeholder={gazetteerSearchPlaceholder}
+        />
         {data.featureCollection &&
           data.featureCollection.length > 0 &&
           showCurrentFeatureCollection && (
