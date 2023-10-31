@@ -292,7 +292,7 @@ const Map = ({
             }
           />
         )} */}
-        <ScaleControl {...defaults} position="bottomright" />
+        <ScaleControl {...defaults} position="topright" />
         {overlayFeature && (
           <ProjSingleGeoJson
             key={JSON.stringify(overlayFeature)}
