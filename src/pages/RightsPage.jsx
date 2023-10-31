@@ -27,7 +27,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   }
   return (
     <div style={{ ...storyStyle }} className="h-full w-full">
-      <div className="h-1/2 mb-3 lg:mb-4">
+      <div className="h-[calc(50%-16px)]" style={{ marginBottom: "16px" }}>
         <Map
           width={width}
           height={height}
@@ -35,7 +35,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
           extractor={mapExtractor}
         />
       </div>
-      <div className="h-[calc(50%-18px)]">
+      <div className="h-[calc(50%-4px)]">
         <RightsAndEncumbrances dataIn={rebe} extractor={rebePageExtractor} />
       </div>
     </div>

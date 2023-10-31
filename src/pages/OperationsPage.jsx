@@ -205,7 +205,7 @@ const OperationsPage = ({
       }}
       className="h-full"
     >
-      <div className="h-[40%] mb-4">
+      <div className="h-[40%]" style={{ marginBottom: "16px" }}>
         <Contracts
           dataIn={landparcel}
           extractor={contractsBlockExtractor}

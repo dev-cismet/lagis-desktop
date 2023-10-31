@@ -28,16 +28,22 @@ const AppLayout = () => {
       }}
       className="w-full overflow-clip"
     >
-      <div className="flex pr-4 h-screen">
+      <div className="flex h-screen" style={{ paddingRight: "16px" }}>
         <div className="h-full">
           <SidebarMenu parametersForLink={parametersForLink} />
         </div>
-        <div className="flex-1 w-[calc(100%-228px)] flex flex-col justify-between gap-2 pl-4">
-          <div className="h-[32px] mt-2">
+        <div
+          className="flex-1 w-[calc(100%-228px)] flex flex-col justify-between gap-2"
+          style={{ paddingLeft: "16px" }}
+        >
+          <div className="h-[32px]" style={{ paddingTop: "8px" }}>
             <UserBar />
           </div>
 
-          <div className="h-[calc(100%-50px)] w-full mb-2">
+          <div
+            className="h-[calc(100%-50px)] w-full"
+            style={{ paddingBottom: "8px" }}
+          >
             <Outlet />
           </div>
 
