@@ -229,10 +229,12 @@ const SidebarMenu = ({ parametersForLink }) => {
       }}
     >
       <div
-        className="my-4 mb-5 flex flex-wrap items-start gap-2"
+        className="flex flex-wrap items-start gap-2"
         style={{
           justifyContent: !collapsed ? "start" : "center",
           marginLeft: !collapsed ? "20px" : "0px",
+          marginTop: "16px",
+          marginBottom: "16px",
         }}
       >
         <span onClick={toggleCollapsed} className="cursor-pointer">

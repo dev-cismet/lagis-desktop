@@ -33,7 +33,7 @@ const AppLayout = () => {
           <SidebarMenu parametersForLink={parametersForLink} />
         </div>
         <div
-          className="flex-1 w-[calc(100%-228px)] flex flex-col justify-between gap-2"
+          className="flex-1 w-[calc(100%-341px)] flex flex-col justify-between gap-2"
           style={{ paddingLeft: "16px" }}
         >
           <div className="h-[32px]" style={{ paddingTop: "8px" }}>
