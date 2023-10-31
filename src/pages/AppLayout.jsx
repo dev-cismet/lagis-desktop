@@ -32,12 +32,12 @@ const AppLayout = () => {
         <div className="h-full">
           <SidebarMenu parametersForLink={parametersForLink} />
         </div>
-        <div className="flex-1 w-[calc(100%-228px)] h-[calc(100%-20px)] flex flex-col justify-between gap-2 pl-4">
+        <div className="flex-1 w-[calc(100%-228px)] flex flex-col justify-between gap-2 pl-4">
           <div className="h-[32px] mt-2">
             <UserBar />
           </div>
 
-          <div className="h-[calc(100%-50px)] w-full mb-1">
+          <div className="h-[calc(100%-50px)] w-full mb-2">
             <Outlet />
           </div>
 

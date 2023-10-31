@@ -124,9 +124,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
       }}
       className="h-full overflow-clip max-h[calc(100%-30px)]"
     >
-      <div className="flex gap-2 w-full  h-[calc(100%-4px)]">
+      <div className="flex gap-2 w-full  h-[calc(100%)]">
         <div className="w-1/2 gap-2 overflow-auto">
-          <div className="grid grid-cols-2 gap-2 min-w-[430px] h-[calc(100%-4px)]">
+          <div className="grid grid-cols-2 gap-2 min-w-[430px] h-[calc(100%-3px)]">
             <Offices
               dataIn={landparcel}
               extractor={officesExtractor}
@@ -169,7 +169,7 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
             />
           </div>
         </div>
-        <div className="w-1/2 h-[calc(100%-4px)]">
+        <div className="w-1/2 h-[calc(100%-3px)]">
           <Map
             width={width}
             height={height}

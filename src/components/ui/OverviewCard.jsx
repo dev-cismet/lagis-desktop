@@ -19,7 +19,7 @@ const OverviewCard = ({
       style={{
         width: "100%",
         height: "100%",
-        minHeight: "180px",
+        minHeight: "100px",
         minWidth: "200px",
       }}
       headStyle={{ padding: "10px 10px" }}
