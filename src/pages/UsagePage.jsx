@@ -22,7 +22,7 @@ const UsagePage = ({ width = "100%", height = "100%", inStory = false }) => {
       <div className="h-[50%] mb-3 lg:mb-4">
         <UsageBlock dataIn={landparcel} extractor={usageBlockExtractor} />
       </div>
-      <div className="h-[calc(50%-14px)]">
+      <div className="h-[calc(50%-18px)]">
         <NFKOverwie dataIn={landparcel} extractor={NFKOverwieExtractor} />
       </div>
     </div>

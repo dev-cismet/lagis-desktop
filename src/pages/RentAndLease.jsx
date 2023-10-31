@@ -40,7 +40,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
         />
       </div>
 
-      <div className="h-[calc(60%-10px)]">
+      <div className="h-[calc(60%-20px)]">
         <RentBlock dataIn={mipa} extractor={mipaPageExtractor} />
       </div>
     </div>

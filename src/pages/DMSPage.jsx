@@ -21,7 +21,7 @@ const DMSPage = ({ width = "100%", height = "100%", inStory = false }) => {
       }}
       className="h-full"
     >
-      <div className="h-full">
+      <div className="h-[calc(100%-1px)]">
         <DmsBlock dataIn={landparcel} extractor={dmsPageExtractor} />
       </div>
     </div>

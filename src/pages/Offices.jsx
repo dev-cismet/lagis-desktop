@@ -48,7 +48,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           />
         </div>
       </div>
-      <div className="flex gap-3 h-[calc(40%-20px)]">
+      <div className="flex gap-3 h-[calc(40%-18px)]">
         <div className="flex-1">
           <AdditionalRole
             dataIn={landparcel}

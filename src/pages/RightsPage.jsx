@@ -35,7 +35,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
           extractor={mapExtractor}
         />
       </div>
-      <div className="h-[calc(50%-14px)]">
+      <div className="h-[calc(50%-18px)]">
         <RightsAndEncumbrances dataIn={rebe} extractor={rebePageExtractor} />
       </div>
     </div>

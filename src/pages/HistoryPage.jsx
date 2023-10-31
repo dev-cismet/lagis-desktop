@@ -88,7 +88,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         />
       </div>
 
-      <div className="flex gap-4 h-[calc(30%-1.2rem)] mb-2">
+      <div className="flex gap-4 h-[calc(30%-18px)] mb-2">
         <HistoryInfo dataIn={fstck} extractor={informationenBlockExtractor} />
         <View
           setFirstDarstellung={setFirstDarstellung}

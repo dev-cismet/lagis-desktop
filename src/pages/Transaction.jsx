@@ -39,7 +39,7 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
           extractor={mapExtractor}
         />
       </div>
-      <div className="h-[calc(50%-10px)]">
+      <div className="h-[calc(50%-18px)]">
         <TransactionNumber
           dataIn={landparcel}
           extractor={transactionPageExtractor}
