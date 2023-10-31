@@ -46,14 +46,7 @@ const columns = [
     sorter: (a, b) => compare(a.bemerkung, b.bemerkung),
   },
 ];
-// {
-//   title: "Vorschau",
-//   dataIndex: "vorschau",
-//   id: "vorschau",
-//   render: (render) => (
-//     <img src={render.vorschau} style={{ width: 80, height: 70 }} />
-//   ),
-// },
+
 const mockExtractor = (input) => {
   return [
     {

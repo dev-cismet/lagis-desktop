@@ -22,7 +22,7 @@ const columns = [
       <div>
         <span className="mr-4">{record}</span>
         <a href={fields.linkToVerdis + record} target="blank">
-          <LinkOutlined className="hover:mix-blend-color-burn" />
+          <LinkOutlined className="cursor-pointer text-blue-500 hover:text-blue-400" />
         </a>
       </div>
     ),
