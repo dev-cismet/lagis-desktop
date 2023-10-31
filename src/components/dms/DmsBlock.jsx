@@ -36,7 +36,10 @@ const columns = [
     render: (record) => (
       <div className="flex items-center justify-center">
         <a href={record} target="_blank">
-          <FileWordOutlined style={{ fontSize: "20px" }} />
+          <FileWordOutlined
+            style={{ fontSize: "20px" }}
+            className="cursor-pointer text-blue-500 hover:text-blue-400"
+          />
         </a>
       </div>
     ),
