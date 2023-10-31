@@ -13,8 +13,12 @@ export function noteExtractor(dataIn) {
   } else {
     const lagisLandparcel = dataIn;
     const currentText = lagisLandparcel?.bemerkung || "";
+    const bemerkungSperre =
+      lagisLandparcel?.flurstueck_schluessel.bemerkung_sperre || null;
+
     return {
       currentText,
+      ifBemerkungSperre: bemerkungSperre === "Stei" ? true : false,
     };
   }
 }
@@ -78,7 +82,7 @@ export function officesPageExtractor(dataIn) {
     const agencyTableFields = nameGeomColorData.map((a) => ({
       id: nanoid(),
       agency: a.title,
-      area: a.size,
+      area: a.size ? a.size : "",
       color: a.color,
     }));
 

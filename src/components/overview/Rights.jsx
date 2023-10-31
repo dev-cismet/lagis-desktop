@@ -18,7 +18,6 @@ const DashboardRights = ({
   variant,
 }) => {
   const data = extractor(dataIn);
-  console.log("Rechte & Belastungen", data);
   return (
     <div className="dashboard-tile">
       {data.color === defaultLinksColor ? (

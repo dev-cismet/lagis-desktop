@@ -7,7 +7,7 @@ const mockExtractor = (input) => {
   return "";
 };
 const onChange = (e) => {
-  console.log(`checked = ${e.target.checked}`);
+  // console.log(`checked = ${e.target.checked}`);
 };
 const Notes = ({
   dataIn,
@@ -34,6 +34,9 @@ const Notes = ({
     >
       <InfoBlock
         title="Bemerkungen"
+        extraActions={
+          <Checkbox checked={data.ifBemerkungSperre}>Sperre</Checkbox>
+        }
         controlBar={<Checkbox onChange={onChange}>Sperre</Checkbox>}
       >
         <CustomNotes styles="p-3 flex" currentText={data.currentText} />

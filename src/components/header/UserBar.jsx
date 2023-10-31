@@ -61,7 +61,7 @@ const UserBar = () => {
     if (!geo) {
       const result = await getGeomFromWuNDa(alkis_id);
       geo = result.data.flurstueck[0].extended_geom.geo_field;
-      console.log("xxx geo was not set. is now:", geo);
+      // console.log("xxx geo was not set. is now:", geo);
     }
     dispatch(storeGeometry(geo));
 
@@ -117,7 +117,7 @@ const UserBar = () => {
   };
 
   const getHistory = async (sid) => {
-    console.log("xxx queries.getHistory", sid);
+    // console.log("xxx queries.getHistory", sid);
     try {
       const result = await fetchGraphQL(
         queries.history,
@@ -154,7 +154,7 @@ const UserBar = () => {
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
-          console.log("flurstueckChoosen", fstck);
+          // console.log("flurstueckChoosen", fstck);
           if (fstck.lfk) {
             getFlurstueck(fstck.lfk, fstck.alkis_id);
             handleOpenLandparcelInJavaApp(fstck);
