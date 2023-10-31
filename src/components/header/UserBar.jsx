@@ -165,7 +165,8 @@ const UserBar = () => {
         <div className="logout ml-auto pl-1 flex items-center">
           <Tooltip title="Ausloggen" placement="right">
             <LogoutOutlined
-              className="text-sm cursor-pointer pr-4"
+              className="text-sm cursor-pointer"
+              style={{ paddingRight: "12px" }}
               onClick={() => {
                 dispatch(storeAlkisLandparcel(undefined));
                 dispatch(storeLagisLandparcel(undefined));
