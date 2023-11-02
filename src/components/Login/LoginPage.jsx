@@ -117,8 +117,8 @@ const LoginPage = () => {
               </h1>
               <div className="flex flex-col gap-6 w-full">
                 <h3
-                  className="border-b-2 border-0 w-fit border-solid mb-2"
-                  style={{ color: "#1677ff" }}
+                  className="border-b-2 border-0 w-fit border-solid"
+                  style={{ color: "#1677ff", marginBottom: "8px" }}
                 >
                   Anmeldung
                 </h3>
@@ -127,14 +127,14 @@ const LoginPage = () => {
                   type="email"
                   onChange={loginHandle}
                   prefix={<UserOutlined />}
-                  className="mb-5"
+                  style={{ marginBottom: "20px" }}
                 />
                 <Input.Password
                   initialValue="xx"
                   placeholder="Passwort"
                   onChange={passwordnHandle}
                   prefix={<LockOutlined />}
-                  className="mb-5"
+                  style={{ marginBottom: "20px" }}
                 />
                 <Button
                   type="primary"
