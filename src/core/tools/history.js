@@ -102,7 +102,123 @@ export function generateGraphString(
   return graphString;
 }
 
-// Example usage:
-// const data = [/* your data array here */];
-// const fallback = "Fallback Node";
-// console.log(generateGraphString(data, fallback));
+export const initialNodesData = [];
+export const initialEdgesData = [];
+
+export const generateGraphObj = (
+  histObj,
+  rootText,
+  firstDarstellung,
+  secondDarstellung,
+  begrenzteTiefe,
+  historieHaltenRootText,
+  historyHalten
+) => {
+  const position = { x: 0, y: 0 };
+  const edgeType = "smoothstep";
+
+  const historyData = histObj;
+
+  const addedNodes = new Set();
+
+  // const initialNodesData = [];
+  // const initialEdgesData = [];
+  const initialObject = rootText;
+  // const secondDarstellung = "Vorgänger";
+  // const secondDarstellung = "Nachfolger";
+  // const secondDarstellung = "All";
+  // const firstDarstellung = "Direkte";
+  // const firstDarstellung = "Begrenzte";
+  // const firstDarstellung = "All";
+  // const begrenzteTiefe = 1;
+
+  historyData.forEach((item, idx) => {
+    const { nachfolger_name, vorgaenger_name, level } = item;
+    if (level < 1 && secondDarstellung === "Nachfolger") {
+      if (historyData.length - 1 === idx && initialNodesData.length === 0) {
+        initialNodesData.push({
+          id: vorgaenger_name.replace(/\s/g, ""),
+          data: {
+            label: initialObject,
+            root: true,
+          },
+          position,
+          // style: { background: "#E1F1FF" },
+        });
+      }
+      return;
+    }
+
+    if (level > 0 && secondDarstellung === "Vorgänger") {
+      return;
+    }
+
+    if (level != 0 && level != 1 && firstDarstellung === "Direkte") {
+      return;
+    }
+
+    if (
+      (level > begrenzteTiefe || level <= -1 * begrenzteTiefe) &&
+      firstDarstellung === "Begrenzte"
+    ) {
+      return;
+    }
+
+    const nodeStyle = {};
+    if (!addedNodes.has(vorgaenger_name)) {
+      if (vorgaenger_name === initialObject) {
+        // nodeStyle.background = "#E1F1FF";
+      }
+      initialNodesData.push({
+        id: vorgaenger_name.replace(/\s/g, ""),
+        data: {
+          label: vorgaenger_name.startsWith("pseudo ")
+            ? "   "
+            : vorgaenger_name,
+          root: vorgaenger_name === initialObject,
+        },
+        position,
+      });
+
+      addedNodes.add(vorgaenger_name);
+    }
+
+    if (!addedNodes.has(nachfolger_name)) {
+      if (nachfolger_name.startsWith("pseudo ")) {
+        nodeStyle.height = 34;
+      }
+      if (nachfolger_name === initialObject) {
+        // nodeStyle.background = "#E1F1FF";
+      }
+      initialNodesData.push({
+        id: nachfolger_name.replace(/\s/g, ""),
+        type: "default",
+        data: {
+          label: nachfolger_name.startsWith("pseudo ")
+            ? "   "
+            : nachfolger_name,
+          root: nachfolger_name === initialObject,
+        },
+        position,
+        style: nodeStyle,
+      });
+
+      addedNodes.add(nachfolger_name);
+    }
+
+    if (vorgaenger_name !== nachfolger_name) {
+      initialEdgesData.push({
+        id: idx,
+        source: vorgaenger_name.replace(/\s/g, ""),
+        target: nachfolger_name.replace(/\s/g, ""),
+        type: edgeType,
+        animated: true,
+      });
+    }
+  });
+
+  const addStyleToRootNode = initialNodesData.find((n) => n.data.root);
+  addStyleToRootNode.style = { background: "#E1F1FF" };
+
+  return { initialNodesData, initialEdgesData };
+};

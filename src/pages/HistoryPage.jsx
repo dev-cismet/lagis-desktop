@@ -9,7 +9,7 @@ import {
   getHistorieHalten,
   getHistorieHaltenRootText,
 } from "../store/slices/lagis";
-import { generateGraphString } from "../core/tools/history";
+import { generateGraphString, generateGraphObj } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
 import { informationenBlockExtractor } from "../core/extractors/historyBlockExtractor";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
@@ -76,7 +76,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           }
           extractor={(histObj) => {
             if (histObj && fstckString) {
-              return generateGraphString(
+              return generateGraphObj(
                 histObj,
                 fstckString,
                 firstDarstellung,
