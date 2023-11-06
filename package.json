@@ -60,7 +60,7 @@
     "tailwindcss": "^3.3.3",
     "vite": "^4.0.0"
   },
-  "overrides": {
+  "resolutions": {
     "d3-selection": "3.0.0"
   }
 }
