@@ -86,7 +86,7 @@ const Graph = ({
     (params) =>
       setEdges((eds) =>
         addEdge(
-          { ...params, type: ConnectionLineType.SmoothStep, animated: true },
+          { ...params, type: ConnectionLineType.SmoothStep, animated: false },
           eds
         )
       ),
@@ -121,7 +121,7 @@ const Graph = ({
         : node.style;
     }
   };
-
+  const proOptions = { hideAttribution: true };
   const padding = 5;
   // const headHeight = 37;
   // const [urlParams, setUrlParams] = useSearchParams();
@@ -152,24 +152,27 @@ const Graph = ({
       headStyle={{ backgroundColor: "white" }}
       type="inner"
     >
-      <ReactFlow
-        nodes={nodes.map((node) => ({
-          ...node,
-          style: getNodeStyle(node),
-        }))}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onNodeClick={handleNodeClick}
-        onConnect={onConnect}
-        connectionLineType={ConnectionLineType.SmoothStep}
-        fitView
-      >
-        <Panel position="top-right">
-          <button onClick={() => onLayout("TB")}>vertical layout</button>
-          <button onClick={() => onLayout("LR")}>horizontal layout</button>
-        </Panel>
-      </ReactFlow>
+      <div style={{ width, height: height - padding * 8 }}>
+        <ReactFlow
+          nodes={nodes.map((node) => ({
+            ...node,
+            style: getNodeStyle(node),
+          }))}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onNodeClick={handleNodeClick}
+          onConnect={onConnect}
+          connectionLineType={ConnectionLineType.SmoothStep}
+          fitView
+          proOptions={proOptions}
+        >
+          <Panel position="bottom-right">
+            <button onClick={() => onLayout("TB")}>vertical layout</button>
+            <button onClick={() => onLayout("LR")}>horizontal layout</button>
+          </Panel>
+        </ReactFlow>
+      </div>
     </Card>
   );
 };
