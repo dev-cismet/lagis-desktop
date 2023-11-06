@@ -1,11 +1,6 @@
-// import TopicMapContextProvider from "react-cismap/contexts/TopicMapContextProvider";
-// import TopicMapComponent from "react-cismap/topicmaps/TopicMapComponent.js";
-import "react-cismap/topicMaps.css";
-import "leaflet/dist/leaflet.css";
 import React, { useCallback, useState, useEffect } from "react";
 import { Card } from "antd";
 import { useSearchParams } from "react-router-dom";
-import "./graph.css";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -195,10 +190,10 @@ const Graph = ({
         connectionLineType={ConnectionLineType.SmoothStep}
         fitView
       >
-        {/* <Panel position="top-right">
+        <Panel position="top-right">
           <button onClick={() => onLayout("TB")}>vertical layout</button>
           <button onClick={() => onLayout("LR")}>horizontal layout</button>
-        </Panel> */}
+        </Panel>
       </ReactFlow>
       );
     </Card>

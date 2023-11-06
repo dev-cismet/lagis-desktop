@@ -6255,7 +6255,7 @@ d3-color@1.0.1:
   resolved "https://registry.npmjs.org/d3-color/-/d3-color-1.0.1.tgz"
   integrity sha512-HtofmWZaI2kHwzF4cQnQ6RZ509jg3R2U4iit2/7nuMxMWvpNRlcg3LHLPA4XQGzR0i/JkoKTifJuGRRhkcbRHg==
 
-d3-dispatch@1, d3-dispatch@^1.0.3:
+d3-dispatch@1:
   version "1.0.6"
   resolved "https://registry.npmjs.org/d3-dispatch/-/d3-dispatch-1.0.6.tgz"
   integrity sha512-fVjoElzjhCEy+Hbn8KygnmMS7Or0a9sI2UzGwoB7cCtvI1XpVN9GpoYlnb3xt2YV66oXYb1fLJ8GMvP4hdU1RA==
@@ -6335,7 +6335,7 @@ d3-force@1.0.2:
     d3-quadtree "1"
     d3-timer "1"
 
-d3-format@1, d3-format@^1.2.0:
+d3-format@1:
   version "1.4.5"
   resolved "https://registry.npmjs.org/d3-format/-/d3-format-1.4.5.tgz"
   integrity sha512-J0piedu6Z8iB6TbIGfZgDzfXxUFN3qQRMofy2oPdXzQibYGqPB/9iMcxr/TGalU+2RsyDO+U4f33id8tbnSRMQ==
@@ -6359,27 +6359,12 @@ d3-geo@1.7.1:
   dependencies:
     d3-array "1"
 
-d3-graphviz@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/d3-graphviz/-/d3-graphviz-2.6.1.tgz"
-  integrity sha512-878AFSagQyr5tTOrM7YiVYeUC2/NoFcOB3/oew+LAML0xekyJSw9j3WOCUMBsc95KYe9XBYZ+SKKuObVya1tJQ==
-  dependencies:
-    d3-dispatch "^1.0.3"
-    d3-format "^1.2.0"
-    d3-interpolate "^1.1.5"
-    d3-path "^1.0.5"
-    d3-selection "^1.1.0"
-    d3-timer "^1.0.6"
-    d3-transition "^1.1.1"
-    d3-zoom "^1.5.0"
-    viz.js "^1.8.2"
-
 d3-hierarchy@1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/d3-hierarchy/-/d3-hierarchy-1.0.2.tgz"
   integrity sha512-kFZpTy/gba+CaR+86hyWfHZtB4VXcad+Bkxcsp6nRQWjJCorcvc+vsUBFRJkt+iOCGHe8qn7GN8rM1v0hilH+Q==
 
-d3-interpolate@1, d3-interpolate@^1.1.5:
+d3-interpolate@1:
   version "1.4.0"
   resolved "https://registry.npmjs.org/d3-interpolate/-/d3-interpolate-1.4.0.tgz"
   integrity sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
@@ -6400,7 +6385,7 @@ d3-interpolate@1.1.1:
   dependencies:
     d3-color "1"
 
-d3-path@1, d3-path@^1.0.5:
+d3-path@1:
   version "1.0.9"
   resolved "https://registry.npmjs.org/d3-path/-/d3-path-1.0.9.tgz"
   integrity sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg==
@@ -6504,7 +6489,7 @@ d3-time@1.0.2:
   resolved "https://registry.npmjs.org/d3-time/-/d3-time-1.0.2.tgz"
   integrity sha512-UUVa1vppG6pnPlqespIXdcj/7QONWlVM7fnFNephLtN8t/v/Y7oEKSLsZo9GR65hgXBCoKBUYIQzDcIaRNEoOg==
 
-d3-timer@1, d3-timer@^1.0.6:
+d3-timer@1:
   version "1.0.10"
   resolved "https://registry.npmjs.org/d3-timer/-/d3-timer-1.0.10.tgz"
   integrity sha512-B1JDm0XDaQC+uvo4DT79H0XmBskgS3l6Ve+1SBCfxgmtIb1AVrPIoqd+nPSv+loMX8szQ0sVUhGngL7D5QPiXw==
@@ -6519,7 +6504,7 @@ d3-timer@1.0.2:
   resolved "https://registry.npmjs.org/d3-timer/-/d3-timer-1.0.2.tgz"
   integrity sha512-DBZ50J8ALbXNao9oD6ZBWrgxLLVQps8R7VoMFFa7JkVv/4eXzymq62LsHTh3bBGGTbrpYszHqj3VFTvOHulUew==
 
-d3-transition@1, d3-transition@^1.1.1:
+d3-transition@1:
   version "1.3.2"
   resolved "https://registry.npmjs.org/d3-transition/-/d3-transition-1.3.2.tgz"
   integrity sha512-sc0gRU4PFqZ47lPVHloMn9tlPcv8jxgOQg+0zjhfZXMQuvppjG6YuwdMBE0TuqCZjeJkLecku/l9R0JPcRhaDA==
@@ -6568,17 +6553,6 @@ d3-zoom@1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/d3-zoom/-/d3-zoom-1.0.3.tgz"
   integrity sha512-LltBg3RBKQADHcniEi3EifSneqY5/luUXcEVgPyUlK+MVpLlHwlAPd3wpk/niPexQdeFtvMi4OFhvmZZ9TqC+w==
-  dependencies:
-    d3-dispatch "1"
-    d3-drag "1"
-    d3-interpolate "1"
-    d3-selection "1"
-    d3-transition "1"
-
-d3-zoom@^1.5.0:
-  version "1.8.3"
-  resolved "https://registry.npmjs.org/d3-zoom/-/d3-zoom-1.8.3.tgz"
-  integrity sha512-VoLXTK4wvy1a0JpH2Il+F2CiOhVu7VRXWF5M/LroMIh3/zBAC3WAt7QoIvPibOavVo20hN6/37vwAsdBejLyKQ==
   dependencies:
     d3-dispatch "1"
     d3-drag "1"
@@ -7992,13 +7966,6 @@ graphql-request@^6.1.0:
   dependencies:
     "@graphql-typed-document-node/core" "^3.2.0"
     cross-fetch "^3.1.5"
-
-graphviz-react@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.npmjs.org/graphviz-react/-/graphviz-react-1.2.5.tgz"
-  integrity sha512-IRFDzEt09hRzfqrrvAW1PAPBqG4t8hykArcoxq7UhEqO5RUKCBN6126D6rjiL2QAwAznbUSg0Fba2RnSH2V4sA==
-  dependencies:
-    d3-graphviz "^2.6.1"
 
 grid-index@^1.1.0:
   version "1.1.0"
@@ -12968,11 +12935,6 @@ vite@^4.0.0:
     rollup "^3.25.2"
   optionalDependencies:
     fsevents "~2.3.2"
-
-viz.js@^1.8.2:
-  version "1.8.2"
-  resolved "https://registry.npmjs.org/viz.js/-/viz.js-1.8.2.tgz"
-  integrity sha512-W+1+N/hdzLpQZEcvz79n2IgUE9pfx6JLdHh3Kh8RGvLL8P1LdJVQmi2OsDcLdY4QVID4OUy+FPelyerX0nJxIQ==
 
 vt-pbf@^3.1.1:
   version "3.1.3"

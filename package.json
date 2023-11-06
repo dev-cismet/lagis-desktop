@@ -26,7 +26,6 @@
     "dagre": "^0.8.5",
     "dayjs": "^1.11.9",
     "graphql-request": "^6.1.0",
-    "graphviz-react": "^1.2.5",
     "localforage": "^1.10.0",
     "postcss": "^8.4.26",
     "proj4": "^2.9.0",
