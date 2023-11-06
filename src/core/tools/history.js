@@ -143,7 +143,7 @@ export const generateGraphObj = (
             root: true,
           },
           position,
-          // style: { background: "#E1F1FF" },
+          style: {},
         });
       }
       return;
@@ -178,6 +178,7 @@ export const generateGraphObj = (
           root: vorgaenger_name === initialObject,
         },
         position,
+        style: {},
       });
 
       addedNodes.add(vorgaenger_name);
@@ -218,7 +219,7 @@ export const generateGraphObj = (
   });
 
   const addStyleToRootNode = initialNodesData.find((n) => n.data.root);
-  addStyleToRootNode.style = { background: "#E1F1FF" };
+  // addStyleToRootNode.style = { background: "#E1F1FF" };
 
   return { initialNodesData, initialEdgesData };
 };

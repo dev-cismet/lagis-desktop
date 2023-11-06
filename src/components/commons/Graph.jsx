@@ -4,7 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { initialNodesData, initialEdgesData } from "../../core/tools/history";
+import {
+  initialNodesData,
+  initialEdgesData,
+} from "../../core/tools/history-mock";
 import ReactFlow, {
   addEdge,
   ConnectionLineType,
@@ -13,36 +16,8 @@ import ReactFlow, {
   useEdgesState,
 } from "reactflow";
 import dagre from "dagre";
-import "reactflow/dist/style.css";
+import "reactflow/dist/base.css";
 
-const mockExtractor = (input) => {
-  return {
-    dot: `digraph _Graph_ {
-      "Barmen 205 688/0"->"pseudo Schluessel18746" [lineInterpolate="linear"];
-      "pseudo Schluessel18746"->"Barmen 200 316/0" [lineInterpolate="linear"];
-      "pseudo Schluessel18746"->"Barmen 201 250/0" [lineInterpolate="linear"];
-      "pseudo Schluessel18746"->"Barmen 201 251/0" [lineInterpolate="linear"];
-      "pseudo Schluessel18746"->"Barmen 201 252/0" [lineInterpolate="linear"];
-      "pseudo Schluessel18746"->"Barmen 206 132/0" [lineInterpolate="linear"];
-      "Barmen 200 316/0"->"pseudo Schluessel22309" [lineInterpolate="linear"];
-      "Barmen 201 250/0"->"Barmen 201 253/0" [lineInterpolate="linear"];
-      "Barmen 201 250/0"->"Barmen 201 254/0" [lineInterpolate="linear"];
-      "Barmen 201 252/0"->"pseudo Schluessel22309" [lineInterpolate="linear"];
-      "Barmen 206 132/0"->"Barmen 206 133/0" [lineInterpolate="linear"];
-      "Barmen 206 132/0"->"Barmen 206 134/0" [lineInterpolate="linear"];
-      "Barmen 206 132/0"->"Barmen 206 135/0" [lineInterpolate="linear"];
-      "pseudo Schluessel22309"->"Barmen 201 256/0" [lineInterpolate="linear"];
-      "Barmen 201 253/0"->"pseudo Schluessel22309" [lineInterpolate="linear"];
-      "Barmen 201 254/0"->"pseudo Schluessel22309" [lineInterpolate="linear"];
-      "Barmen 206 134/0"->"Barmen 201 255/0" [lineInterpolate="linear"];
-      "Barmen 206 135/0"->"Barmen 205 709/0" [lineInterpolate="linear"];
-      "pseudo Schluessel22309"->"Barmen 200 326/0" [lineInterpolate="linear"];
-      "pseudo Schluessel22309"->"Barmen 201 257/0" [lineInterpolate="linear"];
-      "pseudo Schluessel22309"->"Barmen 201 258/0" [lineInterpolate="linear"];
-      "Barmen 205 688/0"  [style="fill: #eee; font-weight: bold"];
-      "pseudo Schluessel18746" [label="    "]"pseudo Schluessel22309" [label="    "]}`,
-  };
-};
 console.log("graph node", initialNodesData, initialEdgesData);
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -50,6 +25,7 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 
 const nodeWidth = 172;
 const nodeHeight = 36;
+
 const getLayoutedElements = (nodes, edges, direction = "TB") => {
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
@@ -89,16 +65,15 @@ const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
 
 const Graph = ({
   dataIn,
-  extractor = mockExtractor,
+  extractor,
   rootObjectText,
   width = 1000,
   height = 500,
   fit = true,
   zoom = true,
 }) => {
-  console.log("History \n\n" + JSON.stringify(dataIn, null, 2));
-  const data = extractor(dataIn);
-
+  // console.log("History \n\n" + JSON.stringify(dataIn, null, 2));
+  // const data = extractor(dataIn);
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -148,17 +123,17 @@ const Graph = ({
   };
 
   const padding = 5;
-  const headHeight = 37;
-  const [urlParams, setUrlParams] = useSearchParams();
-  const handleUrlParams = (landParcelString) => {
-    const lansParcelParamsArray = landParcelString.split(" ");
-    const lansParcelParamsObj = {};
-    lansParcelParamsObj.gem = lansParcelParamsArray[0];
-    lansParcelParamsObj.flur = lansParcelParamsArray[1];
-    lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
-    setUrlParams(lansParcelParamsObj);
-  };
-  useEffect(() => {}, [data]);
+  // const headHeight = 37;
+  // const [urlParams, setUrlParams] = useSearchParams();
+  // const handleUrlParams = (landParcelString) => {
+  //   const lansParcelParamsArray = landParcelString.split(" ");
+  //   const lansParcelParamsObj = {};
+  //   lansParcelParamsObj.gem = lansParcelParamsArray[0];
+  //   lansParcelParamsObj.flur = lansParcelParamsArray[1];
+  //   lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
+  //   setUrlParams(lansParcelParamsObj);
+  // };
+  // useEffect(() => {}, [data]);
   return (
     <Card
       size="small"
@@ -195,7 +170,6 @@ const Graph = ({
           <button onClick={() => onLayout("LR")}>horizontal layout</button>
         </Panel>
       </ReactFlow>
-      );
     </Card>
   );
 };
