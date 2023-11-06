@@ -16,7 +16,7 @@ import ReactFlow, {
   useEdgesState,
 } from "reactflow";
 import dagre from "dagre";
-import "reactflow/dist/base.css";
+import "reactflow/dist/style.css";
 
 console.log("graph node", initialNodesData, initialEdgesData);
 

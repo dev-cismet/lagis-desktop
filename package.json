@@ -59,5 +59,8 @@
     "storybook-addon-react-router-v6": "^2.0.5",
     "tailwindcss": "^3.3.3",
     "vite": "^4.0.0"
+  },
+  "overrides": {
+    "d3-selection": "3.0.0"
   }
 }
