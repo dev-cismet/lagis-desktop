@@ -63,14 +63,19 @@ const Graph = ({
   width = 1000,
   height = 500,
   historyHalten,
+  nodesData,
   fit = true,
   zoom = true,
 }) => {
   const reactFlow = useReactFlow();
   const { getNodes } = useReactFlow();
   const nodesInitialized = useNodesInitialized();
-  const [initialNodesData, setInitialNodesData] = useState([{}]);
-  const [initialEdgesData, setInitialEdgesData] = useState([{}]);
+  const [initialNodesData, setInitialNodesData] = useState(
+    nodesData.initialNodesData
+  );
+  const [initialEdgesData, setInitialEdgesData] = useState(
+    nodesData.initialEdgesData
+  );
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
     initialNodesData,
     initialEdgesData
@@ -141,34 +146,35 @@ const Graph = ({
     lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
     setUrlParams(lansParcelParamsObj);
   };
+  // useEffect(() => {
+  //   const data = extractor(dataIn);
+  //   console.log("nodesInitialized", { nodesInitialized });
+  //   setInitialNodesData(
+  //     data?.initialNodesData || [
+  //       {
+  //         id: "1",
+  //         data: { root: false },
+  //         style: { width: "0px", height: "0px", border: "none" },
+  //       },
+  //     ]
+  //   );
+  //   setInitialEdgesData(data?.initialEdgesData || [{}]);
+  // }, [dataIn]);
   useEffect(() => {
-    const data = extractor(dataIn);
-    console.log("nodesInitialized", { nodesInitialized });
-    setInitialNodesData(
-      data?.initialNodesData || [
-        {
-          id: "1",
-          data: { root: false },
-          style: { width: "0px", height: "0px", border: "none" },
-        },
-      ]
-    );
-    setInitialEdgesData(data?.initialEdgesData || [{}]);
-  }, [dataIn]);
-  useEffect(() => {
+    console.log("filter nodes", nodesData);
     const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      initialNodesData,
-      initialEdgesData
+      nodesData.initialNodesData,
+      nodesData.initialEdgesData
     );
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
-  }, [initialNodesData, initialEdgesData]);
+  }, [nodesData]);
   // useEffect(() => {
   //   reactFlow.fitView();
   // }, [nodes, edges]);
-  useEffect(() => {
-    console.log("nodesInitialized", nodesInitialized);
-  }, [nodesInitialized]);
+  // useEffect(() => {
+  //   console.log("nodesInitialized", nodesInitialized);
+  // }, [nodesInitialized]);
   return (
     <Card
       size="small"

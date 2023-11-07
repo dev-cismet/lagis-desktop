@@ -78,6 +78,23 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     }
   }, [history, fstck]);
 
+  useEffect(() => {
+    const nodes = generateGraphObj(
+      history,
+      fstckString,
+      firstDarstellung,
+      secondDarstellung,
+      numberBegrenzteTiefe,
+      historieHaltenRootText,
+      historyHalten === undefined ? false : true
+    );
+    setNodesdata(nodes);
+  }, [
+    firstDarstellung,
+    numberBegrenzteTiefe,
+    secondDarstellung,
+    historyHalten,
+  ]);
   return (
     <div
       style={{
