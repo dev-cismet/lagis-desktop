@@ -12,8 +12,10 @@ import {
 import { generateGraphString, generateGraphObj } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
 import { informationenBlockExtractor } from "../core/extractors/historyBlockExtractor";
+import GraphProvider from "../components/commons/GraphProvider";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
+  const [divHWidth, setDivWidth] = useState(0);
   const divRef = useRef(null);
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
@@ -25,6 +27,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [firstDarstellung, setFirstDarstellung] = useState("Vollständig");
   const [numberBegrenzteTiefe, setNumberBegrenzteTiefe] = useState(1);
   const [secondDarstellung, setSecondDarstellung] = useState("Flurstücke");
+  const [ifNodesReady, setIfNodesReady] = useState(false);
+  const [nodesData, setNodesdata] = useState(null);
 
   let storyStyle = {};
   if (inStory) {
@@ -43,8 +47,10 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   useEffect(() => {
     const measureHeight = () => {
       if (divRef.current) {
+        const width = divRef.current.clientWidth;
         const height = divRef.current.clientHeight;
         setDivHeight(height);
+        setDivWidth(width);
       }
     };
     measureHeight();
@@ -53,6 +59,26 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       window.removeEventListener("resize", measureHeight);
     };
   }, []);
+
+  useEffect(() => {
+    if (history) {
+      const nodes = generateGraphObj(
+        history,
+        fstckString,
+        firstDarstellung,
+        secondDarstellung,
+        numberBegrenzteTiefe,
+        historieHaltenRootText,
+        historyHalten === undefined ? false : true
+      );
+
+      if (nodes) {
+        setNodesdata(nodes);
+      }
+
+      console.log("historyPage", nodes);
+    }
+  }, [history]);
 
   return (
     <div
@@ -66,7 +92,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         ref={divRef}
         style={{ marginBottom: "16px" }}
       >
-        <Graph
+        <GraphProvider
+          nodesData={nodesData}
           width={"100%"}
           height={divHeight}
           dataIn={historyHalten === undefined ? history : historyHalten}

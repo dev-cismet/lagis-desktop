@@ -13,6 +13,7 @@ import ReactFlow, {
   useEdgesState,
   useReactFlow,
   ReactFlowProvider,
+  useNodesInitialized,
 } from "reactflow";
 import dagre from "dagre";
 import "reactflow/dist/style.css";
@@ -65,6 +66,8 @@ const Graph = ({
   zoom = true,
 }) => {
   const reactFlow = useReactFlow();
+  const { getNodes } = useReactFlow();
+  const nodesInitialized = useNodesInitialized();
   const [initialNodesData, setInitialNodesData] = useState([{}]);
   const [initialEdgesData, setInitialEdgesData] = useState([{}]);
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
@@ -133,9 +136,15 @@ const Graph = ({
   // };
   useEffect(() => {
     const data = extractor(dataIn);
-    console.log("history data", data);
+    console.log("nodesInitialized", { nodesInitialized });
     setInitialNodesData(
-      data?.initialNodesData || [{ id: "1", data: { root: false } }]
+      data?.initialNodesData || [
+        {
+          id: "1",
+          data: { root: false },
+          style: { width: "0px", height: "0px", border: "none" },
+        },
+      ]
     );
     setInitialEdgesData(data?.initialEdgesData || [{}]);
   }, [dataIn]);
@@ -147,6 +156,12 @@ const Graph = ({
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
   }, [initialNodesData, initialEdgesData]);
+  // useEffect(() => {
+  //   reactFlow.fitView();
+  // }, [nodes, edges]);
+  useEffect(() => {
+    console.log("nodesInitialized", nodesInitialized);
+  }, [nodesInitialized]);
   return (
     <Card
       size="small"
@@ -179,6 +194,7 @@ const Graph = ({
             onConnect={onConnect}
             connectionLineType={ConnectionLineType.SmoothStep}
             proOptions={proOptions}
+            fitView
           >
             <Panel position="bottom-right">
               <button onClick={() => onLayout("TB")}>vertical layout</button>
