@@ -22,7 +22,6 @@ import Transaction from "./pages/Transaction";
 import DMSPage from "./pages/DMSPage";
 import LoginPage from "./components/Login/LoginPage";
 import { Navigate } from "react-router-dom";
-// import { useSelector, useDis } from "react-redux/es/hooks/useSelector";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import {

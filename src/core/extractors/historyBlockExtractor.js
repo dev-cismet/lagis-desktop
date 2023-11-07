@@ -44,9 +44,6 @@ export function informationenBlockExtractor(dataIn) {
           ? "Keine Angabe"
           : formattedLetzterStadtbesitz;
     }
-
-    console.log("informationenBlockExtractor", informationenObject);
-
     return {
       origin: { title: "Entstehung", data: informationenObject.entstehung },
       historicalSince: {

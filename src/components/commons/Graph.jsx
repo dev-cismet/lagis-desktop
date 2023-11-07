@@ -4,21 +4,18 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import {
-  initialNodesData,
-  initialEdgesData,
-} from "../../core/tools/history-mock";
+// import { initialNodesData, initialEdgesData } from "../../core/tools/history";
 import ReactFlow, {
   addEdge,
   ConnectionLineType,
   Panel,
   useNodesState,
   useEdgesState,
+  useReactFlow,
+  ReactFlowProvider,
 } from "reactflow";
 import dagre from "dagre";
 import "reactflow/dist/style.css";
-
-console.log("graph node", initialNodesData, initialEdgesData);
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -58,11 +55,6 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
   return { nodes, edges };
 };
 
-const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  initialNodesData,
-  initialEdgesData
-);
-
 const Graph = ({
   dataIn,
   extractor,
@@ -72,8 +64,13 @@ const Graph = ({
   fit = true,
   zoom = true,
 }) => {
-  // console.log("History \n\n" + JSON.stringify(dataIn, null, 2));
-  // const data = extractor(dataIn);
+  const reactFlow = useReactFlow();
+  const [initialNodesData, setInitialNodesData] = useState([{}]);
+  const [initialEdgesData, setInitialEdgesData] = useState([{}]);
+  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+    initialNodesData,
+    initialEdgesData
+  );
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
@@ -116,11 +113,12 @@ const Graph = ({
     if (node.id === selectedNode) {
       return selectedNodeStyle;
     } else {
-      return node.data.root && selectedNode !== null
+      return node.data?.root && selectedNode !== null
         ? rootNodeStyleAfterClick
         : node.style;
     }
   };
+
   const proOptions = { hideAttribution: true };
   const padding = 5;
   // const headHeight = 37;
@@ -133,7 +131,22 @@ const Graph = ({
   //   lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
   //   setUrlParams(lansParcelParamsObj);
   // };
-  // useEffect(() => {}, [data]);
+  useEffect(() => {
+    const data = extractor(dataIn);
+    console.log("history data", data);
+    setInitialNodesData(
+      data?.initialNodesData || [{ id: "1", data: { root: false } }]
+    );
+    setInitialEdgesData(data?.initialEdgesData || [{}]);
+  }, [dataIn]);
+  useEffect(() => {
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      initialNodesData,
+      initialEdgesData
+    );
+    setNodes(layoutedNodes);
+    setEdges(layoutedEdges);
+  }, [initialNodesData, initialEdgesData]);
   return (
     <Card
       size="small"
@@ -153,25 +166,26 @@ const Graph = ({
       type="inner"
     >
       <div style={{ width, height: height - padding * 8 }}>
-        <ReactFlow
-          nodes={nodes.map((node) => ({
-            ...node,
-            style: getNodeStyle(node),
-          }))}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onNodeClick={handleNodeClick}
-          onConnect={onConnect}
-          connectionLineType={ConnectionLineType.SmoothStep}
-          fitView
-          proOptions={proOptions}
-        >
-          <Panel position="bottom-right">
-            <button onClick={() => onLayout("TB")}>vertical layout</button>
-            <button onClick={() => onLayout("LR")}>horizontal layout</button>
-          </Panel>
-        </ReactFlow>
+        <ReactFlowProvider>
+          <ReactFlow
+            nodes={nodes.map((node) => ({
+              ...node,
+              style: getNodeStyle(node),
+            }))}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onNodeClick={handleNodeClick}
+            onConnect={onConnect}
+            connectionLineType={ConnectionLineType.SmoothStep}
+            proOptions={proOptions}
+          >
+            <Panel position="bottom-right">
+              <button onClick={() => onLayout("TB")}>vertical layout</button>
+              <button onClick={() => onLayout("LR")}>horizontal layout</button>
+            </Panel>
+          </ReactFlow>
+        </ReactFlowProvider>
       </div>
     </Card>
   );

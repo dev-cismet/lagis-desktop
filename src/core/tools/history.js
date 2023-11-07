@@ -121,8 +121,8 @@ export const generateGraphObj = (
 
   const addedNodes = new Set();
 
-  // const initialNodesData = [];
-  // const initialEdgesData = [];
+  const initialNodesData = [];
+  const initialEdgesData = [];
   const initialObject = rootText;
   // const secondDarstellung = "Vorgänger";
   // const secondDarstellung = "Nachfolger";
@@ -213,12 +213,12 @@ export const generateGraphObj = (
         source: vorgaenger_name.replace(/\s/g, ""),
         target: nachfolger_name.replace(/\s/g, ""),
         type: edgeType,
-        animated: true,
+        animated: false,
       });
     }
   });
 
-  const addStyleToRootNode = initialNodesData.find((n) => n.data.root);
+  const addStyleToRootNode = initialNodesData.find((n) => n.data?.root);
   // addStyleToRootNode.style = { background: "#E1F1FF" };
 
   return { initialNodesData, initialEdgesData };

@@ -74,21 +74,21 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           rootObjectText={
             historyHalten === undefined ? fstckString : historieHaltenRootText
           }
-          // extractor={(histObj) => {
-          //   if (histObj && fstckString) {
-          //     return generateGraphString(
-          //       histObj,
-          //       fstckString,
-          //       firstDarstellung,
-          //       secondDarstellung,
-          //       numberBegrenzteTiefe,
-          //       historieHaltenRootText,
-          //       historyHalten === undefined ? false : true
-          //     );
-          //   } else {
-          //     return undefined;
-          //   }
-          // }}
+          extractor={(histObj) => {
+            if (histObj && fstckString) {
+              return generateGraphObj(
+                histObj,
+                fstckString,
+                firstDarstellung,
+                secondDarstellung,
+                numberBegrenzteTiefe,
+                historieHaltenRootText,
+                historyHalten === undefined ? false : true
+              );
+            } else {
+              return undefined;
+            }
+          }}
         />
       </div>
 
