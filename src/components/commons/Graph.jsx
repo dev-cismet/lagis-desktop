@@ -62,6 +62,7 @@ const Graph = ({
   rootObjectText,
   width = 1000,
   height = 500,
+  historyHalten,
   fit = true,
   zoom = true,
 }) => {
@@ -78,8 +79,14 @@ const Graph = ({
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
   const handleNodeClick = (event, node) => {
-    console.log(`Clicked node with ID: ${node.id}`);
-    setSelectedNode(node.id);
+    console.log("history clicik", historyHalten);
+    // handleUrlParams(node.data.label);
+
+    if (historyHalten) {
+      setSelectedNode(node.id);
+    } else {
+      handleUrlParams(node.data.label);
+    }
   };
 
   const onConnect = useCallback(
@@ -125,15 +132,15 @@ const Graph = ({
   const proOptions = { hideAttribution: true };
   const padding = 5;
   // const headHeight = 37;
-  // const [urlParams, setUrlParams] = useSearchParams();
-  // const handleUrlParams = (landParcelString) => {
-  //   const lansParcelParamsArray = landParcelString.split(" ");
-  //   const lansParcelParamsObj = {};
-  //   lansParcelParamsObj.gem = lansParcelParamsArray[0];
-  //   lansParcelParamsObj.flur = lansParcelParamsArray[1];
-  //   lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
-  //   setUrlParams(lansParcelParamsObj);
-  // };
+  const [urlParams, setUrlParams] = useSearchParams();
+  const handleUrlParams = (landParcelString) => {
+    const lansParcelParamsArray = landParcelString.split(" ");
+    const lansParcelParamsObj = {};
+    lansParcelParamsObj.gem = lansParcelParamsArray[0];
+    lansParcelParamsObj.flur = lansParcelParamsArray[1];
+    lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
+    setUrlParams(lansParcelParamsObj);
+  };
   useEffect(() => {
     const data = extractor(dataIn);
     console.log("nodesInitialized", { nodesInitialized });

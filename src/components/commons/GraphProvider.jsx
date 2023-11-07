@@ -4,7 +4,6 @@ import Graph from "./Graph";
 import { Spin } from "antd";
 function GraphProvider(props) {
   const nodesdata = props.nodesData;
-  console.log("GraphProvider", nodesdata);
   return (
     <div>
       {nodesdata === null ? (
@@ -21,8 +20,3 @@ function GraphProvider(props) {
 }
 
 export default GraphProvider;
-{
-  /* <ReactFlowProvider>
-  <Graph {...props} />
-</ReactFlowProvider>; */
-}
