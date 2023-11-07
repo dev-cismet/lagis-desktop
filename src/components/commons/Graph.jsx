@@ -66,6 +66,8 @@ const Graph = ({
   nodesData,
   fit = true,
   zoom = true,
+  historieHaltenCheckbox,
+  historieHaltenRootText,
 }) => {
   const reactFlow = useReactFlow();
   const { getNodes } = useReactFlow();
@@ -87,11 +89,11 @@ const Graph = ({
     console.log("history clicik", historyHalten);
     // handleUrlParams(node.data.label);
 
-    if (historyHalten) {
+    if (historieHaltenCheckbox) {
       setSelectedNode(node.id);
-    } else {
-      handleUrlParams(node.data.label);
     }
+
+    handleUrlParams(node.data.label);
   };
 
   const onConnect = useCallback(
@@ -124,13 +126,30 @@ const Graph = ({
     background: "#f5f7f7",
   };
 
+  // const getNodeStyle = (node) => {
+  //   if (node.id === selectedNode) {
+  //     return selectedNodeStyle;
+  //   } else {
+  //     return node.data?.root && selectedNode !== null
+  //       ? rootNodeStyleAfterClick
+  //       : node.style;
+  //   }
+  // };
   const getNodeStyle = (node) => {
-    if (node.id === selectedNode) {
-      return selectedNodeStyle;
+    if (historieHaltenCheckbox) {
+      if (node.data.label === historieHaltenRootText) {
+        return rootNodeStyleAfterClick;
+      } else {
+        return node.id === selectedNode ? selectedNodeStyle : node.style;
+      }
     } else {
-      return node.data?.root && selectedNode !== null
-        ? rootNodeStyleAfterClick
-        : node.style;
+      if (node.id === selectedNode) {
+        return selectedNodeStyle;
+      } else {
+        return node.data?.root && selectedNode !== null
+          ? rootNodeStyleAfterClick
+          : node.style;
+      }
     }
   };
 
@@ -161,7 +180,16 @@ const Graph = ({
   //   setInitialEdgesData(data?.initialEdgesData || [{}]);
   // }, [dataIn]);
   useEffect(() => {
-    console.log("filter nodes", nodesData);
+    console.log("filter nodes", historieHaltenCheckbox);
+    // if (historieHaltenCheckbox) {
+    //   const { nodes: layoutedNodes, edges: layoutedEdges } =
+    //     getLayoutedElements(
+    //       nodesData.initialNodesData,
+    //       nodesData.initialEdgesData
+    //     );
+    //   setNodes(layoutedNodes);
+    //   setEdges(layoutedEdges);
+    // }
     const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
       nodesData.initialNodesData,
       nodesData.initialEdgesData

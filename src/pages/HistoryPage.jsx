@@ -70,25 +70,33 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         secondDarstellung,
         numberBegrenzteTiefe,
         historieHaltenRootText,
-        historyHalten === undefined ? false : true
+        historieHaltenCheckbox,
+        historyHalten
       );
       setNodesdata(nodes);
     } else {
-      setNodesdata(null);
+      if (!historieHaltenCheckbox) {
+        setNodesdata(null);
+      }
     }
   }, [history, fstck]);
 
   useEffect(() => {
-    const nodes = generateGraphObj(
-      history,
-      fstckString,
-      firstDarstellung,
-      secondDarstellung,
-      numberBegrenzteTiefe,
-      historieHaltenRootText,
-      historyHalten === undefined ? false : true
-    );
-    setNodesdata(nodes);
+    // console.log("historieHaltenCheckbox", historieHaltenCheckbox);
+
+    if (history) {
+      const nodes = generateGraphObj(
+        history,
+        fstckString,
+        firstDarstellung,
+        secondDarstellung,
+        numberBegrenzteTiefe,
+        historieHaltenRootText,
+        historieHaltenCheckbox,
+        historyHalten
+      );
+      setNodesdata(nodes);
+    }
   }, [
     firstDarstellung,
     numberBegrenzteTiefe,
@@ -113,6 +121,8 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
           height={divHeight}
           dataIn={historyHalten === undefined ? history : historyHalten}
           historieHalten={historyHalten}
+          historieHaltenCheckbox={historieHaltenCheckbox}
+          historieHaltenRootText={historieHaltenRootText}
           rootObjectText={
             historyHalten === undefined ? fstckString : historieHaltenRootText
           }

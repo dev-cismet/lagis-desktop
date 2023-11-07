@@ -112,12 +112,14 @@ export const generateGraphObj = (
   secondDarstellung,
   begrenzteTiefe,
   historieHaltenRootText,
-  historyHalten
+  historyHalten,
+  historyHaltenArr
 ) => {
   const position = { x: 0, y: 0 };
   const edgeType = "smoothstep";
-
-  const historyData = histObj;
+  console.log("historyHaltenArr", historieHaltenRootText);
+  const historyData = historyHalten ? historyHaltenArr : histObj;
+  // const historyData = histObj;
 
   const addedNodes = new Set();
 
@@ -230,8 +232,15 @@ export const generateGraphObj = (
     });
   }
 
-  const addStyleToRootNode = initialNodesData.find((n) => n.data?.root);
-  addStyleToRootNode.style = { background: "#E1F1FF" };
+  const addStyleToRootNode = initialNodesData.find((n) =>
+    historyHalten ? n.data?.label === historieHaltenRootText : n.data?.root
+  );
+
+  if (addStyleToRootNode) {
+    addStyleToRootNode.style = { background: "#E1F1FF" };
+  } else {
+    console.log("addStyleToRootNode", addStyleToRootNode);
+  }
 
   return { initialNodesData, initialEdgesData };
 };
