@@ -186,7 +186,7 @@ export const generateGraphObj = (
 
     if (!addedNodes.has(nachfolger_name)) {
       if (nachfolger_name.startsWith("pseudo ")) {
-        nodeStyle.height = 34;
+        nodeStyle.width = 70;
       }
       if (nachfolger_name === initialObject) {
         // nodeStyle.background = "#E1F1FF";
@@ -218,8 +218,20 @@ export const generateGraphObj = (
     }
   });
 
+  if (initialNodesData.length === 0) {
+    initialNodesData.push({
+      id: initialObject.replace(/\s/g, ""),
+      data: {
+        label: initialObject,
+        root: true,
+      },
+      position,
+      style: {},
+    });
+  }
+
   const addStyleToRootNode = initialNodesData.find((n) => n.data?.root);
-  // addStyleToRootNode.style = { background: "#E1F1FF" };
+  addStyleToRootNode.style = { background: "#E1F1FF" };
 
   return { initialNodesData, initialEdgesData };
 };

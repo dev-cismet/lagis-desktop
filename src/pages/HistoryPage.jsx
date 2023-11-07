@@ -61,6 +61,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   }, []);
 
   useEffect(() => {
+    console.log("historyPage", fstck);
     if (history) {
       const nodes = generateGraphObj(
         history,
@@ -71,14 +72,11 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         historieHaltenRootText,
         historyHalten === undefined ? false : true
       );
-
-      if (nodes) {
-        setNodesdata(nodes);
-      }
-
-      console.log("historyPage", nodes);
+      setNodesdata(nodes);
+    } else {
+      setNodesdata(null);
     }
-  }, [history]);
+  }, [history, fstck]);
 
   return (
     <div

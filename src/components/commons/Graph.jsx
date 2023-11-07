@@ -105,7 +105,7 @@ const Graph = ({
 
   const selectedNodeStyle = {
     background: "#E1F1FF",
-    height: 36,
+    // height: 36,
   };
 
   const rootNodeStyleAfterClick = {
