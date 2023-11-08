@@ -13,6 +13,8 @@ import ReactFlow, {
   useEdgesState,
   useReactFlow,
   ReactFlowProvider,
+  MiniMap,
+  Controls,
   useNodesInitialized,
 } from "reactflow";
 import dagre from "dagre";
@@ -86,13 +88,9 @@ const Graph = ({
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
   const handleNodeClick = (event, node) => {
-    console.log("history clicik", historyHalten);
-    // handleUrlParams(node.data.label);
-
     if (historieHaltenCheckbox) {
       setSelectedNode(node.id);
     }
-
     handleUrlParams(node.data.label);
   };
 
@@ -180,16 +178,6 @@ const Graph = ({
   //   setInitialEdgesData(data?.initialEdgesData || [{}]);
   // }, [dataIn]);
   useEffect(() => {
-    console.log("filter nodes", historieHaltenCheckbox);
-    // if (historieHaltenCheckbox) {
-    //   const { nodes: layoutedNodes, edges: layoutedEdges } =
-    //     getLayoutedElements(
-    //       nodesData.initialNodesData,
-    //       nodesData.initialEdgesData
-    //     );
-    //   setNodes(layoutedNodes);
-    //   setEdges(layoutedEdges);
-    // }
     const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
       nodesData.initialNodesData,
       nodesData.initialEdgesData
@@ -197,12 +185,7 @@ const Graph = ({
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
   }, [nodesData]);
-  // useEffect(() => {
-  //   reactFlow.fitView();
-  // }, [nodes, edges]);
-  // useEffect(() => {
-  //   console.log("nodesInitialized", nodesInitialized);
-  // }, [nodesInitialized]);
+
   return (
     <Card
       size="small"
@@ -241,6 +224,7 @@ const Graph = ({
               <button onClick={() => onLayout("TB")}>vertical layout</button>
               <button onClick={() => onLayout("LR")}>horizontal layout</button>
             </Panel>
+            <Controls />
           </ReactFlow>
         </ReactFlowProvider>
       </div>

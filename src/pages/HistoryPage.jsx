@@ -61,7 +61,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   }, []);
 
   useEffect(() => {
-    console.log("historyPage", fstck);
     if (history) {
       const nodes = generateGraphObj(
         history,
@@ -82,8 +81,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   }, [history, fstck]);
 
   useEffect(() => {
-    // console.log("historieHaltenCheckbox", historieHaltenCheckbox);
-
     if (history) {
       const nodes = generateGraphObj(
         history,
