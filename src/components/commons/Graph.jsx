@@ -65,24 +65,22 @@ const Graph = ({
   width = 1000,
   height = 500,
   historyHalten,
+  firstDarstellung,
+  secondDarstellung,
+  numberBegrenzteTiefe,
   nodesData,
   fit = true,
   zoom = true,
   historieHaltenCheckbox,
   historieHaltenRootText,
 }) => {
+  const data = extractor(dataIn);
   const reactFlow = useReactFlow();
   const { getNodes } = useReactFlow();
   const nodesInitialized = useNodesInitialized();
-  const [initialNodesData, setInitialNodesData] = useState(
-    nodesData.initialNodesData
-  );
-  const [initialEdgesData, setInitialEdgesData] = useState(
-    nodesData.initialEdgesData
-  );
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-    initialNodesData,
-    initialEdgesData
+    data ? data.initialNodesData : [],
+    data ? data.initialEdgesData : []
   );
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
@@ -124,15 +122,6 @@ const Graph = ({
     background: "#f5f7f7",
   };
 
-  // const getNodeStyle = (node) => {
-  //   if (node.id === selectedNode) {
-  //     return selectedNodeStyle;
-  //   } else {
-  //     return node.data?.root && selectedNode !== null
-  //       ? rootNodeStyleAfterClick
-  //       : node.style;
-  //   }
-  // };
   const getNodeStyle = (node) => {
     if (historieHaltenCheckbox) {
       if (node.data.label === historieHaltenRootText) {
@@ -163,28 +152,24 @@ const Graph = ({
     lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
     setUrlParams(lansParcelParamsObj);
   };
-  // useEffect(() => {
-  //   const data = extractor(dataIn);
-  //   console.log("nodesInitialized", { nodesInitialized });
-  //   setInitialNodesData(
-  //     data?.initialNodesData || [
-  //       {
-  //         id: "1",
-  //         data: { root: false },
-  //         style: { width: "0px", height: "0px", border: "none" },
-  //       },
-  //     ]
-  //   );
-  //   setInitialEdgesData(data?.initialEdgesData || [{}]);
-  // }, [dataIn]);
   useEffect(() => {
+    const updatedData = extractor(dataIn);
+    console.log("updated data", updatedData);
     const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      nodesData.initialNodesData,
-      nodesData.initialEdgesData
+      updatedData ? updatedData.initialNodesData : [],
+      updatedData ? updatedData.initialEdgesData : []
     );
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
-  }, [nodesData]);
+  }, [dataIn, firstDarstellung, secondDarstellung, numberBegrenzteTiefe]);
+  // useEffect(() => {
+  //   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+  //     nodesData.initialNodesData,
+  //     nodesData.initialEdgesData
+  //   );
+  //   setNodes(layoutedNodes);
+  //   setEdges(layoutedEdges);
+  // }, [nodesData]);
 
   return (
     <Card
@@ -207,10 +192,7 @@ const Graph = ({
       <div style={{ width, height: height - padding * 9 }}>
         <ReactFlowProvider>
           <ReactFlow
-            nodes={nodes.map((node) => ({
-              ...node,
-              style: getNodeStyle(node),
-            }))}
+            nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}

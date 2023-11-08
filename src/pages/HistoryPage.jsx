@@ -1,4 +1,3 @@
-import Graph from "../components/commons/Graph";
 import HistoryInfo from "../components/history/HistoryInfo";
 import View from "../components/history/View";
 import OptionHistory from "../components/history/OptionHistory";
@@ -9,13 +8,13 @@ import {
   getHistorieHalten,
   getHistorieHaltenRootText,
 } from "../store/slices/lagis";
-import { generateGraphString, generateGraphObj } from "../core/tools/history";
+import { generateGraphObj } from "../core/tools/history";
 import { useState, useRef, useEffect } from "react";
 import { informationenBlockExtractor } from "../core/extractors/historyBlockExtractor";
 import GraphProvider from "../components/commons/GraphProvider";
 const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [divHeight, setDivHeight] = useState(0);
-  const [divHWidth, setDivWidth] = useState(0);
+  const [divWidth, setDivWidth] = useState(0);
   const divRef = useRef(null);
   const history = useSelector(getHistory);
   const fstck = useSelector(getLandparcel);
@@ -28,7 +27,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   const [numberBegrenzteTiefe, setNumberBegrenzteTiefe] = useState(1);
   const [secondDarstellung, setSecondDarstellung] = useState("Flurstücke");
   const [ifNodesReady, setIfNodesReady] = useState(false);
-  const [nodesData, setNodesdata] = useState(null);
 
   let storyStyle = {};
   if (inStory) {
@@ -60,46 +58,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (history) {
-      const nodes = generateGraphObj(
-        history,
-        fstckString,
-        firstDarstellung,
-        secondDarstellung,
-        numberBegrenzteTiefe,
-        historieHaltenRootText,
-        historieHaltenCheckbox,
-        historyHalten
-      );
-      setNodesdata(nodes);
-    } else {
-      if (!historieHaltenCheckbox) {
-        setNodesdata(null);
-      }
-    }
-  }, [history, fstck]);
-
-  useEffect(() => {
-    if (history) {
-      const nodes = generateGraphObj(
-        history,
-        fstckString,
-        firstDarstellung,
-        secondDarstellung,
-        numberBegrenzteTiefe,
-        historieHaltenRootText,
-        historieHaltenCheckbox,
-        historyHalten
-      );
-      setNodesdata(nodes);
-    }
-  }, [
-    firstDarstellung,
-    numberBegrenzteTiefe,
-    secondDarstellung,
-    historyHalten,
-  ]);
   return (
     <div
       style={{
@@ -113,26 +71,29 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         style={{ marginBottom: "16px" }}
       >
         <GraphProvider
-          nodesData={nodesData}
           width={"100%"}
           height={divHeight}
           dataIn={historyHalten === undefined ? history : historyHalten}
           historieHalten={historyHalten}
           historieHaltenCheckbox={historieHaltenCheckbox}
           historieHaltenRootText={historieHaltenRootText}
+          firstDarstellung={firstDarstellung}
+          secondDarstellung={secondDarstellung}
+          numberBegrenzteTiefe={numberBegrenzteTiefe}
           rootObjectText={
             historyHalten === undefined ? fstckString : historieHaltenRootText
           }
           extractor={(histObj) => {
             if (histObj && fstckString) {
               return generateGraphObj(
-                histObj,
+                history,
                 fstckString,
                 firstDarstellung,
                 secondDarstellung,
                 numberBegrenzteTiefe,
                 historieHaltenRootText,
-                historyHalten === undefined ? false : true
+                historieHaltenCheckbox,
+                historyHalten
               );
             } else {
               return undefined;
