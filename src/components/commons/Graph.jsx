@@ -204,7 +204,7 @@ const Graph = ({
       headStyle={{ backgroundColor: "white" }}
       type="inner"
     >
-      <div style={{ width, height: height - padding * 8 }}>
+      <div style={{ width, height: height - padding * 9 }}>
         <ReactFlowProvider>
           <ReactFlow
             nodes={nodes.map((node) => ({
