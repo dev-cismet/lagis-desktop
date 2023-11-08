@@ -55,13 +55,14 @@ const View = ({
       }
     >
       <InfoBlock title="Darstellung">
-        <div className="flex flex-col p-4 pt-1">
-          <div className="my-4 flex gap-2">
+        <div className="flex flex-col p-4">
+          <div className="mt-1 flex gap-2">
             <Select
               defaultValue="Vollständig"
               style={{ width: "100%" }}
               onChange={handleChangeFirst}
               options={data.successor}
+              className="mb-3"
             />
             <div className="begrenzte-wrapper">
               <InputNumber

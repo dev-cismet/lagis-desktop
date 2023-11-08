@@ -140,6 +140,7 @@ export const generateGraphObj = (
       if (historyData.length - 1 === idx && initialNodesData.length === 0) {
         initialNodesData.push({
           id: vorgaenger_name.replace(/\s/g, ""),
+          type: "input",
           data: {
             label: initialObject,
             root: true,
@@ -173,6 +174,7 @@ export const generateGraphObj = (
       }
       initialNodesData.push({
         id: vorgaenger_name.replace(/\s/g, ""),
+        type: "input",
         data: {
           label: vorgaenger_name.startsWith("pseudo ")
             ? "   "
@@ -223,6 +225,7 @@ export const generateGraphObj = (
   if (initialNodesData.length === 0) {
     initialNodesData.push({
       id: initialObject.replace(/\s/g, ""),
+      type: "input",
       data: {
         label: initialObject,
         root: true,
