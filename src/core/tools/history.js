@@ -17,15 +17,15 @@ export const generateGraphObj = (
 
   const addedNodes = new Set();
 
-  const initialNodesData = [];
+  const initialNodes = [];
   const initialEdgesData = [];
   const initialObject = rootText;
 
   historyData.forEach((item, idx) => {
     const { nachfolger_name, vorgaenger_name, level } = item;
     if (level < 1 && secondDarstellung === "Nachfolger") {
-      if (historyData.length - 1 === idx && initialNodesData.length === 0) {
-        initialNodesData.push({
+      if (historyData.length - 1 === idx && initialNodes.length === 0) {
+        initialNodes.push({
           id: vorgaenger_name.replace(/\s/g, ""),
           type: "input",
           data: {
@@ -59,7 +59,7 @@ export const generateGraphObj = (
       if (vorgaenger_name === initialObject) {
         // nodeStyle.background = "#E1F1FF";
       }
-      initialNodesData.push({
+      initialNodes.push({
         id: vorgaenger_name.replace(/\s/g, ""),
         type: "input",
         data: {
@@ -82,7 +82,7 @@ export const generateGraphObj = (
       if (nachfolger_name === initialObject) {
         // nodeStyle.background = "#E1F1FF";
       }
-      initialNodesData.push({
+      initialNodes.push({
         id: nachfolger_name.replace(/\s/g, ""),
         type: "default",
         data: {
@@ -109,8 +109,8 @@ export const generateGraphObj = (
     }
   });
 
-  if (initialNodesData.length === 0) {
-    initialNodesData.push({
+  if (initialNodes.length === 0) {
+    initialNodes.push({
       id: initialObject.replace(/\s/g, ""),
       type: "input",
       data: {
@@ -122,7 +122,7 @@ export const generateGraphObj = (
     });
   }
 
-  const addStyleToRootNode = initialNodesData.find((n) =>
+  const addStyleToRootNode = initialNodes.find((n) =>
     historyHalten ? n.data?.label === historieHaltenRootText : n.data?.root
   );
 
@@ -131,6 +131,29 @@ export const generateGraphObj = (
   } else {
     console.log("addStyleToRootNode", addStyleToRootNode);
   }
+
+  const sourceArr = [];
+  const edArr = [];
+  initialNodes.forEach((n) => {
+    initialEdgesData.forEach((eg) => {
+      if (eg.source === n.id) {
+        sourceArr.push(n.id);
+      }
+      if (eg.target === n.id) {
+        edArr.push(n.id);
+      }
+    });
+  });
+  const initialNodesData = initialNodes.map((n) => {
+    if (sourceArr.includes(n.id) && edArr.includes(n.id)) {
+      return n;
+    } else {
+      if (sourceArr.includes(n.id) && !edArr.includes(n.id)) {
+        return { ...n, type: "input" };
+      }
+      return { ...n, type: "output" };
+    }
+  });
 
   return { initialNodesData, initialEdgesData };
 };
