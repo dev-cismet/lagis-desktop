@@ -4,18 +4,14 @@ import { useSearchParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-// import { initialNodesData, initialEdgesData } from "../../core/tools/history";
 import ReactFlow, {
   addEdge,
   ConnectionLineType,
   Panel,
   useNodesState,
   useEdgesState,
-  useReactFlow,
   ReactFlowProvider,
-  MiniMap,
   Controls,
-  useNodesInitialized,
 } from "reactflow";
 import dagre from "dagre";
 import "reactflow/dist/style.css";
@@ -68,16 +64,10 @@ const Graph = ({
   firstDarstellung,
   secondDarstellung,
   numberBegrenzteTiefe,
-  nodesData,
-  fit = true,
-  zoom = true,
   historieHaltenCheckbox,
   historieHaltenRootText,
 }) => {
   const data = extractor(dataIn);
-  const reactFlow = useReactFlow();
-  const { getNodes } = useReactFlow();
-  const nodesInitialized = useNodesInitialized();
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
     data ? data.initialNodesData : [],
     data ? data.initialEdgesData : []
@@ -139,7 +129,6 @@ const Graph = ({
       }
     }
   };
-
   const proOptions = { hideAttribution: true };
   const padding = 5;
   // const headHeight = 37;
@@ -152,18 +141,16 @@ const Graph = ({
     lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
     setUrlParams(lansParcelParamsObj);
   };
-  useEffect(() => {
-    const updatedData = extractor(dataIn);
-    console.log("updated data", updatedData);
-    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-      updatedData ? updatedData.initialNodesData : [],
-      updatedData ? updatedData.initialEdgesData : []
-    );
+  const handleUpdateNodes = (layoutedNodes, layoutedEdges) => {
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
-    setInterval(() => {
-      reactFlow.fitView();
-    }, 1000);
+  };
+  useEffect(() => {
+    const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+      data ? data.initialNodesData : [],
+      data ? data.initialEdgesData : []
+    );
+    handleUpdateNodes(layoutedNodes, layoutedEdges);
   }, [dataIn, firstDarstellung, secondDarstellung, numberBegrenzteTiefe]);
 
   return (
@@ -197,11 +184,7 @@ const Graph = ({
             proOptions={proOptions}
             fitView
           >
-            <Panel position="bottom-right">
-              <button onClick={() => onLayout("TB")}>vertical layout</button>
-              <button onClick={() => onLayout("LR")}>horizontal layout</button>
-            </Panel>
-            <Controls />
+            <Controls position="top-left" />
           </ReactFlow>
         </ReactFlowProvider>
       </div>

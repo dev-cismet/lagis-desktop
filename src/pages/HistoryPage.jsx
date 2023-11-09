@@ -59,7 +59,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   }, []);
 
   useEffect(() => {
-    console.log("setIfNodesReady", history);
     if (history) {
       setIfNodesReady(true);
     } else {
@@ -81,6 +80,14 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
       >
         <GraphProvider
           width={"100%"}
+          key={
+            `GraphProviderKey.` +
+            JSON.stringify({
+              firstDarstellung,
+              secondDarstellung,
+              numberBegrenzteTiefe,
+            })
+          }
           height={divHeight}
           loading={ifNodesReady}
           dataIn={historyHalten === undefined ? history : historyHalten}

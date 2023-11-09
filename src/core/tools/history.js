@@ -8,13 +8,11 @@ export const generateGraphObj = (
   historyHalten,
   historyHaltenArr
 ) => {
-  console.log("histObj", histObj);
   if (histObj === undefined) {
     return { initialNodesData: [], initialEdgesData: [] };
   }
   const position = { x: 0, y: 0 };
   const edgeType = "smoothstep";
-  console.log("historyHaltenArr", historieHaltenRootText);
   const historyData = historyHalten ? historyHaltenArr : histObj;
 
   const addedNodes = new Set();
