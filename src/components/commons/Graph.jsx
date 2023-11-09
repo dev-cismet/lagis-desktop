@@ -161,15 +161,10 @@ const Graph = ({
     );
     setNodes(layoutedNodes);
     setEdges(layoutedEdges);
+    setInterval(() => {
+      reactFlow.fitView();
+    }, 1000);
   }, [dataIn, firstDarstellung, secondDarstellung, numberBegrenzteTiefe]);
-  // useEffect(() => {
-  //   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  //     nodesData.initialNodesData,
-  //     nodesData.initialEdgesData
-  //   );
-  //   setNodes(layoutedNodes);
-  //   setEdges(layoutedEdges);
-  // }, [nodesData]);
 
   return (
     <Card

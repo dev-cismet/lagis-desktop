@@ -58,6 +58,15 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("setIfNodesReady", history);
+    if (history) {
+      setIfNodesReady(true);
+    } else {
+      setIfNodesReady(false);
+    }
+  }, [history]);
+
   return (
     <div
       style={{
@@ -73,6 +82,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         <GraphProvider
           width={"100%"}
           height={divHeight}
+          loading={ifNodesReady}
           dataIn={historyHalten === undefined ? history : historyHalten}
           historieHalten={historyHalten}
           historieHaltenCheckbox={historieHaltenCheckbox}
