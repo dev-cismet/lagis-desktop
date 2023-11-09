@@ -88,7 +88,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         style={{ marginBottom: "16px" }}
       >
         <GraphProvider
-          width={"100%"}
+          width={divWidth}
           key={
             `GraphProviderKey.` +
             JSON.stringify({

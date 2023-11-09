@@ -227,7 +227,7 @@ const Graph = ({
             proOptions={proOptions}
             fitView
           >
-            <Controls position="top-left" />
+            <Controls position="top-left" style={{ marginLeft: "8px" }} />
           </ReactFlow>
         </ReactFlowProvider>
       </div>

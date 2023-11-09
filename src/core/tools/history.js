@@ -12,6 +12,7 @@ export const generateGraphObj = (
     return { initialNodesData: [], initialEdgesData: [] };
   }
   const position = { x: 0, y: 0 };
+  // bezier, straight, step
   const edgeType = "smoothstep";
   const historyData = historyHalten ? historyHaltenArr : histObj;
 
@@ -56,9 +57,6 @@ export const generateGraphObj = (
 
     const nodeStyle = {};
     if (!addedNodes.has(vorgaenger_name)) {
-      if (vorgaenger_name === initialObject) {
-        // nodeStyle.background = "#E1F1FF";
-      }
       initialNodes.push({
         id: vorgaenger_name.replace(/\s/g, ""),
         type: "input",
@@ -79,12 +77,8 @@ export const generateGraphObj = (
       if (nachfolger_name.startsWith("pseudo ")) {
         nodeStyle.width = 70;
       }
-      if (nachfolger_name === initialObject) {
-        // nodeStyle.background = "#E1F1FF";
-      }
       initialNodes.push({
         id: nachfolger_name.replace(/\s/g, ""),
-        type: "default",
         data: {
           label: nachfolger_name.startsWith("pseudo ")
             ? "   "
@@ -112,7 +106,6 @@ export const generateGraphObj = (
   if (initialNodes.length === 0) {
     initialNodes.push({
       id: initialObject.replace(/\s/g, ""),
-      type: "input",
       data: {
         label: initialObject,
         root: true,
