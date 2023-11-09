@@ -62,9 +62,18 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
     if (history) {
       setIfNodesReady(true);
     } else {
-      setIfNodesReady(false);
+      if (historyHalten) {
+        setIfNodesReady(true);
+      } else {
+        setIfNodesReady(false);
+      }
     }
   }, [history]);
+  // useEffect(() => {
+  //   if (historyHalten) {
+  //     setIfNodesReady(false);
+  //   }
+  // }, [historyHalten]);
 
   return (
     <div
@@ -86,6 +95,7 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
               firstDarstellung,
               secondDarstellung,
               numberBegrenzteTiefe,
+              historyHalten,
             })
           }
           height={divHeight}

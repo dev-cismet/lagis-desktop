@@ -54,6 +54,26 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
   return { nodes, edges };
 };
 
+const addStyleBylickedNode = (node, active) => {
+  if (active) {
+    return {
+      ...node,
+      style: { background: "#E1F1FF" },
+    };
+  } else {
+    if (node.data.root) {
+      return {
+        ...node,
+        style: { background: "#f5f5f5" },
+      };
+    }
+    return {
+      ...node,
+      style: {},
+    };
+  }
+};
+
 const Graph = ({
   dataIn,
   extractor,
@@ -76,10 +96,19 @@ const Graph = ({
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
   const handleNodeClick = (event, node) => {
+    console.log("root node", node);
     if (historieHaltenCheckbox) {
       setSelectedNode(node.id);
     }
     handleUrlParams(node.data.label);
+    const updatedNodeArr = nodes.map((n) => {
+      if (n.id === node.id) {
+        return addStyleBylickedNode(n, true);
+      } else {
+        return addStyleBylickedNode(n, false);
+      }
+    });
+    setNodes(updatedNodeArr);
   };
 
   const onConnect = useCallback(
@@ -151,7 +180,21 @@ const Graph = ({
       data ? data.initialEdgesData : []
     );
     handleUpdateNodes(layoutedNodes, layoutedEdges);
-  }, [dataIn, firstDarstellung, secondDarstellung, numberBegrenzteTiefe]);
+    // if (!historyHalten) {
+    //   const { nodes: layoutedNodes, edges: layoutedEdges } =
+    //     getLayoutedElements(
+    //       data ? data.initialNodesData : [],
+    //       data ? data.initialEdgesData : []
+    //     );
+    //   handleUpdateNodes(layoutedNodes, layoutedEdges);
+    // }
+  }, [
+    dataIn,
+    firstDarstellung,
+    secondDarstellung,
+    numberBegrenzteTiefe,
+    historyHalten,
+  ]);
 
   return (
     <Card
