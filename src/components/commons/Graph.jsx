@@ -14,7 +14,6 @@ import ReactFlow, {
 } from "reactflow";
 import dagre from "dagre";
 import "reactflow/dist/style.css";
-import { useReactFlow } from "@reactflow/core";
 import "./graph.css";
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -55,10 +54,8 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
 };
 
 const addStyleBylickedNode = (node, active) => {
-  if (node.id.startsWith("pseudo")) {
-    return n;
-  }
-  if (active) {
+  console.log("root node", node.id, node.id.startsWith("pseudo"));
+  if (active && !node.id.startsWith("pseudo")) {
     return {
       ...node,
       style: { background: "#E1F1FF" },
@@ -72,7 +69,7 @@ const addStyleBylickedNode = (node, active) => {
     }
     return {
       ...node,
-      style: {},
+      style: { ...node.style, background: "white" },
     };
   }
 };
@@ -97,22 +94,20 @@ const Graph = ({
   );
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
-  const [selectedNode, setSelectedNode] = useState(null);
   const handleNodeClick = (event, node) => {
-    if (historieHaltenCheckbox) {
-      setSelectedNode(node.id);
-    }
     if (!node.id.startsWith("pseudo")) {
       handleUrlParams(node.data.label);
     }
-    const updatedNodeArr = nodes.map((n) => {
-      if (n.id === node.id) {
-        return addStyleBylickedNode(n, true);
-      } else {
-        return addStyleBylickedNode(n, false);
-      }
-    });
-    setNodes(updatedNodeArr);
+    if (historieHaltenCheckbox) {
+      const updatedNodeArr = nodes.map((n) => {
+        if (n.id === node.id) {
+          return addStyleBylickedNode(n, true);
+        } else {
+          return addStyleBylickedNode(n, false);
+        }
+      });
+      setNodes(updatedNodeArr);
+    }
   };
 
   const onConnect = useCallback(
@@ -197,11 +192,10 @@ const Graph = ({
             proOptions={proOptions}
             fitView
           >
-            <Controls position="top-left" style={{ marginLeft: "8px" }}>
-              {/* <ControlButton title="zoom out" onClick={fitView}>
-                Test
-              </ControlButton> */}
-            </Controls>
+            <Controls
+              position="top-left"
+              style={{ marginLeft: "8px" }}
+            ></Controls>
           </ReactFlow>
         </ReactFlowProvider>
       </div>

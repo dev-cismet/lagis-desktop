@@ -15,12 +15,12 @@ export const generateGraphObj = (
   // bezier, straight, step
   const edgeType = "bezier";
   const historyData = historyHalten ? historyHaltenArr : histObj;
-
+  console.log("History halten text", historieHaltenRootText);
   const addedNodes = new Set();
 
   const initialNodes = [];
   const initialEdgesData = [];
-  const initialObject = rootText;
+  const initialObject = historyHalten ? historieHaltenRootText : rootText;
 
   historyData.forEach((item, idx) => {
     const { nachfolger_name, vorgaenger_name, level } = item;
