@@ -6,6 +6,7 @@ import mappingSlice from "./slices/mapping";
 import gazDataSlice from "./slices/gazData";
 import permissionsSlice from "./slices/permissions";
 import uiSlice from "./slices/ui";
+import searchSlice from "./slices/search";
 import {
   persistReducer,
   FLUSH,
@@ -113,6 +114,7 @@ export default configureStore({
     mapping: mappingSlice.reducer,
     ui: persistReducer(persisUIConfig, uiSlice.reducer),
     gazetteerData: gazDataSlice.reducer,
+    search: searchSlice.reducer,
   },
   middleware,
 });
