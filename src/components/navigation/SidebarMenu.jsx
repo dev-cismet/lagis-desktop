@@ -29,6 +29,9 @@ import {
   getStreetFronts,
   getHistory,
 } from "../../store/slices/lagis";
+import { useLocation, NavLink } from "react-router-dom";
+import { defaultLinksColor } from "../../core/tools/helper";
+import SearchLandparcelByFileNumber from "../searcher/SearchLandparcelByFileNumber";
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -37,8 +40,7 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
-import { useLocation, NavLink } from "react-router-dom";
-import { defaultLinksColor } from "../../core/tools/helper";
+
 const SidebarMenu = ({ parametersForLink }) => {
   const mipa = useSelector(getMipa);
   const offices = useSelector(getOffices);
@@ -253,6 +255,7 @@ const SidebarMenu = ({ parametersForLink }) => {
           inlineCollapsed={collapsed}
         />
       </div>
+      <SearchLandparcelByFileNumber />
     </div>
   );
 };
