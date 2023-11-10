@@ -165,7 +165,7 @@ const RentBlock = ({
     setActiveRow(data[0]);
   }, [dataIn]);
   useEffect(() => {
-    console.log("rents", rents);
+    // console.log("rents", rents);
   }, [rents]);
   return (
     <div

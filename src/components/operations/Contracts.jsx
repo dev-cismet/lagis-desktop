@@ -85,7 +85,7 @@ const Contracts = ({
     setActiveRow(data[0]);
   }, [dataIn]);
   useEffect(() => {
-    console.log("active contract row", activeRow);
+    // console.log("active contract row", activeRow);
   }, [activeRow]);
   return (
     <div

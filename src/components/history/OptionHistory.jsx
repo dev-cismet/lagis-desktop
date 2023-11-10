@@ -49,7 +49,7 @@ const OptionHistory = ({
     }
   }, [currentHistory]);
   useEffect(() => {
-    console.log("historieHalten", historieHalten);
+    // console.log("historieHalten", historieHalten);
   }, [historieHalten]);
   return (
     <div
