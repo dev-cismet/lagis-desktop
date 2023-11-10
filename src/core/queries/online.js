@@ -462,3 +462,29 @@ queries.getGeomFromWuNDA = `query q($alkis_id: String) {
   }
 }
 `;
+
+queries.getLandparcelByContractFileNumber = `query MyQuery($aktz: String) {
+  flurstueck(where: {ar_vertraegeArray: {vertrag: {aktenzeichen: {_ilike: $aktz }}}}) {
+    id
+    flurstueck_schluessel {
+      flur
+      flurstueck_zaehler
+      flurstueck_nenner
+      gemarkung {
+        schluessel
+        bezeichnung
+      }
+    }
+  }
+}`;
+
+queries.getLandparcelByMipaFileNumber = `query MyQuery($aktz: String) {
+  view_mipa_by_aktenzeichen(where: {aktenzeichen: {_ilike: $aktz}}, distinct_on: id) {
+    gemarkung
+    flur
+    flurstueck_nenner
+    flurstueck_zaehler
+    id
+    schluessel
+  }
+}`;
