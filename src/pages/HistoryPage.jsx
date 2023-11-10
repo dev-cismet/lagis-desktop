@@ -88,7 +88,6 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
         style={{ marginBottom: "16px" }}
       >
         <GraphProvider
-          width={divWidth}
           key={
             `GraphProviderKey.` +
             JSON.stringify({
@@ -96,8 +95,11 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
               secondDarstellung,
               numberBegrenzteTiefe,
               historyHalten,
+              divWidth,
+              divHeight,
             })
           }
+          width={divWidth}
           height={divHeight}
           loading={ifNodesReady}
           dataIn={historyHalten === undefined ? history : historyHalten}

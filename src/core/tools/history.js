@@ -13,7 +13,7 @@ export const generateGraphObj = (
   }
   const position = { x: 0, y: 0 };
   // bezier, straight, step
-  const edgeType = "smoothstep";
+  const edgeType = "bezier";
   const historyData = historyHalten ? historyHaltenArr : histObj;
 
   const addedNodes = new Set();
@@ -28,7 +28,6 @@ export const generateGraphObj = (
       if (historyData.length - 1 === idx && initialNodes.length === 0) {
         initialNodes.push({
           id: vorgaenger_name.replace(/\s/g, ""),
-          type: "input",
           data: {
             label: initialObject,
             root: true,
@@ -59,7 +58,6 @@ export const generateGraphObj = (
     if (!addedNodes.has(vorgaenger_name)) {
       initialNodes.push({
         id: vorgaenger_name.replace(/\s/g, ""),
-        type: "input",
         data: {
           label: vorgaenger_name.startsWith("pseudo ")
             ? "   "
@@ -75,7 +73,7 @@ export const generateGraphObj = (
 
     if (!addedNodes.has(nachfolger_name)) {
       if (nachfolger_name.startsWith("pseudo ")) {
-        nodeStyle.width = 70;
+        nodeStyle.width = 40;
       }
       initialNodes.push({
         id: nachfolger_name.replace(/\s/g, ""),
@@ -122,7 +120,6 @@ export const generateGraphObj = (
   if (addStyleToRootNode) {
     addStyleToRootNode.style = { background: "#E1F1FF" };
   } else {
-    console.log("addStyleToRootNode", addStyleToRootNode);
   }
 
   const sourceArr = [];
@@ -138,6 +135,9 @@ export const generateGraphObj = (
     });
   });
   const initialNodesData = initialNodes.map((n) => {
+    if (initialNodes.length === 1) {
+      return { ...n, className: "single-node" };
+    }
     if (sourceArr.includes(n.id) && edArr.includes(n.id)) {
       return n;
     } else {

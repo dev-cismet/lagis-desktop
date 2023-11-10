@@ -7,7 +7,6 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import ReactFlow, {
   addEdge,
   ConnectionLineType,
-  Panel,
   useNodesState,
   useEdgesState,
   ReactFlowProvider,
@@ -15,7 +14,8 @@ import ReactFlow, {
 } from "reactflow";
 import dagre from "dagre";
 import "reactflow/dist/style.css";
-
+import { useReactFlow } from "@reactflow/core";
+import "./graph.css";
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
 
@@ -55,6 +55,9 @@ const getLayoutedElements = (nodes, edges, direction = "TB") => {
 };
 
 const addStyleBylickedNode = (node, active) => {
+  if (node.id.startsWith("pseudo")) {
+    return n;
+  }
   if (active) {
     return {
       ...node,
@@ -96,11 +99,12 @@ const Graph = ({
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
   const [selectedNode, setSelectedNode] = useState(null);
   const handleNodeClick = (event, node) => {
-    console.log("root node", node);
     if (historieHaltenCheckbox) {
       setSelectedNode(node.id);
     }
-    handleUrlParams(node.data.label);
+    if (!node.id.startsWith("pseudo")) {
+      handleUrlParams(node.data.label);
+    }
     const updatedNodeArr = nodes.map((n) => {
       if (n.id === node.id) {
         return addStyleBylickedNode(n, true);
@@ -132,32 +136,6 @@ const Graph = ({
     [nodes, edges]
   );
 
-  const selectedNodeStyle = {
-    background: "#E1F1FF",
-    // height: 36,
-  };
-
-  const rootNodeStyleAfterClick = {
-    background: "#f5f7f7",
-  };
-
-  const getNodeStyle = (node) => {
-    if (historieHaltenCheckbox) {
-      if (node.data.label === historieHaltenRootText) {
-        return rootNodeStyleAfterClick;
-      } else {
-        return node.id === selectedNode ? selectedNodeStyle : node.style;
-      }
-    } else {
-      if (node.id === selectedNode) {
-        return selectedNodeStyle;
-      } else {
-        return node.data?.root && selectedNode !== null
-          ? rootNodeStyleAfterClick
-          : node.style;
-      }
-    }
-  };
   const proOptions = { hideAttribution: true };
   const padding = 5;
   // const headHeight = 37;
@@ -180,14 +158,6 @@ const Graph = ({
       data ? data.initialEdgesData : []
     );
     handleUpdateNodes(layoutedNodes, layoutedEdges);
-    // if (!historyHalten) {
-    //   const { nodes: layoutedNodes, edges: layoutedEdges } =
-    //     getLayoutedElements(
-    //       data ? data.initialNodesData : [],
-    //       data ? data.initialEdgesData : []
-    //     );
-    //   handleUpdateNodes(layoutedNodes, layoutedEdges);
-    // }
   }, [
     dataIn,
     firstDarstellung,
@@ -227,7 +197,11 @@ const Graph = ({
             proOptions={proOptions}
             fitView
           >
-            <Controls position="top-left" style={{ marginLeft: "8px" }} />
+            <Controls position="top-left" style={{ marginLeft: "8px" }}>
+              {/* <ControlButton title="zoom out" onClick={fitView}>
+                Test
+              </ControlButton> */}
+            </Controls>
           </ReactFlow>
         </ReactFlowProvider>
       </div>
