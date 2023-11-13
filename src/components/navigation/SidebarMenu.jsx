@@ -225,13 +225,13 @@ const SidebarMenu = ({ parametersForLink }) => {
 
   return (
     <div
-      className="bg-white border-solid border-white overflow-y-auto"
+      className="bg-white border-solid border-white flex flex-col gap-4"
       style={{
         ...storyStyle,
       }}
     >
       <div
-        className="flex flex-wrap items-start gap-2"
+        className="flex flex-wrap items-start gap-2 h-[calc(6%-36px)]"
         style={{
           justifyContent: !collapsed ? "start" : "center",
           marginLeft: !collapsed ? "20px" : "0px",
@@ -245,7 +245,7 @@ const SidebarMenu = ({ parametersForLink }) => {
         <Logo showText={collapsed} />
       </div>
 
-      <div className="side-menu lg:ml-[-5px]">
+      <div className="side-menu lg:ml-[-5px] h-[calc(54%)] overflow-auto">
         <Menu
           style={{ border: 0, width: !collapsed ? "230px" : "81px" }}
           defaultSelectedKeys={activeKey}

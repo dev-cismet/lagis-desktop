@@ -15,7 +15,7 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
       <Divider style={{ margin: dividerMargin }} />
 
       <div
-        style={{ maxHeight: "320px", background: "#ffffff" }}
+        style={{ height: "65%", background: "#ffffff" }}
         className="overflow-auto"
       >
         {data &&
@@ -26,7 +26,7 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
                 onClick={() => setUrlParams(c.searchParamsObj)}
                 style={{
                   color: c.ifHistorical ? defaultLinksColor : null,
-                  background: "#ffffff",
+                  background: "#fffff",
                 }}
               >
                 <div className="text-[14px] flex items-center pl-3 cursor-pointer">

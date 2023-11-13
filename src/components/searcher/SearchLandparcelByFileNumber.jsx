@@ -65,10 +65,12 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   };
   return (
     <div
-      className="p-1 mt-1"
+      className="p-1 mt-auto flex flex-col"
       // className="p-1 cursor-pointer hover:bg-gray-100 text-center rounded-xl mt-1"
       style={{
         width: !collapsed ? "222px" : "100%",
+        height: "40%",
+        // maxHeight: "400px",
         // margin: !collapsed ? "none" : "auto",
       }}
     >
@@ -86,7 +88,11 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         // placeholder="large size"
         prefix={<FileSearchOutlined />}
         onChange={(e) => getFlurstuckeByFileNumberHandle(e.target.value)}
-        style={{ display: collapsed ? "none" : null }}
+        style={{
+          display: collapsed ? "none" : null,
+          height: "40px",
+          marginTop: "auto",
+        }}
       />
     </div>
   );
