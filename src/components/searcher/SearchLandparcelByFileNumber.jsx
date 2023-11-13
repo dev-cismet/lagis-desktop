@@ -10,19 +10,16 @@ import {
   storeMipaFlurstucke,
 } from "../../store/slices/search";
 
-const SearchLandparcelByFileNumber = () => {
+const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
   const [options, setOptions] = useState([]);
   const handleSearch = (value) => {
     setOptions(value ? searchResult(value) : []);
   };
-  const onSelect = (value) => {
-    console.log("onSelect", value);
-  };
 
-  const getFlurstuckeByFileNumberHandle = async () => {
-    const aktz = "%1.11%";
+  const getFlurstuckeByFileNumberHandle = async (searchValue) => {
+    const aktz = `%${searchValue}%`;
     const result = await fetchGraphQL(
       queries.getFlurstuckelByContractFileNumber,
       {
@@ -31,6 +28,7 @@ const SearchLandparcelByFileNumber = () => {
       jwt
     );
     console.log("result xxx", result.data.flurstueck);
+    console.log("contract data", result);
     if (result.status === 401) {
       return navigate("/login");
     }
@@ -58,13 +56,26 @@ const SearchLandparcelByFileNumber = () => {
     }
   };
   return (
-    <div className="p-2 w-[calc(100%-2px)]">
-      <button onClick={getFlurstuckeByFileNumberHandle}>Set Contract</button>
-      <button onClick={getFlurstuckelByMipaFileNumberHandle}>Set Mipa</button>
+    <div
+      className="p-1 cursor-pointer hover:bg-gray-100 text-center rounded-xl mt-1"
+      style={{
+        width: !collapsed ? "222px" : "100%",
+        // margin: !collapsed ? "none" : "auto",
+      }}
+    >
+      {/* <button onClick={getFlurstuckeByFileNumberHandle}>Set Contract</button> */}
+      {/* <button onClick={getFlurstuckelByMipaFileNumberHandle}>Set Mipa</button> */}
+      <FileSearchOutlined
+        style={{ display: !collapsed ? "none" : null }}
+        className="cursor-pointer text-base"
+        onClick={() => setCollapsed(!collapsed)}
+      />
       <Input
         size="large"
         placeholder="large size"
         prefix={<FileSearchOutlined />}
+        onChange={(e) => getFlurstuckeByFileNumberHandle(e.target.value)}
+        style={{ display: collapsed ? "none" : null }}
       />
     </div>
   );

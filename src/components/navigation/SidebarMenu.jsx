@@ -255,7 +255,10 @@ const SidebarMenu = ({ parametersForLink }) => {
           inlineCollapsed={collapsed}
         />
       </div>
-      <SearchLandparcelByFileNumber />
+      <SearchLandparcelByFileNumber
+        collapsed={collapsed}
+        setCollapsed={setCollapsed}
+      />
     </div>
   );
 };
