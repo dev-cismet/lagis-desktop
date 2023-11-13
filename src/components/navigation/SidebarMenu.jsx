@@ -9,6 +9,7 @@ import {
   TransactionOutlined,
   FilePdfOutlined,
   MenuOutlined,
+  AuditOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { Menu } from "antd";
@@ -152,7 +153,7 @@ const SidebarMenu = ({ parametersForLink }) => {
         <span style={{ color: defaultLinksColor }}>Vorgänge </span>
       ),
       "/vorgange",
-      <FileSearchOutlined
+      <AuditOutlined
         style={{
           color: contracts && contracts.length > 0 ? null : defaultLinksColor,
         }}
@@ -245,7 +246,7 @@ const SidebarMenu = ({ parametersForLink }) => {
         <Logo showText={collapsed} />
       </div>
 
-      <div className="side-menu lg:ml-[-5px] h-[calc(54%)] overflow-auto">
+      <div className="side-menu lg:ml-[-5px] overflow-y-auto">
         <Menu
           style={{ border: 0, width: !collapsed ? "230px" : "81px" }}
           defaultSelectedKeys={activeKey}

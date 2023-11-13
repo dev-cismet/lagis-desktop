@@ -7,22 +7,27 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
   const data = extractor(dataIn);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
+  const lineStyle = {
+    height: "1px",
+    background: "#2A83FF",
+    borderRadius: "20px",
+    margin: dividerMargin,
+  };
+  console.log("show result data", data);
   return (
     <>
-      {data.length !== 0 && (
-        <>
-          <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#4E5663]">
-            Ergebnisse
-          </h4>
-          <Divider
-            style={{ margin: dividerMargin, backgroundColor: "#4E5663" }}
-          />
-        </>
-      )}
-
+      <div style={{ display: data.length === 0 ? "none" : "block" }}>
+        <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#6c6a6a]">
+          Ergebnisse
+        </h4>
+        <div style={lineStyle}></div>
+        {/* <Divider
+          style={{ margin: dividerMargin, backgroundColor: "#2A83FF" }}
+        /> */}
+      </div>
       <div
         style={{ height: "65%", background: "#ffffff" }}
-        className="overflow-auto"
+        className="overflow-y-auto"
       >
         {data &&
           data.map((c) => {

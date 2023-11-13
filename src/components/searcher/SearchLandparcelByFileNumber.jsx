@@ -71,18 +71,18 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   };
   return (
     <div
-      className="p-1 mt-auto flex flex-col"
-      // className="p-1 cursor-pointer hover:bg-gray-100 text-center rounded-xl mt-1"
+      className="p-2 mt-auto flex flex-col"
       style={{
         width: !collapsed ? "222px" : "100%",
-        height: "40%",
-        // maxHeight: "400px",
-        // margin: !collapsed ? "none" : "auto",
+        maxHeight:
+          contractFlurstucke?.length === 0 || !contractFlurstucke
+            ? "10%"
+            : "40%",
       }}
     >
       <FileSearchOutlined
-        style={{ display: !collapsed ? "none" : null }}
-        className="cursor-pointer text-base"
+        style={{ display: !collapsed ? "none" : null, fontSize: "16px" }}
+        className="cursor-pointer text-base mx-auto"
         onClick={() => setCollapsed(!collapsed)}
       />
       <ShowNumberFilesSearchResult
