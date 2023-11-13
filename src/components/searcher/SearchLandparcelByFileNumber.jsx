@@ -19,14 +19,27 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const jwt = useSelector(getJWT);
   const contractFlurstucke = useSelector(getContractFlurstucke);
   const mipaFlurstucke = useSelector(getMipaFlurstucke);
-  const [options, setOptions] = useState([]);
-  const handleSearch = (value) => {
-    setOptions(value ? searchResult(value) : []);
+  // const [options, setOptions] = useState([]);
+  // const handleSearch = (value) => {
+  //   setOptions(value ? searchResult(value) : []);
+  // };
+
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return function (...args) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
   };
 
   const getFlurstuckeByContractAndMipa = async () => {};
 
-  const getFlurstuckeByFileNumberHandle = async (searchValue) => {
+  const getFlurstuckeByFileNumberHandle = debounce(async (searchValue) => {
+    console.log("debounce", searchValue);
     if (searchValue === "") {
       console.log("searchValue", searchValue === "");
       dispatch(storeContractFlurstucke(undefined));
@@ -41,8 +54,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       },
       jwt
     );
-    // console.log("result xxx", result.data.flurstueck);
-    // console.log("contract data", result);
     if (result.status === 401) {
       return navigate("/login");
     }
@@ -50,7 +61,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     if (result?.data?.flurstueck) {
       dispatch(storeContractFlurstucke(result.data.flurstueck));
     }
-  };
+  }, 300);
 
   const getFlurstuckelByMipaFileNumberHandle = async (searchValue) => {
     const aktz = `%${searchValue}%`;
