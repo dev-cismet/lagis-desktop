@@ -27,6 +27,12 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const getFlurstuckeByContractAndMipa = async () => {};
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
+    if (searchValue === "") {
+      console.log("searchValue", searchValue === "");
+      dispatch(storeContractFlurstucke(undefined));
+      return false;
+    }
+
     const aktz = `%${searchValue}%`;
     const result = await fetchGraphQL(
       queries.getFlurstuckelByContractFileNumber,

@@ -9,10 +9,16 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
   const dividerMargin = "4px 0";
   return (
     <>
-      <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#4E5663]">
-        Ergebnisse
-      </h4>
-      <Divider style={{ margin: dividerMargin, backgroundColor: "#4E5663" }} />
+      {data.length !== 0 && (
+        <>
+          <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#4E5663]">
+            Ergebnisse
+          </h4>
+          <Divider
+            style={{ margin: dividerMargin, backgroundColor: "#4E5663" }}
+          />
+        </>
+      )}
 
       <div
         style={{ height: "65%", background: "#ffffff" }}
