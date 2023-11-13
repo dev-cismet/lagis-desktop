@@ -6,13 +6,13 @@ import { defaultLinksColor } from "../../core/tools/helper";
 const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
   const data = extractor(dataIn);
   const [urlParams, setUrlParams] = useSearchParams();
-  const dividerMargin = "8px 0";
+  const dividerMargin = "4px 0";
   return (
     <>
       <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#4E5663]">
         Ergebnisse
       </h4>
-      <Divider style={{ margin: dividerMargin }} />
+      <Divider style={{ margin: dividerMargin, backgroundColor: "#4E5663" }} />
 
       <div
         style={{ height: "65%", background: "#ffffff" }}
@@ -29,11 +29,16 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
                   background: "#fffff",
                 }}
               >
-                <div className="text-[14px] flex items-center pl-3 cursor-pointer">
+                <div className="h-[34px] text-[14px] flex items-center pl-3 cursor-pointer hover:bg-gray-100 text-center rounded">
                   {c.iconType === "bank" ? <BankOutlined /> : <BlockOutlined />}
                   <span className="ml-2 py-1">{c.content}</span>
                 </div>
-                <Divider style={{ margin: dividerMargin }} />
+                <Divider
+                  style={{ margin: dividerMargin }}
+                  hover:bg-gray-100
+                  text-center
+                  rounded
+                />
               </div>
             );
           })}
