@@ -65,14 +65,13 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   };
   return (
     <div
-      className="p-1 cursor-pointer hover:bg-gray-100 text-center rounded-xl mt-1"
+      className="p-1 mt-1"
+      // className="p-1 cursor-pointer hover:bg-gray-100 text-center rounded-xl mt-1"
       style={{
         width: !collapsed ? "222px" : "100%",
         // margin: !collapsed ? "none" : "auto",
       }}
     >
-      {/* <button onClick={getFlurstuckeByFileNumberHandle}>Set Contract</button> */}
-      {/* <button onClick={getFlurstuckelByMipaFileNumberHandle}>Set Mipa</button> */}
       <FileSearchOutlined
         style={{ display: !collapsed ? "none" : null }}
         className="cursor-pointer text-base"
