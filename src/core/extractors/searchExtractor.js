@@ -1,11 +1,3 @@
-// import dayjs from "dayjs";
-// import weekday from "dayjs/plugin/weekday";
-// import localeData from "dayjs/plugin/localeData";
-// import customParseFormat from "dayjs/plugin/customParseFormat";
-// dayjs.extend(weekday);
-// dayjs.extend(localeData);
-// dayjs.extend(customParseFormat);
-
 export function searchContractExtractor(contractFlurstuckeArr) {
   if (contractFlurstuckeArr === undefined) {
     return [];
@@ -23,15 +15,30 @@ export function searchContractExtractor(contractFlurstuckeArr) {
       };
       const iconType = fstck.flurstueck_art.bezeichnung;
       const ifHistorical = fstck.gueltig_bis;
-      //   console.log("ssss!!!!", fstckString, ifHistorical, iconType);
-
       return {
         id: c.id,
         content: fstckString,
         searchParamsObj,
+        gemarkung: gemarkung,
+        flur: flur,
         iconType: iconType === "städtisch" ? "bank" : "block",
         ifHistorical: ifHistorical ? true : false,
       };
+    });
+
+    updatedArr.sort((a, b) => {
+      // First, sort by gemarkung alphabetically
+      const gemarkungA = a.gemarkung.toUpperCase();
+      const gemarkungB = b.gemarkung.toUpperCase();
+      if (gemarkungA < gemarkungB) {
+        return -1;
+      }
+      if (gemarkungA > gemarkungB) {
+        return 1;
+      }
+      const flurA = parseInt(a.flur, 10);
+      const flurB = parseInt(b.flur, 10);
+      return flurA - flurB;
     });
 
     return updatedArr;
