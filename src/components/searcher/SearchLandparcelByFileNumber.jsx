@@ -9,6 +9,7 @@ import {
   storeContractFlurstucke,
   storeMipaFlurstucke,
   getContractFlurstucke,
+  getMipaFlurstucke,
 } from "../../store/slices/search";
 import ShowNumberFilesSearchResult from "./ShowNumberFilesSearchResult";
 import { searchContractExtractor } from "../../core/extractors/searchExtractor";
@@ -17,10 +18,13 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const dispatch = useDispatch();
   const jwt = useSelector(getJWT);
   const contractFlurstucke = useSelector(getContractFlurstucke);
+  const mipaFlurstucke = useSelector(getMipaFlurstucke);
   const [options, setOptions] = useState([]);
   const handleSearch = (value) => {
     setOptions(value ? searchResult(value) : []);
   };
+
+  const getFlurstuckeByContractAndMipa = async () => {};
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
     const aktz = `%${searchValue}%`;
@@ -42,10 +46,10 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     }
   };
 
-  const getFlurstuckelByMipaFileNumberHandle = async () => {
-    const aktz = "%40%";
+  const getFlurstuckelByMipaFileNumberHandle = async (searchValue) => {
+    const aktz = `%${searchValue}%`;
     const result = await fetchGraphQL(
-      queries.getFlurstuckeByMipaFileNumber,
+      queries.getFlurstuckelByMipaFileNumber,
       {
         aktz,
       },
@@ -75,12 +79,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         onClick={() => setCollapsed(!collapsed)}
       />
       <ShowNumberFilesSearchResult
-        // key={
-        //   `SearchLandparcelByFileNumberKey.` +
-        //   JSON.stringify({
-        //     contractFlurstucke,
-        //   })
-        // }
         dataIn={contractFlurstucke}
         extractor={searchContractExtractor}
       />

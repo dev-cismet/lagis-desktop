@@ -464,7 +464,7 @@ queries.getGeomFromWuNDA = `query q($alkis_id: String) {
 `;
 
 queries.getFlurstuckelByContractFileNumber = `query MyQuery($aktz: String) {
-  flurstueck(where: {ar_vertraegeArray: {vertrag: {aktenzeichen: {_ilike: $aktz }}}}) {
+  flurstueck(where: {ar_vertraegeArray: {vertrag: {aktenzeichen: {_ilike: $aktz}}}}) {
     id
     flurstueck_schluessel {
       flur
@@ -474,11 +474,15 @@ queries.getFlurstuckelByContractFileNumber = `query MyQuery($aktz: String) {
         schluessel
         bezeichnung
       }
+      flurstueck_art {
+        bezeichnung
+      }
+      gueltig_bis
     }
   }
 }`;
 
-queries.getFlurstuckeByMipaFileNumber = `query MyQuery($aktz: String) {
+queries.getFlurstuckelByMipaFileNumber = `query MyQuery($aktz: String) {
   view_mipa_by_aktenzeichen(where: {aktenzeichen: {_ilike: $aktz}}, distinct_on: id) {
     gemarkung
     flur

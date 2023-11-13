@@ -1,3 +1,11 @@
+// import dayjs from "dayjs";
+// import weekday from "dayjs/plugin/weekday";
+// import localeData from "dayjs/plugin/localeData";
+// import customParseFormat from "dayjs/plugin/customParseFormat";
+// dayjs.extend(weekday);
+// dayjs.extend(localeData);
+// dayjs.extend(customParseFormat);
+
 export function searchContractExtractor(contractFlurstuckeArr) {
   if (contractFlurstuckeArr === undefined) {
     return [];
@@ -13,20 +21,19 @@ export function searchContractExtractor(contractFlurstuckeArr) {
         flur: flur,
         fstck: nennerZaehler,
       };
+      const iconType = fstck.flurstueck_art.bezeichnung;
+      const ifHistorical = fstck.gueltig_bis;
+      //   console.log("ssss!!!!", fstckString, ifHistorical, iconType);
+
       return {
         id: c.id,
         content: fstckString,
         searchParamsObj,
+        iconType: iconType === "städtisch" ? "bank" : "block",
+        ifHistorical: ifHistorical ? true : false,
       };
     });
 
     return updatedArr;
   }
 }
-
-// const lansParcelParamsArray = landParcelString.split(" ");
-// const lansParcelParamsObj = {};
-// lansParcelParamsObj.gem = lansParcelParamsArray[0];
-// lansParcelParamsObj.flur = lansParcelParamsArray[1];
-// lansParcelParamsObj.fstck = lansParcelParamsArray[2].replace(/\//g, "-");
-// setUrlParams(lansParcelParamsObj);
