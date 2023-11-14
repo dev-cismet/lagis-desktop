@@ -39,12 +39,14 @@ const ShowNumberFilesSearchResult = ({
           />
         </div>
         <div style={lineStyle}></div>
-        {/* <Divider
-          style={{ margin: dividerMargin, backgroundColor: "#2A83FF" }}
-        /> */}
       </div>
       <div
-        style={{ height: "65%", background: "#ffffff" }}
+        style={{
+          minHeight: "0px",
+          background: "#ffffff",
+          flexGrow: "1",
+          marginBottom: "10px",
+        }}
         className="overflow-y-auto"
       >
         {data.length !== 0 &&

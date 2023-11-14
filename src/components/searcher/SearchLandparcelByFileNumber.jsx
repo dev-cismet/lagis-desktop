@@ -70,7 +70,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   };
   return (
     <div
-      className="p-2 mt-auto flex flex-col"
+      className="p-2 mt-auto flex flex-col gap-2"
       style={{
         width: !collapsed ? "222px" : "100%",
         maxHeight:
