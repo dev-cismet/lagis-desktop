@@ -35,7 +35,32 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
 
   const getFlurstuckeByContractAndMipa = async () => {};
 
-  const getFlurstuckeByFileNumberHandle = debounce(async (searchValue) => {
+  // const getFlurstuckeByFileNumberHandle = debounce(async (searchValue) => {
+  //   console.log("debounce", searchValue);
+  //   if (searchValue === "") {
+  //     console.log("searchValue", searchValue === "");
+  //     dispatch(storeContractFlurstucke(undefined));
+  //     return false;
+  //   }
+
+  //   const aktz = `%${searchValue}%`;
+  //   const result = await fetchGraphQL(
+  //     queries.getFlurstuckelByContractFileNumber,
+  //     {
+  //       aktz,
+  //     },
+  //     jwt
+  //   );
+  //   if (result.status === 401) {
+  //     return navigate("/login");
+  //   }
+
+  //   if (result?.data?.flurstueck) {
+  //     dispatch(storeContractFlurstucke(result.data.flurstueck));
+  //   }
+  // }, 1000);
+
+  const getFlurstuckeByFileNumberHandle = async (searchValue) => {
     console.log("debounce", searchValue);
     if (searchValue === "") {
       console.log("searchValue", searchValue === "");
@@ -58,7 +83,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     if (result?.data?.flurstueck) {
       dispatch(storeContractFlurstucke(result.data.flurstueck));
     }
-  }, 300);
+  };
 
   const getFlurstuckelByMipaFileNumberHandle = async (searchValue) => {
     const aktz = `%${searchValue}%`;
@@ -94,10 +119,13 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         onClick={() => setCollapsed(!collapsed)}
       />
       <ShowNumberFilesSearchResult
-        dataIn={contractFlurstucke}
+        dataContract={contractFlurstucke}
+        dataMipa={mipaFlurstucke}
+        searchValue={searchValue}
         extractor={searchContractExtractor}
         cleaFunc={() => {
           dispatch(storeContractFlurstucke(undefined));
+          dispatch(storeMipaFlurstucke(undefined));
           setSearchValue("");
         }}
       />
@@ -109,6 +137,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         onChange={(e) => {
           setSearchValue(e.target.value);
           getFlurstuckeByFileNumberHandle(e.target.value);
+          getFlurstuckelByMipaFileNumberHandle(e.target.value);
         }}
         style={{
           display: collapsed ? "none" : null,

@@ -1,8 +1,16 @@
-export function searchContractExtractor(contractFlurstuckeArr) {
-  if (contractFlurstuckeArr === undefined) {
+export function searchContractExtractor(
+  contractFlurstuckeArr,
+  mipaFlurstuckeArr,
+  searchValue
+) {
+  console.log("search extractor mipa", searchValue, mipaFlurstuckeArr);
+  console.log("search extractor contract", searchValue, contractFlurstuckeArr);
+  if (contractFlurstuckeArr === undefined || mipaFlurstuckeArr === undefined) {
     return [];
   } else {
-    const updatedArr = contractFlurstuckeArr.map((c) => {
+    const addedFstck = new Set();
+
+    const updatedContractArr = contractFlurstuckeArr.map((c) => {
       const fstck = c.flurstueck_schluessel;
       const gemarkung = fstck.gemarkung.bezeichnung;
       const flur = fstck.flur;
@@ -15,6 +23,7 @@ export function searchContractExtractor(contractFlurstuckeArr) {
       };
       const iconType = fstck.flurstueck_art.bezeichnung;
       const ifHistorical = fstck.gueltig_bis;
+      addedFstck.add(fstckString);
       return {
         id: c.id,
         content: fstckString,
@@ -25,8 +34,30 @@ export function searchContractExtractor(contractFlurstuckeArr) {
         ifHistorical: ifHistorical ? true : false,
       };
     });
+    mipaFlurstuckeArr.forEach((m) => {
+      const gemarkung = m.gemarkung;
+      const flur = m.flur;
+      const fstckString = `${gemarkung} ${flur} ${m.flurstueck_zaehler}/${m.flurstueck_nenner}`;
+      if (!addedFstck.has(fstckString)) {
+        const iconType = m.flurstueck_art;
 
-    updatedArr.sort((a, b) => {
+        const mipaObj = {
+          id: m.id,
+          content: fstckString,
+          searchParamsObj: {
+            gem: gemarkung,
+            flur: flur,
+            fstck: `${m.flurstueck_zaehler}-${m.flurstueck_nenner}`,
+          },
+          gemarkung: gemarkung,
+          flur: flur,
+          iconType: iconType === "städtisch" ? "bank" : "block",
+          ifHistorical: m.historisch,
+        };
+        updatedContractArr.push(mipaObj);
+      }
+    });
+    updatedContractArr.sort((a, b) => {
       // First, sort by gemarkung alphabetically
       const gemarkungA = a.gemarkung.toUpperCase();
       const gemarkungB = b.gemarkung.toUpperCase();
@@ -40,7 +71,6 @@ export function searchContractExtractor(contractFlurstuckeArr) {
       const flurB = parseInt(b.flur, 10);
       return flurA - flurB;
     });
-
-    return updatedArr;
+    return updatedContractArr;
   }
 }

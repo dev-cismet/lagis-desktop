@@ -490,5 +490,7 @@ queries.getFlurstuckelByMipaFileNumber = `query MyQuery($aktz: String) {
     flurstueck_zaehler
     id
     schluessel
+    historisch
+    flurstueck_art
   }
 }`;

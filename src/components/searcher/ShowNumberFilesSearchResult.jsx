@@ -8,8 +8,14 @@ import {
 } from "@ant-design/icons";
 import { defaultLinksColor } from "../../core/tools/helper";
 
-const ShowNumberFilesSearchResult = ({ dataIn, extractor, cleaFunc }) => {
-  const data = extractor(dataIn);
+const ShowNumberFilesSearchResult = ({
+  dataContract,
+  dataMipa,
+  extractor,
+  cleaFunc,
+  searchValue,
+}) => {
+  const data = extractor(dataContract, dataMipa, searchValue);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
   const lineStyle = {
