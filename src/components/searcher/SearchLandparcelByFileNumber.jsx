@@ -33,7 +33,15 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     };
   };
 
-  const getFlurstuckeByContractAndMipa = async () => {};
+  const getFlurstuckeByContractAndMipa = async (searchValue) => {
+    if (searchValue === "") {
+      dispatch(storeContractFlurstucke(undefined));
+      dispatch(storeMipaFlurstucke(undefined));
+      return false;
+    }
+    await getFlurstuckeByFileNumberHandle(searchValue);
+    await getFlurstuckelByMipaFileNumberHandle(searchValue);
+  };
 
   // const getFlurstuckeByFileNumberHandle = debounce(async (searchValue) => {
   //   console.log("debounce", searchValue);
@@ -61,13 +69,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   // }, 1000);
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
-    console.log("debounce", searchValue);
-    if (searchValue === "") {
-      console.log("searchValue", searchValue === "");
-      dispatch(storeContractFlurstucke(undefined));
-      return false;
-    }
-
     const aktz = `%${searchValue}%`;
     const result = await fetchGraphQL(
       queries.getFlurstuckelByContractFileNumber,
@@ -119,6 +120,13 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         onClick={() => setCollapsed(!collapsed)}
       />
       <ShowNumberFilesSearchResult
+        key={
+          `ShowNumberFilesSearchResult.` +
+          JSON.stringify({
+            contractFlurstucke,
+            mipaFlurstucke,
+          })
+        }
         dataContract={contractFlurstucke}
         dataMipa={mipaFlurstucke}
         searchValue={searchValue}
@@ -133,11 +141,9 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         size="large"
         value={searchValue}
         prefix={<FileSearchOutlined />}
-        // onChange={(e) => getFlurstuckeByFileNumberHandle(e.target.value)}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          getFlurstuckeByFileNumberHandle(e.target.value);
-          getFlurstuckelByMipaFileNumberHandle(e.target.value);
+          getFlurstuckeByContractAndMipa(e.target.value);
         }}
         style={{
           display: collapsed ? "none" : null,

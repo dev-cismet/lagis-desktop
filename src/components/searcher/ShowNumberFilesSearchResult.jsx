@@ -16,6 +16,7 @@ const ShowNumberFilesSearchResult = ({
   searchValue,
 }) => {
   const data = extractor(dataContract, dataMipa, searchValue);
+  console.log("data xxx", data);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
   const lineStyle = {
@@ -46,7 +47,7 @@ const ShowNumberFilesSearchResult = ({
         style={{ height: "65%", background: "#ffffff" }}
         className="overflow-y-auto"
       >
-        {data &&
+        {data.length !== 0 &&
           data.map((c) => {
             return (
               <div
