@@ -1,9 +1,14 @@
 import React from "react";
 import { Divider } from "antd";
 import { useSearchParams } from "react-router-dom";
-import { BankOutlined, BlockOutlined } from "@ant-design/icons";
+import {
+  BankOutlined,
+  BlockOutlined,
+  CloseCircleOutlined,
+} from "@ant-design/icons";
 import { defaultLinksColor } from "../../core/tools/helper";
-const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
+
+const ShowNumberFilesSearchResult = ({ dataIn, extractor, cleaFunc }) => {
   const data = extractor(dataIn);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
@@ -17,9 +22,15 @@ const ShowNumberFilesSearchResult = ({ dataIn, extractor }) => {
   return (
     <>
       <div style={{ display: data.length === 0 ? "none" : "block" }}>
-        <h4 className="text-left text-sm pl-3 font-semibold mt-4 text-[#6c6a6a]">
-          Ergebnisse
-        </h4>
+        <div className="flex items-center mt-4 pl-2 justify-between">
+          <h4 className="text-left text-sm font-semibold text-[#6c6a6a]">
+            Ergebnisse
+          </h4>
+          <CloseCircleOutlined
+            className="text-sm mt-[-8px] hover:text-[#f31630] cursor-pointer"
+            onClick={cleaFunc}
+          />
+        </div>
         <div style={lineStyle}></div>
         {/* <Divider
           style={{ margin: dividerMargin, backgroundColor: "#2A83FF" }}

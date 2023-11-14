@@ -19,10 +19,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const jwt = useSelector(getJWT);
   const contractFlurstucke = useSelector(getContractFlurstucke);
   const mipaFlurstucke = useSelector(getMipaFlurstucke);
-  // const [options, setOptions] = useState([]);
-  // const handleSearch = (value) => {
-  //   setOptions(value ? searchResult(value) : []);
-  // };
+  const [searchValue, setSearchValue] = useState("");
 
   const debounce = (func, delay) => {
     let timeoutId;
@@ -99,12 +96,20 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       <ShowNumberFilesSearchResult
         dataIn={contractFlurstucke}
         extractor={searchContractExtractor}
+        cleaFunc={() => {
+          dispatch(storeContractFlurstucke(undefined));
+          setSearchValue("");
+        }}
       />
       <Input
         size="large"
-        // placeholder="large size"
+        value={searchValue}
         prefix={<FileSearchOutlined />}
-        onChange={(e) => getFlurstuckeByFileNumberHandle(e.target.value)}
+        // onChange={(e) => getFlurstuckeByFileNumberHandle(e.target.value)}
+        onChange={(e) => {
+          setSearchValue(e.target.value);
+          getFlurstuckeByFileNumberHandle(e.target.value);
+        }}
         style={{
           display: collapsed ? "none" : null,
           height: "40px",
