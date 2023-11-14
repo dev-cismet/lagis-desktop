@@ -13,27 +13,17 @@ import {
 } from "../../store/slices/search";
 import ShowNumberFilesSearchResult from "./ShowNumberFilesSearchResult";
 import { searchContractExtractor } from "../../core/extractors/searchExtractor";
+import { useNavigate } from "react-router-dom";
 
 const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const jwt = useSelector(getJWT);
   const contractFlurstucke = useSelector(getContractFlurstucke);
   const mipaFlurstucke = useSelector(getMipaFlurstucke);
   const [searchValue, setSearchValue] = useState("");
 
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
-  const getFlurstuckeByContractAndMipa = async (searchValue) => {
+  const getFlurstuckeByContractAndMipa = async () => {
     if (searchValue === "") {
       dispatch(storeContractFlurstucke(undefined));
       dispatch(storeMipaFlurstucke(undefined));
@@ -42,31 +32,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     await getFlurstuckeByFileNumberHandle(searchValue);
     await getFlurstuckelByMipaFileNumberHandle(searchValue);
   };
-
-  // const getFlurstuckeByFileNumberHandle = debounce(async (searchValue) => {
-  //   console.log("debounce", searchValue);
-  //   if (searchValue === "") {
-  //     console.log("searchValue", searchValue === "");
-  //     dispatch(storeContractFlurstucke(undefined));
-  //     return false;
-  //   }
-
-  //   const aktz = `%${searchValue}%`;
-  //   const result = await fetchGraphQL(
-  //     queries.getFlurstuckelByContractFileNumber,
-  //     {
-  //       aktz,
-  //     },
-  //     jwt
-  //   );
-  //   if (result.status === 401) {
-  //     return navigate("/login");
-  //   }
-
-  //   if (result?.data?.flurstueck) {
-  //     dispatch(storeContractFlurstucke(result.data.flurstueck));
-  //   }
-  // }, 1000);
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
     const aktz = `%${searchValue}%`;
@@ -139,11 +104,11 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       />
       <Input
         size="large"
+        onPressEnter={getFlurstuckeByContractAndMipa}
         value={searchValue}
         prefix={<FileSearchOutlined />}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          getFlurstuckeByContractAndMipa(e.target.value);
         }}
         style={{
           display: collapsed ? "none" : null,
