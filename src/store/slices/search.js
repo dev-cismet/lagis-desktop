@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   contractFlurstucke: undefined,
   mipaFlurstucke: undefined,
+  loading: false,
 };
 
 const slice = createSlice({
@@ -17,16 +18,24 @@ const slice = createSlice({
       state.mipaFlurstucke = action.payload;
       return state;
     },
+    storeLoading(state, action) {
+      state.loading = action.payload;
+      return state;
+    },
   },
 });
 
 export default slice;
 
-export const { storeContractFlurstucke, storeMipaFlurstucke } = slice.actions;
+export const { storeContractFlurstucke, storeMipaFlurstucke, storeLoading } =
+  slice.actions;
 
 export const getContractFlurstucke = (state) => {
   return state.search.contractFlurstucke;
 };
 export const getMipaFlurstucke = (state) => {
   return state.search.mipaFlurstucke;
+};
+export const getLoading = (state) => {
+  return state.search.loading;
 };

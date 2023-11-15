@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileSearchOutlined } from "@ant-design/icons";
+import { FileSearchOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { getJWT } from "../../store/slices/auth";
 import queries from "../../core/queries/online";
@@ -8,19 +8,21 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   storeContractFlurstucke,
   storeMipaFlurstucke,
+  storeLoading,
   getContractFlurstucke,
   getMipaFlurstucke,
+  getLoading,
 } from "../../store/slices/search";
 import ShowNumberFilesSearchResult from "./ShowNumberFilesSearchResult";
 import { searchContractExtractor } from "../../core/extractors/searchExtractor";
 import { useNavigate } from "react-router-dom";
-
 const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt = useSelector(getJWT);
   const contractFlurstucke = useSelector(getContractFlurstucke);
   const mipaFlurstucke = useSelector(getMipaFlurstucke);
+  const loading = useSelector(getLoading);
   const [searchValue, setSearchValue] = useState("");
 
   const getFlurstuckeByContractAndMipa = async () => {
@@ -29,9 +31,12 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       dispatch(storeMipaFlurstucke(undefined));
       return false;
     }
+    dispatch(storeContractFlurstucke(undefined));
+    dispatch(storeMipaFlurstucke(undefined));
+    dispatch(storeLoading(true));
     await getFlurstuckeByFileNumberHandle(searchValue);
     await getFlurstuckelByMipaFileNumberHandle(searchValue);
-    setIfBeforeSearch(false);
+    dispatch(storeLoading(false));
   };
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
@@ -84,6 +89,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         className="cursor-pointer text-base mx-auto"
         onClick={() => setCollapsed(!collapsed)}
       />
+
       <ShowNumberFilesSearchResult
         dataContract={contractFlurstucke}
         dataMipa={mipaFlurstucke}
@@ -99,7 +105,14 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         size="large"
         onPressEnter={getFlurstuckeByContractAndMipa}
         value={searchValue}
-        prefix={<FileSearchOutlined />}
+        prefix={
+          loading ? (
+            <LoadingOutlined className="text-xs" />
+          ) : (
+            <FileSearchOutlined />
+          )
+        }
+        // prefix={<FileSearchOutlined />}
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}

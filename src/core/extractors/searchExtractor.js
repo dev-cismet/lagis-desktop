@@ -77,8 +77,6 @@ export function searchContractExtractor(
     const debagArrContent = updatedContractArr.filter(
       (f) => f.content === "Barmen 308 29/0"
     );
-    // console.log("show result data", debagArrContent);
-    console.log("show result data", debagArr);
 
     return updatedContractArr;
   }
