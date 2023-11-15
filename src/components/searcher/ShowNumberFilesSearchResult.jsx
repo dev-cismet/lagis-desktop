@@ -74,7 +74,7 @@ const ShowNumberFilesSearchResult = ({
                 key={c.id}
                 onClick={() => setUrlParams(c.searchParamsObj)}
                 style={{
-                  color: c.ifHistorical ? defaultLinksColor : null,
+                  color: c.color,
                   background: "#fffff",
                 }}
               >

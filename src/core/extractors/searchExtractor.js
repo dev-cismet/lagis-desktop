@@ -29,6 +29,7 @@ export function searchContractExtractor(
         searchParamsObj,
         gemarkung: gemarkung,
         flur: flur,
+        color: getColorForSearchResults(iconType, ifHistorical ? true : false),
         iconType: iconType === "städtisch" ? "bank" : "block",
         ifHistorical: ifHistorical ? true : false,
       };
@@ -50,6 +51,7 @@ export function searchContractExtractor(
           },
           gemarkung: gemarkung,
           flur: flur,
+          color: getColorForSearchResults(iconType, m.historisch),
           iconType: iconType === "städtisch" ? "bank" : "block",
           ifHistorical: m.historisch,
         };
@@ -80,4 +82,15 @@ export function searchContractExtractor(
 
     return updatedContractArr;
   }
+}
+
+function getColorForSearchResults(iconType, historisch) {
+  let color = "lightgrey";
+  if (historisch === false && iconType === "städtisch") {
+    color = "black";
+  } else if (historisch === false && iconType === "Abteilung IX") {
+    color = "purple";
+  }
+
+  return color;
 }
