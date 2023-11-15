@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FileSearchOutlined, LoadingOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import { Input, Tooltip } from "antd";
 import { getJWT } from "../../store/slices/auth";
 import queries from "../../core/queries/online";
 import { fetchGraphQL } from "../../core/graphql";
@@ -75,21 +75,20 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   };
   return (
     <div
-      className="p-2 mt-auto flex flex-col gap-2"
+      className="p-2 mt-auto flex flex-col gap-2 mb-1"
       style={{
         width: !collapsed ? "222px" : "100%",
         maxHeight:
           !contractFlurstucke || !mipaFlurstucke || collapsed ? "10%" : "40%",
-        // height: "400px",
-        // border: "1px solid blue",
       }}
     >
-      <FileSearchOutlined
-        style={{ display: !collapsed ? "none" : null, fontSize: "16px" }}
-        className="cursor-pointer text-base mx-auto"
-        onClick={() => setCollapsed(!collapsed)}
-      />
-
+      <Tooltip title="Aktenzeichen-Suche öffnen">
+        <FileSearchOutlined
+          style={{ display: !collapsed ? "none" : null, fontSize: "16px" }}
+          className="cursor-pointer text-base mx-auto"
+          onClick={() => setCollapsed(!collapsed)}
+        />
+      </Tooltip>
       <ShowNumberFilesSearchResult
         dataContract={contractFlurstucke}
         dataMipa={mipaFlurstucke}
@@ -112,7 +111,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
             <FileSearchOutlined />
           )
         }
-        // prefix={<FileSearchOutlined />}
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}

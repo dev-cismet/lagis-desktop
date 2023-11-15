@@ -6,7 +6,7 @@ import {
   BlockOutlined,
   CloseCircleOutlined,
 } from "@ant-design/icons";
-import { defaultLinksColor } from "../../core/tools/helper";
+import { Tooltip } from "antd";
 
 const ShowNumberFilesSearchResult = ({
   dataContract,
@@ -50,10 +50,12 @@ const ShowNumberFilesSearchResult = ({
           <h4 className="text-left text-sm font-semibold text-[#6c6a6a]">
             Ergebnisse
           </h4>
-          <CloseCircleOutlined
-            className="text-sm mt-[-8px] hover:text-[#f31630] cursor-pointer"
-            onClick={cleaFunc}
-          />
+          <Tooltip title="Ergebnisse löschen">
+            <CloseCircleOutlined
+              className="text-sm mt-[-8px] hover:text-[#f31630] cursor-pointer"
+              onClick={cleaFunc}
+            />
+          </Tooltip>
         </div>
         <div style={lineStyle}></div>
       </div>
