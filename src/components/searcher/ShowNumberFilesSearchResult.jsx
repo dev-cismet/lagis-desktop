@@ -16,7 +16,7 @@ const ShowNumberFilesSearchResult = ({
   collapsed,
 }) => {
   const data = extractor(dataContract, dataMipa);
-  console.log("data xxx", data);
+  // console.log("data xxx", data);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
   const lineStyle = {
@@ -36,7 +36,6 @@ const ShowNumberFilesSearchResult = ({
   };
   const displayBlock =
     !dataContract || !dataMipa || collapsed ? "none" : "block";
-  console.log("show result data", dataContract);
   return (
     <>
       <div

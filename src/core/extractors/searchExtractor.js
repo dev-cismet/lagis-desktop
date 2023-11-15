@@ -69,6 +69,15 @@ export function searchContractExtractor(
       const flurB = parseInt(b.flur, 10);
       return flurA - flurB;
     });
+
+    const debagArr = updatedContractArr.filter((f) => f.id === 20994);
+
+    const debagArrContent = updatedContractArr.filter(
+      (f) => f.content === "Barmen 308 29/0"
+    );
+    // console.log("show result data", debagArrContent);
+    console.log("show result data", debagArr);
+
     return updatedContractArr;
   }
 }
