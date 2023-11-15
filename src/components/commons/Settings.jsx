@@ -3,7 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 //   getSyncKassenzeichen,
 //   setSyncKassenzeichen,
 // } from "../../store/slices/settings";
-import { getSyncLandparcel, setSyncLandparcel } from "../../store/slices/ui";
+import {
+  getSyncLandparcel,
+  setSyncLandparcel,
+  getMapOptionalLayerBuildings,
+  setMapOptionalLayerBuildings,
+  getMapOptionalLayerParcels,
+  setMapOptionalLayerParcels,
+} from "../../store/slices/ui";
 import { Checkbox, Radio, Slider, Switch } from "antd";
 import { useContext } from "react";
 import {
@@ -35,7 +42,8 @@ const OptionalLayerRow = ({ title, value }) => {
 
   const dispatch = useDispatch();
   const opacity = useSelector(getAdditionalLayerOpacities)[value];
-
+  const opacityBuildings = useSelector(getMapOptionalLayerBuildings);
+  const opacityParcels = useSelector(getMapOptionalLayerParcels);
   const changeActiveAdditionalLayer = (value) => {
     if (activeAdditionalLayerKeys?.includes(value)) {
       // remove it from the array
@@ -64,12 +72,17 @@ const OptionalLayerRow = ({ title, value }) => {
         {title}
       </span>
       <Slider
-        defaultValue={opacity * 100}
+        defaultValue={title === "Gebäude" ? opacityBuildings : opacityParcels}
         disabled={false}
         className="w-full"
-        onAfterChange={(opacity) =>
-          dispatch(setLayerOpacity({ layer: value, opacity: opacity / 100 }))
-        }
+        onAfterChange={(opacity) => {
+          dispatch(setLayerOpacity({ layer: value, opacity: opacity / 100 }));
+          if (title === "Gebäude") {
+            dispatch(setMapOptionalLayerBuildings(opacity));
+          } else {
+            dispatch(setMapOptionalLayerParcels(opacity));
+          }
+        }}
       />
     </div>
   );
