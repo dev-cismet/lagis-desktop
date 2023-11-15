@@ -1,10 +1,9 @@
 export function searchContractExtractor(
   contractFlurstuckeArr,
-  mipaFlurstuckeArr,
-  searchValue
+  mipaFlurstuckeArr
 ) {
-  console.log("search extractor mipa", searchValue, mipaFlurstuckeArr);
-  console.log("search extractor contract", searchValue, contractFlurstuckeArr);
+  // console.log("search extractor mipa", mipaFlurstuckeArr);
+  // console.log("search extractor contract", contractFlurstuckeArr);
   if (contractFlurstuckeArr === undefined || mipaFlurstuckeArr === undefined) {
     return [];
   } else {
@@ -58,7 +57,6 @@ export function searchContractExtractor(
       }
     });
     updatedContractArr.sort((a, b) => {
-      // First, sort by gemarkung alphabetically
       const gemarkungA = a.gemarkung.toUpperCase();
       const gemarkungB = b.gemarkung.toUpperCase();
       if (gemarkungA < gemarkungB) {

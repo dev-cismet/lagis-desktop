@@ -226,7 +226,7 @@ const SidebarMenu = ({ parametersForLink }) => {
 
   return (
     <div
-      className="bg-white border-solid border-white flex flex-col gap-4"
+      className="bg-white flex flex-col gap-4 overflow-clip"
       style={{
         ...storyStyle,
       }}
@@ -246,7 +246,7 @@ const SidebarMenu = ({ parametersForLink }) => {
         <Logo showText={collapsed} />
       </div>
 
-      <div className="side-menu lg:ml-[-5px] overflow-y-auto">
+      <div className="side-menu lg:ml-[-5px] overflow-y-auto overflow-x-hidden">
         <Menu
           style={{ border: 0, width: !collapsed ? "230px" : "81px" }}
           defaultSelectedKeys={activeKey}

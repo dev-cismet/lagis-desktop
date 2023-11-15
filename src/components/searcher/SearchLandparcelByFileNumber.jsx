@@ -31,6 +31,7 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
     }
     await getFlurstuckeByFileNumberHandle(searchValue);
     await getFlurstuckelByMipaFileNumberHandle(searchValue);
+    setIfBeforeSearch(false);
   };
 
   const getFlurstuckeByFileNumberHandle = async (searchValue) => {
@@ -60,7 +61,6 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       },
       jwt
     );
-    console.log("result xxx", result);
     if (result.status === 401) {
       return navigate("/login");
     }
@@ -74,9 +74,9 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       style={{
         width: !collapsed ? "222px" : "100%",
         maxHeight:
-          contractFlurstucke?.length === 0 || !contractFlurstucke
-            ? "10%"
-            : "40%",
+          !contractFlurstucke || !mipaFlurstucke || collapsed ? "10%" : "40%",
+        // height: "400px",
+        // border: "1px solid blue",
       }}
     >
       <FileSearchOutlined
@@ -85,21 +85,14 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
         onClick={() => setCollapsed(!collapsed)}
       />
       <ShowNumberFilesSearchResult
-        key={
-          `ShowNumberFilesSearchResult.` +
-          JSON.stringify({
-            contractFlurstucke,
-            mipaFlurstucke,
-          })
-        }
         dataContract={contractFlurstucke}
         dataMipa={mipaFlurstucke}
         searchValue={searchValue}
         extractor={searchContractExtractor}
+        collapsed={collapsed}
         cleaFunc={() => {
           dispatch(storeContractFlurstucke(undefined));
           dispatch(storeMipaFlurstucke(undefined));
-          setSearchValue("");
         }}
       />
       <Input

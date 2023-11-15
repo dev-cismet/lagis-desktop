@@ -13,9 +13,9 @@ const ShowNumberFilesSearchResult = ({
   dataMipa,
   extractor,
   cleaFunc,
-  searchValue,
+  collapsed,
 }) => {
-  const data = extractor(dataContract, dataMipa, searchValue);
+  const data = extractor(dataContract, dataMipa);
   console.log("data xxx", data);
   const [urlParams, setUrlParams] = useSearchParams();
   const dividerMargin = "4px 0";
@@ -25,11 +25,30 @@ const ShowNumberFilesSearchResult = ({
     borderRadius: "20px",
     margin: dividerMargin,
   };
-  console.log("show result data", data);
+  const bigDividerStyle = {
+    height: "8px",
+    background: "#F1F1F1",
+    margin: dividerMargin,
+    position: "absolute",
+    width: "300px",
+    top: "-12px",
+    left: "-10px",
+  };
+  const displayBlock =
+    !dataContract || !dataMipa || collapsed ? "none" : "block";
+  console.log("show result data", dataContract);
   return (
     <>
-      <div style={{ display: data.length === 0 ? "none" : "block" }}>
-        <div className="flex items-center mt-4 pl-2 justify-between">
+      <div
+        style={{
+          position: "relative",
+          margin: "0",
+          padding: "0",
+          display: displayBlock,
+        }}
+      >
+        <div style={bigDividerStyle}></div>
+        <div className="flex items-center mt-[14px] pl-2 justify-between">
           <h4 className="text-left text-sm font-semibold text-[#6c6a6a]">
             Ergebnisse
           </h4>
@@ -44,12 +63,12 @@ const ShowNumberFilesSearchResult = ({
         style={{
           minHeight: "0px",
           background: "#ffffff",
-          flexGrow: "1",
-          marginBottom: "10px",
+          marginBottom: "6px",
+          display: displayBlock,
         }}
-        className="overflow-y-auto"
+        className="overflow-y-auto overflow-x-hidden"
       >
-        {data.length !== 0 &&
+        {data.length !== 0 ? (
           data.map((c) => {
             return (
               <div
@@ -72,7 +91,10 @@ const ShowNumberFilesSearchResult = ({
                 />
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="h-[40px] text-xs">Keine Ergebnisse gefunden</div>
+        )}
       </div>
     </>
   );
