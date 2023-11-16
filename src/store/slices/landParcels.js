@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { fetchGraphQL } from "../../core/graphql";
+import queries from "../../core/queries/online";
 const initialState = {
   landParcels: undefined,
   landmarks: undefined,
@@ -42,7 +43,50 @@ const slice = createSlice({
 });
 
 export default slice;
+export const getGemarkungen = () => {
+  console.log("getGemarkungen !!!!!!!!!!!!!");
+  return async (dispatch, getState) => {
+    const jwt = getState().auth.jwt;
+    if (jwt) {
+      console.log("getGemarkungen jwt", jwt);
 
+      // dispatch(fetchLandParcelsStart());
+      const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
+      console.log("getGemarkungen", result);
+      if (result.status === 401) {
+        return 401;
+        // navigate("/login");
+      }
+      if (result.data?.gemarkung) {
+        console.log("getGemarkungen", result.data?.gemarkung);
+        dispatch(storeLandmarks(result.data.gemarkung));
+      } else {
+        // dispatch(fetchLandLandmarksFailure("error message"));
+      }
+    }
+  };
+};
+export const getflurstuecke = () => {
+  return async (dispatch, getState) => {
+    const jwt = getState().auth.jwt;
+    if (jwt) {
+      // dispatch(fetchLandParcelsStart());
+      try {
+        const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
+        if (result.status === 401) {
+          navigate("/login");
+        }
+        if (result.data?.view_flurstueck_schluessel) {
+          dispatch(storeLandParcels(result.data.view_flurstueck_schluessel));
+        } else {
+          // dispatch(fetchLandParcelsFailure(result.status));
+        }
+      } catch (e) {
+        console.log("xxx error in fetchGraphQL(queries.flurstuecke", e);
+      }
+    }
+  };
+};
 export const {
   storeLandParcels,
   storeLandmarks,

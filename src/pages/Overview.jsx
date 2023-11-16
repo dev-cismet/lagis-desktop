@@ -8,24 +8,10 @@ import Operations from "../components/overview/Operations";
 import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
-import { fetchGraphQL } from "../core/graphql";
 import { useSelector, useDispatch } from "react-redux";
-import { getJWT } from "../store/slices/auth";
-import { Spin } from "antd";
-import {
-  storeLandParcels,
-  storeLandmarks,
-  getLandParcels,
-  getLandmarks,
-  fetchLandParcelsStart,
-  fetchLandParcelsFailure,
-  fetchLandLandmarksFailure,
-  getLandmarksLoading,
-} from "../store/slices/landParcels";
+import { getGemarkungen, getflurstuecke } from "../store/slices/landParcels";
 import { useEffect } from "react";
-import queries from "../core/queries/online";
 import {
-  getAlkisLandparcel,
   getGeometry,
   getHistory,
   getLandparcel,
@@ -55,53 +41,15 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
   const dispatch = useDispatch();
-  const jwt = useSelector(getJWT);
   const [urlParams, setUrlParams] = useSearchParams();
   const [parametersForLink, setParametersForLink] = useState();
   const navigate = useNavigate();
-  const { landmarks } = useSelector(getLandmarks);
-  const { landParcels } = useSelector(getLandParcels);
   const mipa = useSelector(getMipa);
   const rebe = useSelector(getRebe);
-  const loading = useSelector(getLandmarksLoading);
-  const getflurstuecke = async () => {
-    if (!landParcels && jwt) {
-      dispatch(fetchLandParcelsStart());
-      try {
-        const result = await fetchGraphQL(queries.flurstuecke, {}, jwt);
-        if (result.status === 401) {
-          navigate("/login");
-        }
-        if (result.data?.view_flurstueck_schluessel) {
-          dispatch(storeLandParcels(result.data.view_flurstueck_schluessel));
-        } else {
-          dispatch(fetchLandParcelsFailure(result.status));
-        }
-      } catch (e) {
-        console.log("xxx error in fetchGraphQL(queries.flurstuecke", e);
-      }
-    }
-  };
-  const getGemarkungen = async () => {
-    if (jwt) {
-      dispatch(fetchLandParcelsStart());
-      const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      if (result.status === 401) {
-        navigate("/login");
-      }
-      if (result.data?.gemarkung) {
-        dispatch(storeLandmarks(result.data.gemarkung));
-      } else {
-        dispatch(fetchLandLandmarksFailure("error message"));
-      }
-    }
-  };
-  // if (loading) {
-  //   return <Spin />;
-  // }
+
   useEffect(() => {
-    getflurstuecke();
-    getGemarkungen();
+    dispatch(getGemarkungen());
+    dispatch(getflurstuecke());
   }, []);
   useEffect(() => {
     const fromUrl = {
@@ -113,7 +61,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   }, [urlParams]);
 
   const landparcel = useSelector(getLandparcel);
-  const alkisLandparcel = useSelector(getAlkisLandparcel);
   const history = useSelector(getHistory);
   const geometry = useSelector(getGeometry);
 
