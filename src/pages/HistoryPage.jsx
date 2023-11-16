@@ -42,19 +42,33 @@ const HistoryPage = ({ width = "100%", height = "1000", inStory = false }) => {
   if (fstck) {
     fstckString = `${fstck.flurstueck_schluessel.gemarkung.bezeichnung} ${fstck.flurstueck_schluessel.flur} ${fstck.flurstueck_schluessel.flurstueck_zaehler}/${fstck.flurstueck_schluessel.flurstueck_nenner}`;
   }
+  // useEffect(() => {
+  //   const measureHeight = () => {
+  //     if (divRef.current) {
+  //       const width = divRef.current.clientWidth;
+  //       const height = divRef.current.clientHeight;
+  //       setDivHeight(height);
+  //       setDivWidth(width);
+  //     }
+  //   };
+  //   measureHeight();
+  //   window.addEventListener("resize", measureHeight);
+  //   return () => {
+  //     window.removeEventListener("resize", measureHeight);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const measureHeight = () => {
-      if (divRef.current) {
-        const width = divRef.current.clientWidth;
-        const height = divRef.current.clientHeight;
-        setDivHeight(height);
-        setDivWidth(width);
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setDivWidth(divRef?.current?.offsetWidth);
+        setDivHeight(divRef?.current?.offsetHeight);
       }
-    };
-    measureHeight();
-    window.addEventListener("resize", measureHeight);
+    });
+
+    resizeObserver.observe(divRef.current);
     return () => {
-      window.removeEventListener("resize", measureHeight);
+      resizeObserver.disconnect();
     };
   }, []);
 
