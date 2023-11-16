@@ -118,10 +118,51 @@ const Settings = () => {
           value={selectedBackground}
         >
           <div className="flex flex-col gap-2 p-1">
-            <Radio value="default">Standard</Radio>
-            <Radio value="stadtplan">Stadtplan</Radio>
-            <Radio value="lbk">Lbk</Radio>
-            <Radio value="ortho">Orthofoto</Radio>
+            <div className="flex gap-4 items-center">
+              <Radio value="default" className="w-1/4">
+                Standard
+              </Radio>
+              <Slider
+                defaultValue={50}
+                disabled={false}
+                className="w-full"
+                onAfterChange={(opacity) => console.log(opacity)}
+              />
+            </div>
+
+            <div className="flex gap-4 items-center">
+              <Radio value="stadtplan" className="w-1/4">
+                Stadtplan
+              </Radio>
+              <Slider
+                defaultValue={50}
+                disabled={false}
+                className="w-full"
+                onAfterChange={(opacity) => console.log(opacity)}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <Radio value="lbk" className="w-1/4">
+                Lbk
+              </Radio>
+              <Slider
+                defaultValue={50}
+                disabled={false}
+                className="w-full"
+                onAfterChange={(opacity) => console.log(opacity)}
+              />
+            </div>
+            <div className="flex gap-4 items-center">
+              <Radio value="ortho" className="w-1/4">
+                Orthofoto
+              </Radio>
+              <Slider
+                defaultValue={50}
+                disabled={false}
+                className="w-full"
+                onAfterChange={(opacity) => console.log(opacity)}
+              />
+            </div>
           </div>
         </Radio.Group>
       </div>
