@@ -9,7 +9,11 @@ import History from "../components/overview/History";
 import Transaction from "../components/overview/Transaction";
 import DMS from "../components/overview/DMS";
 import { useSelector, useDispatch } from "react-redux";
-import { getGemarkungen, getflurstuecke } from "../store/slices/landParcels";
+import {
+  getGemarkungen,
+  getflurstuecke,
+  getLandParcels,
+} from "../store/slices/landParcels";
 import { useEffect } from "react";
 import {
   getGeometry,
@@ -46,10 +50,13 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const navigate = useNavigate();
   const mipa = useSelector(getMipa);
   const rebe = useSelector(getRebe);
+  const { landParcels } = useSelector(getLandParcels);
 
   useEffect(() => {
-    dispatch(getGemarkungen());
-    dispatch(getflurstuecke());
+    dispatch(getGemarkungen(navigate));
+    if (!landParcels) {
+      dispatch(getflurstuecke(navigate));
+    }
   }, []);
   useEffect(() => {
     const fromUrl = {

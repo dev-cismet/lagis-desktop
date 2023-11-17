@@ -49,7 +49,6 @@ const NavBarWrapper = () => {
   if (!jwt) {
     return <Navigate to="/login" />;
   }
-
   useEffect(() => {
     dispatch(loadGazeteerEntries());
   }, []);

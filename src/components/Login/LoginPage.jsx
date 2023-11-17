@@ -3,26 +3,9 @@ import { Input, Button } from "antd";
 import wupperwurm from "../../assets/wupperwurm.svg";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getJWT,
-  setLoginRequested,
-  storeJWT,
-  storeLogin,
-  authStart,
-  authFailure,
-  authStopLoading,
-  getAuthLoading,
-} from "../../store/slices/auth";
-import {
-  storeAlkisLandparcel,
-  storeLagisLandparcel,
-  storeRebe,
-  storeMipa,
-} from "../../store/slices/lagis";
-import { LAGIS_DOMAIN, REST_SERVICE_LAGIS } from "../../constants/lagis";
+import { getAuthLoading, login } from "../../store/slices/auth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Spin } from "antd";
 import useDevSecrets from "../../core/hooks/useDevSecrets";
 import packageJson from "../../../package.json";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -30,13 +13,11 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 const LoginPage = () => {
   const { user: devSecretUser, pw: devSecretPassword } = useDevSecrets();
 
-  const jwt = useSelector(getJWT);
   const loading = useSelector(getAuthLoading);
   const dispatch = useDispatch();
   const [user, setUser] = useState(devSecretUser);
 
   const [pw, setPw] = useState(devSecretPassword);
-  const [keepStatus, setKeepStatus] = useState(false);
   const navigate = useNavigate();
   const loginHandle = (e) => {
     setUser(e.target.value);
@@ -44,66 +25,10 @@ const LoginPage = () => {
   const passwordnHandle = (e) => {
     setPw(e.target.value);
   };
-  const keepStatusHandle = (e) => {
-    setKeepStatus(e.target.checked);
-  };
-  const login = (user, pw, dispatch) => {
-    dispatch(authStart());
 
-    let u, p;
-
-    // can be removed if the form gets proper populated with the devSecrets
-    if (user === null || user === undefined || user === "") {
-      u = devSecretUser;
-    } else {
-      u = user;
-    }
-
-    if (pw === null || pw === undefined || pw === "") {
-      p = devSecretPassword;
-    } else {
-      p = pw;
-    }
-
-    fetch(REST_SERVICE_LAGIS + "/users", {
-      method: "GET",
-      headers: {
-        Authorization: "Basic " + btoa(u + "@" + LAGIS_DOMAIN + ":" + p),
-        "Content-Type": "application/json",
-      },
-    })
-      .then(function (response) {
-        if (response.status >= 200 && response.status < 300) {
-          response.json().then(function (responseWithJWT) {
-            const jwt = responseWithJWT.jwt;
-            setTimeout(() => {
-              dispatch(storeAlkisLandparcel(undefined));
-              dispatch(storeLagisLandparcel(undefined));
-              dispatch(storeRebe(undefined));
-              dispatch(storeMipa(undefined));
-              dispatch(storeJWT(jwt));
-              dispatch(storeLogin(u));
-              dispatch(setLoginRequested(false));
-              navigate("/");
-            }, 500);
-          });
-        } else {
-          dispatch(authStopLoading());
-        }
-      })
-      .catch(function (err) {
-        console.log("error", err);
-        dispatch(authFailure(err));
-      });
-  };
   const clickHandle = () => {
-    login(user, pw, dispatch);
+    login(user, pw, dispatch, navigate);
   };
-  // if (loading) {
-  //   return <Spin />;
-  // }
-
-  console.log("login", { user, pw, devSecretUser, devSecretPassword });
 
   return (
     <>
@@ -112,7 +37,7 @@ const LoginPage = () => {
           <div className="w-full flex h-full items-center justify-center bg-rain relative bg-cover">
             <div className="h-screen absolute w-full backdrop-blur" />
             <div className="flex flex-col gap-8 items-center bg-white/30 z-20 p-10 h-fit lg:w-1/3 w-2/3 rounded-3xl">
-              <h1 class="text-white/80 font-semibold text-6xl">
+              <h1 className="text-white/80 font-semibold text-6xl">
                 LagIS Desktop
               </h1>
               <div className="flex flex-col gap-6 w-full">
@@ -130,7 +55,6 @@ const LoginPage = () => {
                   style={{ marginBottom: "20px" }}
                 />
                 <Input.Password
-                  initialValue="xx"
                   placeholder="Passwort"
                   onChange={passwordnHandle}
                   prefix={<LockOutlined />}

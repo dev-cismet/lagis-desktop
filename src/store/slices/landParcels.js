@@ -43,30 +43,24 @@ const slice = createSlice({
 });
 
 export default slice;
-export const getGemarkungen = () => {
-  console.log("getGemarkungen !!!!!!!!!!!!!");
+export const getGemarkungen = (navigate) => {
   return async (dispatch, getState) => {
     const jwt = getState().auth.jwt;
     if (jwt) {
-      console.log("getGemarkungen jwt", jwt);
-
       // dispatch(fetchLandParcelsStart());
       const result = await fetchGraphQL(queries.gemarkung, {}, jwt);
-      console.log("getGemarkungen", result);
       if (result.status === 401) {
-        return 401;
-        // navigate("/login");
+        return navigate("/login");
       }
       if (result.data?.gemarkung) {
-        console.log("getGemarkungen", result.data?.gemarkung);
         dispatch(storeLandmarks(result.data.gemarkung));
       } else {
-        // dispatch(fetchLandLandmarksFailure("error message"));
+        dispatch(fetchLandLandmarksFailure("error message"));
       }
     }
   };
 };
-export const getflurstuecke = () => {
+export const getflurstuecke = (navigate) => {
   return async (dispatch, getState) => {
     const jwt = getState().auth.jwt;
     if (jwt) {
@@ -79,7 +73,7 @@ export const getflurstuecke = () => {
         if (result.data?.view_flurstueck_schluessel) {
           dispatch(storeLandParcels(result.data.view_flurstueck_schluessel));
         } else {
-          // dispatch(fetchLandParcelsFailure(result.status));
+          dispatch(fetchLandParcelsFailure(result.status));
         }
       } catch (e) {
         console.log("xxx error in fetchGraphQL(queries.flurstuecke", e);
