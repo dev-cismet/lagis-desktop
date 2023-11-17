@@ -53,7 +53,7 @@ const slice = createSlice({
 });
 
 export default slice;
-export const getTestFlurstueck = (schluessel_id, alkis_id) => {
+export const getTestFlurstueck = (schluessel_id, alkis_id, navigate) => {
   return async (dispatch, getState) => {
     const jwt = getState().auth.jwt;
     if (jwt) {
@@ -67,7 +67,7 @@ export const getTestFlurstueck = (schluessel_id, alkis_id) => {
       );
 
       if (result.status === 401) {
-        return 401;
+        return navigate("/login");
       }
 
       const f = result?.data.flurstueck[0];
@@ -81,7 +81,7 @@ export const getTestFlurstueck = (schluessel_id, alkis_id) => {
         result?.data.flurstueck[0].alkisLandparcel?.geometrie;
 
       if (!geo) {
-        const resultGeo = await getGeomFromWuNDa(alkis_id, jwt);
+        const resultGeo = await getGeomFromWuNDa(alkis_id, jwt, navigate);
         geo = resultGeo.data.flurstueck[0].extended_geom.geo_field;
       }
       dispatch(storeGeometry(geo));
@@ -99,7 +99,7 @@ export const getTestFlurstueck = (schluessel_id, alkis_id) => {
   };
 };
 
-export const getGeomFromWuNDa = async (alkis_id, jwt) => {
+export const getGeomFromWuNDa = async (alkis_id, jwt, navigate) => {
   const result = await fetchGraphQLFromWuNDa(
     queries.getGeomFromWuNDA,
     {
@@ -108,12 +108,12 @@ export const getGeomFromWuNDa = async (alkis_id, jwt) => {
     jwt
   );
   if (result.status === 401) {
-    return 401;
+    return navigate("/login");
   }
   return result;
 };
 
-export const fetchHistory = async (sid, jwt, dispatch) => {
+export const fetchHistory = async (sid, jwt, dispatch, navigate) => {
   try {
     const result = await fetchGraphQL(
       queries.history,
@@ -123,7 +123,7 @@ export const fetchHistory = async (sid, jwt, dispatch) => {
       jwt
     );
     if (result.status === 401) {
-      return 401;
+      return navigate("/login");
     }
     dispatch(storeHistory(result?.data?.cs_calc_history));
   } catch (e) {
@@ -131,7 +131,7 @@ export const fetchHistory = async (sid, jwt, dispatch) => {
   }
 };
 
-const fetchRebe = async (geo, jwt, dispatch) => {
+const fetchRebe = async (geo, jwt, dispatch, navigate) => {
   const result = await fetchGraphQL(
     queries.getRebeByGeo,
     {
@@ -140,11 +140,11 @@ const fetchRebe = async (geo, jwt, dispatch) => {
     jwt
   );
   if (result.status === 401) {
-    return 401;
+    return navigate("/login");
   }
   dispatch(storeRebe(result?.data?.rebe));
 };
-const fetchMipa = async (geo, jwt, dispatch) => {
+const fetchMipa = async (geo, jwt, dispatch, navigate) => {
   const result = await fetchGraphQL(
     queries.getMipaByGeo,
     {
@@ -153,7 +153,7 @@ const fetchMipa = async (geo, jwt, dispatch) => {
     jwt
   );
   if (result.status === 401) {
-    return 401;
+    return navigate("/login");
   }
   dispatch(storeMipa(result?.data?.mipa));
 };
