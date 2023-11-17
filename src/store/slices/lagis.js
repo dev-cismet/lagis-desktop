@@ -57,8 +57,6 @@ export const getTestFlurstueck = (schluessel_id, alkis_id) => {
   return async (dispatch, getState) => {
     const jwt = getState().auth.jwt;
     if (jwt) {
-      console.log("getTestGemarkungen !!!!+++++=!!");
-
       const result = await fetchGraphQL(
         queries.getLagisLandparcelByFlurstueckSchluesselId,
         {
@@ -85,7 +83,6 @@ export const getTestFlurstueck = (schluessel_id, alkis_id) => {
       if (!geo) {
         const resultGeo = await getGeomFromWuNDa(alkis_id, jwt);
         geo = resultGeo.data.flurstueck[0].extended_geom.geo_field;
-        console.log("getTestGemarkungen result", geo);
       }
       dispatch(storeGeometry(geo));
 
