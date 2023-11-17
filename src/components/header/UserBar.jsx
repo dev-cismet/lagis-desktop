@@ -14,7 +14,7 @@ import {
   storeRebe,
   storeMipa,
   storeHistory,
-  getTestFlurstueck,
+  fetchFlurstueck,
 } from "../../store/slices/lagis";
 import { getSyncLandparcel } from "../../store/slices/ui";
 import { useSelector, useDispatch } from "react-redux";
@@ -50,7 +50,7 @@ const UserBar = () => {
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
-            dispatch(getTestFlurstueck(fstck.lfk, fstck.alkis_id, navigate));
+            dispatch(fetchFlurstueck(fstck.lfk, fstck.alkis_id, navigate));
             handleOpenLandparcelInJavaApp(fstck);
           }
         }}

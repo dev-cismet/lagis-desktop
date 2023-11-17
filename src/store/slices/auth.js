@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { LAGIS_DOMAIN, REST_SERVICE_LAGIS } from "../../constants/lagis";
 
 const initialState = {
   jwt: undefined,
@@ -41,7 +42,52 @@ const slice = createSlice({
 });
 
 export default slice;
+export const login = (user, pw, dispatch, navigate) => {
+  console.log("loginpage");
+  // dispatch(authStart());
 
+  let u, p;
+
+  if (user === null || user === undefined || user === "") {
+    u = devSecretUser;
+  } else {
+    u = user;
+  }
+
+  if (pw === null || pw === undefined || pw === "") {
+    p = devSecretPassword;
+  } else {
+    p = pw;
+  }
+  console.log("loginpage +++");
+
+  fetch(REST_SERVICE_LAGIS + "/users", {
+    method: "GET",
+    headers: {
+      Authorization: "Basic " + btoa(u + "@" + LAGIS_DOMAIN + ":" + p),
+      "Content-Type": "application/json",
+    },
+  })
+    .then(function (response) {
+      if (response.status >= 200 && response.status < 300) {
+        response.json().then(function (responseWithJWT) {
+          const jwt = responseWithJWT.jwt;
+          setTimeout(() => {
+            dispatch(storeJWT(jwt));
+            dispatch(storeLogin(u));
+            dispatch(setLoginRequested(false));
+            navigate("/");
+          }, 500);
+        });
+      } else {
+        dispatch(authStopLoading());
+      }
+    })
+    .catch(function (err) {
+      console.log("error", err);
+      dispatch(authFailure(err));
+    });
+};
 export const {
   storeJWT,
   storeLogin,

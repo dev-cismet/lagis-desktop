@@ -54,7 +54,7 @@ const slice = createSlice({
 });
 
 export default slice;
-export const getTestFlurstueck = (schluessel_id, alkis_id, navigate) => {
+export const fetchFlurstueck = (schluessel_id, alkis_id, navigate) => {
   return async (dispatch, getState) => {
     const jwt = getState().auth.jwt;
     if (jwt) {
