@@ -50,7 +50,7 @@ const UserBar = () => {
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
           if (fstck.lfk) {
-            dispatch(getTestFlurstueck(fstck.lfk, fstck.alkis_id));
+            dispatch(getTestFlurstueck(fstck.lfk, fstck.alkis_id, navigate));
             handleOpenLandparcelInJavaApp(fstck);
           }
         }}
