@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
+import queries from "../../core/queries/online";
+import { getBuffer25832 } from "../../core/tools/mappingTools";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
@@ -50,6 +53,113 @@ const slice = createSlice({
 });
 
 export default slice;
+export const getTestFlurstueck = (schluessel_id, alkis_id) => {
+  return async (dispatch, getState) => {
+    const jwt = getState().auth.jwt;
+    if (jwt) {
+      console.log("getTestGemarkungen !!!!+++++=!!");
+
+      const result = await fetchGraphQL(
+        queries.getLagisLandparcelByFlurstueckSchluesselId,
+        {
+          schluessel_id,
+          alkis_id,
+        },
+        jwt
+      );
+
+      if (result.status === 401) {
+        return 401;
+      }
+
+      const f = result?.data.flurstueck[0];
+      f.alkisLandparcel = result?.data.extended_alkis_flurstueck[0];
+
+      dispatch(storeLagisLandparcel(f));
+      dispatch(storeAlkisLandparcel(f.alkisLandparcel));
+
+      let geo =
+        result?.data.flurstueck[0].extended_geom?.geo_field ||
+        result?.data.flurstueck[0].alkisLandparcel?.geometrie;
+
+      if (!geo) {
+        const resultGeo = await getGeomFromWuNDa(alkis_id, jwt);
+        geo = resultGeo.data.flurstueck[0].extended_geom.geo_field;
+        console.log("getTestGemarkungen result", geo);
+      }
+      dispatch(storeGeometry(geo));
+
+      if (geo) {
+        await fetchRebe(getBuffer25832(geo, -1), jwt, dispatch);
+        await fetchMipa(getBuffer25832(geo, -1), jwt, dispatch);
+      } else {
+        dispatch(storeRebe());
+        dispatch(storeMipa());
+      }
+
+      await fetchHistory(schluessel_id, jwt, dispatch);
+    }
+  };
+};
+
+export const getGeomFromWuNDa = async (alkis_id, jwt) => {
+  const result = await fetchGraphQLFromWuNDa(
+    queries.getGeomFromWuNDA,
+    {
+      alkis_id,
+    },
+    jwt
+  );
+  if (result.status === 401) {
+    return 401;
+  }
+  return result;
+};
+
+export const fetchHistory = async (sid, jwt, dispatch) => {
+  try {
+    const result = await fetchGraphQL(
+      queries.history,
+      {
+        schluessel_id: sid,
+      },
+      jwt
+    );
+    if (result.status === 401) {
+      return 401;
+    }
+    dispatch(storeHistory(result?.data?.cs_calc_history));
+  } catch (e) {
+    console.log("xxx error in getHistory", e);
+  }
+};
+
+const fetchRebe = async (geo, jwt, dispatch) => {
+  const result = await fetchGraphQL(
+    queries.getRebeByGeo,
+    {
+      geo,
+    },
+    jwt
+  );
+  if (result.status === 401) {
+    return 401;
+  }
+  dispatch(storeRebe(result?.data?.rebe));
+};
+const fetchMipa = async (geo, jwt, dispatch) => {
+  const result = await fetchGraphQL(
+    queries.getMipaByGeo,
+    {
+      geo,
+    },
+    jwt
+  );
+  if (result.status === 401) {
+    return 401;
+  }
+  dispatch(storeMipa(result?.data?.mipa));
+};
 
 export const {
   storeLagisLandparcel,
