@@ -1,7 +1,7 @@
-export const REST_SERVICE_LAGIS = "https://lagis-cloud.cismet.de/lagis/api";
+export const REST_SERVICE_LAGIS = "https://lagis-api.cismet.de";
 export const LAGIS_DOMAIN = "LAGIS";
 
-export const REST_SERVICE_WUNDA = "https://wunda-cloud.cismet.de/wunda/api";
+export const REST_SERVICE_WUNDA = "https://wunda-api.cismet.de";
 export const WUNDA_DOMAIN = "WUNDA_BLAU";
 
 export const REST_SERVICES = {
