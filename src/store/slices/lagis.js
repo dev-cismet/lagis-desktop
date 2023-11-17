@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
 import queries from "../../core/queries/online";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
+import { getLandparcelStringFromAlkisLandparcel } from "../../core/tools/helper";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
@@ -156,6 +157,36 @@ const fetchMipa = async (geo, jwt, dispatch, navigate) => {
     return navigate("/login");
   }
   dispatch(storeMipa(result?.data?.mipa));
+};
+
+export const fetchContractById = async (vertag_id, jwt, landparcel) => {
+  console.log("fetchContractById");
+  const result = await fetchGraphQL(
+    queries.getQuerverweiseByVertragId,
+    {
+      vertag_id,
+    },
+    jwt
+  );
+  if (result.data?.flurstueck) {
+    const currentLandparcel =
+      getLandparcelStringFromAlkisLandparcel(landparcel);
+    const landparcelsArr = [];
+    const data = result.data?.flurstueck.forEach((f) => {
+      const flur = f.flurstueck_schluessel.flur;
+      const zaehler = f.flurstueck_schluessel.flurstueck_zaehler;
+      const nenner = f.flurstueck_schluessel.flurstueck_nenner;
+      const gemarkung = f.flurstueck_schluessel.gemarkung.bezeichnung;
+      const crossReference = `${gemarkung} ${flur} ${zaehler}/${nenner}`;
+      if (crossReference !== currentLandparcel) {
+        landparcelsArr.push(crossReference);
+      }
+    });
+
+    return landparcelsArr;
+  } else {
+    [];
+  }
 };
 
 export const {
