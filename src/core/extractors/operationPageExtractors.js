@@ -1,46 +1,12 @@
-import { nanoid } from "@reduxjs/toolkit";
-import queries from "../queries/online";
-import { fetchGraphQL } from "../graphql";
-import {
-  formatPrice,
-  getLandparcelStringFromAlkisLandparcel,
-} from "../tools/helper";
+import { formatPrice } from "../tools/helper";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { fetchContractById } from "../../store/slices/lagis";
 dayjs.extend(weekday);
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
-
-const getQuerverweise = async (vertag_id, jwt, landparcel) => {
-  const result = await fetchGraphQL(
-    queries.getQuerverweiseByVertragId,
-    {
-      vertag_id,
-    },
-    jwt
-  );
-  if (result.data?.flurstueck) {
-    const currentLandparcel =
-      getLandparcelStringFromAlkisLandparcel(landparcel);
-    const landparcelsArr = [];
-    const data = result.data?.flurstueck.forEach((f) => {
-      const flur = f.flurstueck_schluessel.flur;
-      const zaehler = f.flurstueck_schluessel.flurstueck_zaehler;
-      const nenner = f.flurstueck_schluessel.flurstueck_nenner;
-      const gemarkung = f.flurstueck_schluessel.gemarkung.bezeichnung;
-      const crossReference = `${gemarkung} ${flur} ${zaehler}/${nenner}`;
-      if (crossReference !== currentLandparcel) {
-        landparcelsArr.push(crossReference);
-      }
-    });
-
-    return landparcelsArr;
-  } else {
-    [];
-  }
-};
 
 export const querverweiseContractExtractor = async (dataIn, jwt) => {
   if (dataIn === undefined) {
@@ -57,7 +23,7 @@ export const querverweiseContractExtractor = async (dataIn, jwt) => {
       return [];
     }
 
-    const res = await getQuerverweise(vertragId, jwt, landparcel);
+    const res = await fetchContractById(vertragId, jwt, landparcel);
     return res;
   }
 };
