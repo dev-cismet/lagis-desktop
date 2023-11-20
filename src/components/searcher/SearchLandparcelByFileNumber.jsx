@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { FileSearchOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Input, Tooltip } from "antd";
 import { getJWT } from "../../store/slices/auth";
-import queries from "../../core/queries/online";
-import { fetchGraphQL } from "../../core/graphql";
 import { useSelector, useDispatch } from "react-redux";
 import {
   storeContractFlurstucke,
   storeMipaFlurstucke,
-  storeLoading,
   getContractFlurstucke,
   getMipaFlurstucke,
   getLoading,
+  getFlurstuckeByContractAndMipa,
 } from "../../store/slices/search";
 import ShowNumberFilesSearchResult from "./ShowNumberFilesSearchResult";
 import { searchContractExtractor } from "../../core/extractors/searchExtractor";
@@ -25,53 +23,8 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
   const loading = useSelector(getLoading);
   const [searchValue, setSearchValue] = useState("");
 
-  const getFlurstuckeByContractAndMipa = async () => {
-    if (searchValue === "") {
-      dispatch(storeContractFlurstucke(undefined));
-      dispatch(storeMipaFlurstucke(undefined));
-      return false;
-    }
-    dispatch(storeContractFlurstucke(undefined));
-    dispatch(storeMipaFlurstucke(undefined));
-    dispatch(storeLoading(true));
-    await getFlurstuckeByFileNumberHandle(searchValue);
-    await getFlurstuckelByMipaFileNumberHandle(searchValue);
-    dispatch(storeLoading(false));
-  };
-
-  const getFlurstuckeByFileNumberHandle = async (searchValue) => {
-    const aktz = `%${searchValue}%`;
-    const result = await fetchGraphQL(
-      queries.getFlurstuckelByContractFileNumber,
-      {
-        aktz,
-      },
-      jwt
-    );
-    if (result.status === 401) {
-      return navigate("/login");
-    }
-
-    if (result?.data?.flurstueck) {
-      dispatch(storeContractFlurstucke(result.data.flurstueck));
-    }
-  };
-
-  const getFlurstuckelByMipaFileNumberHandle = async (searchValue) => {
-    const aktz = `%${searchValue}%`;
-    const result = await fetchGraphQL(
-      queries.getFlurstuckelByMipaFileNumber,
-      {
-        aktz,
-      },
-      jwt
-    );
-    if (result.status === 401) {
-      return navigate("/login");
-    }
-    if (result?.data?.view_mipa_by_aktenzeichen) {
-      dispatch(storeMipaFlurstucke(result.data.view_mipa_by_aktenzeichen));
-    }
+  const fetchFlurstuckeByContractAndMipaHandler = async (value) => {
+    await getFlurstuckeByContractAndMipa(value, dispatch, jwt, navigate);
   };
   return (
     <div
@@ -102,7 +55,9 @@ const SearchLandparcelByFileNumber = ({ collapsed, setCollapsed }) => {
       />
       <Input
         size="large"
-        onPressEnter={getFlurstuckeByContractAndMipa}
+        onPressEnter={(e) =>
+          fetchFlurstuckeByContractAndMipaHandler(e.target.value)
+        }
         value={searchValue}
         prefix={
           loading ? (
