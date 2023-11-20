@@ -42,7 +42,7 @@ const slice = createSlice({
 });
 
 export default slice;
-export const login = (user, pw, dispatch, navigate) => {
+export const login = (user, pw, dispatch, navigate, info) => {
   console.log("loginpage");
   // dispatch(authStart());
 
@@ -59,8 +59,6 @@ export const login = (user, pw, dispatch, navigate) => {
   } else {
     p = pw;
   }
-  console.log("loginpage +++");
-
   fetch(REST_SERVICE_LAGIS + "/users", {
     method: "GET",
     headers: {
@@ -80,12 +78,11 @@ export const login = (user, pw, dispatch, navigate) => {
           }, 500);
         });
       } else {
-        dispatch(authStopLoading());
+        info();
       }
     })
     .catch(function (err) {
-      console.log("error", err);
-      dispatch(authFailure(err));
+      info();
     });
 };
 export const {
