@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Button } from "antd";
+import { Input, Button, message } from "antd";
 import wupperwurm from "../../assets/wupperwurm.svg";
 import "./style.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ const LoginPage = () => {
   const loading = useSelector(getAuthLoading);
   const dispatch = useDispatch();
   const [user, setUser] = useState(devSecretUser);
-
+  const [messageApi, contextHolder] = message.useMessage();
   const [pw, setPw] = useState(devSecretPassword);
   const navigate = useNavigate();
   const loginHandle = (e) => {
@@ -26,8 +26,15 @@ const LoginPage = () => {
     setPw(e.target.value);
   };
 
+  const info = () => {
+    messageApi.open({
+      type: "error",
+      content: "Bei der Anmeldung ist ein Fehler aufgetreten.",
+    });
+  };
+
   const clickHandle = () => {
-    login(user, pw, dispatch, navigate);
+    login(user, pw, dispatch, navigate, info);
   };
 
   return (
@@ -40,6 +47,7 @@ const LoginPage = () => {
               <h1 className="text-white/80 font-semibold text-6xl">
                 LagIS Desktop
               </h1>
+              {contextHolder}
               <div className="flex flex-col gap-6 w-full">
                 <h3
                   className="border-b-2 border-0 w-fit border-solid"
