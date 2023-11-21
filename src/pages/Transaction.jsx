@@ -33,8 +33,8 @@ const Transaction = ({ width = "100%", height = "100%", inStory = false }) => {
     >
       <div className="h-1/2 w-full mb-3 lg:mb-4">
         <Map
-          width={width}
-          height={height}
+          width={100}
+          height={100}
           dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}
         />
