@@ -236,8 +236,8 @@ const Map = ({
         </div>
       }
       style={{
-        width: width,
-        height: height,
+        width: "100%",
+        height: "100%",
       }}
       bodyStyle={{ padding }}
       headStyle={{ backgroundColor: "white" }}
