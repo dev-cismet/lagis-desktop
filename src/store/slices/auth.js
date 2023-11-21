@@ -42,7 +42,15 @@ const slice = createSlice({
 });
 
 export default slice;
-export const login = (user, pw, dispatch, navigate, info) => {
+export const login = (
+  user,
+  pw,
+  dispatch,
+  navigate,
+  info,
+  devSecretUser,
+  devSecretPassword
+) => {
   console.log("loginpage");
   // dispatch(authStart());
 

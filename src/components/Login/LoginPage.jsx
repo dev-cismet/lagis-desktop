@@ -34,7 +34,7 @@ const LoginPage = () => {
   };
 
   const clickHandle = () => {
-    login(user, pw, dispatch, navigate, info);
+    login(user, pw, dispatch, navigate, info, devSecretUser, devSecretPassword);
   };
 
   return (
