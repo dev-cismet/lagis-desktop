@@ -218,7 +218,7 @@ Graph.propTypes = {
   /**
    * The current main data object that is being used
    */
-  dataIn: PropTypes.object,
+  dataIn: PropTypes.array,
   /**
    * The extractor function that is used to transform the dataIn object into the data object
    */
