@@ -385,6 +385,7 @@ const Map = ({
             if (layerConf?.layer && showBackground) {
               return (
                 <StyledWMSTileLayer
+                  key={`StyledWMSTileLayer` + index}
                   {...layerConf.layer.props}
                   opacity={opacities[activekey].toFixed(2) || 0.7}
                 />

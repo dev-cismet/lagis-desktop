@@ -59,8 +59,11 @@ const DashboardOffices = ({
             ifDefaultColor={false}
           >
             <div className="flex flex-col mt-auto">
-              {data.currentOffices?.map((item) => (
-                <div className="flex justify-between items-center">
+              {data.currentOffices?.map((item, index) => (
+                <div
+                  className="flex justify-between items-center"
+                  key={`currentOffices` + index}
+                >
                   <div className="flex justify-between items-center">
                     {item?.title && (
                       <span
