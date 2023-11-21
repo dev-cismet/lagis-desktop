@@ -85,9 +85,7 @@ const ShowNumberFilesSearchResult = ({
                 </div>
                 <Divider
                   style={{ margin: dividerMargin }}
-                  hover:bg-gray-100
-                  text-center
-                  rounded
+                  className="hover:bg-gray-100 text-center rounded"
                 />
               </div>
             );
