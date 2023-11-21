@@ -168,7 +168,7 @@ const Map = ({
   ) {
     const map = refRoutedMap.current.leafletMap.leafletElement;
     const bb = getBoundsForFeatureArray(data?.featureCollection);
-    dispatch(setLeafletElement(map));
+    // dispatch(setLeafletElement(map));
     const { center, zoom } = getCenterAndZoomForBounds(map, bb);
 
     fallback.position = {};
