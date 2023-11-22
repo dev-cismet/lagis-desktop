@@ -41,6 +41,16 @@ const LandParcelChooser = ({
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
+  const [landparcelInternaDataStructure, setLandparcelInternaDataStructure] =
+    useState();
+
+  useEffect(() => {
+    console.log("all", all);
+    if (all && all.length > 1) {
+      setLandparcelInternaDataStructure(buildData(all));
+    }
+  }, [all]);
+
   const buildData = (xx) => {
     const gemarkungLookup = {};
     for (const g of gemarkungen) {
@@ -97,7 +107,7 @@ const LandParcelChooser = ({
   function padWithZeros(num, length) {
     return String(num).padStart(length, "0");
   }
-  const data = buildData(all);
+
   function replaceSlashWithDash(value) {
     return value ? value.replace("/", "-") : value;
   }
@@ -109,6 +119,9 @@ const LandParcelChooser = ({
     dispatch(storeHistory(undefined));
   };
   useEffect(() => {
+    if (!landparcelInternaDataStructure) {
+      return;
+    }
     removeLagisStore();
 
     const fromUrl = {
@@ -124,19 +137,26 @@ const LandParcelChooser = ({
     };
 
     if (
-      fromUrl.gem !== fromState.gem ||
-      fromUrl.flur !== fromState.flur ||
-      fromUrl.fstck !== fromState.fstck
+      landparcelInternaDataStructure &&
+      (fromUrl.gem !== fromState.gem ||
+        fromUrl.flur !== fromState.flur ||
+        fromUrl.fstck !== fromState.fstck)
     ) {
       gotoFstck(fromUrl);
     }
-  }, [urlParams, selectedGemarkung, selectedFlur, selectedFlurstueckLabel]);
+  }, [
+    urlParams,
+    selectedGemarkung,
+    selectedFlur,
+    selectedFlurstueckLabel,
+    landparcelInternaDataStructure,
+  ]);
 
   const handleGemarkungChange = (gemarkungValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
       // removeLagisStore();
     }
-    const fullGemarkung = data[gemarkungValue];
+    const fullGemarkung = landparcelInternaDataStructure[gemarkungValue];
     setSelectedGemarkung(fullGemarkung);
     setSelectedFlur(undefined);
     setSelectedFlurstueckLabel(undefined);
@@ -191,11 +211,11 @@ const LandParcelChooser = ({
   };
 
   const getGemarkungByName = (name) => {
-    const result = Object.keys(data).find((key) => {
-      return data[key].gemarkung === name;
+    const result = Object.keys(landparcelInternaDataStructure).find((key) => {
+      return landparcelInternaDataStructure[key].gemarkung === name;
     });
     if (result) {
-      return data[result];
+      return landparcelInternaDataStructure[result];
     }
   };
 
@@ -262,6 +282,9 @@ const LandParcelChooser = ({
       });
     }
   };
+  if (!landparcelInternaDataStructure) {
+    return null; //could be improved with 3 fake <Select> elements that are disabled and says "... laden"
+  }
   return (
     <>
       {/* <Button
@@ -312,8 +335,8 @@ const LandParcelChooser = ({
         }
         onKeyDown={handleKeyGemarkung}
         onChange={handleGemarkungChange}
-        options={Object.keys(data).map((key) => {
-          const el = data[key];
+        options={Object.keys(landparcelInternaDataStructure).map((key) => {
+          const el = landparcelInternaDataStructure[key];
           return { label: el.gemarkung, value: key };
         })}
       />
