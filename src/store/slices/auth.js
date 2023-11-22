@@ -51,7 +51,6 @@ export const login = (
   devSecretUser,
   devSecretPassword
 ) => {
-  console.log("loginpage");
   // dispatch(authStart());
 
   let u, p;
