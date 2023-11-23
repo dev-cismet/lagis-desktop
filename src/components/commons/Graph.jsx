@@ -133,7 +133,6 @@ const Graph = ({
 
   const proOptions = { hideAttribution: true };
   const padding = 5;
-  // const headHeight = 37;
   const [urlParams, setUrlParams] = useSearchParams();
   const handleUrlParams = (landParcelString) => {
     const lansParcelParamsArray = landParcelString.split(" ");
@@ -191,6 +190,7 @@ const Graph = ({
             connectionLineType={ConnectionLineType.SmoothStep}
             proOptions={proOptions}
             fitView
+            nodesConnectable={false}
           >
             <Controls
               position="top-left"
