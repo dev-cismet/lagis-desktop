@@ -6,11 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function GraphProvider(props) {
-  // return (
-  //   <ReactFlowProvider>
-  //     <Graph {...props} />
-  //   </ReactFlowProvider>
-  // );
   return (
     <div>
       {!props.loading ? (
