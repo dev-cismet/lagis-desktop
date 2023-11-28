@@ -48,9 +48,13 @@ const AdditionalLayerRow = ({
       key={"div." + layerkey}
       className="flex items-center gap-2 hover:bg-zinc-100 p-1"
     >
-      <Checkbox checked={active} onClick={() => activeChanged(layerkey)} />
+      <Checkbox
+        className="w-8"
+        checked={active}
+        onClick={() => activeChanged(layerkey)}
+      />
       <span
-        className="w-1/4 cursor-pointer"
+        className="w-1/3 cursor-pointer"
         onClick={() => activeChanged(layerkey)}
       >
         {title}
@@ -73,8 +77,8 @@ const BackgroundLayerRow = ({
   opacityChanged = (e) => {},
 }) => {
   return (
-    <div className="flex gap-4 items-center">
-      <Radio value={layerkey} className="w-1/4">
+    <div className="flex items-center gap-2 hover:bg-zinc-100 p-1">
+      <Radio value={layerkey} className="w-1/3">
         {title}
       </Radio>
       <Slider
