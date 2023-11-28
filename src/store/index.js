@@ -94,7 +94,13 @@ const persistParcelsConfig = {
 const persisUIConfig = {
   key: "@lagis-desktop.1.app.ui",
   storage: localForage,
-  whitelist: ["syncLandparcel"],
+  whitelist: [
+    "syncLandparcel",
+    "activeBackgroundLayer",
+    "backgroundLayerOpacities",
+    "activeAdditionalLayers",
+    "additionalLayerOpacities",
+  ],
 };
 
 // const persis
