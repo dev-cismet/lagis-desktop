@@ -49,12 +49,12 @@ const AdditionalLayerRow = ({
       className="flex items-center gap-2 hover:bg-zinc-100 p-1"
     >
       <Checkbox
-        className="w-8"
+        className="w-7"
         checked={active}
         onClick={() => activeChanged(layerkey)}
       />
       <span
-        className="w-1/3 cursor-pointer"
+        className="w-[calc(33%-22px)] cursor-pointer"
         onClick={() => activeChanged(layerkey)}
       >
         {title}
