@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   syncLandparcel: false,
-  mapOptionalLayerBuildings: 70,
-  mapOptionalLayerParcels: 70,
+  activeBackgroundLayer: "stadtplan",
+  backgroundLayerOpacities: {},
+  activeAdditionalLayers: [],
+  additionalLayerOpacities: {},
 };
 
 const slice = createSlice({
@@ -14,12 +16,21 @@ const slice = createSlice({
       state.syncLandparcel = action.payload;
       return state;
     },
-    setMapOptionalLayerBuildings(state, action) {
-      state.mapOptionalLayerBuildings = action.payload;
+    setActiveBackgroundLayer(state, action) {
+      state.activeBackgroundLayer = action.payload;
       return state;
     },
-    setMapOptionalLayerParcels(state, action) {
-      state.mapOptionalLayerParcels = action.payload;
+    setBackgroundLayerOpacities(state, action) {
+      state.backgroundLayerOpacities = action.payload;
+      return state;
+    },
+
+    setActiveAdditionaLayers(state, action) {
+      state.activeAdditionalLayers = action.payload;
+      return state;
+    },
+    setAdditionalLayerOpacities(state, action) {
+      state.additionalLayerOpacities = action.payload;
       return state;
     },
   },
@@ -29,16 +40,25 @@ export default slice;
 
 export const {
   setSyncLandparcel,
-  setMapOptionalLayerBuildings,
-  setMapOptionalLayerParcels,
+  setActiveBackgroundLayer,
+  setBackgroundLayerOpacities,
+  setActiveAdditionaLayers,
+  setAdditionalLayerOpacities,
 } = slice.actions;
 
 export const getSyncLandparcel = (state) => {
   return state.ui.syncLandparcel;
 };
-export const getMapOptionalLayerBuildings = (state) => {
-  return state.ui.mapOptionalLayerBuildings;
+
+export const getActiveBackgroundLayer = (state) => {
+  return state.ui.activeBackgroundLayer;
 };
-export const getMapOptionalLayerParcels = (state) => {
-  return state.ui.mapOptionalLayerParcels;
+export const getBackgroundLayerOpacities = (state) => {
+  return state.ui.backgroundLayerOpacities;
+};
+export const getActiveAdditionalLayers = (state) => {
+  return state.ui.activeAdditionalLayers;
+};
+export const getAdditionalLayerOpacities = (state) => {
+  return state.ui.additionalLayerOpacities;
 };

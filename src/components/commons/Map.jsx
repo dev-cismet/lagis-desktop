@@ -20,7 +20,6 @@ import {
   getCenterAndZoomForBounds,
 } from "../../core/tools/mappingTools";
 import {
-  getAdditionalLayerOpacities,
   getShowBackground,
   getShowCurrentFeatureCollection,
   setFeatureCollection,
@@ -38,6 +37,15 @@ import getLayers from "react-cismap/tools/layerFactory";
 import { getArea25832 } from "../../core/tools/kassenzeichenMappingTools";
 import StyledWMSTileLayer from "react-cismap/StyledWMSTileLayer";
 import { getGazData } from "../../store/slices/gazData";
+import { Background } from "reactflow";
+import BackgroundLayers from "./BackgroundLayers";
+import AdditionalLayers from "./AdditionalLayers";
+import {
+  getActiveAdditionalLayers,
+  getActiveBackgroundLayer,
+  getAdditionalLayerOpacities,
+  getBackgroundLayerOpacities,
+} from "../../store/slices/ui";
 
 const mockExtractor = (input) => {
   return {
@@ -83,7 +91,6 @@ const Map = ({
     selectedBackground,
     baseLayerConf,
     backgroundConfigurations,
-    additionalLayerConfiguration,
     activeAdditionalLayerKeys,
   } = useContext(TopicMapStylingContext);
 
@@ -176,7 +183,10 @@ const Map = ({
     fallback.position.lng = center.lng;
     fallback.zoom = zoom;
   }
-
+  const backgroundLayerOpacities = useSelector(getBackgroundLayerOpacities);
+  const additionalLayerOpacities = useSelector(getAdditionalLayerOpacities);
+  const activeBackgroundLayer = useSelector(getActiveBackgroundLayer);
+  const activeAdditionalLayers = useSelector(getActiveAdditionalLayers);
   // if (data?.featureCollection && refRoutedMap?.current) {
   //   const map = refRoutedMap.current.leafletMap.leafletElement;
   //   dispatch(setLeafletElement(map));
@@ -249,7 +259,8 @@ const Map = ({
         editable={false}
         style={mapStyle}
         key={"leafletRoutedMap"}
-        backgroundlayers={showBackground ? _backgroundLayers : null}
+        // backgroundlayers={showBackground ? _backgroundLayers : null}
+        backgroundlayers={null}
         urlSearchParams={urlSearchParams}
         layers=""
         referenceSystem={MappingConstants.crs3857}
@@ -269,7 +280,7 @@ const Map = ({
             fallback?.position?.lng ??
             7.19963690266013,
         }}
-        fallbackZoom={urlSearchParamsObject?.zoom ?? fallback.zoom ?? 10}
+        fallbackZoom={urlSearchParamsObject?.zoom ?? fallback.zoom ?? 17}
         locationChangedHandler={(location) => {
           const newParams = { ...paramsToObject(urlParams), ...location };
           // setUrlParams(newParams);
@@ -377,24 +388,14 @@ const Map = ({
           )}
         {/* {children} */}
 
-        {activeAdditionalLayerKeys !== undefined &&
-          additionalLayerConfiguration !== undefined &&
-          activeAdditionalLayerKeys?.length > 0 &&
-          activeAdditionalLayerKeys.map((activekey, index) => {
-            const layerConf = additionalLayerConfiguration[activekey];
-            if (layerConf?.layer && showBackground) {
-              return (
-                <StyledWMSTileLayer
-                  key={`StyledWMSTileLayer` + index}
-                  {...layerConf.layer.props}
-                  opacity={opacities[activekey].toFixed(2) || 0.7}
-                />
-              );
-            } else if (layerConf?.layerkey) {
-              const layers = getLayers(layerConf.layerkey);
-              return layers;
-            }
-          })}
+        <BackgroundLayers
+          activeBackgroundLayer={activeBackgroundLayer}
+          opacities={backgroundLayerOpacities}
+        />
+        <AdditionalLayers
+          activeLayers={activeAdditionalLayers}
+          opacities={additionalLayerOpacities}
+        />
       </RoutedMap>
     </Card>
   );

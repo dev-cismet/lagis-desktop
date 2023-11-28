@@ -96,8 +96,10 @@ const persisUIConfig = {
   storage: localForage,
   whitelist: [
     "syncLandparcel",
-    "mapOptionalLayerBuildings",
-    "mapOptionalLayerParcels",
+    "activeBackgroundLayer",
+    "backgroundLayerOpacities",
+    "activeAdditionalLayers",
+    "additionalLayerOpacities",
   ],
 };
 
