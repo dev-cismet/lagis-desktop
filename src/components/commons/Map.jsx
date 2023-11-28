@@ -388,14 +388,18 @@ const Map = ({
           )}
         {/* {children} */}
 
-        <BackgroundLayers
-          activeBackgroundLayer={activeBackgroundLayer}
-          opacities={backgroundLayerOpacities}
-        />
-        <AdditionalLayers
-          activeLayers={activeAdditionalLayers}
-          opacities={additionalLayerOpacities}
-        />
+        {showBackground && (
+          <>
+            <BackgroundLayers
+              activeBackgroundLayer={activeBackgroundLayer}
+              opacities={backgroundLayerOpacities}
+            />
+            <AdditionalLayers
+              activeLayers={activeAdditionalLayers}
+              opacities={additionalLayerOpacities}
+            />
+          </>
+        )}
       </RoutedMap>
     </Card>
   );
