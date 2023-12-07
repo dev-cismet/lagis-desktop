@@ -6,7 +6,15 @@ import ModalForm from "../ui/forms/ModalForm";
 import mockFoto from "../../assets/docksMock.png";
 import { useEffect, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
-import { FileWordOutlined } from "@ant-design/icons";
+import {
+  FileWordOutlined,
+  FileOutlined,
+  FileMarkdownOutlined,
+  FilePdfOutlined,
+  FileImageOutlined,
+  FileExcelOutlined,
+  FileTextOutlined,
+} from "@ant-design/icons";
 import { compare } from "../../core/tools/helper";
 import { Link } from "react-router-dom";
 
@@ -33,14 +41,66 @@ const columns = [
     title: "Vorschau",
     dataIndex: "vorschau",
     id: "vorschau",
-    render: (record) => (
+    render: (record, data) => (
       <div className="flex items-center justify-center">
-        <a href={record} target="_blank">
-          <FileWordOutlined
-            style={{ fontSize: "20px" }}
-            className="cursor-pointer text-blue-500 hover:text-blue-400"
-          />
-        </a>
+        {data.fileType === "TIF" ||
+        data.fileType === "tif" ||
+        data.fileType === "JPG" ? (
+          <a href={record} target="_blank">
+            <FileImageOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "txt" || data.fileType === "TXT" ? (
+          <a href={record} target="_blank">
+            <FileTextOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "doc" || data.fileType === "docx" ? (
+          <a href={record} target="_blank">
+            <FileWordOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "PDF" || data.fileType === "pdf" ? (
+          <a href={record} target="_blank">
+            <FilePdfOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "xlsx" || data.fileType === "xls" ? (
+          <a href={record} target="_blank">
+            <FileExcelOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "msg" ? (
+          <a href={record} target="_blank">
+            <FileMarkdownOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
+        {data.fileType === "" ? (
+          <a href={record} target="_blank">
+            <FileOutlined
+              style={{ fontSize: "20px" }}
+              className="cursor-pointer text-blue-500 hover:text-blue-400"
+            />
+          </a>
+        ) : null}
       </div>
     ),
     sorter: (a, b) => compare(a.bemerkung, b.bemerkung),

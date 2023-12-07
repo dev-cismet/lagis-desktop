@@ -7,6 +7,7 @@ export function dmsPageExtractor(dataIn) {
       const data = dms.map((d) => {
         const server = "http://dokumente.s10222.wuppertal-intra.de";
         const fileName = d.url.object_name;
+        const fileType = fileName.split(".");
         const urlBase = d.url.url_base.path;
         const pathParts = urlBase.split("\\");
         pathParts[1] = pathParts[1].toLowerCase();
@@ -21,6 +22,7 @@ export function dmsPageExtractor(dataIn) {
           beschreibung: d.beschreibung === null ? "" : d.beschreibung,
           file: d.url.object_name,
           vorschau: finalPath,
+          fileType: detectFileWithoutIcon(fileType[fileType.length - 1]),
         };
       });
 
@@ -28,5 +30,26 @@ export function dmsPageExtractor(dataIn) {
     }
 
     return [];
+  }
+}
+
+function detectFileWithoutIcon(fileType) {
+  if (
+    fileType === "TIF" ||
+    fileType === "tif" ||
+    fileType === "JPG" ||
+    fileType === "txt" ||
+    fileType === "TXT" ||
+    fileType === "doc" ||
+    fileType === "docx" ||
+    fileType === "PDF" ||
+    fileType === "pdf" ||
+    fileType === "xlsx" ||
+    fileType === "xls" ||
+    fileType === "msg"
+  ) {
+    return fileType;
+  } else {
+    return "";
   }
 }
