@@ -33,7 +33,7 @@ const columns = [
   //   dataIndex: "nutzungsart",
   // },
   {
-    title: "Nutzungsarten-bezeichnung",
+    title: "Nutzungsarten-Bezeichnung",
     dataIndex: "bezeichnung",
     sorter: (a, b) => compare(a.bezeichnung, b.bezeichnung),
   },
@@ -233,7 +233,7 @@ const UsageBlock = ({
                 //   name: "nutzungsart",
                 // },
                 {
-                  title: "Nutzungsarten-bezeichnung",
+                  title: "Nutzungsarten-Bezeichnung",
                   value: activeRow?.bezeichnung,
                   id: nanoid(),
                   name: "bezeichnung",
