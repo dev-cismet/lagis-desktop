@@ -29,7 +29,7 @@ const UserName = ({ name = "User" }) => {
         placement="right"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        size="large"
+        size="small"
       >
         <Settings />
       </Drawer>

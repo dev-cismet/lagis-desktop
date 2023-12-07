@@ -54,7 +54,7 @@ const AdditionalLayerRow = ({
         onClick={() => activeChanged(layerkey)}
       />
       <span
-        className="w-[calc(33%-22px)] cursor-pointer"
+        className="w-[calc(90%-10px)] cursor-pointer"
         onClick={() => activeChanged(layerkey)}
       >
         {title}
@@ -78,7 +78,7 @@ const BackgroundLayerRow = ({
 }) => {
   return (
     <div className="flex items-center gap-2 hover:bg-zinc-100 p-1">
-      <Radio value={layerkey} className="w-1/3">
+      <Radio value={layerkey} className="min-w-[calc(52%-22px)]">
         {title}
       </Radio>
       <Slider
