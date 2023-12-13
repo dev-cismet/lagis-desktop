@@ -12,6 +12,10 @@ const initialState = {
   historieHalten: undefined,
   historieHaltenRootText: undefined,
   geometry: undefined,
+  selectedGemarkung: undefined,
+  selectedFlur: undefined,
+  selectedFlurstueckLabel: undefined,
+  landparcelInternaDataStructure: undefined,
 };
 
 const slice = createSlice({
@@ -48,6 +52,22 @@ const slice = createSlice({
     },
     storeHistorieHaltenRootText(state, action) {
       state.historieHaltenRootText = action.payload;
+      return state;
+    },
+    storeSelectedGemarkung(state, action) {
+      state.selectedGemarkung = action.payload;
+      return state;
+    },
+    storeSelectedFlur(state, action) {
+      state.selectedFlur = action.payload;
+      return state;
+    },
+    storeSelectedFlurstueckLabel(state, action) {
+      state.selectedFlurstueckLabel = action.payload;
+      return state;
+    },
+    storeLandparcelInternaDataStructur(state, action) {
+      state.landparcelInternaDataStructure = action.payload;
       return state;
     },
   },
@@ -198,6 +218,10 @@ export const {
   storeGeometry,
   storeHistorieHalten,
   storeHistorieHaltenRootText,
+  storeSelectedGemarkung,
+  storeSelectedFlur,
+  storeSelectedFlurstueckLabel,
+  storeLandparcelInternaDataStructur,
 } = slice.actions;
 
 export const getLandparcel = (state) => {
@@ -217,6 +241,19 @@ export const getHistory = (state) => {
 };
 export const getGeometry = (state) => {
   return state.lagis.geometry;
+};
+
+export const getSelectedGemarkung = (state) => {
+  return state.lagis.selectedGemarkung;
+};
+export const getSelectedFlur = (state) => {
+  return state.lagis.selectedFlur;
+};
+export const getSelectedFlurstueckLabel = (state) => {
+  return state.lagis.selectedFlurstueckLabel;
+};
+export const getLandparcelInternaDataStructure = (state) => {
+  return state.lagis.landparcelInternaDataStructure;
 };
 
 export const getOffices = (state) => {
@@ -319,7 +356,11 @@ export const getUrlLandparcelParams = (state) => {
   return state.lagis.alkisLandparcel;
 };
 
-const getGemarkungByName = (name) => {
+function padWithZeros(num, length) {
+  return String(num).padStart(length, "0");
+}
+
+const getGemarkungByName = (name, landparcelInternaDataStructure) => {
   const result = Object.keys(landparcelInternaDataStructure).find((key) => {
     return landparcelInternaDataStructure[key].gemarkung === name;
   });
@@ -327,13 +368,21 @@ const getGemarkungByName = (name) => {
     return landparcelInternaDataStructure[result];
   }
 };
-export const switchToLandparcel = ({ gem, flur, fstck }) => {
+export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
+  console.log("xxx called switchToLandparcel", { gem, flur, fstck });
+
   return async (dispatch, getState) => {
+    const landparcelInternaDataStructure =
+      getState().lagis.landparcelInternaDataStructure;
+    const selectedGemarkung = getState().lagis.selectedGemarkung;
     if (gem && flur && fstck) {
-      const fullGemarkung = getGemarkungByName(gem);
-      setSelectedGemarkung(fullGemarkung);
+      const fullGemarkung = getGemarkungByName(
+        gem,
+        landparcelInternaDataStructure
+      );
+      dispatch(storeSelectedGemarkung(fullGemarkung));
       const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
-      setSelectedFlur(fullFlur);
+      dispatch(storeSelectedFlur(fullFlur));
 
       //check whether fstck is conatining a dash
       const splitted = fstck.split("-");
@@ -352,27 +401,34 @@ export const switchToLandparcel = ({ gem, flur, fstck }) => {
         ...fullFlur.flurstuecke[fstckLabel],
       };
       if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
-        setSelectedFlurstueckLabel(fstckLabel);
+        dispatch(storeSelectedFlurstueckLabel(fstckLabel));
         flurstueckChoosen(x);
       } else {
-        setSelectedFlurstueckLabel();
+        dispatch(storeSelectedFlurstueckLabel());
       }
     } else if (gem && flur) {
-      const fullGemarkung = getGemarkungByName(gem);
-      setSelectedGemarkung(fullGemarkung);
+      const fullGemarkung = getGemarkungByName(
+        gem,
+        landparcelInternaDataStructure
+      );
+      dispatch(storeSelectedGemarkung(fullGemarkung));
       const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
-      setSelectedFlur(fullFlur);
-      setSelectedFlurstueckLabel();
+      dispatch(storeSelectedFlur(fullFlur));
+      fullFlur;
+      dispatch(storeSelectedFlurstueckLabel());
       dispatch(storeAlkisLandparcel(undefined));
       dispatch(storeLagisLandparcel(undefined));
       dispatch(storeRebe(undefined));
       dispatch(storeMipa(undefined));
     } else if (gem || selectedGemarkung) {
       if (gem || selectedGemarkung) {
-        const fullGemarkung = getGemarkungByName(gem);
-        setSelectedGemarkung(fullGemarkung);
-        setSelectedFlur();
-        setSelectedFlurstueckLabel();
+        const fullGemarkung = getGemarkungByName(
+          gem,
+          landparcelInternaDataStructure
+        );
+        dispatch(storeSelectedGemarkung(fullGemarkung));
+        dispatch(storeSelectedFlur());
+        dispatch(storeSelectedFlurstueckLabel());
         dispatch(storeAlkisLandparcel(undefined));
         dispatch(storeLagisLandparcel(undefined));
         dispatch(storeRebe(undefined));
@@ -380,4 +436,64 @@ export const switchToLandparcel = ({ gem, flur, fstck }) => {
       }
     }
   };
+};
+
+export const buildLandparcelInternalDataStructure = (all, gemarkungen) => {
+  return async (dispatch, getState) => {
+    dispatch(storeLandparcelInternaDataStructur(buildData(all, gemarkungen)));
+  };
+};
+
+const buildData = (xx, gemarkungen) => {
+  const gemarkungLookup = {};
+  for (const g of gemarkungen) {
+    gemarkungLookup[g.schluessel] = g.bezeichnung;
+  }
+  const result = {};
+  for (const f of xx) {
+    const splitted = f.alkis_id.split("-");
+    const gemarkung = splitted[0].substring(2);
+    const flur = splitted[1];
+    const flurstueck = splitted[2];
+    if (result[gemarkung]) {
+      if (result[gemarkung].flure[flur]) {
+        result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+          label: flurstueck,
+          lfk: f.schluessel_id,
+          art: f.flurstueckart || -1,
+          alkis_id: f.alkis_id,
+          hist: f.historisch,
+        };
+      } else {
+        result[gemarkung].flure[flur] = {
+          flur: flur,
+          flurstuecke: {},
+        };
+        result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+          label: flurstueck,
+          lfk: f.schluessel_id,
+          art: f.flurstueckart || -1,
+          alkis_id: f.alkis_id,
+          hist: f.historisch,
+        };
+      }
+    } else {
+      result[gemarkung] = {
+        gemarkung: gemarkungLookup[gemarkung] || gemarkung,
+        flure: {},
+      };
+      result[gemarkung].flure[flur] = {
+        flur: flur,
+        flurstuecke: {},
+      };
+      result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+        label: flurstueck,
+        lfk: f.schluessel_id,
+        art: f.flurstueckart || -1,
+        alkis_id: f.alkis_id,
+        hist: f.historisch,
+      };
+    }
+  }
+  return result;
 };

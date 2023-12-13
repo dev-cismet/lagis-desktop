@@ -11,6 +11,14 @@ import {
   storeRebe,
   storeHistory,
   switchToLandparcel,
+  getSelectedGemarkung,
+  getSelectedFlur,
+  getSelectedFlurstueckLabel,
+  storeSelectedGemarkung,
+  storeSelectedFlur,
+  buildLandparcelInternalDataStructure,
+  getLandparcelInternaDataStructure,
+  storeSelectedFlurstueckLabel,
 } from "../../store/slices/lagis";
 import { getSyncLandparcel } from "../../store/slices/ui";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,78 +44,25 @@ const LandParcelChooser = ({
   const landparcel = useSelector(getLandparcel);
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const ifSyncLandparcel = useSelector(getSyncLandparcel);
-  const [selectedGemarkung, setSelectedGemarkung] = useState();
-  const [selectedFlur, setSelectedFlur] = useState();
-  const [selectedFlurstueckLabel, setSelectedFlurstueckLabel] = useState();
+  // const [selectedGemarkung, setSelectedGemarkung] = useState();
+  // const [selectedFlur, setSelectedFlur] = useState();
+  // const [selectedFlurstueckLabel, setSelectedFlurstueckLabel] = useState();
+  const selectedGemarkung = useSelector(getSelectedGemarkung);
+  const selectedFlur = useSelector(getSelectedFlur);
+  const selectedFlurstueckLabel = useSelector(getSelectedFlurstueckLabel);
   const gemarkungRef = useRef();
   const flurRef = useRef();
   const flurstueckRef = useRef();
-  const [landparcelInternaDataStructure, setLandparcelInternaDataStructure] =
-    useState();
+  const landparcelInternaDataStructure = useSelector(
+    getLandparcelInternaDataStructure
+  );
 
   useEffect(() => {
     console.log("all", all);
     if (all && all.length > 1) {
-      setLandparcelInternaDataStructure(buildData(all));
+      dispatch(buildLandparcelInternalDataStructure(all, gemarkungen));
     }
   }, [all]);
-
-  const buildData = (xx) => {
-    const gemarkungLookup = {};
-    for (const g of gemarkungen) {
-      gemarkungLookup[g.schluessel] = g.bezeichnung;
-    }
-    const result = {};
-    for (const f of xx) {
-      const splitted = f.alkis_id.split("-");
-      const gemarkung = splitted[0].substring(2);
-      const flur = splitted[1];
-      const flurstueck = splitted[2];
-      if (result[gemarkung]) {
-        if (result[gemarkung].flure[flur]) {
-          result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
-            label: flurstueck,
-            lfk: f.schluessel_id,
-            art: f.flurstueckart || -1,
-            alkis_id: f.alkis_id,
-            hist: f.historisch,
-          };
-        } else {
-          result[gemarkung].flure[flur] = {
-            flur: flur,
-            flurstuecke: {},
-          };
-          result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
-            label: flurstueck,
-            lfk: f.schluessel_id,
-            art: f.flurstueckart || -1,
-            alkis_id: f.alkis_id,
-            hist: f.historisch,
-          };
-        }
-      } else {
-        result[gemarkung] = {
-          gemarkung: gemarkungLookup[gemarkung] || gemarkung,
-          flure: {},
-        };
-        result[gemarkung].flure[flur] = {
-          flur: flur,
-          flurstuecke: {},
-        };
-        result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
-          label: flurstueck,
-          lfk: f.schluessel_id,
-          art: f.flurstueckart || -1,
-          alkis_id: f.alkis_id,
-          hist: f.historisch,
-        };
-      }
-    }
-    return result;
-  };
-  function padWithZeros(num, length) {
-    return String(num).padStart(length, "0");
-  }
 
   function replaceSlashWithDash(value) {
     return value ? value.replace("/", "-") : value;
@@ -158,9 +113,13 @@ const LandParcelChooser = ({
       // removeLagisStore();
     }
     const fullGemarkung = landparcelInternaDataStructure[gemarkungValue];
-    setSelectedGemarkung(fullGemarkung);
-    setSelectedFlur(undefined);
-    setSelectedFlurstueckLabel(undefined);
+    // setSelectedGemarkung(fullGemarkung);
+    // setSelectedFlur(undefined);
+    // setSelectedFlurstueckLabel(undefined);
+
+    dispatch(storeSelectedGemarkung(fullGemarkung));
+    dispatch(storeSelectedFlur(undefined));
+    dispatch(storeSelectedFlurstueckLabel(undefined));
 
     const newParams = paramsToObject(urlParams);
     newParams.gem = fullGemarkung.gemarkung;
@@ -176,8 +135,9 @@ const LandParcelChooser = ({
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
       // removeLagisStore();
     }
-    setSelectedFlur(selectedGemarkung.flure[flurValue]);
-    setSelectedFlurstueckLabel(undefined);
+    dispatch(storeSelectedFlur(selectedGemarkung.flure[flurValue]));
+    dispatch(storeSelectedFlurstueckLabel(undefined));
+
     // removeLagisStore();
     const newParams = paramsToObject(urlParams);
     newParams.flur = removeLeadingZeros(flurValue, true);
@@ -189,7 +149,8 @@ const LandParcelChooser = ({
   };
 
   const handleFlurstueckChange = (flurstueckLabel) => {
-    setSelectedFlurstueckLabel(flurstueckLabel);
+    dispatch(storeSelectedFlurstueckLabel(flurstueckLabel));
+
     const newParams = paramsToObject(urlParams);
     newParams.fstck = replaceSlashWithDash(removeLeadingZeros(flurstueckLabel));
     setUrlParams(newParams);
@@ -212,7 +173,7 @@ const LandParcelChooser = ({
   };
 
   const gotoFstck = ({ gem, flur, fstck }) => {
-    dispatch(switchToLandparcel({ gem, flur, fstck }));
+    dispatch(switchToLandparcel({ gem, flur, fstck, flurstueckChoosen }));
   };
 
   const handleRefreshData = () => {
@@ -230,35 +191,6 @@ const LandParcelChooser = ({
   }
   return (
     <>
-      {/* <Button
-        onClick={() => {
-          const gem = getGemarkungByName("Barmen");
-          console.log("gem", gem);
-          setSelectedGemarkung(gem);
-          const flur = gem.flure[padWithZeros(1, 3)];
-          setSelectedFlur(flur);
-
-          const fstckLabel = "00007/0009";
-          setSelectedFlurstueckLabel(fstckLabel);
-
-          const x = {
-            gemarkung: gem.gemarkung,
-            flur: flur.flur,
-            ...flur.flurstuecke[fstckLabel],
-          };
-
-          flurstueckChoosen(x);
-        }}
-      >
-        Test
-      </Button>
-      <Button
-        onClick={() => {
-          console.log(' getGemarkungByName("sss");', getGemarkungByName("sss"));
-        }}
-      >
-        Test2
-      </Button> */}
       <Select
         ref={gemarkungRef}
         value={selectedGemarkung?.gemarkung || undefined}
