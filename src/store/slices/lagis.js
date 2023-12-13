@@ -318,3 +318,66 @@ export const getUrlLandparcelParams = (state) => {
   }
   return state.lagis.alkisLandparcel;
 };
+
+const getGemarkungByName = (name) => {
+  const result = Object.keys(landparcelInternaDataStructure).find((key) => {
+    return landparcelInternaDataStructure[key].gemarkung === name;
+  });
+  if (result) {
+    return landparcelInternaDataStructure[result];
+  }
+};
+export const switchToLandparcel = ({ gem, flur, fstck }) => {
+  return async (dispatch, getState) => {
+    if (gem && flur && fstck) {
+      const fullGemarkung = getGemarkungByName(gem);
+      setSelectedGemarkung(fullGemarkung);
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      setSelectedFlur(fullFlur);
+
+      //check whether fstck is conatining a dash
+      const splitted = fstck.split("-");
+      let fstckLabel;
+      let pureLabel;
+      if (splitted.length === 2 && splitted[1] !== "0") {
+        fstckLabel =
+          padWithZeros(splitted[0], 5) + "/" + padWithZeros(splitted[1], 4);
+      } else {
+        fstckLabel = padWithZeros(splitted[0], 5);
+        // pureLabel = fstck;
+      }
+      const x = {
+        gemarkung: fullGemarkung.gemarkung,
+        flur: fullFlur.flur,
+        ...fullFlur.flurstuecke[fstckLabel],
+      };
+      if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
+        setSelectedFlurstueckLabel(fstckLabel);
+        flurstueckChoosen(x);
+      } else {
+        setSelectedFlurstueckLabel();
+      }
+    } else if (gem && flur) {
+      const fullGemarkung = getGemarkungByName(gem);
+      setSelectedGemarkung(fullGemarkung);
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      setSelectedFlur(fullFlur);
+      setSelectedFlurstueckLabel();
+      dispatch(storeAlkisLandparcel(undefined));
+      dispatch(storeLagisLandparcel(undefined));
+      dispatch(storeRebe(undefined));
+      dispatch(storeMipa(undefined));
+    } else if (gem || selectedGemarkung) {
+      if (gem || selectedGemarkung) {
+        const fullGemarkung = getGemarkungByName(gem);
+        setSelectedGemarkung(fullGemarkung);
+        setSelectedFlur();
+        setSelectedFlurstueckLabel();
+        dispatch(storeAlkisLandparcel(undefined));
+        dispatch(storeLagisLandparcel(undefined));
+        dispatch(storeRebe(undefined));
+        dispatch(storeMipa(undefined));
+      }
+    }
+  };
+};
