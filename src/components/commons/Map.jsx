@@ -288,6 +288,9 @@ const Map = ({
         boundingBoxChangedHandler={(boundingBox) => {
           // console.log("xxx boundingBox Changed", boundingBox);
         }}
+        ondblclick={(event) => {
+          console.log("event", event);
+        }}
       >
         {/* {data.featureCollection && data.featureCollection.length > 0 && (
           <FeatureCollectionDisplay
