@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { BankOutlined, BlockOutlined } from "@ant-design/icons";
+import { BankOutlined, BlockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Select } from "antd";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -24,7 +24,11 @@ import { getSyncLandparcel } from "../../store/slices/ui";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "antd";
 import { SyncOutlined } from "@ant-design/icons";
-import { defaultLinksColor } from "../../core/tools/helper";
+import {
+  defaultLinksColor,
+  removeLeadingZeros,
+  replaceSlashWithDash,
+} from "../../core/tools/helper";
 
 function paramsToObject(entries) {
   const result = {};
@@ -64,9 +68,6 @@ const LandParcelChooser = ({
     }
   }, [all]);
 
-  function replaceSlashWithDash(value) {
-    return value ? value.replace("/", "-") : value;
-  }
   const removeLagisStore = () => {
     dispatch(storeAlkisLandparcel(undefined));
     dispatch(storeLagisLandparcel(undefined));
@@ -74,6 +75,7 @@ const LandParcelChooser = ({
     dispatch(storeMipa(undefined));
     dispatch(storeHistory(undefined));
   };
+
   useEffect(() => {
     if (!landparcelInternaDataStructure) {
       return;
@@ -86,47 +88,18 @@ const LandParcelChooser = ({
       fstck: urlParams.get("fstck") || undefined,
     };
 
-    const fromState = {
-      gem: selectedGemarkung?.gemarkung,
-      flur: removeLeadingZeros(selectedFlur?.flur, true),
-      fstck: replaceSlashWithDash(removeLeadingZeros(selectedFlurstueckLabel)),
-    };
-
-    if (
-      landparcelInternaDataStructure &&
-      (fromUrl.gem !== fromState.gem ||
-        fromUrl.flur !== fromState.flur ||
-        fromUrl.fstck !== fromState.fstck)
-    ) {
-      gotoFstck(fromUrl);
-    }
-  }, [
-    urlParams,
-    selectedGemarkung,
-    selectedFlur,
-    selectedFlurstueckLabel,
-    landparcelInternaDataStructure,
-  ]);
+    gotoFstckFromUrl(fromUrl);
+  }, [urlParams, landparcelInternaDataStructure]);
 
   const handleGemarkungChange = (gemarkungValue) => {
     if (alkisLandparcel !== undefined && landparcel !== undefined) {
       // removeLagisStore();
     }
     const fullGemarkung = landparcelInternaDataStructure[gemarkungValue];
-    // setSelectedGemarkung(fullGemarkung);
-    // setSelectedFlur(undefined);
-    // setSelectedFlurstueckLabel(undefined);
 
     dispatch(storeSelectedGemarkung(fullGemarkung));
     dispatch(storeSelectedFlur(undefined));
     dispatch(storeSelectedFlurstueckLabel(undefined));
-
-    const newParams = paramsToObject(urlParams);
-    newParams.gem = fullGemarkung.gemarkung;
-    delete newParams.flur;
-    delete newParams.fstck;
-    setUrlParams(newParams);
-
     setTimeout(() => {
       flurRef.current.focus();
     }, 10);
@@ -137,12 +110,6 @@ const LandParcelChooser = ({
     }
     dispatch(storeSelectedFlur(selectedGemarkung.flure[flurValue]));
     dispatch(storeSelectedFlurstueckLabel(undefined));
-
-    // removeLagisStore();
-    const newParams = paramsToObject(urlParams);
-    newParams.flur = removeLeadingZeros(flurValue, true);
-    delete newParams.fstck;
-    setUrlParams(newParams);
     setTimeout(() => {
       flurstueckRef.current.focus();
     }, 10);
@@ -150,11 +117,6 @@ const LandParcelChooser = ({
 
   const handleFlurstueckChange = (flurstueckLabel) => {
     dispatch(storeSelectedFlurstueckLabel(flurstueckLabel));
-
-    const newParams = paramsToObject(urlParams);
-    newParams.fstck = replaceSlashWithDash(removeLeadingZeros(flurstueckLabel));
-    setUrlParams(newParams);
-
     flurstueckChoosen({
       gemarkung: selectedGemarkung.gemarkung,
       flur: selectedFlur.flur,
@@ -172,8 +134,16 @@ const LandParcelChooser = ({
     }
   };
 
-  const gotoFstck = ({ gem, flur, fstck }) => {
-    dispatch(switchToLandparcel({ gem, flur, fstck, flurstueckChoosen }));
+  const gotoFstckFromUrl = ({ gem, flur, fstck }) => {
+    dispatch(
+      switchToLandparcel({
+        gem,
+        flur,
+        fstck,
+        flurstueckChoosen,
+        updateFromUrl: true,
+      })
+    );
   };
 
   const handleRefreshData = () => {
@@ -189,8 +159,67 @@ const LandParcelChooser = ({
   if (!landparcelInternaDataStructure) {
     return null; //could be improved with 3 fake <Select> elements that are disabled and says "... laden"
   }
+
+  const flurstueckOptions = Object.keys(selectedFlur?.flurstuecke || []).map(
+    (key) => {
+      const el = selectedFlur?.flurstuecke[key];
+      let color = "lightgrey";
+      if (el.hist === false && el.art === "städtisch") {
+        color = "black";
+      } else if (el.hist === false && el.art === "Abteilung IX") {
+        color = "purple";
+      }
+      return {
+        label: (
+          <span style={{ color }}>
+            <span className="mr-1 text-sm">
+              {el.art === "städtisch" ? <BankOutlined /> : <BlockOutlined />}
+            </span>
+            {removeLeadingZeros(el.label)}
+          </span>
+        ),
+        value: key,
+      };
+    }
+  );
+
+  // Check if selectedFlurstueckLabel is not in the options and add it
+
+  if (
+    selectedFlurstueckLabel &&
+    !flurstueckOptions.some(
+      (option) => option.value === selectedFlurstueckLabel
+    )
+  ) {
+    flurstueckOptions.push({
+      label: (
+        <span style={{ color: "#F2E2C2" }}>
+          <span className="mr-1 text-sm">
+            <UserOutlined />
+          </span>
+          {removeLeadingZeros(selectedFlurstueckLabel)}
+        </span>
+      ),
+      value: selectedFlurstueckLabel,
+    });
+  }
+
   return (
     <>
+      <Button
+        onClick={() => {
+          dispatch(
+            switchToLandparcel({
+              gem: "Barmen",
+              flur: "1",
+              fstck: "1-0",
+              flurstueckChoosen,
+            })
+          );
+        }}
+      >
+        XXX
+      </Button>
       <Select
         ref={gemarkungRef}
         value={selectedGemarkung?.gemarkung || undefined}
@@ -263,7 +292,8 @@ const LandParcelChooser = ({
           return parseFloat(optionA.value) - parseFloat(optionB.value);
         }}
         onChange={handleFlurstueckChange}
-        options={Object.keys(selectedFlur?.flurstuecke || []).map((key) => {
+        options={flurstueckOptions}
+        ___options={Object.keys(selectedFlur?.flurstuecke || []).map((key) => {
           const el = selectedFlur?.flurstuecke[key];
           let color = "lightgrey";
           if (el.hist === false && el.art === "städtisch") {
@@ -306,28 +336,28 @@ const LandParcelChooser = ({
 
 export default LandParcelChooser;
 
-const removeLeadingZeros = (numberStr, flur = false) => {
-  if (!numberStr) {
-    return undefined;
-  }
-  const parts = numberStr.split("/");
+// export const removeLeadingZeros = (numberStr, flur = false) => {
+//   if (!numberStr) {
+//     return undefined;
+//   }
+//   const parts = numberStr.split("/");
 
-  const trimmedParts = parts.map((part) => {
-    let startIndex = 0;
+//   const trimmedParts = parts.map((part) => {
+//     let startIndex = 0;
 
-    while (startIndex < part.length && part[startIndex] === "0") {
-      startIndex++;
-    }
+//     while (startIndex < part.length && part[startIndex] === "0") {
+//       startIndex++;
+//     }
 
-    return part.substring(startIndex);
-  });
+//     return part.substring(startIndex);
+//   });
 
-  const flurResalt = trimmedParts.join("/");
+//   const flurResalt = trimmedParts.join("/");
 
-  const result =
-    trimmedParts.length > 1
-      ? trimmedParts.join("/")
-      : trimmedParts.join("") + "/0";
+//   const result =
+//     trimmedParts.length > 1
+//       ? trimmedParts.join("/")
+//       : trimmedParts.join("") + "/0";
 
-  return !flur ? result : flurResalt;
-};
+//   return !flur ? result : flurResalt;
+// };

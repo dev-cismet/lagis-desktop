@@ -179,3 +179,6 @@ export function getLandparcelStringFromAlkisLandparcel(landparcel) {
   const currentLandparcel = `${getCurrentLandparcelGemerkung} ${getCurrentLandparcelFlur} ${getCurrentLandparcelZaehler}/${getCurrentLandparcelZaehlerNenner}`;
   return currentLandparcel;
 }
+export function replaceSlashWithDash(value) {
+  return value ? value.replace("/", "-") : value;
+}

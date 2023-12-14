@@ -369,7 +369,11 @@ const getGemarkungByName = (name, landparcelInternaDataStructure) => {
   }
 };
 export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
-  console.log("xxx called switchToLandparcel", { gem, flur, fstck });
+  console.log(
+    "xxx called switchToLandparcel",
+    { gem, flur, fstck },
+    new Error()
+  );
 
   return async (dispatch, getState) => {
     const landparcelInternaDataStructure =
@@ -401,11 +405,12 @@ export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
         ...fullFlur.flurstuecke[fstckLabel],
       };
       if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
-        dispatch(storeSelectedFlurstueckLabel(fstckLabel));
+        //dispatch(storeSelectedFlurstueckLabel(fstckLabel));
         flurstueckChoosen(x);
       } else {
-        dispatch(storeSelectedFlurstueckLabel());
+        //dispatch(storeSelectedFlurstueckLabel());
       }
+      dispatch(storeSelectedFlurstueckLabel(fstckLabel));
     } else if (gem && flur) {
       const fullGemarkung = getGemarkungByName(
         gem,
