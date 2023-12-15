@@ -49,8 +49,6 @@ const UserBar = () => {
         all={landParcels ? landParcels : []}
         gemarkungen={landmarks ? landmarks : []}
         flurstueckChoosen={(fstck) => {
-          console.log("fstck", fstck);
-
           if (fstck.lfk) {
             dispatch(fetchFlurstueck(fstck.lfk, fstck.alkis_id, navigate));
             handleOpenLandparcelInJavaApp(fstck);

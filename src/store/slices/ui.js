@@ -6,6 +6,7 @@ const initialState = {
   backgroundLayerOpacities: {},
   activeAdditionalLayers: [],
   additionalLayerOpacities: {},
+  mapLoading: false,
 };
 
 const slice = createSlice({
@@ -33,6 +34,10 @@ const slice = createSlice({
       state.additionalLayerOpacities = action.payload;
       return state;
     },
+    setMapLoading(state, action) {
+      state.mapLoading = action.payload;
+      return state;
+    },
   },
 });
 
@@ -44,6 +49,7 @@ export const {
   setBackgroundLayerOpacities,
   setActiveAdditionaLayers,
   setAdditionalLayerOpacities,
+  setMapLoading,
 } = slice.actions;
 
 export const getSyncLandparcel = (state) => {
@@ -61,4 +67,7 @@ export const getActiveAdditionalLayers = (state) => {
 };
 export const getAdditionalLayerOpacities = (state) => {
   return state.ui.additionalLayerOpacities;
+};
+export const isMapLoading = (state) => {
+  return state.ui.mapLoading;
 };

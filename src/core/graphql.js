@@ -49,7 +49,7 @@ export async function fetchGraphQLFromService(
     "logGQL"
   );
   const logGQLEnabled =
-    true || (logGQLFromSearch !== null && logGQLFromSearch !== "false");
+    logGQLFromSearch !== null && logGQLFromSearch !== "false";
   const nonce = getNonce();
 
   let myHeaders = new Headers();
@@ -63,7 +63,7 @@ export async function fetchGraphQLFromService(
   };
   const body = JSON.stringify(queryObject);
   if (logGQLEnabled && forceSkipLogging === false) {
-    // console.log(`logGQL:: GraphQL query (${nonce}):`, queryObject);
+    console.log(`logGQL:: GraphQL query (${nonce}):`, queryObject);
   }
   try {
     const response = await fetch(
@@ -78,7 +78,7 @@ export async function fetchGraphQLFromService(
       const resultjson = await response.json();
 
       if (logGQLEnabled && forceSkipLogging === false) {
-        // console.log(`logGQL:: Result (${nonce}):`, resultjson);
+        console.log(`logGQL:: Result (${nonce}):`, resultjson);
       }
       // return { ok: true, status: response.status, data: { tdta_leuchten: [] } };
       //check if resultsjson is an array or an object
@@ -95,7 +95,7 @@ export async function fetchGraphQLFromService(
     }
   } catch (e) {
     if (logGQLEnabled && forceSkipLogging === false) {
-      // console.log("error in fetch", e);
+      console.log("error in fetch", e);
     }
     throw new Error(e);
   }

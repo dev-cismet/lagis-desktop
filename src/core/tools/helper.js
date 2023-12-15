@@ -182,3 +182,23 @@ export function getLandparcelStringFromAlkisLandparcel(landparcel) {
 export function replaceSlashWithDash(value) {
   return value ? value.replace("/", "-") : value;
 }
+export function getGemarkunFlurFstckFromAlkisId(alkisId) {
+  //alkisId is always starting with 05 in germany
+  //throw 05 away
+
+  //check whether this is the case here and throw it away
+  let alkisIdWithout05;
+  if (alkisId.substring(0, 2) !== "05") {
+    alkisIdWithout05 = alkisId.substring(2);
+  } else {
+    alkisIdWithout05 = alkisId;
+  }
+
+  const splitted = alkisIdWithout05.split("-");
+
+  const gemId = splitted[0].substring(2);
+  const flur = splitted[1];
+  const fstck = splitted[2];
+
+  return { gemId, flur, fstck };
+}

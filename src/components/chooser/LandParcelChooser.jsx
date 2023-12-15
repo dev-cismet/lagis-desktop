@@ -193,7 +193,7 @@ const LandParcelChooser = ({
   ) {
     flurstueckOptions.push({
       label: (
-        <span style={{ color: "#F2E2C2" }}>
+        <span style={{ color: "#F0E0C0" }}>
           <span className="mr-1 text-sm">
             <UserOutlined />
           </span>
@@ -201,25 +201,16 @@ const LandParcelChooser = ({
         </span>
       ),
       value: selectedFlurstueckLabel,
+      artificial: true,
     });
   }
 
+  const artificial =
+    flurstueckOptions.find((option) => option.value === selectedFlurstueckLabel)
+      ?.artificial === true;
+
   return (
     <>
-      <Button
-        onClick={() => {
-          dispatch(
-            switchToLandparcel({
-              gem: "Barmen",
-              flur: "1",
-              fstck: "1-0",
-              flurstueckChoosen,
-            })
-          );
-        }}
-      >
-        XXX
-      </Button>
       <Select
         ref={gemarkungRef}
         value={selectedGemarkung?.gemarkung || undefined}
@@ -243,6 +234,7 @@ const LandParcelChooser = ({
           const el = landparcelInternaDataStructure[key];
           return { label: el.gemarkung, value: key };
         })}
+        selectorBg="red"
       />
       <Select
         ref={flurRef}

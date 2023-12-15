@@ -34,6 +34,9 @@ import {
 import { mapExtractor } from "../core/extractors/commonExtractors";
 import { officesExtractor } from "../core/extractors/overviewExtractors";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { convertLatLngToXY } from "../core/tools/mappingTools";
+import { getFstckForPoint } from "../store/slices/search";
+import { setMapLoading } from "../store/slices/ui";
 const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -70,7 +73,6 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
   const landparcel = useSelector(getLandparcel);
   const history = useSelector(getHistory);
   const geometry = useSelector(getGeometry);
-
   return (
     <div
       style={{
@@ -127,7 +129,19 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
           <Map
             width={100}
             height={100}
-            dataIn={{ landparcel, geometry }}
+            dataIn={{
+              landparcel,
+              geometry,
+              ondblclick: (event) => {
+                dispatch(setMapLoading(true));
+                const xy = convertLatLngToXY(event.latlng);
+                dispatch(
+                  getFstckForPoint(xy[0], xy[1], () => {
+                    dispatch(setMapLoading(false));
+                  })
+                );
+              },
+            }}
             extractor={mapExtractor}
           />
         </div>

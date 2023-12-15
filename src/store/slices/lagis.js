@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
 import queries from "../../core/queries/online";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
-import { getLandparcelStringFromAlkisLandparcel } from "../../core/tools/helper";
+import {
+  getGemarkunFlurFstckFromAlkisId,
+  getLandparcelStringFromAlkisLandparcel,
+} from "../../core/tools/helper";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
@@ -368,20 +371,28 @@ const getGemarkungByName = (name, landparcelInternaDataStructure) => {
     return landparcelInternaDataStructure[result];
   }
 };
-export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
-  console.log(
-    "xxx called switchToLandparcel",
-    { gem, flur, fstck },
-    new Error()
-  );
 
+export const switchToLandparcel = ({
+  gem,
+  gemId,
+  flur,
+  fstck,
+  flurstueckChoosen = () => {},
+}) => {
   return async (dispatch, getState) => {
     const landparcelInternaDataStructure =
       getState().lagis.landparcelInternaDataStructure;
+
+    let _gem;
+    if (!gem) {
+      _gem = landparcelInternaDataStructure[gemId].gemarkung;
+    } else {
+      _gem = gem;
+    }
     const selectedGemarkung = getState().lagis.selectedGemarkung;
-    if (gem && flur && fstck) {
+    if (_gem && flur && fstck) {
       const fullGemarkung = getGemarkungByName(
-        gem,
+        _gem,
         landparcelInternaDataStructure
       );
       dispatch(storeSelectedGemarkung(fullGemarkung));
@@ -402,18 +413,21 @@ export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
       const x = {
         gemarkung: fullGemarkung.gemarkung,
         flur: fullFlur.flur,
+        label: fstckLabel, //this needs to be added because of a non city owned fstck
         ...fullFlur.flurstuecke[fstckLabel],
       };
-      if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
-        //dispatch(storeSelectedFlurstueckLabel(fstckLabel));
-        flurstueckChoosen(x);
-      } else {
-        //dispatch(storeSelectedFlurstueckLabel());
-      }
+
+      // if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
+      //dispatch(storeSelectedFlurstueckLabel(fstckLabel));
+      // flurstueckChoosen(x);
+      // } else {
+      //dispatch(storeSelectedFlurstueckLabel());
+      // }
+      flurstueckChoosen(x);
       dispatch(storeSelectedFlurstueckLabel(fstckLabel));
-    } else if (gem && flur) {
+    } else if (_gem && flur) {
       const fullGemarkung = getGemarkungByName(
-        gem,
+        _gem,
         landparcelInternaDataStructure
       );
       dispatch(storeSelectedGemarkung(fullGemarkung));
@@ -425,10 +439,10 @@ export const switchToLandparcel = ({ gem, flur, fstck, flurstueckChoosen }) => {
       dispatch(storeLagisLandparcel(undefined));
       dispatch(storeRebe(undefined));
       dispatch(storeMipa(undefined));
-    } else if (gem || selectedGemarkung) {
-      if (gem || selectedGemarkung) {
+    } else if (_gem || selectedGemarkung) {
+      if (_gem || selectedGemarkung) {
         const fullGemarkung = getGemarkungByName(
-          gem,
+          _gem,
           landparcelInternaDataStructure
         );
         dispatch(storeSelectedGemarkung(fullGemarkung));
@@ -456,10 +470,14 @@ const buildData = (xx, gemarkungen) => {
   }
   const result = {};
   for (const f of xx) {
-    const splitted = f.alkis_id.split("-");
-    const gemarkung = splitted[0].substring(2);
-    const flur = splitted[1];
-    const flurstueck = splitted[2];
+    const gff = getGemarkunFlurFstckFromAlkisId(f.alkis_id);
+    const gemarkung = gff.gemId;
+    const flur = gff.flur;
+    const flurstueck = gff.fstck;
+    // const splitted = f.alkis_id.split("-");
+    // const gemarkung = splitted[0].substring(2);
+    // const flur = splitted[1];
+    // const flurstueck = splitted[2];
     if (result[gemarkung]) {
       if (result[gemarkung].flure[flur]) {
         result[gemarkung].flure[flur].flurstuecke[flurstueck] = {

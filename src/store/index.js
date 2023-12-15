@@ -79,7 +79,7 @@ if (stateLoggingEnabled === true) {
   middleware = defaultMiddleware;
 }
 
-const persistLagisConfig = {
+const persistAuthSliceConfig = {
   key: "@lagis-desktop.1.app.auth",
   storage: localForage,
   whitelist: ["jwt", "login"],
@@ -89,6 +89,12 @@ const persistParcelsConfig = {
   key: "@lagis-desktop.1.app.landparcels",
   storage: localForage,
   whitelist: ["landParcels", "landmarks"],
+};
+
+const persistLagisSliceConfig = {
+  key: "@lagis-desktop.1.app.lagis",
+  storage: localForage,
+  whitelist: ["lagisLandparcel", "geometry"],
 };
 
 const persisUIConfig = {
@@ -113,8 +119,8 @@ const persisUIConfig = {
 
 export default configureStore({
   reducer: {
-    auth: persistReducer(persistLagisConfig, authSlice.reducer),
-    lagis: lagisSlice.reducer,
+    auth: persistReducer(persistAuthSliceConfig, authSlice.reducer),
+    lagis: persistReducer(persistLagisSliceConfig, lagisSlice.reducer),
     landParcels: persistReducer(persistParcelsConfig, landParcels.reducer),
     permissions: permissionsSlice.reducer,
     mapping: mappingSlice.reducer,

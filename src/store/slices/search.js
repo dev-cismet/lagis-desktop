@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import queries from "../../core/queries/online";
-import { fetchGraphQL } from "../../core/graphql";
+import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
+import { storeGeometry, switchToLandparcel } from "./lagis";
+import { getGemarkunFlurFstckFromAlkisId } from "../../core/tools/helper";
 
 const initialState = {
   contractFlurstucke: undefined,
@@ -109,4 +111,30 @@ export const getMipaFlurstucke = (state) => {
 };
 export const getLoading = (state) => {
   return state.search.loading;
+};
+
+export const getFstckForPoint = (x, y, done) => {
+  return async (dispatch, getState) => {
+    const jwt = getState().auth.jwt;
+    try {
+      const result = await fetchGraphQLFromWuNDa(
+        queries.getFstckForPoint,
+        { x, y },
+        jwt
+      );
+      const geom = result?.data?.flurstueck[0].geom.geo_field;
+      const payload = {
+        ...getGemarkunFlurFstckFromAlkisId(
+          result?.data?.flurstueck[0].alkis_id
+        ),
+        flurstueckChoosen: done,
+        akis_id: result?.data?.flurstueck[0].alkis_id,
+      };
+      dispatch(storeGeometry(geom));
+      dispatch(switchToLandparcel(payload));
+    } catch (e) {
+      console.log("error in getFstckForPoint", e);
+      done();
+    }
+  };
 };
