@@ -137,7 +137,9 @@ const Overview = ({ width = "100%", height = "100%", inStory = false }) => {
                 const xy = convertLatLngToXY(event.latlng);
                 dispatch(
                   getFstckForPoint(xy[0], xy[1], () => {
-                    dispatch(setMapLoading(false));
+                    setTimeout(() => {
+                      dispatch(setMapLoading(false));
+                    }, 100);
                   })
                 );
               },

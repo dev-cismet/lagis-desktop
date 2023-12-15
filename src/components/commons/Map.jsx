@@ -47,6 +47,8 @@ import {
   getBackgroundLayerOpacities,
   isMapLoading,
 } from "../../store/slices/ui";
+import proj4 from "proj4";
+import { proj4crs25832def, proj4crs3857def } from "react-cismap/constants/gis";
 
 const mockExtractor = (input) => {
   return {
@@ -76,8 +78,25 @@ const Map = ({
 
   const [overlayFeature, setOverlayFeature] = useState(null);
   const [gazetteerHit, setGazetteerHit] = useState(null);
-  const gazetteerHitTrigger = () => {
-    console.log("gazetteerHitTrigger");
+  const gazetteerHitTrigger = (hits) => {
+    //somehow the map gets not moved to the right position on the first try, so this is an ugly winning to get it right
+    const pos = proj4(proj4crs3857def, proj4.defs("EPSG:4326"), [
+      hits[0].x,
+      hits[0].y,
+    ]);
+    const map = refRoutedMap.current.leafletMap.leafletElement;
+    map.panTo([pos[1], pos[0]], {
+      animate: false,
+    });
+
+    let hitObject = { ...hits[0] };
+
+    //Change the Zoomlevel of the map
+    if (hitObject.more.zl) {
+      map.setZoom(hitObject.more.zl, {
+        animate: false,
+      });
+    }
   };
   const searchControlWidth = 500;
   const gazetteerSearchPlaceholder = undefined;
@@ -186,6 +205,7 @@ const Map = ({
 
   useEffect(() => {
     if (
+      isMapLoadingValue === false &&
       data?.featureCollection &&
       data?.featureCollection.length !== 0 &&
       refRoutedMap?.current
@@ -196,7 +216,7 @@ const Map = ({
         map.fitBounds(bb);
       }
     }
-  }, [data?.featureCollection, refRoutedMap.current]);
+  }, [data?.featureCollection, refRoutedMap.current, isMapLoadingValue]);
 
   const backgroundLayerOpacities = useSelector(getBackgroundLayerOpacities);
   const additionalLayerOpacities = useSelector(getAdditionalLayerOpacities);
@@ -281,20 +301,6 @@ const Map = ({
           }
         }}
       >
-        {/* {data.featureCollection && data.featureCollection.length > 0 && (
-          <FeatureCollectionDisplay
-            featureCollection={data.featureCollection}
-            style={data.styler}
-            markerStyle={data.markerStyle}
-            showMarkerCollection={data.showMarkerCollection || false}
-            featureClickHandler={
-              data.featureClickHandler ||
-              ((e) => {
-                console.log("no featureClickHandler set", e.target.feature);
-              })
-            }
-          />
-        )} */}
         <ScaleControl {...defaults} position="topright" />
         {overlayFeature && (
           <ProjSingleGeoJson
