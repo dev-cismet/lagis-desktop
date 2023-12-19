@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchGraphQL, fetchGraphQLFromWuNDa } from "../../core/graphql";
 import queries from "../../core/queries/online";
 import { getBuffer25832 } from "../../core/tools/mappingTools";
-import { getLandparcelStringFromAlkisLandparcel } from "../../core/tools/helper";
+import {
+  getGemarkunFlurFstckFromAlkisId,
+  getLandparcelStringFromAlkisLandparcel,
+} from "../../core/tools/helper";
 const initialState = {
   lagisLandparcel: undefined,
   alkisLandparcel: undefined,
@@ -12,6 +15,10 @@ const initialState = {
   historieHalten: undefined,
   historieHaltenRootText: undefined,
   geometry: undefined,
+  selectedGemarkung: undefined,
+  selectedFlur: undefined,
+  selectedFlurstueckLabel: undefined,
+  landparcelInternaDataStructure: undefined,
 };
 
 const slice = createSlice({
@@ -48,6 +55,22 @@ const slice = createSlice({
     },
     storeHistorieHaltenRootText(state, action) {
       state.historieHaltenRootText = action.payload;
+      return state;
+    },
+    storeSelectedGemarkung(state, action) {
+      state.selectedGemarkung = action.payload;
+      return state;
+    },
+    storeSelectedFlur(state, action) {
+      state.selectedFlur = action.payload;
+      return state;
+    },
+    storeSelectedFlurstueckLabel(state, action) {
+      state.selectedFlurstueckLabel = action.payload;
+      return state;
+    },
+    storeLandparcelInternaDataStructur(state, action) {
+      state.landparcelInternaDataStructure = action.payload;
       return state;
     },
   },
@@ -198,6 +221,10 @@ export const {
   storeGeometry,
   storeHistorieHalten,
   storeHistorieHaltenRootText,
+  storeSelectedGemarkung,
+  storeSelectedFlur,
+  storeSelectedFlurstueckLabel,
+  storeLandparcelInternaDataStructur,
 } = slice.actions;
 
 export const getLandparcel = (state) => {
@@ -217,6 +244,19 @@ export const getHistory = (state) => {
 };
 export const getGeometry = (state) => {
   return state.lagis.geometry;
+};
+
+export const getSelectedGemarkung = (state) => {
+  return state.lagis.selectedGemarkung;
+};
+export const getSelectedFlur = (state) => {
+  return state.lagis.selectedFlur;
+};
+export const getSelectedFlurstueckLabel = (state) => {
+  return state.lagis.selectedFlurstueckLabel;
+};
+export const getLandparcelInternaDataStructure = (state) => {
+  return state.lagis.landparcelInternaDataStructure;
 };
 
 export const getOffices = (state) => {
@@ -317,4 +357,166 @@ export const getUrlLandparcelParams = (state) => {
     };
   }
   return state.lagis.alkisLandparcel;
+};
+
+function padWithZeros(num, length) {
+  return String(num).padStart(length, "0");
+}
+
+const getGemarkungByName = (name, landparcelInternaDataStructure) => {
+  const result = Object.keys(landparcelInternaDataStructure).find((key) => {
+    return landparcelInternaDataStructure[key].gemarkung === name;
+  });
+  if (result) {
+    return landparcelInternaDataStructure[result];
+  }
+};
+
+export const switchToLandparcel = ({
+  gem,
+  gemId,
+  flur,
+  fstck,
+  flurstueckChoosen = () => {},
+}) => {
+  return async (dispatch, getState) => {
+    const landparcelInternaDataStructure =
+      getState().lagis.landparcelInternaDataStructure;
+
+    let _gem;
+    if (!gem) {
+      _gem = landparcelInternaDataStructure[gemId].gemarkung;
+    } else {
+      _gem = gem;
+    }
+    const selectedGemarkung = getState().lagis.selectedGemarkung;
+    if (_gem && flur && fstck) {
+      const fullGemarkung = getGemarkungByName(
+        _gem,
+        landparcelInternaDataStructure
+      );
+      dispatch(storeSelectedGemarkung(fullGemarkung));
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      dispatch(storeSelectedFlur(fullFlur));
+
+      //check whether fstck is conatining a dash
+      const splitted = fstck.split("-");
+      let fstckLabel;
+      let pureLabel;
+      if (splitted.length === 2 && splitted[1] !== "0") {
+        fstckLabel =
+          padWithZeros(splitted[0], 5) + "/" + padWithZeros(splitted[1], 4);
+      } else {
+        fstckLabel = padWithZeros(splitted[0], 5);
+        // pureLabel = fstck;
+      }
+      const x = {
+        gemarkung: fullGemarkung.gemarkung,
+        flur: fullFlur.flur,
+        label: fstckLabel, //this needs to be added because of a non city owned fstck
+        ...fullFlur.flurstuecke[fstckLabel],
+      };
+
+      // if (fullGemarkung && fullFlur && fullFlur.flurstuecke[fstckLabel]) {
+      //dispatch(storeSelectedFlurstueckLabel(fstckLabel));
+      // flurstueckChoosen(x);
+      // } else {
+      //dispatch(storeSelectedFlurstueckLabel());
+      // }
+      flurstueckChoosen(x);
+      dispatch(storeSelectedFlurstueckLabel(fstckLabel));
+    } else if (_gem && flur) {
+      const fullGemarkung = getGemarkungByName(
+        _gem,
+        landparcelInternaDataStructure
+      );
+      dispatch(storeSelectedGemarkung(fullGemarkung));
+      const fullFlur = fullGemarkung.flure[padWithZeros(flur, 3)];
+      dispatch(storeSelectedFlur(fullFlur));
+      fullFlur;
+      dispatch(storeSelectedFlurstueckLabel());
+      dispatch(storeAlkisLandparcel(undefined));
+      dispatch(storeLagisLandparcel(undefined));
+      dispatch(storeRebe(undefined));
+      dispatch(storeMipa(undefined));
+    } else if (_gem || selectedGemarkung) {
+      if (_gem || selectedGemarkung) {
+        const fullGemarkung = getGemarkungByName(
+          _gem,
+          landparcelInternaDataStructure
+        );
+        dispatch(storeSelectedGemarkung(fullGemarkung));
+        dispatch(storeSelectedFlur());
+        dispatch(storeSelectedFlurstueckLabel());
+        dispatch(storeAlkisLandparcel(undefined));
+        dispatch(storeLagisLandparcel(undefined));
+        dispatch(storeRebe(undefined));
+        dispatch(storeMipa(undefined));
+      }
+    }
+  };
+};
+
+export const buildLandparcelInternalDataStructure = (all, gemarkungen) => {
+  return async (dispatch, getState) => {
+    dispatch(storeLandparcelInternaDataStructur(buildData(all, gemarkungen)));
+  };
+};
+
+const buildData = (xx, gemarkungen) => {
+  const gemarkungLookup = {};
+  for (const g of gemarkungen) {
+    gemarkungLookup[g.schluessel] = g.bezeichnung;
+  }
+  const result = {};
+  for (const f of xx) {
+    const gff = getGemarkunFlurFstckFromAlkisId(f.alkis_id);
+    const gemarkung = gff.gemId;
+    const flur = gff.flur;
+    const flurstueck = gff.fstck;
+    // const splitted = f.alkis_id.split("-");
+    // const gemarkung = splitted[0].substring(2);
+    // const flur = splitted[1];
+    // const flurstueck = splitted[2];
+    if (result[gemarkung]) {
+      if (result[gemarkung].flure[flur]) {
+        result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+          label: flurstueck,
+          lfk: f.schluessel_id,
+          art: f.flurstueckart || -1,
+          alkis_id: f.alkis_id,
+          hist: f.historisch,
+        };
+      } else {
+        result[gemarkung].flure[flur] = {
+          flur: flur,
+          flurstuecke: {},
+        };
+        result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+          label: flurstueck,
+          lfk: f.schluessel_id,
+          art: f.flurstueckart || -1,
+          alkis_id: f.alkis_id,
+          hist: f.historisch,
+        };
+      }
+    } else {
+      result[gemarkung] = {
+        gemarkung: gemarkungLookup[gemarkung] || gemarkung,
+        flure: {},
+      };
+      result[gemarkung].flure[flur] = {
+        flur: flur,
+        flurstuecke: {},
+      };
+      result[gemarkung].flure[flur].flurstuecke[flurstueck] = {
+        label: flurstueck,
+        lfk: f.schluessel_id,
+        art: f.flurstueckart || -1,
+        alkis_id: f.alkis_id,
+        hist: f.historisch,
+      };
+    }
+  }
+  return result;
 };

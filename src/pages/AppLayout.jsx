@@ -4,9 +4,11 @@ import UserBar from "../components/header/UserBar";
 import FooterSection from "../components/navigation/FooterSection";
 import { Outlet } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import useUrlSyncGemarkunFlurFlurstueckHook from "../hooks/useUrlSyncGemarkunFlurFlurstueckHook";
 const AppLayout = () => {
   const [urlParams, setUrlParams] = useSearchParams();
   const [parametersForLink, setParametersForLink] = useState();
+  useUrlSyncGemarkunFlurFlurstueckHook();
   useEffect(() => {
     const fromUrl = {
       gem: urlParams.get("gem") || undefined,

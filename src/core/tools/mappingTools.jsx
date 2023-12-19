@@ -142,3 +142,8 @@ export const getBuffer25832 = (geoJSON, bufferInMeter) => {
     return undefined;
   }
 };
+
+export const convertLatLngToXY = (latlng) => {
+  const xy = proj4("EPSG:4326", "EPSG:25832", [latlng.lng, latlng.lat]);
+  return xy;
+};

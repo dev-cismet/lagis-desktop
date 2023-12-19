@@ -494,3 +494,14 @@ queries.getFlurstuckelByMipaFileNumber = `query MyQuery($aktz: String) {
     flurstueck_art
   }
 }`;
+
+queries.getFstckForPoint = `query q($x: Float!, $y: Float!) {
+  flurstueck(where: {geom: {geo_field: {_st_intersects: {type: "Point", crs: {type: "name", properties: {name: "urn:ogc:def:crs:EPSG::25832"}}, coordinates: [$x, $y]}}}, historisch: {_is_null: true}}) {
+    alkis_id
+    historisch
+    geom { 
+      geo_field
+    }
+  }
+}
+`;

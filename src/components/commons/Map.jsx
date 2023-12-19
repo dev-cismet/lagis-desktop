@@ -45,7 +45,10 @@ import {
   getActiveBackgroundLayer,
   getAdditionalLayerOpacities,
   getBackgroundLayerOpacities,
+  isMapLoading,
 } from "../../store/slices/ui";
+import proj4 from "proj4";
+import { proj4crs25832def, proj4crs3857def } from "react-cismap/constants/gis";
 
 const mockExtractor = (input) => {
   return {
@@ -72,10 +75,28 @@ const Map = ({
   );
   const gazData = useSelector(getGazData);
   const showBackground = useSelector(getShowBackground);
+
   const [overlayFeature, setOverlayFeature] = useState(null);
   const [gazetteerHit, setGazetteerHit] = useState(null);
-  const gazetteerHitTrigger = () => {
-    console.log("gazetteerHitTrigger");
+  const gazetteerHitTrigger = (hits) => {
+    //somehow the map gets not moved to the right position on the first try, so this is an ugly winning to get it right
+    const pos = proj4(proj4crs3857def, proj4.defs("EPSG:4326"), [
+      hits[0].x,
+      hits[0].y,
+    ]);
+    const map = refRoutedMap.current.leafletMap.leafletElement;
+    map.panTo([pos[1], pos[0]], {
+      animate: false,
+    });
+
+    let hitObject = { ...hits[0] };
+
+    //Change the Zoomlevel of the map
+    if (hitObject.more.zl) {
+      map.setZoom(hitObject.more.zl, {
+        animate: false,
+      });
+    }
   };
   const searchControlWidth = 500;
   const gazetteerSearchPlaceholder = undefined;
@@ -99,7 +120,7 @@ const Map = ({
     setNamedMapStyle,
     setActiveAdditionalLayerKeys,
   } = useContext(TopicMapStylingDispatchContext);
-
+  const isMapLoadingValue = useSelector(isMapLoading);
   let backgroundsFromMode;
   const browserlocation = useLocation();
   function paramsToObject(entries) {
@@ -112,6 +133,14 @@ const Map = ({
   }
   const urlSearchParams = new URLSearchParams(browserlocation.search);
   const urlSearchParamsObject = paramsToObject(urlParams);
+
+  const mapFallbacks = {
+    position: {
+      lat: urlSearchParamsObject?.lat ?? 51.272570027476256,
+      lng: urlSearchParamsObject?.lng ?? 7.19963690266013,
+    },
+    zoom: urlSearchParamsObject?.zoom ?? 16,
+  };
   try {
     backgroundsFromMode = backgroundConfigurations[selectedBackground].layerkey;
   } catch (e) {}
@@ -155,7 +184,7 @@ const Map = ({
   const mapStyle = {
     width: mapWidth - 2 * padding,
     height: mapHeight - 2 * padding - headHeight,
-    cursor: "pointer",
+    cursor: isMapLoadingValue ? "wait" : "pointer",
     clear: "both",
   };
 
@@ -167,46 +196,32 @@ const Map = ({
     position: "topright",
   };
 
-  let fallback = {};
-  if (
-    data?.featureCollection &&
-    data?.featureCollection.length !== 0 &&
-    refRoutedMap?.current
-  ) {
-    const map = refRoutedMap.current.leafletMap.leafletElement;
-    const bb = getBoundsForFeatureArray(data?.featureCollection);
-    // dispatch(setLeafletElement(map));
-    const { center, zoom } = getCenterAndZoomForBounds(map, bb);
+  useEffect(() => {
+    if (refRoutedMap?.current) {
+      const map = refRoutedMap.current.leafletMap.leafletElement;
+      map.invalidateSize();
+    }
+  }, [mapWidth, mapHeight]);
 
-    fallback.position = {};
-    fallback.position.lat = center.lat;
-    fallback.position.lng = center.lng;
-    fallback.zoom = zoom;
-  }
+  useEffect(() => {
+    if (
+      isMapLoadingValue === false &&
+      data?.featureCollection &&
+      data?.featureCollection.length !== 0 &&
+      refRoutedMap?.current
+    ) {
+      const map = refRoutedMap.current.leafletMap.leafletElement;
+      const bb = getBoundsForFeatureArray(data?.featureCollection);
+      if (map && bb) {
+        map.fitBounds(bb);
+      }
+    }
+  }, [data?.featureCollection, refRoutedMap.current, isMapLoadingValue]);
+
   const backgroundLayerOpacities = useSelector(getBackgroundLayerOpacities);
   const additionalLayerOpacities = useSelector(getAdditionalLayerOpacities);
   const activeBackgroundLayer = useSelector(getActiveBackgroundLayer);
   const activeAdditionalLayers = useSelector(getActiveAdditionalLayers);
-  // if (data?.featureCollection && refRoutedMap?.current) {
-  //   const map = refRoutedMap.current.leafletMap.leafletElement;
-  //   dispatch(setLeafletElement(map));
-
-  //   const bb = getBoundsForFeatureArray(data?.featureCollection);
-  //   const { center, zoom } = getCenterAndZoomForBounds(map, bb);
-  //   if (
-  //     fallback?.position?.lat !== center.lat ||
-  //     fallback?.position?.lng !== center.lng ||
-  //     fallback?.zoom !== zoom
-  //   ) {
-  //     setFallback({
-  //       position: {
-  //         lat: center.lat,
-  //         lng: center.lng,
-  //       },
-  //       zoom: zoom,
-  //     });
-  //   }
-  // }
 
   return (
     <Card
@@ -270,17 +285,8 @@ const Map = ({
         maxZoom={25}
         zoomSnap={0.5}
         zoomDelta={0.5}
-        fallbackPosition={{
-          lat:
-            urlSearchParamsObject?.lat ??
-            fallback?.position?.lat ??
-            51.272570027476256,
-          lng:
-            urlSearchParamsObject?.lng ??
-            fallback?.position?.lng ??
-            7.19963690266013,
-        }}
-        fallbackZoom={urlSearchParamsObject?.zoom ?? fallback.zoom ?? 17}
+        fallbackPosition={mapFallbacks.fallbackPosition}
+        fallbackZoom={urlSearchParamsObject?.zoom ?? mapFallbacks.zoom ?? 17}
         locationChangedHandler={(location) => {
           const newParams = { ...paramsToObject(urlParams), ...location };
           // setUrlParams(newParams);
@@ -288,21 +294,13 @@ const Map = ({
         boundingBoxChangedHandler={(boundingBox) => {
           // console.log("xxx boundingBox Changed", boundingBox);
         }}
+        ondblclick={(event) => {
+          //if data contains a ondblclick handler, call it
+          if (data.ondblclick) {
+            data.ondblclick(event);
+          }
+        }}
       >
-        {/* {data.featureCollection && data.featureCollection.length > 0 && (
-          <FeatureCollectionDisplay
-            featureCollection={data.featureCollection}
-            style={data.styler}
-            markerStyle={data.markerStyle}
-            showMarkerCollection={data.showMarkerCollection || false}
-            featureClickHandler={
-              data.featureClickHandler ||
-              ((e) => {
-                console.log("no featureClickHandler set", e.target.feature);
-              })
-            }
-          />
-        )} */}
         <ScaleControl {...defaults} position="topright" />
         {overlayFeature && (
           <ProjSingleGeoJson
