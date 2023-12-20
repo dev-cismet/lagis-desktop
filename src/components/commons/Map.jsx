@@ -49,6 +49,7 @@ import {
 } from "../../store/slices/ui";
 import proj4 from "proj4";
 import { proj4crs25832def, proj4crs3857def } from "react-cismap/constants/gis";
+import { getJWT } from "../../store/slices/auth";
 
 const mockExtractor = (input) => {
   return {
@@ -57,6 +58,21 @@ const mockExtractor = (input) => {
     featureCollection: [],
   };
 };
+
+function landparcelToString(props) {
+  const { gemarkung, flur, fstck_zaehler, fstck_nenner } = props;
+  if (!gemarkung || !flur || !fstck_zaehler) {
+    return;
+  }
+  // Remove leading zeros from flur and fstck_zaehler
+  const formattedFlur = parseInt(flur, 10);
+  const formattedZaehler = parseInt(fstck_zaehler, 10);
+
+  // Format fstck_nenner, if it exists and is not null
+  const formattedNenner = fstck_nenner ? `/${parseInt(fstck_nenner, 10)}` : "";
+
+  return `${gemarkung} ${formattedFlur} ${formattedZaehler}${formattedNenner}`;
+}
 
 const Map = ({
   dataIn,
@@ -75,9 +91,13 @@ const Map = ({
   );
   const gazData = useSelector(getGazData);
   const showBackground = useSelector(getShowBackground);
-
+  const jwt = useSelector(getJWT);
   const [overlayFeature, setOverlayFeature] = useState(null);
   const [gazetteerHit, setGazetteerHit] = useState(null);
+  const [hoveredLandparcel, setHoveredLandparcel] = useState(null);
+
+  //state for hover landparcel string
+
   const gazetteerHitTrigger = (hits) => {
     //somehow the map gets not moved to the right position on the first try, so this is an ugly winning to get it right
     const pos = proj4(proj4crs3857def, proj4.defs("EPSG:4326"), [
@@ -180,7 +200,7 @@ const Map = ({
     // }
   }, [data?.featureCollection, urlParams]);
   let refRoutedMap = useRef(null);
-
+  const statusBarHeight = 20;
   const mapStyle = {
     width: mapWidth - 2 * padding,
     height: mapHeight - 2 * padding - headHeight,
@@ -230,6 +250,9 @@ const Map = ({
       title={<span>Karte</span>}
       extra={
         <div className="flex items-center gap-3">
+          <span style={{ width: "200px", color: "grey" }}>
+            {hoveredLandparcel}
+          </span>
           <div className="relative flex items-center">
             <Tooltip title="Hintergrund an/aus">
               <FileImageFilled
@@ -393,8 +416,14 @@ const Map = ({
               opacities={backgroundLayerOpacities}
             />
             <AdditionalLayers
+              jwt={jwt}
+              mapRef={refRoutedMap}
               activeLayers={activeAdditionalLayers}
               opacities={additionalLayerOpacities}
+              onHoverUpdate={(feature) => {
+                console.log("hovered LP", landparcelToString(feature));
+                setHoveredLandparcel(landparcelToString(feature));
+              }}
             />
           </>
         )}
