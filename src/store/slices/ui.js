@@ -6,6 +6,7 @@ const initialState = {
   backgroundLayerOpacities: {},
   activeAdditionalLayers: [],
   additionalLayerOpacities: {},
+  hoveredLandparcel: undefined,
   mapLoading: false,
 };
 
@@ -34,6 +35,10 @@ const slice = createSlice({
       state.additionalLayerOpacities = action.payload;
       return state;
     },
+    setHoveredLandparcel(state, action) {
+      state.hoveredLandparcel = action.payload;
+      return state;
+    },
     setMapLoading(state, action) {
       state.mapLoading = action.payload;
       return state;
@@ -49,6 +54,7 @@ export const {
   setBackgroundLayerOpacities,
   setActiveAdditionaLayers,
   setAdditionalLayerOpacities,
+  setHoveredLandparcel,
   setMapLoading,
 } = slice.actions;
 
@@ -70,4 +76,7 @@ export const getAdditionalLayerOpacities = (state) => {
 };
 export const isMapLoading = (state) => {
   return state.ui.mapLoading;
+};
+export const getHoveredLandparcel = (state) => {
+  return state.ui.hoveredLandparcel;
 };
