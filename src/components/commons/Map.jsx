@@ -46,10 +46,12 @@ import {
   getAdditionalLayerOpacities,
   getBackgroundLayerOpacities,
   isMapLoading,
+  setHoveredLandparcel,
 } from "../../store/slices/ui";
 import proj4 from "proj4";
 import { proj4crs25832def, proj4crs3857def } from "react-cismap/constants/gis";
 import { getJWT } from "../../store/slices/auth";
+import HoveredLandparcelInfo from "./HoveredLandparcelInfo";
 
 const mockExtractor = (input) => {
   return {
@@ -94,7 +96,6 @@ const Map = ({
   const jwt = useSelector(getJWT);
   const [overlayFeature, setOverlayFeature] = useState(null);
   const [gazetteerHit, setGazetteerHit] = useState(null);
-  const [hoveredLandparcel, setHoveredLandparcel] = useState(null);
 
   //state for hover landparcel string
 
@@ -250,9 +251,7 @@ const Map = ({
       title={<span>Karte</span>}
       extra={
         <div className="flex items-center gap-3">
-          <span style={{ width: "200px", color: "grey" }}>
-            {hoveredLandparcel}
-          </span>
+          <HoveredLandparcelInfo />
           <div className="relative flex items-center">
             <Tooltip title="Hintergrund an/aus">
               <FileImageFilled
@@ -422,7 +421,7 @@ const Map = ({
               opacities={additionalLayerOpacities}
               onHoverUpdate={(feature) => {
                 console.log("hovered LP", landparcelToString(feature));
-                setHoveredLandparcel(landparcelToString(feature));
+                dispatch(setHoveredLandparcel(landparcelToString(feature)));
               }}
             />
           </>
