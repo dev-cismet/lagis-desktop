@@ -144,8 +144,11 @@ const Agencies = ({
   }, [dataIn]);
   useEffect(() => {
     if (activeRow?.extraGeomeOffice?.geo_field) {
-      console.log("xxx agency", activeRow?.extraGeomeOffice?.geo_field);
-      setAgencyGeom(activeRow?.extraGeomeOffice?.geo_field);
+      console.log("xxx agency", activeRow);
+      setAgencyGeom({
+        ...activeRow?.extraGeomeOffice?.geo_field,
+        color: activeRow.color,
+      });
     }
   }, [activeRow]);
 

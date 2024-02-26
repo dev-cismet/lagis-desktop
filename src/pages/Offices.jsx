@@ -52,9 +52,17 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
         </div>
         <div className="w-3/5">
           <Map
+            key={
+              `OfficesMapKey.` +
+              JSON.stringify({
+                extraAgencyGeom,
+                landparcel,
+                geometry,
+              })
+            }
             width={width}
             height={height}
-            dataIn={{ landparcel, geometry }}
+            dataIn={{ landparcel, geometry, extraAgencyGeom }}
             extractor={mapOfficesExtractor}
           />
         </div>
