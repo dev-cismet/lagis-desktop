@@ -137,13 +137,17 @@ export function getOfficesWithColorAndSquare(
       }
     }
     const title = `${item.verwaltende_dienststelle.ressort.abkuerzung}.${item.verwaltende_dienststelle.abkuerzung_abteilung}`;
+
     nameGeomColorData.push({
       id: nanoid(),
       title,
       size: Math.round(area),
       color: getColorFromCode(color),
+      officeGeom: item.extended_geom,
     });
   });
+
+  console.log("xxx ang exctractor", nameGeomColorData);
 
   return nameGeomColorData;
 }

@@ -84,13 +84,19 @@ export function officesPageExtractor(dataIn) {
       agency: a.title,
       area: a.size ? a.size : "",
       color: a.color,
+      extraGeomeOffice: a.officeGeom,
     }));
 
     return { currentOffices: agencyTableFields, history: historyData };
   }
 }
 
-export const mapOfficesExtractor = ({ landparcel, geometry, ondblclick }) => {
+export const mapOfficesExtractor = ({
+  landparcel,
+  geometry,
+  ondblclick,
+  selectedOffice = 0,
+}) => {
   if (geometry) {
     const feature = {
       type: "Feature",
@@ -107,10 +113,11 @@ export const mapOfficesExtractor = ({ landparcel, geometry, ondblclick }) => {
     const officesData =
       landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
     const lastOffice = officesData[officesData.length - 1] || [];
+    console.log("xxx lastOffice", lastOffice);
 
     let officesGeomArr = [];
     if (lastOffice?.verwaltungsbereichArrayRelationShip) {
-      lastOffice?.verwaltungsbereichArrayRelationShip.forEach((office) => {
+      lastOffice?.verwaltungsbereichArrayRelationShip.forEach((office, idx) => {
         if (office.extended_geom) {
           const color = getColorFromCode(
             office.verwaltende_dienststelle.farbeArrayRelationShip[0]
@@ -134,6 +141,7 @@ export const mapOfficesExtractor = ({ landparcel, geometry, ondblclick }) => {
               id: landparcel?.id,
             },
             color,
+            selectedOffice: idx === selectedOffice,
           };
           officesGeomArr.push(feature);
         }
@@ -150,6 +158,7 @@ export const mapOfficesExtractor = ({ landparcel, geometry, ondblclick }) => {
           ? [feature]
           : [],
       styler: (feature) => {
+        console.log("xxx value", feature.selectedOffice ? 0.6 : 0.1);
         let fillColor;
         if (feature.color) {
           fillColor = feature.color;
@@ -159,9 +168,13 @@ export const mapOfficesExtractor = ({ landparcel, geometry, ondblclick }) => {
         const style = {
           color: "#005F6B",
           weight: 1,
+          // opacity: 0.6,
           opacity: 0.6,
+          // opacity: feature.selectedOffice ? 0.6 : 0.2,
+          fillOpacity: feature.selectedOffice ? 0.6 : 0.2,
           fillColor,
-          fillOpacity: 0.6,
+          // fillOpacity: 0.6,
+          // fillOpacity: 0.1,
           className: "landparcel-" + feature.properties.id,
         };
         return style;

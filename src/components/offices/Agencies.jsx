@@ -89,6 +89,7 @@ const Agencies = ({
   width = 231,
   height = 188,
   style,
+  setAgencyGeom,
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -141,6 +142,12 @@ const Agencies = ({
     setActiveRow(data?.currentOffices[0]);
     setHistory(data?.history);
   }, [dataIn]);
+  useEffect(() => {
+    if (activeRow?.extraGeomeOffice?.geo_field) {
+      console.log("xxx agency", activeRow?.extraGeomeOffice?.geo_field);
+      setAgencyGeom(activeRow?.extraGeomeOffice?.geo_field);
+    }
+  }, [activeRow]);
 
   return (
     <div
