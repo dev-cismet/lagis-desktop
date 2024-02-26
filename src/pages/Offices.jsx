@@ -16,7 +16,8 @@ import {
   additionalRollExtractor,
   officesPageExtractor,
 } from "../core/extractors/officesPageExtractor";
-import { mapExtractor } from "../core/extractors/commonExtractors";
+import { mapOfficesExtractor } from "../core/extractors/officesPageExtractor";
+
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
   if (inStory) {
@@ -44,7 +45,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
             width={width}
             height={height}
             dataIn={{ landparcel, geometry }}
-            extractor={mapExtractor}
+            extractor={mapOfficesExtractor}
           />
         </div>
       </div>
