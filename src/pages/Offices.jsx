@@ -33,16 +33,15 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const geometry = useSelector(getGeometry);
   const [extraAgencyGeom, setExtraAgencyGeom] = useState(null);
-  const [singleOfficeColor, setSingleOfficeColor] = useState(null);
+  const [activeRowId, setActiveRow] = useState(null);
 
   const test = 456;
 
   useEffect(() => {
     if (extraAgencyGeom) {
       setExtraAgencyGeom(null);
-      // setSingleOfficeColor(null);
     }
-  }, [geometry, landparcel]);
+  }, [landparcel]);
 
   return (
     <div
@@ -55,7 +54,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
             dataIn={landparcel}
             extractor={officesPageExtractor}
             setAgencyGeom={setExtraAgencyGeom}
-            setSingleOfficeColor={setSingleOfficeColor}
+            setActiveTableRow={setActiveRow}
           />
         </div>
         <div className="w-3/5">
@@ -63,14 +62,14 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
             <Map
               width={width}
               height={height}
-              dataIn={{ landparcel, extraAgencyGeom }}
+              dataIn={{ landparcel, extraAgencyGeom, activeRowId }}
               extractor={mapOfficesExtractor}
             />
           ) : (
             <Map
               width={width}
               height={height}
-              dataIn={{ landparcel, geometry, color: singleOfficeColor }}
+              dataIn={{ landparcel, geometry }}
               extractor={mapExtractor}
             />
           )}

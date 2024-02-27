@@ -94,71 +94,49 @@ export function officesPageExtractor(dataIn) {
 export const mapOfficesExtractor = ({
   landparcel,
   extraAgencyGeom,
+  activeRowId,
   ondblclick,
 }) => {
   if (extraAgencyGeom) {
-    const feature = {
-      type: "Feature",
-      featureType: "landparcel",
-      id: "landparcel." + landparcel?.id || "noIdBCtmpGeom",
-      geometry: extraAgencyGeom,
-      featuretype: landparcel ? "lagis" : "private",
-      crs: extraAgencyGeom?.crs,
-      properties: {
-        id: landparcel?.id,
-      },
-      officeColor: extraAgencyGeom.color,
-    };
+    const features = [];
+    extraAgencyGeom.agency.forEach((office) => {
+      const { extraGeomeOffice, color, id: agencyTableId } = office;
+      const feature = {
+        type: "Feature",
+        featureType: "landparcel",
+        id: "landparcel." + landparcel?.id || "noIdBCtmpGeom",
+        geometry: {
+          ...extraGeomeOffice.geo_field,
+        },
+        featuretype: landparcel ? "lagis" : "private",
+        crs: {
+          type: "name",
+          properties: {
+            name: "urn:ogc:def:crs:EPSG::25832",
+          },
+        },
+        properties: {
+          id: landparcel?.id,
+        },
+        color,
+        agencyTableId,
+        selectedGeom: activeRowId === agencyTableId,
+      };
 
-    // const officesData =
-    //   landparcel?.verwaltungsbereiche_eintragArrayRelationShip || [];
-    // const lastOffice = officesData[officesData.length - 1] || [];
-    // console.log("xxx lastOffice", lastOffice);
-
-    // let officesGeomArr = [];
-    // if (lastOffice?.verwaltungsbereichArrayRelationShip) {
-    //   lastOffice?.verwaltungsbereichArrayRelationShip.forEach((office, idx) => {
-    //     if (office.extended_geom) {
-    //       const color = getColorFromCode(
-    //         office.verwaltende_dienststelle.farbeArrayRelationShip[0]
-    //           ?.rgb_farbwert || ""
-    //       );
-    //       const feature = {
-    //         type: "Feature",
-    //         featureType: "landparcel",
-    //         id: "landparcel." + landparcel?.id || "noIdBCtmpGeom",
-    //         geometry: {
-    //           ...office.extended_geom.geo_field,
-    //         },
-    //         featuretype: landparcel ? "lagis" : "private",
-    //         crs: {
-    //           type: "name",
-    //           properties: {
-    //             name: "urn:ogc:def:crs:EPSG::25832",
-    //           },
-    //         },
-    //         properties: {
-    //           id: landparcel?.id,
-    //         },
-    //         color,
-    //         // selectedOffice: idx === selectedOffice,
-    //       };
-    //       officesGeomArr.push(feature);
-    //     }
-    //   });
-    // }
+      features.push(feature);
+    });
 
     return {
       homeCenter: [51.272570027476256, 7.19963690266013],
       homeZoom: 16,
-      featureCollection: extraAgencyGeom ? [feature] : [],
+      featureCollection: features,
 
       styler: (feature) => {
         const style = {
           color: "#005F6B",
-          weight: 1,
+          weight: feature.selectedGeom ? 2 : 0,
           opacity: 0.6,
-          fillColor: feature.officeColor,
+          fillColor: feature.color,
           fillOpacity: 0.6,
           className: "landparcel-" + feature.properties.id,
         };
