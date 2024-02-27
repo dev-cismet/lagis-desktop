@@ -130,14 +130,13 @@ export const mapOfficesExtractor = ({
       homeCenter: [51.272570027476256, 7.19963690266013],
       homeZoom: 16,
       featureCollection: features,
-
       styler: (feature) => {
         const style = {
           color: "#005F6B",
-          weight: feature.selectedGeom ? 2 : 0,
+          weight: feature.selectedGeom ? 3 : 0,
           opacity: 0.6,
           fillColor: feature.color,
-          fillOpacity: 0.6,
+          fillOpacity: feature.selectedGeom ? 0.7 : 0.35,
           className: "landparcel-" + feature.properties.id,
         };
         return style;
