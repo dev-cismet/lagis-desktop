@@ -91,6 +91,7 @@ const Agencies = ({
   style,
   setAgencyGeom,
   setActiveTableRow,
+  activeRowId,
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -151,6 +152,15 @@ const Agencies = ({
       });
     }
   }, [activeRow]);
+
+  useEffect(() => {
+    if (activeRowId && activeRowId !== activeRow.id) {
+      const agencyWithId = agency.filter((a) => a.id === activeRowId);
+      if (agencyWithId) {
+        setActiveRow(agencyWithId[0]);
+      }
+    }
+  }, [activeRowId]);
 
   return (
     <div

@@ -35,7 +35,12 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   const [extraAgencyGeom, setExtraAgencyGeom] = useState(null);
   const [activeRowId, setActiveRow] = useState(null);
 
-  const test = 456;
+  const mapClickHandler = (feature) => {
+    const { agencyTableId } = feature;
+    if (agencyTableId !== activeRowId) {
+      setActiveRow(agencyTableId);
+    }
+  };
 
   useEffect(() => {
     if (extraAgencyGeom) {
@@ -55,6 +60,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
             extractor={officesPageExtractor}
             setAgencyGeom={setExtraAgencyGeom}
             setActiveTableRow={setActiveRow}
+            activeRowId={activeRowId}
           />
         </div>
         <div className="w-3/5">
@@ -64,6 +70,7 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
               height={height}
               dataIn={{ landparcel, extraAgencyGeom, activeRowId }}
               extractor={mapOfficesExtractor}
+              onClickHandler={mapClickHandler}
             />
           ) : (
             <Map

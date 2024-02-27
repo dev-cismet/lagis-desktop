@@ -83,6 +83,7 @@ const Map = ({
   height = 500,
   children,
   boundingBoxChangedHandler = () => {},
+  onClickHandler = () => {},
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -399,6 +400,7 @@ const Map = ({
                           "no featureClickHandler set",
                           e.target.feature
                         );
+                        onClickHandler(e.target.feature);
                       }
                     }
                   }
