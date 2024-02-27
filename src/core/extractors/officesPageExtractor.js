@@ -93,22 +93,21 @@ export function officesPageExtractor(dataIn) {
 
 export const mapOfficesExtractor = ({
   landparcel,
-  geometry,
   extraAgencyGeom,
   ondblclick,
 }) => {
-  if (geometry || extraAgencyGeom) {
+  if (extraAgencyGeom) {
     const feature = {
       type: "Feature",
       featureType: "landparcel",
       id: "landparcel." + landparcel?.id || "noIdBCtmpGeom",
-      geometry: extraAgencyGeom ? extraAgencyGeom : geometry,
+      geometry: extraAgencyGeom,
       featuretype: landparcel ? "lagis" : "private",
-      crs: extraAgencyGeom ? extraAgencyGeom?.crs : geometry?.crs,
+      crs: extraAgencyGeom?.crs,
       properties: {
         id: landparcel?.id,
       },
-      officeColor: extraAgencyGeom ? extraAgencyGeom.color : null,
+      officeColor: extraAgencyGeom.color,
     };
 
     // const officesData =
@@ -152,26 +151,14 @@ export const mapOfficesExtractor = ({
     return {
       homeCenter: [51.272570027476256, 7.19963690266013],
       homeZoom: 16,
-      featureCollection: geometry ? [feature] : [],
+      featureCollection: extraAgencyGeom ? [feature] : [],
 
       styler: (feature) => {
-        let fillColor;
-        if (feature.color) {
-          fillColor = feature.color;
-        } else {
-          fillColor = feature.featuretype === "lagis" ? "#26ADE4" : "#F2E2C2";
-        }
         const style = {
           color: "#005F6B",
           weight: 1,
-          // opacity: 0.6,
           opacity: 0.6,
-          // fillColor: feature.featuretype === "lagis" ? "#26ADE4" : "#F2E2C2",
-          fillColor: feature.officeColor
-            ? feature.officeColor
-            : feature.featuretype === "lagis"
-            ? "#26ADE4"
-            : "#F2E2C2",
+          fillColor: feature.officeColor,
           fillOpacity: 0.6,
           className: "landparcel-" + feature.properties.id,
         };

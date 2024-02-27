@@ -17,6 +17,7 @@ import {
   officesPageExtractor,
 } from "../core/extractors/officesPageExtractor";
 import { mapOfficesExtractor } from "../core/extractors/officesPageExtractor";
+import { mapExtractor } from "../core/extractors/commonExtractors";
 
 const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   let storyStyle = {};
@@ -32,11 +33,13 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const geometry = useSelector(getGeometry);
   const [extraAgencyGeom, setExtraAgencyGeom] = useState(null);
+
   useEffect(() => {
     if (extraAgencyGeom) {
-      console.log("xxx off extraAgencyGeom", extraAgencyGeom);
+      setExtraAgencyGeom(null);
     }
-  }, [extraAgencyGeom]);
+  }, [geometry, landparcel]);
+
   return (
     <div
       style={{ ...storyStyle, height }}
@@ -51,20 +54,29 @@ const Offices = ({ width = "100%", height = "100%", inStory = false }) => {
           />
         </div>
         <div className="w-3/5">
-          <Map
-            key={
-              `OfficesMapKey.` +
-              JSON.stringify({
-                extraAgencyGeom,
-                landparcel,
-                geometry,
-              })
-            }
-            width={width}
-            height={height}
-            dataIn={{ landparcel, geometry, extraAgencyGeom }}
-            extractor={mapOfficesExtractor}
-          />
+          {extraAgencyGeom ? (
+            <Map
+              // key={
+              //   `OfficesMapKey.` +
+              //   JSON.stringify({
+              //     extraAgencyGeom,
+              //     landparcel,
+              //     geometry,
+              //   })
+              // }
+              width={width}
+              height={height}
+              dataIn={{ landparcel, extraAgencyGeom }}
+              extractor={mapOfficesExtractor}
+            />
+          ) : (
+            <Map
+              width={width}
+              height={height}
+              dataIn={{ landparcel, geometry }}
+              extractor={mapExtractor}
+            />
+          )}
         </div>
       </div>
       <div className="flex gap-3 h-[calc(40%-18px)]">
