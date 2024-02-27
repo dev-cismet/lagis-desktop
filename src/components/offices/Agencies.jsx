@@ -90,6 +90,7 @@ const Agencies = ({
   height = 188,
   style,
   setAgencyGeom,
+  setSingleOfficeColor,
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -141,6 +142,11 @@ const Agencies = ({
     setAgency(data?.currentOffices);
     setActiveRow(data?.currentOffices[0]);
     setHistory(data?.history);
+    if (data?.currentOffices.length === 1) {
+      setSingleOfficeColor(data?.currentOffices[0].color);
+    } else {
+      setSingleOfficeColor(null);
+    }
   }, [dataIn]);
   useEffect(() => {
     if (activeRow?.extraGeomeOffice?.geo_field) {

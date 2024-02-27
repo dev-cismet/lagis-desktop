@@ -147,8 +147,6 @@ export function getOfficesWithColorAndSquare(
     });
   });
 
-  console.log("xxx ang exctractor", nameGeomColorData);
-
   return nameGeomColorData;
 }
 export function geHistoricalArraytOfficesWithColorAndSquare(

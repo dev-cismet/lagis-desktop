@@ -1,4 +1,4 @@
-export const mapExtractor = ({ landparcel, geometry, ondblclick }) => {
+export const mapExtractor = ({ landparcel, geometry, color, ondblclick }) => {
   if (geometry) {
     const feature = {
       type: "Feature",
@@ -21,7 +21,11 @@ export const mapExtractor = ({ landparcel, geometry, ondblclick }) => {
           color: "#005F6B",
           weight: 1,
           opacity: 0.6,
-          fillColor: feature.featuretype === "lagis" ? "#26ADE4" : "#F2E2C2",
+          fillColor: color
+            ? color
+            : feature.featuretype === "lagis"
+            ? "#26ADE4"
+            : "#F2E2C2",
           fillOpacity: 0.6,
           className: "landparcel-" + feature.properties.id,
         };
