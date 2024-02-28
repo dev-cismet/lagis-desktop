@@ -78,7 +78,6 @@ export function officesPageExtractor(dataIn) {
       dataIn
     );
     const nameGeomColorData = getOfficesWithColorAndSquare(lastOffice, dataIn);
-
     const agencyTableFields = nameGeomColorData.map((a) => ({
       id: nanoid(),
       agency: a.title,

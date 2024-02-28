@@ -113,7 +113,7 @@ const Agencies = ({
     const updatedArray = agency.filter((row) => row.id !== activeRow.id);
     setAgency(updatedArray);
     setAgency(updatedArray);
-    if (activeRow.id === agency[0].id) {
+    if (activeRow.id === agency[0]?.id) {
       setActiveRow(agency[1]);
     } else {
       setActiveRow(agency[0]);
@@ -147,7 +147,7 @@ const Agencies = ({
   }, [dataIn]);
   useEffect(() => {
     if (activeRow?.extraGeomeOffice?.geo_field) {
-      setActiveTableRow(activeRow.id);
+      setActiveTableRow(activeRow?.id);
       setAgencyGeom({
         agency,
       });
@@ -155,7 +155,7 @@ const Agencies = ({
   }, [activeRow]);
 
   useEffect(() => {
-    if (activeRowId && activeRowId !== activeRow.id) {
+    if (activeRowId && activeRowId !== activeRow?.id) {
       const agencyWithId = agency.filter((a) => a.id === activeRowId);
       if (agencyWithId) {
         setActiveRow(agencyWithId[0]);
