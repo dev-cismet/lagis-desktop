@@ -103,6 +103,8 @@ const RightsAndEncumbrances = ({
   width = 231,
   height = 188,
   style,
+  setExtraGeom,
+  setSelectedTableRowId,
 }) => {
   // const data = extractor(dataIn);
   const isStory = false;
@@ -137,6 +139,8 @@ const RightsAndEncumbrances = ({
     const data = extractor(dataIn);
     setRghts(data);
     setActiveRow(data[0]);
+    setExtraGeom(data);
+    setSelectedTableRowId(data[0].id);
   }, [dataIn]);
   return (
     <div
