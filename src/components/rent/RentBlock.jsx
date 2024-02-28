@@ -169,12 +169,11 @@ const RentBlock = ({
     setActiveRow(data[0]);
   }, [dataIn]);
   useEffect(() => {
-    // console.log("rents", rents);
-    if (selectedTableIdByMap && selectedTableIdByMap !== activeRow.id) {
-      const rebeWithId = rents.filter((r) => r.id === selectedTableIdByMap);
-      if (rebeWithId) {
-        setActiveRow(rebeWithId[0]);
-      }
+    if (
+      selectedTableIdByMap !== null &&
+      selectedTableIdByMap !== activeRow.id
+    ) {
+      setActiveRow(rents[selectedTableIdByMap]);
     }
   }, [selectedTableIdByMap]);
   useEffect(() => {

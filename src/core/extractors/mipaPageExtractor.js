@@ -14,7 +14,7 @@ export function mipaPageExtractor(dataIn) {
     if (mipa.length > 0) {
       let formattedVertragsbeginn;
       let formattedVertragsende;
-      const data = mipa.map((m) => {
+      const data = mipa.map((m, idx) => {
         if (m.vertragsbeginn) {
           const dateVertragsbeginn = dayjs(m.vertragsbeginn).toDate();
           formattedVertragsbeginn =
@@ -29,7 +29,7 @@ export function mipaPageExtractor(dataIn) {
           formattedVertragsende = null;
         }
         return {
-          id: nanoid(),
+          id: idx,
           lage: m.lage,
           aktenzeichen: m.aktenzeichen,
           flaeche: m.flaeche,
@@ -57,7 +57,6 @@ export const mapMipaExtractor = ({
   selectedTableRowId,
   ondblclick,
 }) => {
-  console.log("xxx feature", extraGeom);
   if (extraGeom && geometry) {
     const feature = {
       type: "Feature",
@@ -101,8 +100,6 @@ export const mapMipaExtractor = ({
 
       features.push(feature);
     });
-
-    console.log("xxx feature", features.length);
 
     return {
       homeCenter: [51.272570027476256, 7.19963690266013],

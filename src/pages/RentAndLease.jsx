@@ -32,10 +32,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
 
   const mapClickHandler = (feature) => {
     const { tableId } = feature;
-    console.log("xxx mipa click handler", tableId);
-    if (tableId) {
-      setSelectedTableIdByMap(tableId);
-    }
+    setSelectedTableIdByMap(tableId);
   };
 
   useEffect(() => {
