@@ -57,6 +57,7 @@ export const mapMipaExtractor = ({
   selectedTableRowId,
   ondblclick,
 }) => {
+  console.log("xxx feature", extraGeom);
   if (extraGeom && geometry) {
     const feature = {
       type: "Feature",
@@ -101,6 +102,8 @@ export const mapMipaExtractor = ({
       features.push(feature);
     });
 
+    console.log("xxx feature", features.length);
+
     return {
       homeCenter: [51.272570027476256, 7.19963690266013],
       homeZoom: 16,
@@ -108,7 +111,7 @@ export const mapMipaExtractor = ({
       styler: (feature) => {
         const style = {
           color: "#005F6B",
-          weight: feature.selectedTableGeom ? 2 : 1,
+          weight: feature.selectedTableGeom ? 3 : 1,
           opacity: feature.selectedTableGeom ? 1 : 0.5,
           fillColor: feature.isCommonGeometry
             ? "#F2E2C2"

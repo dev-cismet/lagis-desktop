@@ -130,6 +130,7 @@ const RentBlock = ({
   setExtraRentsGeom,
   selectedTableRowId,
   setSelectedTableRowId,
+  selectedTableIdByMap,
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -169,7 +170,13 @@ const RentBlock = ({
   }, [dataIn]);
   useEffect(() => {
     // console.log("rents", rents);
-  }, [rents]);
+    if (selectedTableIdByMap && selectedTableIdByMap !== activeRow.id) {
+      const rebeWithId = rents.filter((r) => r.id === selectedTableIdByMap);
+      if (rebeWithId) {
+        setActiveRow(rebeWithId[0]);
+      }
+    }
+  }, [selectedTableIdByMap]);
   useEffect(() => {
     if (activeRow) {
       const { id } = activeRow;

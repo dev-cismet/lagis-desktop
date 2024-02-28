@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Map from "../components/commons/Map";
 import RentBlock from "../components/rent/RentBlock";
 import { useSelector } from "react-redux";
@@ -17,6 +17,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   const mipa = useSelector(getMipa);
   const [extraRentsGeom, setExtraRentsGeom] = useState(null);
   const [selectedTableRowId, setSelectedTableRowId] = useState(null);
+  const [selectedTableIdByMap, setSelectedTableIdByMap] = useState(null);
 
   const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
@@ -28,6 +29,20 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
       padding: "4px",
     };
   }
+
+  const mapClickHandler = (feature) => {
+    const { tableId } = feature;
+    console.log("xxx mipa click handler", tableId);
+    if (tableId) {
+      setSelectedTableIdByMap(tableId);
+    }
+  };
+
+  useEffect(() => {
+    if (extraRentsGeom) {
+      setExtraRentsGeom(null);
+    }
+  }, [landparcel]);
   return (
     <div
       style={{
@@ -37,23 +52,27 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
       className="h-full w-full max-h[calc(100%-30px)]"
     >
       <div className="w-full h-[40%] mb-3 lg:mb-4">
-        {/* <Map
-          width={width}
-          height={height}
-          dataIn={{ landparcel, geometry }}
-          extractor={mapExtractor}
-        /> */}
-        <Map
-          width={width}
-          height={height}
-          dataIn={{
-            landparcel,
-            geometry: geometry,
-            extraGeom: extraRentsGeom,
-            selectedTableRowId,
-          }}
-          extractor={mapMipaExtractor}
-        />
+        {extraRentsGeom ? (
+          <Map
+            width={width}
+            height={height}
+            dataIn={{
+              landparcel,
+              geometry: geometry,
+              extraGeom: extraRentsGeom,
+              selectedTableRowId,
+            }}
+            extractor={mapMipaExtractor}
+            onClickHandler={mapClickHandler}
+          />
+        ) : (
+          <Map
+            width={width}
+            height={height}
+            dataIn={{ landparcel, geometry }}
+            extractor={mapExtractor}
+          />
+        )}
       </div>
 
       <div className="h-[calc(60%-20px)]">
@@ -63,6 +82,7 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
           selectedTableRowId={selectedTableRowId}
           setSelectedTableRowId={setSelectedTableRowId}
           setExtraRentsGeom={setExtraRentsGeom}
+          selectedTableIdByMap={selectedTableIdByMap}
         />
       </div>
     </div>
