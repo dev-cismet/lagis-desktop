@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -71,10 +70,13 @@ export const mapMipaExtractor = ({
       tableId: selectedTableRowId,
       isCommonGeometry: true,
       selectedTableGeom: false,
+      color: "#F2E2C2",
     };
 
+    const mipaColors = ["#AEFFFF", "#07FFFF", "#00B9B9"];
+
     const features = [feature];
-    extraGeom.forEach((rent) => {
+    extraGeom.forEach((rent, idx) => {
       const { extendedGeom, id: tableId } = rent;
       const feature = {
         type: "Feature",
@@ -96,6 +98,7 @@ export const mapMipaExtractor = ({
         tableId,
         selectedTableGeom: selectedTableRowId === tableId,
         isCommonGeometry: false,
+        color: mipaColors[idx % mipaColors.length],
       };
 
       features.push(feature);
@@ -110,13 +113,8 @@ export const mapMipaExtractor = ({
           color: "#005F6B",
           weight: feature.selectedTableGeom ? 3 : 1,
           opacity: feature.selectedTableGeom ? 1 : 0.5,
-          fillColor: feature.isCommonGeometry
-            ? "#F2E2C2"
-            : feature.featuretype === "lagis"
-            ? "#26ADE4"
-            : "#F2E2C2",
-          // fillOpacity: 0.6,
-          fillOpacity: feature.selectedTableGeom ? 0.8 : 0.35,
+          fillColor: feature.color,
+          fillOpacity: 0.6,
           className: "landparcel-" + feature.properties.id,
         };
         return style;
