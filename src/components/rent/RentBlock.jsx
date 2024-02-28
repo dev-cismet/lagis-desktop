@@ -127,6 +127,9 @@ const RentBlock = ({
   width = 231,
   height = 188,
   style,
+  setExtraRentsGeom,
+  selectedTableRowId,
+  setSelectedTableRowId,
 }) => {
   const isStory = false;
   const storyStyle = { width, height, ...style };
@@ -167,6 +170,13 @@ const RentBlock = ({
   useEffect(() => {
     // console.log("rents", rents);
   }, [rents]);
+  useEffect(() => {
+    if (activeRow) {
+      const { id } = activeRow;
+      setExtraRentsGeom(rents);
+      setSelectedTableRowId(id);
+    }
+  }, [activeRow]);
   return (
     <div
       style={

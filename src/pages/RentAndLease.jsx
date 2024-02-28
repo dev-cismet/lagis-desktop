@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Map from "../components/commons/Map";
 import RentBlock from "../components/rent/RentBlock";
 import { useSelector } from "react-redux";
-import { mipaPageExtractor } from "../core/extractors/mipaPageExtractor";
+import {
+  mapMipaExtractor,
+  mipaPageExtractor,
+} from "../core/extractors/mipaPageExtractor";
 import {
   getAlkisLandparcel,
   getGeometry,
@@ -12,6 +15,8 @@ import {
 import { mapExtractor } from "../core/extractors/commonExtractors";
 const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   const mipa = useSelector(getMipa);
+  const [extraRentsGeom, setExtraRentsGeom] = useState(null);
+  const [selectedTableRowId, setSelectedTableRowId] = useState(null);
 
   const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
@@ -32,16 +37,33 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
       className="h-full w-full max-h[calc(100%-30px)]"
     >
       <div className="w-full h-[40%] mb-3 lg:mb-4">
-        <Map
+        {/* <Map
           width={width}
           height={height}
           dataIn={{ landparcel, geometry }}
           extractor={mapExtractor}
+        /> */}
+        <Map
+          width={width}
+          height={height}
+          dataIn={{
+            landparcel,
+            geometry: geometry,
+            extraGeom: extraRentsGeom,
+            selectedTableRowId,
+          }}
+          extractor={mapMipaExtractor}
         />
       </div>
 
       <div className="h-[calc(60%-20px)]">
-        <RentBlock dataIn={mipa} extractor={mipaPageExtractor} />
+        <RentBlock
+          dataIn={mipa}
+          extractor={mipaPageExtractor}
+          selectedTableRowId={selectedTableRowId}
+          setSelectedTableRowId={setSelectedTableRowId}
+          setExtraRentsGeom={setExtraRentsGeom}
+        />
       </div>
     </div>
   );
