@@ -31,24 +31,32 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
 
-  useEffect(() => {
-    console.log("xxx setExtraGeom", extraGeom);
-  }, [setExtraGeom]);
+  // useEffect(() => {
+  //   console.log("xxx setExtraGeom", extraGeom);
+  // }, [extraGeom]);
+  // useEffect(() => {
+  //   console.log("xxx selectedTableRowId", selectedTableRowId);
+  // }, [selectedTableRowId]);
   return (
     <div style={{ ...storyStyle }} className="h-full w-full">
       <div className="h-[calc(50%-16px)]" style={{ marginBottom: "16px" }}>
-        <Map
-          width={width}
-          height={height}
-          dataIn={{ landparcel, geometry }}
-          extractor={mapExtractor}
-        />
         {/* <Map
           width={width}
           height={height}
           dataIn={{ landparcel, geometry }}
-          extractor={mapRebeExtractor}
+          extractor={mapExtractor}
         /> */}
+        <Map
+          width={width}
+          height={height}
+          dataIn={{
+            landparcel,
+            geometry: geometry,
+            extraGeom: extraGeom,
+            selectedTableRowId,
+          }}
+          extractor={mapRebeExtractor}
+        />
       </div>
       <div className="h-[calc(50%-4px)]">
         <RightsAndEncumbrances

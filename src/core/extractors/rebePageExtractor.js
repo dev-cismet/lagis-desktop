@@ -12,8 +12,9 @@ export function rebePageExtractor(dataIn) {
     return [];
   } else {
     const rebe = dataIn;
-    console.log("xxx rebe", rebe);
     if (rebe.length > 0) {
+      const rebeGreenColors = ["#009c1a", "#22b600", "#26cc00", "#7be382"];
+      const rebeOrangeColors = ["#f0750f", "#f48020", "#f09537", "#f0a150"];
       const data = rebe.map((r, idx) => {
         let formattedEintragung;
         if (r.datum_eintragung) {
@@ -40,11 +41,11 @@ export function rebePageExtractor(dataIn) {
           loschung: formattedLoschung,
           bemerkung: r.bemerkung ? r.bemerkung : "",
           extendedGeom: r.extended_geom,
+          color: r.ist_recht
+            ? rebeGreenColors[idx % rebeGreenColors.length]
+            : rebeOrangeColors[idx % rebeOrangeColors.length],
         };
       });
-
-      console.log("xxx rebe extractor data", data);
-
       return data;
     }
 
@@ -76,11 +77,9 @@ export const mapRebeExtractor = ({
       color: "#F2E2C2",
     };
 
-    const mipaColors = ["#AEFFFF", "#07FFFF", "#00B9B9"];
-
     const features = [feature];
     extraGeom.forEach((rent, idx) => {
-      const { extendedGeom, id: tableId } = rent;
+      const { extendedGeom, id: tableId, color } = rent;
       const feature = {
         type: "Feature",
         featureType: "landparcel",
@@ -101,7 +100,7 @@ export const mapRebeExtractor = ({
         tableId,
         selectedTableGeom: selectedTableRowId === tableId,
         isCommonGeometry: false,
-        color: mipaColors[idx % mipaColors.length],
+        color,
       };
 
       features.push(feature);
@@ -115,9 +114,9 @@ export const mapRebeExtractor = ({
         const style = {
           color: "#005F6B",
           weight: feature.selectedTableGeom ? 3 : 1,
-          opacity: feature.selectedTableGeom ? 1 : 0.5,
+          opacity: feature.selectedTableGeom ? 0.8 : 0.2,
           fillColor: feature.color,
-          fillOpacity: 0.6,
+          fillOpacity: feature.selectedTableGeom ? 0.8 : 0.2,
           className: "landparcel-" + feature.properties.id,
         };
         return style;

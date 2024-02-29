@@ -129,7 +129,7 @@ const RightsAndEncumbrances = ({
   const deleteRow = () => {
     const updatedArray = rights.filter((row) => row.id !== activeRow?.id);
     setRghts(updatedArray);
-    if (activeRow?.id === rights[0].id) {
+    if (activeRow?.id === rights[0]?.id) {
       setActiveRow(rights[1]);
     } else {
       setActiveRow(rights[0]);
@@ -140,8 +140,17 @@ const RightsAndEncumbrances = ({
     setRghts(data);
     setActiveRow(data[0]);
     setExtraGeom(data);
-    setSelectedTableRowId(data[0].id);
+    setSelectedTableRowId(data[0]?.id);
   }, [dataIn]);
+  useEffect(() => {
+    if (
+      activeRow &&
+      setSelectedTableRowId !== null &&
+      activeRow !== setSelectedTableRowId
+    ) {
+      setSelectedTableRowId(activeRow.id);
+    }
+  }, [activeRow]);
   return (
     <div
       style={isStory ? storyStyle : { height: "100%" }}
