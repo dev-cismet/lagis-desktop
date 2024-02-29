@@ -104,7 +104,9 @@ const RightsAndEncumbrances = ({
   height = 188,
   style,
   setExtraGeom,
+  selectedTableRowId,
   setSelectedTableRowId,
+  selectedTableIdByMap,
 }) => {
   // const data = extractor(dataIn);
   const isStory = false;
@@ -151,6 +153,13 @@ const RightsAndEncumbrances = ({
       setSelectedTableRowId(activeRow.id);
     }
   }, [activeRow]);
+  useEffect(() => {
+    if (selectedTableIdByMap !== null && activeRow) {
+      if (selectedTableIdByMap !== activeRow.id) {
+        setActiveRow(rights[selectedTableIdByMap]);
+      }
+    }
+  }, [selectedTableIdByMap]);
   return (
     <div
       style={isStory ? storyStyle : { height: "100%" }}

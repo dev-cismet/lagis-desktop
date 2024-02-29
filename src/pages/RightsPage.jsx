@@ -20,6 +20,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const rebe = useSelector(getRebe);
   const [extraGeom, setExtraGeom] = useState(null);
   const [selectedTableRowId, setSelectedTableRowId] = useState(null);
+  const [selectedTableIdByMap, setSelectedTableIdByMap] = useState(null);
 
   let storyStyle = {};
   if (inStory) {
@@ -31,12 +32,11 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     };
   }
 
-  // useEffect(() => {
-  //   console.log("xxx setExtraGeom", extraGeom);
-  // }, [extraGeom]);
-  // useEffect(() => {
-  //   console.log("xxx selectedTableRowId", selectedTableRowId);
-  // }, [selectedTableRowId]);
+  const mapClickHandler = (feature) => {
+    const { tableId } = feature;
+    setSelectedTableIdByMap(tableId);
+  };
+
   return (
     <div style={{ ...storyStyle }} className="h-full w-full">
       <div className="h-[calc(50%-16px)]" style={{ marginBottom: "16px" }}>
@@ -56,6 +56,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
             selectedTableRowId,
           }}
           extractor={mapRebeExtractor}
+          onClickHandler={mapClickHandler}
         />
       </div>
       <div className="h-[calc(50%-4px)]">
@@ -64,6 +65,8 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
           extractor={rebePageExtractor}
           setExtraGeom={setExtraGeom}
           setSelectedTableRowId={setSelectedTableRowId}
+          selectedTableRowId={selectedTableRowId}
+          selectedTableIdByMap={selectedTableIdByMap}
         />
       </div>
     </div>
