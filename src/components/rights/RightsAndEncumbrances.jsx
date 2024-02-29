@@ -141,7 +141,6 @@ const RightsAndEncumbrances = ({
     const data = extractor(dataIn);
     setRghts(data);
     setActiveRow(data[0]);
-    setExtraGeom(data);
     setSelectedTableRowId(data[0]?.id);
   }, [dataIn]);
   useEffect(() => {
@@ -150,6 +149,7 @@ const RightsAndEncumbrances = ({
       setSelectedTableRowId !== null &&
       activeRow !== setSelectedTableRowId
     ) {
+      setExtraGeom(rights);
       setSelectedTableRowId(activeRow.id);
     }
   }, [activeRow]);

@@ -37,27 +37,36 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
     setSelectedTableIdByMap(tableId);
   };
 
+  useEffect(() => {
+    if (extraGeom) {
+      setExtraGeom(null);
+    }
+  }, [landparcel]);
+
   return (
     <div style={{ ...storyStyle }} className="h-full w-full">
       <div className="h-[calc(50%-16px)]" style={{ marginBottom: "16px" }}>
-        {/* <Map
-          width={width}
-          height={height}
-          dataIn={{ landparcel, geometry }}
-          extractor={mapExtractor}
-        /> */}
-        <Map
-          width={width}
-          height={height}
-          dataIn={{
-            landparcel,
-            geometry: geometry,
-            extraGeom: extraGeom,
-            selectedTableRowId,
-          }}
-          extractor={mapRebeExtractor}
-          onClickHandler={mapClickHandler}
-        />
+        {extraGeom ? (
+          <Map
+            width={width}
+            height={height}
+            dataIn={{
+              landparcel,
+              geometry: geometry,
+              extraGeom: extraGeom,
+              selectedTableRowId,
+            }}
+            extractor={mapRebeExtractor}
+            onClickHandler={mapClickHandler}
+          />
+        ) : (
+          <Map
+            width={width}
+            height={height}
+            dataIn={{ landparcel, geometry }}
+            extractor={mapExtractor}
+          />
+        )}
       </div>
       <div className="h-[calc(50%-4px)]">
         <RightsAndEncumbrances
