@@ -54,8 +54,10 @@ export const mapMipaExtractor = ({
   geometry,
   extraGeom,
   selectedTableRowId,
+  inspectMode,
   ondblclick,
 }) => {
+  console.log("xxx inspectMode", inspectMode);
   if (extraGeom && geometry) {
     const feature = {
       type: "Feature",
@@ -111,10 +113,10 @@ export const mapMipaExtractor = ({
       styler: (feature) => {
         const style = {
           color: "#005F6B",
-          weight: feature.selectedTableGeom ? 3 : 1,
-          opacity: feature.selectedTableGeom ? 1 : 0.5,
+          weight: feature.selectedTableGeom ? 3 : inspectMode ? 2 : 1,
+          opacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0.6 : 0.3,
           fillColor: feature.color,
-          fillOpacity: 0.6,
+          fillOpacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0 : 0.6,
           className: "landparcel-" + feature.properties.id,
         };
         return style;

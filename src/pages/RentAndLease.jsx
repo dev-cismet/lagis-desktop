@@ -13,11 +13,14 @@ import {
   getMipa,
 } from "../store/slices/lagis";
 import { mapExtractor } from "../core/extractors/commonExtractors";
+import { getShowInspectMode } from "../store/slices/mapping";
+
 const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
   const mipa = useSelector(getMipa);
   const [extraRentsGeom, setExtraRentsGeom] = useState(null);
   const [selectedTableRowId, setSelectedTableRowId] = useState(null);
   const [selectedTableIdByMap, setSelectedTableIdByMap] = useState(null);
+  const inspectMode = useSelector(getShowInspectMode);
 
   const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
@@ -57,10 +60,12 @@ const RentAndLease = ({ width = "100%", height = "100%", inStory = false }) => {
               landparcel,
               geometry: geometry,
               extraGeom: extraRentsGeom,
+              inspectMode,
               selectedTableRowId,
             }}
             extractor={mapMipaExtractor}
             onClickHandler={mapClickHandler}
+            page="mipa"
           />
         ) : (
           <Map
