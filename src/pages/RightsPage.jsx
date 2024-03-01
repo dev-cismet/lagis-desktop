@@ -42,6 +42,8 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   useEffect(() => {
     if (extraGeom) {
       setExtraGeom(null);
+      setSelectedTableRowId(null);
+      setSelectedTableIdByMap(null);
     }
   }, [landparcel]);
 
@@ -69,7 +71,6 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
             height={height}
             dataIn={{ landparcel, geometry }}
             extractor={mapExtractor}
-            page="rebe"
           />
         )}
       </div>

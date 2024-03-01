@@ -113,9 +113,9 @@ export const mapRebeExtractor = ({
         const style = {
           color: "#005F6B",
           weight: feature.selectedTableGeom ? 3 : inspectMode ? 2 : 1,
-          opacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0.6 : 0.35,
+          opacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0.6 : 0.3,
           fillColor: feature.color,
-          fillOpacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0 : 0.3,
+          fillOpacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0 : 0.6,
           className: "landparcel-" + feature.properties.id,
         };
         return style;
