@@ -59,6 +59,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
             }}
             extractor={mapRebeExtractor}
             onClickHandler={mapClickHandler}
+            page="rebe"
           />
         ) : (
           <Map
@@ -66,6 +67,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
             height={height}
             dataIn={{ landparcel, geometry }}
             extractor={mapExtractor}
+            page="rebe"
           />
         )}
       </div>

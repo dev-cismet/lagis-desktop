@@ -52,7 +52,8 @@ import proj4 from "proj4";
 import { proj4crs25832def, proj4crs3857def } from "react-cismap/constants/gis";
 import { getJWT } from "../../store/slices/auth";
 import HoveredLandparcelInfo from "./HoveredLandparcelInfo";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBinoculars } from "@fortawesome/free-solid-svg-icons";
 const mockExtractor = (input) => {
   return {
     homeCenter: [51.27225612927373, 7.199918031692506],
@@ -84,6 +85,7 @@ const Map = ({
   children,
   boundingBoxChangedHandler = () => {},
   onClickHandler = () => {},
+  page,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -253,6 +255,26 @@ const Map = ({
       extra={
         <div className="flex items-center gap-3">
           <HoveredLandparcelInfo />
+          {page && (
+            <div
+              className="relative flex items-center"
+              style={{ height: "24px" }}
+            >
+              <Tooltip title="Vordergrund an/aus">
+                <FontAwesomeIcon
+                  icon={faBinoculars}
+                  style={{ fontSize: "19px" }}
+                />
+              </Tooltip>
+              <div
+                className={`w-3 h-3 rounded-full bg-[#4ABC96] ${
+                  showCurrentFeatureCollection ? "absolute" : "hidden"
+                } bottom-0 -right-1 cursor-pointer`}
+                onClick={handleShowCurrentFeatureCollection}
+              />
+            </div>
+          )}
+
           <div className="relative flex items-center">
             <Tooltip title="Hintergrund an/aus">
               <FileImageFilled
