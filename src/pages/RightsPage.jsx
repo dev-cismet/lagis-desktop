@@ -13,11 +13,13 @@ import {
   mapRebeExtractor,
 } from "../core/extractors/rebePageExtractor";
 import { mapExtractor } from "../core/extractors/commonExtractors";
+import { getShowInspectMode } from "../store/slices/mapping";
 const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
   const alkisLandparcel = useSelector(getAlkisLandparcel);
   const landparcel = useSelector(getLandparcel);
   const geometry = useSelector(getGeometry);
   const rebe = useSelector(getRebe);
+  const inspectMode = useSelector(getShowInspectMode);
   const [extraGeom, setExtraGeom] = useState(null);
   const [selectedTableRowId, setSelectedTableRowId] = useState(null);
   const [selectedTableIdByMap, setSelectedTableIdByMap] = useState(null);
@@ -55,7 +57,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
               geometry: geometry,
               extraGeom: extraGeom,
               selectedTableRowId,
-              inspectMode: true,
+              inspectMode: inspectMode,
             }}
             extractor={mapRebeExtractor}
             onClickHandler={mapClickHandler}

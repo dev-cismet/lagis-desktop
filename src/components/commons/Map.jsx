@@ -22,6 +22,7 @@ import {
 import {
   getShowBackground,
   getShowCurrentFeatureCollection,
+  getShowInspectMode,
   setFeatureCollection,
   setFlaechenSelected,
   setFrontenSelected,
@@ -29,6 +30,7 @@ import {
   setLeafletElement,
   setShowBackground,
   setShowCurrentFeatureCollection,
+  setShowInspectMode,
 } from "../../store/slices/mapping";
 import { useDispatch, useSelector } from "react-redux";
 import { ScaleControl } from "react-leaflet";
@@ -96,6 +98,7 @@ const Map = ({
   );
   const gazData = useSelector(getGazData);
   const showBackground = useSelector(getShowBackground);
+  const showInspectMode = useSelector(getShowInspectMode);
   const jwt = useSelector(getJWT);
   const [overlayFeature, setOverlayFeature] = useState(null);
   const [gazetteerHit, setGazetteerHit] = useState(null);
@@ -176,6 +179,9 @@ const Map = ({
   };
   const handleShowCurrentFeatureCollection = () => {
     dispatch(setShowCurrentFeatureCollection(!showCurrentFeatureCollection));
+  };
+  const handleSetShowInspectMode = () => {
+    dispatch(setShowInspectMode(!showInspectMode));
   };
 
   useEffect(() => {
@@ -264,13 +270,14 @@ const Map = ({
                 <FontAwesomeIcon
                   icon={faBinoculars}
                   style={{ fontSize: "19px" }}
+                  onClick={handleSetShowInspectMode}
                 />
               </Tooltip>
               <div
                 className={`w-3 h-3 rounded-full bg-[#4ABC96] ${
-                  showCurrentFeatureCollection ? "absolute" : "hidden"
+                  showInspectMode ? "absolute" : "hidden"
                 } bottom-0 -right-1 cursor-pointer`}
-                onClick={handleShowCurrentFeatureCollection}
+                onClick={handleSetShowInspectMode}
               />
             </div>
           )}

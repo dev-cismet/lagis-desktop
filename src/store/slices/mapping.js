@@ -14,6 +14,7 @@ const initialState = {
   featureCollection: undefined,
   showCurrentFeatureCollection: true,
   showBackground: true,
+  showInspectMode: true,
 };
 
 const slice = createSlice({
@@ -127,6 +128,10 @@ const slice = createSlice({
       state.showBackground = action.payload;
       return state;
     },
+    setShowInspectMode(state, action) {
+      state.showInspectMode = action.payload;
+      return state;
+    },
 
     clear(state) {
       state.flaechenCollection = undefined;
@@ -153,6 +158,7 @@ export const {
   setFeatureCollection,
   setShowCurrentFeatureCollection,
   setShowBackground,
+  setShowInspectMode,
   clear,
 } = slice.actions;
 
@@ -182,4 +188,8 @@ export const getShowCurrentFeatureCollection = (state) => {
 
 export const getShowBackground = (state) => {
   return state.mapping.showBackground;
+};
+
+export const getShowInspectMode = (state) => {
+  return state.mapping.showInspectMode;
 };
