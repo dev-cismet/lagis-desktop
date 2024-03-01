@@ -16,6 +16,24 @@ dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 const columns = [
   {
+    title: "Farbe",
+    dataIndex: "farbe",
+    render: (title, record, rowIndex) => (
+      <div className="flex items-center">
+        <span
+          style={{
+            width: "9px",
+            height: "11px",
+            marginRight: "6px",
+            backgroundColor: record?.color || "transporent",
+          }}
+        ></span>
+        <span>{title}</span>
+      </div>
+    ),
+    sorter: (a, b) => compare(a.recht, b.recht),
+  },
+  {
     title: "ist Recht",
     dataIndex: "recht",
     render: (record) => <Switch size="small" checked={record} />,

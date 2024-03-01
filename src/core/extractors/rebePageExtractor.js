@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import dayjs from "dayjs";
 import weekday from "dayjs/plugin/weekday";
 import localeData from "dayjs/plugin/localeData";
@@ -31,7 +30,6 @@ export function rebePageExtractor(dataIn) {
           formattedLoschung = null;
         }
         return {
-          // id: nanoid(),
           id: idx,
           recht: r.ist_recht,
           art: r.rebe_art?.bezeichnung || "",
@@ -74,7 +72,7 @@ export const mapRebeExtractor = ({
       tableId: selectedTableRowId,
       isCommonGeometry: true,
       selectedTableGeom: false,
-      color: "#F2E2C2",
+      color: "#26ADE4",
     };
 
     const features = [feature];
@@ -114,9 +112,9 @@ export const mapRebeExtractor = ({
         const style = {
           color: "#005F6B",
           weight: feature.selectedTableGeom ? 3 : 1,
-          opacity: feature.selectedTableGeom ? 0.8 : 0.2,
+          opacity: feature.selectedTableGeom ? 0.6 : 0.3,
           fillColor: feature.color,
-          fillOpacity: feature.selectedTableGeom ? 0.8 : 0.2,
+          fillOpacity: feature.selectedTableGeom ? 0.6 : 0.3,
           className: "landparcel-" + feature.properties.id,
         };
         return style;
