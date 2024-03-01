@@ -55,6 +55,7 @@ const RightsPage = ({ width = "100%", height = "100%", inStory = false }) => {
               geometry: geometry,
               extraGeom: extraGeom,
               selectedTableRowId,
+              inspectMode: false,
             }}
             extractor={mapRebeExtractor}
             onClickHandler={mapClickHandler}

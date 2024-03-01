@@ -56,6 +56,7 @@ export const mapRebeExtractor = ({
   geometry,
   extraGeom,
   selectedTableRowId,
+  inspectMode = true,
   ondblclick,
 }) => {
   if (extraGeom && geometry) {
@@ -111,10 +112,10 @@ export const mapRebeExtractor = ({
       styler: (feature) => {
         const style = {
           color: "#005F6B",
-          weight: feature.selectedTableGeom ? 3 : 1,
+          weight: feature.selectedTableGeom ? 3 : inspectMode ? 0 : 1,
           opacity: feature.selectedTableGeom ? 0.6 : 0.3,
           fillColor: feature.color,
-          fillOpacity: feature.selectedTableGeom ? 0.6 : 0.3,
+          fillOpacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0 : 0.3,
           className: "landparcel-" + feature.properties.id,
         };
         return style;
