@@ -73,7 +73,7 @@ export const mapRebeExtractor = ({
       tableId: selectedTableRowId,
       isCommonGeometry: true,
       selectedTableGeom: false,
-      color: "#26ADE4",
+      color: inspectMode ? "#eaddd7" : "#26ADE4",
     };
 
     const features = [feature];
@@ -111,10 +111,14 @@ export const mapRebeExtractor = ({
       featureCollection: features,
       styler: (feature) => {
         const style = {
-          color: "#005F6B",
+          color: inspectMode ? "#6e6e6e" : "#005F6B",
           weight: feature.selectedTableGeom ? 3 : inspectMode ? 2 : 1,
           opacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0.6 : 0.3,
-          fillColor: feature.color,
+          fillColor: feature.selectedTableGeom
+            ? feature.color
+            : inspectMode
+            ? "#ffff"
+            : feature.color,
           fillOpacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0 : 0.6,
           className: "landparcel-" + feature.properties.id,
         };

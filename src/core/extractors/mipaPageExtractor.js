@@ -57,7 +57,6 @@ export const mapMipaExtractor = ({
   inspectMode,
   ondblclick,
 }) => {
-  console.log("xxx inspectMode", inspectMode);
   if (extraGeom && geometry) {
     const feature = {
       type: "Feature",
@@ -112,7 +111,7 @@ export const mapMipaExtractor = ({
       featureCollection: features,
       styler: (feature) => {
         const style = {
-          color: "#005F6B",
+          color: inspectMode ? "#6e6e6e" : "#005F6B",
           weight: feature.selectedTableGeom ? 3 : inspectMode ? 2 : 1,
           opacity: feature.selectedTableGeom ? 0.6 : inspectMode ? 0.6 : 0.3,
           fillColor: feature.color,
