@@ -266,7 +266,7 @@ const Map = ({
               className="relative flex items-center"
               style={{ height: "24px" }}
             >
-              <Tooltip title="Vordergrund an/aus">
+              <Tooltip title="Untersuchungsmodus">
                 <FontAwesomeIcon
                   icon={faBinoculars}
                   style={{ fontSize: "19px" }}
