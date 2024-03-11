@@ -27,6 +27,7 @@ import {
   setFlaechenSelected,
   setFrontenSelected,
   setGeneralGeometrySelected,
+  setGraphqlLayerStatus,
   setLeafletElement,
   setShowBackground,
   setShowCurrentFeatureCollection,
@@ -450,8 +451,13 @@ const Map = ({
               mapRef={refRoutedMap}
               activeLayers={activeAdditionalLayers}
               opacities={additionalLayerOpacities}
+              onGraphqlLayerStatus={(status) => {
+                dispatch(setGraphqlLayerStatus(status));
+                if (status === "NOT_ALLOWED") {
+                  dispatch(setHoveredLandparcel(""));
+                }
+              }}
               onHoverUpdate={(feature) => {
-                console.log("hovered LP", landparcelToString(feature));
                 dispatch(setHoveredLandparcel(landparcelToString(feature)));
               }}
             />
