@@ -15,6 +15,7 @@ const initialState = {
   showCurrentFeatureCollection: true,
   showBackground: true,
   showInspectMode: true,
+  graphqlLayerStatus: undefined,
 };
 
 const slice = createSlice({
@@ -140,6 +141,10 @@ const slice = createSlice({
       state.befreiungErlaubnisCollection = undefined;
       return state;
     },
+    setGraphqlLayerStatus(state, action) {
+      state.graphqlLayerStatus = action.payload;
+      return state;
+    },
   },
 });
 
@@ -160,6 +165,7 @@ export const {
   setShowBackground,
   setShowInspectMode,
   clear,
+  setGraphqlLayerStatus,
 } = slice.actions;
 
 export const getFlaechenCollection = (state) => {
@@ -192,4 +198,7 @@ export const getShowBackground = (state) => {
 
 export const getShowInspectMode = (state) => {
   return state.mapping.showInspectMode;
+};
+export const getGraphqlLayerStatus = (state) => {
+  return state.mapping.graphqlLayerStatus;
 };
